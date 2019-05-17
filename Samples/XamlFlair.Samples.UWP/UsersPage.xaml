@@ -1,0 +1,194 @@
+﻿<Page x:Class="XamlFlair.Samples.UWP.UsersPage"
+	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	  xmlns:xf="using:XamlFlair"
+	  xmlns:xfc="using:XamlFlair.Controls"
+	  xmlns:sampleData="using:Blend.SampleData.SampleUsers"
+	  mc:Ignorable="d"
+	  Background="{StaticResource AppBackgroundBrush}">
+
+	<Page.Resources>
+		<DataTemplate x:Key="UserItemTemplate"
+					  x:DataType="sampleData:UsersItem">
+			<Grid Margin="2"
+				  Padding="8">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*" />
+					<RowDefinition Height="*" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+
+				<!-- Profile pic -->
+				<Ellipse Width="64"
+						 Height="64"
+						 Stretch="Uniform"
+						 Stroke="{StaticResource PrimaryColor04Brush}"
+						 StrokeThickness="1"
+						 Grid.RowSpan="2"
+						 Margin="0,0,12,0">
+					<Ellipse.Fill>
+						<ImageBrush ImageSource="{x:Bind ProfilePic}"
+									Stretch="UniformToFill" />
+					</Ellipse.Fill>
+				</Ellipse>
+
+				<!-- User name -->
+				<TextBlock Text="{x:Bind FullName}"
+						   Style="{StaticResource Typo02}"
+						   VerticalAlignment="Bottom"
+						   Grid.Column="1" />
+
+				<!-- User address -->
+				<TextBlock Text="{x:Bind Address}"
+						   Style="{StaticResource Typo01}"
+						   VerticalAlignment="Top"
+						   Grid.Row="1"
+						   Grid.Column="1" />
+			</Grid>
+		</DataTemplate>
+
+		<DataTemplate x:Key="PlaceItemTemplate"
+					  x:DataType="sampleData:PlacesItem">
+			<Grid Margin="2"
+				  Padding="0,0,8,0">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*" />
+					<RowDefinition Height="*" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+
+				<!-- Place pic -->
+				<Border CornerRadius="4,0,0,4"
+						Width="76"
+						MinHeight="76"
+						Grid.RowSpan="2"
+						Margin="0,0,12,0">
+					<Border.Background>
+						<ImageBrush ImageSource="{x:Bind Image}"
+									Stretch="UniformToFill" />
+					</Border.Background>
+				</Border>
+
+				<!-- Place name -->
+				<TextBlock Text="{x:Bind Name}"
+						   Style="{StaticResource Typo02}"
+						   VerticalAlignment="Bottom"
+						   Grid.Column="1" />
+
+				<!-- Place visited date -->
+				<TextBlock Text="{x:Bind Visited}"
+						   Style="{StaticResource Typo01}"
+						   VerticalAlignment="Top"
+						   Grid.Row="1"
+						   Grid.Column="1" />
+			</Grid>
+		</DataTemplate>
+	</Page.Resources>
+
+	<!-- Default x:Bind mode is set to OneWay from here on down -->
+	<Grid x:DefaultBindMode="OneWay">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"
+							  MinWidth="250" />
+			<ColumnDefinition Width="2*" />
+		</Grid.ColumnDefinitions>
+
+		<!-- Users list -->
+		<Border Grid.RowSpan="2"
+				Background="{StaticResource TranslucentColor02Brush}"
+				Margin="16"
+				Padding="8,0"
+				xf:Animations.Primary="{xf:Animate BasedOn={StaticResource ScaleFromLeft}}">
+			<xfc:AnimatedListView x:Name="UsersListView"
+								  Padding="0,16"
+								  SelectionMode="Single"
+								  ItemsSource="{x:Bind SampleUsers.Users}"
+								  ItemTemplate="{StaticResource UserItemTemplate}"
+								  xf:Animations.AnimateOnItemsSourceChange="False"
+								  xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Delay=350}"
+								  xf:Animations.Items="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromBottom}, Delay=500}" />
+		</Border>
+
+		<!-- Selected user profile info -->
+		<Grid Grid.Column="1"
+			  DataContext="{x:Bind UsersListView.SelectedItem}">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+
+			<!-- Profile background -->
+			<Border Grid.ColumnSpan="3"
+					Background="{StaticResource TranslucentColor02Brush}"
+					Height="200"
+					Margin="0,16,16,0"
+					xf:Animations.Primary="{xf:Animate BasedOn={StaticResource ScaleFromRight}, Delay=100}">
+				<Image Source="{Binding ProfileBackground}"
+					   Stretch="UniformToFill"
+					   VerticalAlignment="Stretch"
+					   xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn},Event=DataContextChanged, Duration=1000}" />
+			</Border>
+
+			<!-- Profile pic -->
+			<Ellipse Width="100"
+					 Height="100"
+					 Stretch="Uniform"
+					 HorizontalAlignment="Right"
+					 Margin="0,0,16,0">
+				<Ellipse.Fill>
+					<ImageBrush ImageSource="{Binding ProfilePic}"
+								Stretch="UniformToFill" />
+				</Ellipse.Fill>
+			</Ellipse>
+
+			<!-- Profile info -->
+			<StackPanel Grid.Column="1"
+						VerticalAlignment="Center">
+				<TextBlock Text="{Binding FullName}"
+						   Style="{StaticResource Typo02}" />
+				<TextBlock Text="{Binding Address}"
+						   Style="{StaticResource Typo01}" />
+				<TextBlock Text="{Binding Email}"
+						   Style="{StaticResource Typo01}" />
+				<TextBlock Text="{Binding PhoneNumber}"
+						   Style="{StaticResource Typo01}" />
+			</StackPanel>
+		</Grid>
+
+		<!-- Selected user places -->
+		<Border Grid.Row="1"
+				Grid.Column="1"
+				Margin="0,16,16,16"
+				Background="{StaticResource TranslucentColor02Brush}"
+				xf:Animations.Primary="{xf:Animate BasedOn={StaticResource ScaleFromRight}, Delay=200}">
+			<xfc:AnimatedGridView x:Name="PlacesGridView"
+								  Padding="8"
+								  SelectionMode="Single"
+								  SelectionChanged="PlacesGridView_SelectionChanged"
+								  DataContext="{x:Bind UsersListView.SelectedItem}"
+								  ItemsSource="{Binding Places}"
+								  ItemTemplate="{StaticResource PlaceItemTemplate}"
+								  xf:Animations.Items="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromBottom}}">
+				<xfc:AnimatedGridView.ItemsPanel>
+					<ItemsPanelTemplate>
+						<ItemsWrapGrid Orientation="Horizontal"
+									   ItemWidth="250"
+									   ItemHeight="85" />
+					</ItemsPanelTemplate>
+				</xfc:AnimatedGridView.ItemsPanel>
+			</xfc:AnimatedGridView>
+		</Border>
+	</Grid>
+</Page>

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectView>ShowAllFiles</ProjectView>
+    <Source>C:\Users\massimo.cacchiotti\Desktop\Max\XamlFlair\Samples\XamlFlair.Samples.UWP\Assets\Logo.png</Source>
+    <SmallTileSource>C:\Users\massimo.cacchiotti\Desktop\Max\XamlFlair\Samples\XamlFlair.Samples.UWP\Assets\Logo.png</SmallTileSource>
+    <MediumTileSource>C:\Users\massimo.cacchiotti\Desktop\Max\XamlFlair\Samples\XamlFlair.Samples.UWP\Assets\Logo.png</MediumTileSource>
+    <WideTileSource>C:\Users\massimo.cacchiotti\Desktop\Max\XamlFlair\Samples\XamlFlair.Samples.UWP\Assets\Logo.png</WideTileSource>
+    <LargeTileSource>C:\Users\massimo.cacchiotti\Desktop\Max\XamlFlair\Samples\XamlFlair.Samples.UWP\Assets\Logo.png</LargeTileSource>
+    <AppIconSource>C:\Users\massimo.cacchiotti\Desktop\Max\XamlFlair\Samples\XamlFlair.Samples.UWP\Assets\Logo.png</AppIconSource>
+    <SplashScreenSource>C:\Users\massimo.cacchiotti\Desktop\Max\XamlFlair\Samples\XamlFlair.Samples.UWP\Assets\Logo.png</SplashScreenSource>
+    <PackageLogoSource>C:\Users\massimo.cacchiotti\Desktop\Max\XamlFlair\Samples\XamlFlair.Samples.UWP\Assets\Logo.png</PackageLogoSource>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <DeviceId>30F105C9-681E-420b-A277-7C086EAD8A4E</DeviceId>
+    <UseEmulator>true</UseEmulator>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM64'">
+    <DeviceId>30F105C9-681E-420b-A277-7C086EAD8A4E</DeviceId>
+    <UseEmulator>true</UseEmulator>
+  </PropertyGroup>
+</Project>

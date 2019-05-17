@@ -1,0 +1,124 @@
+﻿<Page x:Class="XamlFlair.Samples.WPF.PlacePage"
+	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	  xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
+	  xmlns:cor="clr-namespace:System;assembly=mscorlib"
+	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	  mc:Ignorable="d"
+	  Background="{StaticResource AppBackgroundBrush}"
+	  x:Name="Root">
+
+	<Page.Resources>
+		<cor:Double x:Key="PopupScaleFactor">0.5</cor:Double>
+
+		<xf:AnimationSettings x:Key="FadeInAndContractAndBlur"
+							  Kind="FadeFrom,ScaleXFrom,ScaleYFrom,BlurTo"
+							  Opacity="0"
+							  ScaleX="{StaticResource LargeScaleFactor}"
+							  ScaleY="{StaticResource LargeScaleFactor}"
+							  BlurRadius="12" />
+	</Page.Resources>
+
+	<Grid DataContext="{Binding CurrentPlace, ElementName=Root}">
+		<Image Source="{Binding Image}"
+			   Stretch="UniformToFill"
+			   xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndContractAndBlur}, Duration=2000}" />
+
+		<Border Background="{StaticResource TranslucentColor01Brush}"
+				HorizontalAlignment="Stretch"
+				VerticalAlignment="Center"
+				xf:Animations.Primary="{xf:Animate BasedOn={StaticResource ScaleFromLeft}, Delay=500}"
+				xf:Animations.StartWith="{StaticResource ScaleFromLeft}">
+			<StackPanel Margin="32"
+						xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromBottom}, Delay=1000}">
+				<TextBlock Text="{Binding Name}"
+						   FontSize="20"
+						   FontWeight="Bold"
+						   Margin="0,0,0,8" />
+
+				<TextBlock Text="{Binding Location}"
+						   Margin="0,0,0,8" />
+
+				<TextBlock Text="{Binding Visited}"
+						   FontStyle="Italic"
+						   Margin="0,0,0,8" />
+
+				<TextBlock Text="{Binding Description}"
+						   TextWrapping="Wrap"
+						   Margin="0,0,0,16" />
+
+				<Button x:Name="ShowPopupButton"
+						Content="DETAILS"
+						Style="{StaticResource RoundedButtonStyle}"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Bottom"
+						Margin="0,24,0,0"
+						Click="ShowPopupButton_Click" />
+			</StackPanel>
+		</Border>
+
+		<!-- POPUP SECTION -->
+		<!-- ============= -->
+		<Grid Visibility="{Binding IsPopupShown, ElementName=Root, Converter={StaticResource TrueToVisible}}"
+			  Grid.ColumnSpan="2">
+			<!-- Background -->
+			<Border Background="#A6000000"
+					xf:Animations.PrimaryBinding="{Binding IsPopupShown, ElementName=Root}"
+					xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Event=None}"
+					xf:Animations.StartWith="{StaticResource FadeOut}" />
+
+			<Grid Background="{StaticResource PrimaryColor01Brush}"
+				  Height="400"
+				  Width="600"
+				  VerticalAlignment="Center"
+				  HorizontalAlignment="Center"
+				  xf:Animations.StartWith="{xf:Animate BasedOn={StaticResource FadeOutAndShrinkHorizontally}, ScaleX={StaticResource PopupScaleFactor}}"
+				  xf:Animations.PrimaryBinding="{Binding IsPopupShown, ElementName=Root}"
+				  xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndGrowHorizontally}, ScaleX=0, Event=None, Delay=500}"
+				  xf:Animations.SecondaryBinding="{Binding IsPopupShown, ElementName=Root, Converter={StaticResource InverseBool}}"
+				  xf:Animations.Secondary="{xf:Animate BasedOn={StaticResource FadeOutAndShrinkHorizontally}, ScaleX=0, Event=None, Duration=1}">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+
+				<!-- Popup Image -->
+				<Image Source="{Binding CurrentPlace.Image, ElementName=Root}"
+					   Stretch="UniformToFill"
+					   VerticalAlignment="Center"
+					   Width="200"
+					   Margin="16,16,8,16"
+					   xf:Animations.PrimaryBinding="{Binding IsPopupShown, ElementName=Root}"
+					   xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromRight}, Event=None, Delay=1000}" />
+
+				<!-- Popup Text -->
+				<TextBlock Text="{Binding CurrentPlace.Description, ElementName=Root}"
+						   TextWrapping="Wrap"
+						   VerticalAlignment="Top"
+						   Grid.Column="1"
+						   Margin="8,16,16,16"
+						   xf:Animations.EnableLogging="True"
+						   xf:Animations.PrimaryBinding="{Binding IsPopupShown, ElementName=Root}"
+						   xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromBottom}, Event=None, Delay=1250}" />
+
+				<!-- Popup Close Button -->
+				<Button x:Name="ClosePopupButton"
+						Content="CLOSE"
+						Style="{StaticResource RoundedButtonStyle}"
+						Grid.Column="1"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Bottom"
+						Margin="0,0,0,16"
+						Click="ClosePopupButton_Click"
+						xf:Animations.PrimaryBinding="{Binding IsPopupShown, ElementName=Root}"
+						xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Event=None, Delay=1500}" />
+			</Grid>
+		</Grid>
+		<!-- ============= -->
+	</Grid>
+</Page>

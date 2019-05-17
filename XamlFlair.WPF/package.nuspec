@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <!--*-->
+    <id>XamlFlair.WPF</id>
+    <!--*-->
+    <version>1.0.9</version>
+    <title>XamlFlair.WPF</title>
+    <!--*-->
+    <authors>xamlflair</authors>
+    <owners>xamlflair</owners>
+    <!--
+			<licenseUrl></licenseUrl>
+			<projectUrl></projectUrl>
+			<iconUrl></iconUrl>
+		-->
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <!--*-->
+    <description>XamlFlair animation library for the WPF platform.</description>
+    <!--*-->
+    <releaseNotes>...</releaseNotes>
+    <copyright>Copyright © 2019</copyright>
+    <tags>
+    </tags>
+    <dependencies>
+      <group targetFramework="net472">
+        <dependency id="LibLog" version="5.0.6" />
+        <dependency id="Microsoft.SourceLink.GitHub" version="1.0.0-beta2-18618-05" />
+        <dependency id="System.Reactive" version="4.1.3" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Release\XamlFlair.WPF.dll" target="lib" />
+    <file src="bin\Release\XamlFlair.WPF.pdb" target="lib" />
+  </files>
+</package>

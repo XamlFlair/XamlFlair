@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <!--*-->
+    <id>XamlFlair.UWP</id>
+    <!--*-->
+    <version>1.0.9</version>
+    <title>XamlFlair.UWP</title>
+    <!--*-->
+    <authors>xamlflair</authors>
+    <owners>xamlflair</owners>
+    <!--
+			<licenseUrl></licenseUrl>
+			<projectUrl></projectUrl>
+			<iconUrl></iconUrl>
+		-->
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <!--*-->
+    <description>XamlFlair animation library for the UWP platform.</description>
+    <!--*-->
+    <releaseNotes>Applied a FadeFrom requirement (limitation) for UWP AnimatedListViews and AnimatedGridViews to avoid flicker on first run of item animations.</releaseNotes>
+    <copyright>Copyright © 2019</copyright>
+    <tags>
+    </tags>
+    <dependencies>
+      <group targetFramework="uap10.0">
+        <dependency id="LibLog" version="5.0.6" />
+        <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="6.2.8" />
+        <dependency id="Microsoft.SourceLink.GitHub" version="1.0.0-beta2-18618-05" />
+        <dependency id="System.Reactive" version="4.1.3" />
+        <dependency id="Win2D.uwp" version="1.23.0" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\ARM\Release\XamlFlair.UWP.dll" target="runtimes\win10-arm\lib\uap10.0" />
+    <file src="bin\ARM\Release\XamlFlair.UWP.pdb" target="runtimes\win10-arm\lib\uap10.0" />
+    <file src="bin\x64\Release\XamlFlair.UWP.dll" target="runtimes\win10-x64\lib\uap10.0" />
+    <file src="bin\x64\Release\XamlFlair.UWP.pdb" target="runtimes\win10-x64\lib\uap10.0" />
+    <file src="bin\x86\Release\XamlFlair.UWP.dll" target="runtimes\win10-x86\lib\uap10.0" />
+    <file src="bin\x86\Release\XamlFlair.UWP.pdb" target="runtimes\win10-x86\lib\uap10.0" />
+    <file src="bin\Release\XamlFlair.UWP.dll" target="ref\uap10.0" />
+    <file src="bin\Release\XamlFlair.UWP.pri" target="ref\uap10.0" />
+  </files>
+</package>

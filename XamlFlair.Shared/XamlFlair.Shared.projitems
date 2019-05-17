@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>42523bca-c3a9-44d5-9f56-0e4bdf21bad4</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>XamlFlair.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Animations.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Animations.Properties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Animations.Validation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\ActiveTimeline.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\AnimationKind.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\AnimationSettings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\AnimationState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\CompoundSettings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\EasingType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\EventType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Contracts\IAnimationSettings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\SettingsTarget.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\IterationBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ActiveTimelineExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\AnimationSettingsExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\DependencyObjectExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\EventsMixin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\FrameworkElementExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ObservableExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MarkupExtensions\Animate.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Contracts\" />
+  </ItemGroup>
+</Project>

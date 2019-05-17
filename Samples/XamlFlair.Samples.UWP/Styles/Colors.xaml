@@ -1,0 +1,37 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<Color x:Key="PrimaryColor01">#FFFFFF</Color>
+	<Color x:Key="PrimaryColor02">#000000</Color>
+	<Color x:Key="PrimaryColor03">#F1F1F1</Color>
+	<Color x:Key="PrimaryColor04">#C6C6C6</Color>
+	<Color x:Key="PrimaryColor05">#4292C3</Color>
+
+	<SolidColorBrush x:Key="PrimaryColor01Brush"
+					 Color="{StaticResource PrimaryColor01}" />
+	<SolidColorBrush x:Key="PrimaryColor02Brush"
+					 Color="{StaticResource PrimaryColor02}" />
+	<SolidColorBrush x:Key="PrimaryColor03Brush"
+					 Color="{StaticResource PrimaryColor03}" />
+	<SolidColorBrush x:Key="PrimaryColor04Brush"
+					 Color="{StaticResource PrimaryColor04}" />
+	<SolidColorBrush x:Key="PrimaryColor05Brush"
+					 Color="{StaticResource PrimaryColor05}" />
+
+	<SolidColorBrush x:Key="TranslucentColor01Brush"
+					 Color="{StaticResource PrimaryColor01}"
+					 Opacity="0.7" />
+
+	<SolidColorBrush x:Key="TranslucentColor02Brush"
+					 Color="{StaticResource PrimaryColor01}"
+					 Opacity="0.1" />
+
+	<LinearGradientBrush x:Key="AppBackgroundBrush"
+						 StartPoint="0,0"
+						 EndPoint="1,1">
+		<GradientStop Color="#FF223043" />
+		<GradientStop Color="#FF121922"
+					  Offset="1" />
+	</LinearGradientBrush>
+
+</ResourceDictionary>

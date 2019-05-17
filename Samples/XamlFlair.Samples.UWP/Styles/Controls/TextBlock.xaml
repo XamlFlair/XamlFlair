@@ -1,0 +1,33 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<Style x:Key="DefaultTextBlockStyle"
+		   TargetType="TextBlock">
+		<Setter Property="Foreground"
+				Value="{StaticResource PrimaryColor02Brush}" />
+		<Setter Property="TextTrimming"
+				Value="CharacterEllipsis" />
+		<Setter Property="TextWrapping"
+				Value="NoWrap" />
+	</Style>
+
+	<Style x:Key="Typo01"
+		   TargetType="TextBlock"
+		   BasedOn="{StaticResource DefaultTextBlockStyle}">
+		<Setter Property="Foreground"
+				Value="{StaticResource PrimaryColor01Brush}" />
+	</Style>
+
+	<Style x:Key="Typo02"
+		   TargetType="TextBlock"
+		   BasedOn="{StaticResource DefaultTextBlockStyle}">
+		<Setter Property="Foreground"
+				Value="{StaticResource PrimaryColor01Brush}" />
+		<Setter Property="FontWeight"
+				Value="Bold" />
+	</Style>
+
+	<Style TargetType="TextBlock"
+		   BasedOn="{StaticResource DefaultTextBlockStyle}" />
+	
+</ResourceDictionary>
