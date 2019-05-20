@@ -7,3 +7,8 @@
 /.vs/VSWorkspaceState.json
 /.vs/slnx.sqlite
 /.vs/ProjectSettings.json
+/XamlFlair.WPF/obj
+/XamlFlair.UWP/obj
+/Samples/XamlFlair.Samples.WPF/obj/Debug
+/Samples/XamlFlair.Samples.UWP/obj
+/.vs/XamlFlair/v16
