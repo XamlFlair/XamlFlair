@@ -1,8 +1,22 @@
 # XamlFlair
 
-## Goal
+The goal of the XamlFlair library is to ease the implementation of common animations and allow a developer to *easily* add a single or combined set of animations with just a few lines of Xaml.
 
-The goal of the XamlFlair library is to ease the implementation of common animations and allow a developer to *easily* add a single or combined set of animations within seconds or minutes.
+## Install from Nuget
+
+To install **XamlFlair**, run the following command in the **Package Manager Console**:
+
+UWP:
+
+```
+Install-Package XamlFlair.UWP
+```
+
+WPF:
+
+```
+Install-Package XamlFlair.WPF
+```
 
 ## Basic Concepts
 
@@ -10,11 +24,11 @@ The basic concept of XamlFlair is based on animations that are categorized as _F
 
 Example of a _From_ animation (a UI element sliding into its original state):
 
-![From animation](https://github.com/XamlFlair/XamlFlair/tree/master/doc/gifs/From.gif)
+![From animation](doc/gifs/From.gif)
 
 Example of a _To_ animation (a UI element sliding away from its original state):
 
-![To animation](https://github.com/XamlFlair/XamlFlair/tree/master/doc/gifs/To.gif)
+![To animation](doc/gifs/To.gif)
 
 ## Usage
 
@@ -38,19 +52,19 @@ From here on, it's simple a matter of setting an attached property to any `Frame
 
 #### Fade
 
-![Fade animation](https://github.com/XamlFlair/XamlFlair/tree/master/doc/gifs/FadeIn.gif)
+![Fade animation](doc/gifs/FadeIn.gif)
 
 #### Translate
 
-![Translation animation](https://github.com/XamlFlair/XamlFlair/tree/master/doc/gifs/Translate.gif)
+![Translation animation](doc/gifs/Translate.gif)
 
 #### Scale
 
-![Scale animation](https://github.com/XamlFlair/XamlFlair/tree/master/doc/gifs/Scale.gif)
+![Scale animation](doc/gifs/Scale.gif)
 
 #### Rotate
 
-![Rotation animation](https://github.com/XamlFlair/XamlFlair/tree/master/doc/gifs/Rotate.gif)
+![Rotation animation](doc/gifs/Rotate.gif)
 
 > **Warning**: Be careful when animating `FadeOut`. Be aware that the element remains in the visual if the `Visibility` remains at `Visible`, therefore there may be cases where you'll need to manually manage `IsHitTestVisible` to allow the user to tap *through* the element.
 
@@ -141,11 +155,11 @@ Animations can be combined, and as previously mentioned, any of these *combined*
 
 This demonstrates a combined animation of a `FadeFrom` and `TranslateFrom`:
 
-![Fade and translation animation](https://github.com/XamlFlair/XamlFlair/tree/master/doc/gifs/FadeInTranslate.gif)
+![Fade and translation animation](doc/gifs/FadeInTranslate.gif)
 
 This demonstrates a combined animation of a `FadeFrom`, `TranslateFrom`, `ScaleFrom`, and `RotateFrom`:
 
-![Fade, translation, and rotation snimation](https://github.com/XamlFlair/XamlFlair/tree/master/doc/gifs/FadeInTranslateRotateScale.gif)
+![Fade, translation, and rotation snimation](doc/gifs/FadeInTranslateRotateScale.gif)
 
 ### Overriding values
 
@@ -159,7 +173,7 @@ Primary animations can have their animation settings overridden directly on the 
 
 A compound animation is simply a multi-step animation using the `CompoundSettings` class. Each inner animation executes once the previous one completes, hence they're sequential animations:
 
-![Compound animation](https://github.com/XamlFlair/XamlFlair/tree/master/doc/gifs/Compound.gif)
+![Compound animation](doc/gifs/Compound.gif)
 
 ```xml
 <xf:CompoundSettings x:Key="Progress">
@@ -186,7 +200,7 @@ A compound animation is simply a multi-step animation using the `CompoundSetting
 
 An animation can be repeated by using the `IterationBehavior` and `IterationCount` properties (default values of `Count` and `1` respectively).
 
-[[INSERT GIF]]
+**TODO**: INSERT GIF ...
 
 The following demonstrates how to run an animation only 5 times:
 
@@ -249,7 +263,7 @@ In the above example, since the element is scaling from the bottom, but with a d
 
 ### Logging animations
 
-[[ EXPLAIN HOW]]
+**TODO**: EXPLAIN HOW WITH A SERILOG EXAMPLE ...
 
 To output the values of one or more animations, simply set `True` to the `EnableLogging` property on the target `FrameworkElement`:
 
