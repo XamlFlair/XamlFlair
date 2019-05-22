@@ -116,6 +116,32 @@ All **common** animations should be placed in a global `ResourceDictionary` (ex:
     </ResourceDictionary>
 ```
 
+## Setting up `Animations.xaml`
+
+To have a large set of pre-configured animation settings already available in your app, perform the following steps:
+
+1. Right-click on your project, then click **Add > New Item...**
+2. Choose **Resource Dictionary** and name it `Animations.xaml`
+3. In your `App.xaml`, add the following:
+
+```xml
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Animations.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+```
+
+4. In `Animations.xaml`, copy & paste the contents from the corresponding links below:
+
+- [Animation settings for UWP](https://github.com/XamlFlair/XamlFlair/blob/4fa2e00350df8391f26cab8f3552c56fc84fc416/Samples/XamlFlair.Samples.UWP/Animations.xaml#L5)
+
+- [Animation settings for WPF](https://github.com/XamlFlair/XamlFlair/blob/4fa2e00350df8391f26cab8f3552c56fc84fc416/Samples/XamlFlair.Samples.WPF/Animations.xaml#L6)
+
+Your app now has a pre-configured set of common animations ready to use.
+
 ### Combining animations
 
 Animations can be combined, and as previously mentioned, any of these *combined* composite animations that are common should be placed in the global `ResourceDictionary` (ex: `Animations.xaml`):
