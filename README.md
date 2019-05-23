@@ -1,8 +1,15 @@
+<img width="160" heigth="160" src="https://github.com/XamlFlair/XamlFlair/blob/master/Samples/XamlFlair.Samples.UWP/Assets/Logo.png">
+
 # XamlFlair
 
 The goal of the XamlFlair library is to ease the implementation of common animations and allow a developer to *easily* add a single or combined set of animations with just a few lines of Xaml.
 
 ## Install from Nuget
+
+| Platform | Package | NuGet |
+| -------- | -------- | ------- |
+| UWP | [XamlFlair.UWP][UWPNuGet] | [![UWPNuGetShield]][UWPNuGet] |
+| WPF | [XamlFlair.WPF][WPFNuGet] | [![WPFNuGetShield]][WPFNuGet] |
 
 To install **XamlFlair**, run the following command in the **Package Manager Console**:
 
@@ -34,8 +41,14 @@ Example of a _To_ animation (a UI element sliding away from its original state):
 
 To begin, you need to have the following xaml namespace reference:
 
+UWP:
 ```xml
 xmlns:xf="using:XamlFlair"
+```
+
+WPF:
+```xml
+xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
 ```
 
 From here on, it's simple a matter of setting an attached property to any `FrameworkElement` that needs an animation:
@@ -395,3 +408,8 @@ Just like `PrimaryBinding` and `SecondaryBinding`, item animations can be trigge
 ```
 
 > **Note (UWP ONLY)**: To avoid any flickers on item animations, there is currently a constraint in place: An `Items` animation **must** contain a `FadeFrom`.
+
+[UWPNuget]: https://www.nuget.org/packages/XamlFlair.UWP/
+[WPFNuget]: https://www.nuget.org/packages/XamlFlair.WPF/
+[UWPNugetShield]: https://img.shields.io/nuget/v/XamlFlair.UWP.svg?style=for-the-badge
+[WPFNugetShield]: https://img.shields.io/nuget/v/XamlFlair.WPF.svg?style=for-the-badge
