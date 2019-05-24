@@ -107,8 +107,8 @@ namespace XamlFlair
 
 		protected Vector3 GetTransformCenter()
 		{
-			var centerX = (float)(_element.ActualWidth * Settings.RenderTransformOrigin.X);
-			var centerY = (float)(_element.ActualHeight * Settings.RenderTransformOrigin.Y);
+			var centerX = (float)(_element.ActualWidth * Settings.TransformCenterPoint.X);
+			var centerY = (float)(_element.ActualHeight * Settings.TransformCenterPoint.Y);
 
 			return new Vector3(centerX, centerY, 0f);
 		}

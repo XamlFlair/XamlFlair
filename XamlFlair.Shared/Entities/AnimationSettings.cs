@@ -232,18 +232,18 @@ namespace XamlFlair
 				typeof(AnimationSettings),
 				new PropertyMetadata(0d));
 
-		public Point RenderTransformOrigin
+		public Point TransformCenterPoint
 		{
-			get => (Point)GetValue(RenderTransformOriginProperty);
-			set => SetValue(RenderTransformOriginProperty, value);
+			get => (Point)GetValue(TransformCenterPointProperty);
+			set => SetValue(TransformCenterPointProperty, value);
 		}
 
 		/// <summary>
 		/// Specifies the origin of the element's RenderTransform
 		/// </summary>
-		public static readonly DependencyProperty RenderTransformOriginProperty =
+		public static readonly DependencyProperty TransformCenterPointProperty =
 			DependencyProperty.Register(
-				nameof(RenderTransformOrigin),
+				nameof(TransformCenterPoint),
 				typeof(Point),
 				typeof(AnimationSettings),
 				new PropertyMetadata(DEFAULT_TRANSFORM_ORIGIN));
@@ -321,7 +321,7 @@ namespace XamlFlair
 				&& other.ScaleX.Equals(ScaleX)
 				&& other.ScaleY.Equals(ScaleY)
 				&& other.Rotation.Equals(Rotation)
-				&& other.RenderTransformOrigin.Equals(RenderTransformOrigin)
+				&& other.TransformCenterPoint.Equals(TransformCenterPoint)
 				&& other.BlurRadius.Equals(BlurRadius)
 				&& other.Easing.Equals(Easing)
 				&& other.EasingMode.Equals(EasingMode)
@@ -376,7 +376,7 @@ namespace XamlFlair
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, ScaleX) ? ScaleX.GetHashCode() : 0);
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, ScaleY) ? ScaleY.GetHashCode() : 0);
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, Rotation) ? Rotation.GetHashCode() : 0);
-				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, RenderTransformOrigin) ? RenderTransformOrigin.GetHashCode() : 0);
+				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, TransformCenterPoint) ? TransformCenterPoint.GetHashCode() : 0);
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, BlurRadius) ? BlurRadius.GetHashCode() : 0);
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, Easing) ? Easing.GetHashCode() : 0);
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, EasingMode) ? EasingMode.GetHashCode() : 0);

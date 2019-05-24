@@ -100,7 +100,7 @@ namespace XamlFlair.Extensions
 			var transform = (element.RenderTransform as TransformGroup) ?? CreateTransformGroup();
 			var scale = transform.Children[SCALE_INDEX] as ScaleTransform;
 
-			SetRenderTransform(element, settings, transform, updateRenderTransformOrigin: true);
+			SetRenderTransform(element, settings, transform, updateTransformCenterPoint: true);
 
 			element.ApplyAnimation(settings, scale.ScaleX, settings.ScaleX, $"RenderTransform.Children[{SCALE_INDEX}].ScaleX", ref storyboard);
 
@@ -112,7 +112,7 @@ namespace XamlFlair.Extensions
 			var transform = (element.RenderTransform as TransformGroup) ?? CreateTransformGroup();
 			var scale = transform.Children[SCALE_INDEX] as ScaleTransform;
 
-			SetRenderTransform(element, settings, transform, updateRenderTransformOrigin: true);
+			SetRenderTransform(element, settings, transform, updateTransformCenterPoint: true);
 
 			element.ApplyAnimation(settings, scale.ScaleY, settings.ScaleY, $"RenderTransform.Children[{SCALE_INDEX}].ScaleY", ref storyboard);
 
@@ -126,7 +126,7 @@ namespace XamlFlair.Extensions
 
 			scale.ScaleX = settings.ScaleX;
 
-			SetRenderTransform(element, settings, transform, updateRenderTransformOrigin: true);
+			SetRenderTransform(element, settings, transform, updateTransformCenterPoint: true);
 
 			element.ApplyAnimation(settings, settings.ScaleX, 1, $"RenderTransform.Children[{SCALE_INDEX}].ScaleX", ref storyboard);
 
@@ -140,7 +140,7 @@ namespace XamlFlair.Extensions
 
 			scale.ScaleY = settings.ScaleY;
 
-			SetRenderTransform(element, settings, transform, updateRenderTransformOrigin: true);
+			SetRenderTransform(element, settings, transform, updateTransformCenterPoint: true);
 
 			element.ApplyAnimation(settings, settings.ScaleY, 1, $"RenderTransform.Children[{SCALE_INDEX}].ScaleY", ref storyboard);
 
@@ -152,7 +152,7 @@ namespace XamlFlair.Extensions
 			var transform = (element.RenderTransform as TransformGroup) ?? CreateTransformGroup();
 			var rotate = transform.Children[ROTATE_INDEX] as RotateTransform;
 
-			SetRenderTransform(element, settings, transform, updateRenderTransformOrigin: true);
+			SetRenderTransform(element, settings, transform, updateTransformCenterPoint: true);
 
 			element.ApplyAnimation(settings, rotate.Angle, settings.Rotation, $"RenderTransform.Children[{ROTATE_INDEX}].Angle", ref storyboard);
 
@@ -166,7 +166,7 @@ namespace XamlFlair.Extensions
 
 			rotate.Angle = settings.Rotation;
 
-			SetRenderTransform(element, settings, transform, updateRenderTransformOrigin: true);
+			SetRenderTransform(element, settings, transform, updateTransformCenterPoint: true);
 
 			element.ApplyAnimation(settings, settings.Rotation, 0, $"RenderTransform.Children[{ROTATE_INDEX}].Angle", ref storyboard);
 
@@ -192,13 +192,13 @@ namespace XamlFlair.Extensions
 			return storyboard;
 		}
 
-		private static void SetRenderTransform(FrameworkElement element, AnimationSettings settings, TransformGroup transform, bool updateRenderTransformOrigin = false)
+		private static void SetRenderTransform(FrameworkElement element, AnimationSettings settings, TransformGroup transform, bool updateTransformCenterPoint = false)
 		{
 			element.RenderTransform = transform;
 
-			if (updateRenderTransformOrigin)
+			if (updateTransformCenterPoint)
 			{
-				element.RenderTransformOrigin = settings.RenderTransformOrigin;
+				element.RenderTransformOrigin = settings.TransformCenterPoint;
 			}
 		}
 
@@ -251,7 +251,7 @@ namespace XamlFlair.Extensions
 			element.BeginAnimation(UIElement.OpacityProperty, null);
 			element.Opacity = settings.Opacity;
 
-			element.RenderTransformOrigin = settings.RenderTransformOrigin;
+			element.RenderTransformOrigin = settings.TransformCenterPoint;
 			element.RenderTransform = transform;
 
 			var effect = (element.Effect as BlurEffect) ?? new BlurEffect()
@@ -300,7 +300,7 @@ namespace XamlFlair.Extensions
 					$"	ScaleY = {settings.ScaleY} \n" +
 					$"	Rotation = {settings.Rotation} \n" +
 					$"	Blur = {settings.BlurRadius} \n" +
-					$"	RenderTransformOrigin = {settings.RenderTransformOrigin} \n" +
+					$"	TransformCenterPoint = {settings.TransformCenterPoint} \n" +
 					$"	Easing = {settings.Easing} \n" +
 					$"	EasingMode = {settings.EasingMode} \n" +
 				"------------------------------------";

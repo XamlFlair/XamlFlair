@@ -55,42 +55,42 @@
 	<xf:AnimationSettings x:Key="ScaleToLeft"
 						  Kind="ScaleXTo"
 						  ScaleX="0"
-						  RenderTransformOrigin="0,0.5" />
+						  TransformCenterPoint="0,0.5" />
 
 	<xf:AnimationSettings x:Key="ScaleToTop"
 						  Kind="ScaleYTo"
 						  ScaleY="0"
-						  RenderTransformOrigin="0.5,0" />
+						  TransformCenterPoint="0.5,0" />
 
 	<xf:AnimationSettings x:Key="ScaleToRight"
 						  Kind="ScaleXTo"
 						  ScaleX="0"
-						  RenderTransformOrigin="1,0.5" />
+						  TransformCenterPoint="1,0.5" />
 
 	<xf:AnimationSettings x:Key="ScaleToBottom"
 						  Kind="ScaleYTo"
 						  ScaleY="0"
-						  RenderTransformOrigin="0.5,1" />
+						  TransformCenterPoint="0.5,1" />
 
 	<xf:AnimationSettings x:Key="ScaleFromLeft"
 						  Kind="ScaleXFrom"
 						  ScaleX="0"
-						  RenderTransformOrigin="0,0.5" />
+						  TransformCenterPoint="0,0.5" />
 
 	<xf:AnimationSettings x:Key="ScaleFromTop"
 						  Kind="ScaleYFrom"
 						  ScaleY="0"
-						  RenderTransformOrigin="0.5,0" />
+						  TransformCenterPoint="0.5,0" />
 
 	<xf:AnimationSettings x:Key="ScaleFromRight"
 						  Kind="ScaleXFrom"
 						  ScaleX="0"
-						  RenderTransformOrigin="1,0.5" />
+						  TransformCenterPoint="1,0.5" />
 
 	<xf:AnimationSettings x:Key="ScaleFromBottom"
 						  Kind="ScaleYFrom"
 						  ScaleY="0"
-						  RenderTransformOrigin="0.5,1" />
+						  TransformCenterPoint="0.5,1" />
 
 	<xf:AnimationSettings x:Key="ScaleHorizontally"
 						  Kind="ScaleXFrom"
