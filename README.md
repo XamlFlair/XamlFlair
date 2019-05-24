@@ -87,7 +87,7 @@ The following lists some notable **default values** when working with XamlFlair:
 * **Duration**: 500
 * **Easing**: Cubic
 * **Easing Mode**: EaseOut
-* **RenderTransformOrigin**: (0.5, 0.5)
+* **TransformCenterPoint**: (0.5, 0.5)
 * **Event**: Loaded
 
 ### Using a `ResourceDictionary` for base settings
@@ -217,16 +217,16 @@ A compound animation is simply a multi-step animation using the `CompoundSetting
     <xf:CompoundSettings.Sequence>
         <xf:AnimationSettings ScaleX="0"
                               Kind="ScaleTo"
-                              RenderTransformOrigin="1,0.5" />
+                              TransformCenterPoint="1,0.5" />
         <xf:AnimationSettings ScaleX="0"
                               Kind="ScaleFrom"
-                              RenderTransformOrigin="1,0.5" />
+                              TransformCenterPoint="1,0.5" />
         <xf:AnimationSettings ScaleX="0"
                               Kind="ScaleTo"
-                              RenderTransformOrigin="0,0.5" />
+                              TransformCenterPoint="0,0.5" />
         <xf:AnimationSettings ScaleX="0"
                               Kind="ScaleFrom"
-                              RenderTransformOrigin="0,0.5" />
+                              TransformCenterPoint="0,0.5" />
     </xf:CompoundSettings.Sequence>
 </xf:CompoundSettings>
 ```
@@ -325,7 +325,7 @@ Doing so will provide you with the following similar console output (differs sli
     ScaleZ = 1
     Rotation = 0
     Blur = 0
-    RenderTransformOrigin = 0.5,0.5
+    TransformCenterPoint = 0.5,0.5
     Easing = Cubic
     EasingMode = EaseOut
 

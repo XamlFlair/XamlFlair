@@ -472,7 +472,7 @@ namespace XamlFlair.Extensions
 				$"	ScaleZ = {settings.ScaleZ} \n" +
 				$"	Rotation = {settings.Rotation} \n" +
 				$"	Blur = {settings.BlurRadius} \n" +
-				$"	RenderTransformOrigin = {settings.RenderTransformOrigin} \n" +
+				$"	TransformCenterPoint = {settings.TransformCenterPoint} \n" +
 				$"	Easing = {settings.Easing} \n" +
 				$"	EasingMode = {settings.EasingMode} \n" +
 				" ------------------------------------";

@@ -98,9 +98,9 @@ namespace XamlFlair
 		public double BlurRadius { get; set; }
 
 		/// <summary>
-		/// Specifies the origin of the element's RenderTransform
+		/// Specifies the center point of the element's transform
 		/// </summary>
-		public Point RenderTransformOrigin { get; set; } = AnimationSettings.DEFAULT_TRANSFORM_ORIGIN;
+		public Point TransformCenterPoint { get; set; } = AnimationSettings.DEFAULT_TRANSFORM_CENTER_POINT;
 
 		/// <summary>
 		/// Specifies the event used to trigger the composite animation
@@ -157,7 +157,7 @@ namespace XamlFlair
 				ScaleY = ScaleY,
 				Rotation = Rotation,
 				BlurRadius = BlurRadius,
-				RenderTransformOrigin = RenderTransformOrigin,
+				TransformCenterPoint = TransformCenterPoint,
 				Easing = Easing,
 				EasingMode = EasingMode,
 				Event = Event,
