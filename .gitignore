@@ -12,3 +12,8 @@
 /Samples/XamlFlair.Samples.WPF/obj/Debug
 /Samples/XamlFlair.Samples.UWP/obj
 /.vs/XamlFlair/v16
+/Samples/XamlFlair.Samples.UWP/bin/x64/Debug
+/Samples/XamlFlair.Samples.WPF/bin/Debug
+/Samples/XamlFlair.Samples.WPF/obj
+/XamlFlair.UWP/bin/Debug
+/XamlFlair.WPF/bin/Debug

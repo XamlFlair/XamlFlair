@@ -10,27 +10,6 @@
 	  Title="StartPage"
 	  Background="{StaticResource AppBackgroundBrush}">
 
-	<Page.Resources>
-		<!--<xf:CompoundSettings x:Key="TestLargeSequence">
-			<xf:CompoundSettings.Sequence>
-				<xf:AnimationSettings Kind="TranslateXFrom"
-									  OffsetX="100"
-									  Delay="1000" />
-				<xf:AnimationSettings Kind="TranslateYTo"
-									  OffsetY="100" />
-				<xf:AnimationSettings Kind="RotateTo"
-									  Rotation="360"
-									  Duration="2000" />
-				<xf:AnimationSettings Kind="ScaleXTo"
-									  ScaleX="0"
-									  RenderTransformOrigin="1,0.5" />
-				<xf:AnimationSettings Kind="ScaleXFrom"
-									  ScaleX="0"
-									  RenderTransformOrigin="1,0.5" />
-			</xf:CompoundSettings.Sequence>
-		</xf:CompoundSettings>-->
-	</Page.Resources>
-
 	<Grid>
 		<StackPanel HorizontalAlignment="Center"
 					VerticalAlignment="Center">

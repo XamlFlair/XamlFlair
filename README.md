@@ -27,7 +27,7 @@ Install-Package XamlFlair.WPF
 
 ## Basic Concepts
 
-The basic concept of XamlFlair is based on animations that are categorized as _From_ and _To_. Any UI element that consists of a _From_ animation will start with one or more arbitrary value(s), and complete in the original state. Any UI element that consists of a _From_ animation will start in its original state and animate to one or more arbitrary value(s).
+The basic concept of XamlFlair is based on animations that are categorized as _From_ and _To_. Any UI element that consists of a _From_ animation will start with one or more arbitrary values, and complete in the original state. Any UI element that consists of a _To_ animation will start in its original state and animate to one or more arbitrary values.
 
 Example of a _From_ animation (a UI element sliding into its original state):
 
@@ -39,7 +39,7 @@ Example of a _To_ animation (a UI element sliding away from its original state):
 
 ## Usage
 
-To begin, you need to have the following xaml namespace reference:
+To begin, you need to have the following Xaml namespace reference:
 
 UWP:
 ```xml
@@ -51,21 +51,23 @@ WPF:
 xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
 ```
 
-From here on, it's simple a matter of setting an attached property to any `FrameworkElement` that needs an animation:
+From here on, it's a simple matter of setting an attached property to any `FrameworkElement` that needs an animation:
 
 ```xml
 <Border xf:Animations.Primary="{StaticResource FadeIn}" />
 ```
 
-> **Note**: If your `FrameworkElement` defines a `CompositeTransform` in your xaml, it will be altered during the animation process.
+> **Note**: If your `FrameworkElement` defines a `CompositeTransform` in your Xaml, it will be altered during the animation process.
 
-> **Note**: The use of `StaticResource` is to reference common animations, which is discussed in the next section.
+> **Note**: The use of `StaticResource` is to reference global common animations, which is discussed in the next section.
 
-### Base animation types
+### Base Animation Types
 
 #### Fade
 
 ![Fade animation](doc/gifs/FadeIn.gif)
+
+> **Warning**: Be careful when animating `FadeTo` since the element remains in the Visual Tree if the `Visibility` is `Visible`. There may be cases where you'll need to manually manage `IsHitTestVisible` to allow the user to tap *through* the element.
 
 #### Translate
 
@@ -79,8 +81,6 @@ From here on, it's simple a matter of setting an attached property to any `Frame
 
 ![Rotation animation](doc/gifs/Rotate.gif)
 
-> **Warning**: Be careful when animating `FadeOut`. Be aware that the element remains in the visual if the `Visibility` remains at `Visible`, therefore there may be cases where you'll need to manually manage `IsHitTestVisible` to allow the user to tap *through* the element.
-
 The following lists some notable **default values** when working with XamlFlair:
 
 * **Kind**: FadeTo
@@ -92,7 +92,7 @@ The following lists some notable **default values** when working with XamlFlair:
 
 ### Using a `ResourceDictionary` for base settings
 
-All **common** animations should be placed in a global `ResourceDictionary` (ex: `Animations.xaml`) and used where needed throughout the app. The goal is to consolidate all the animations into one file with meaningful names so that any developer can understand exactly what animation is applied to a `FrameworkElement`.
+All **common** animations should be placed in a global `ResourceDictionary` (ex: `Animations.xaml`) and used where needed throughout the app. The goal is to consolidate all the animations into one file with meaningful names so that any developer can understand exactly what animation is applied to a `FrameworkElement`. Here's a small example of what it looks like:
 
 ```xml
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -105,33 +105,31 @@ All **common** animations should be placed in a global `ResourceDictionary` (ex:
     <x:Double x:Key="LargeScaleFactor">1.25</x:Double>
 
     <xf:AnimationSettings x:Key="FadeIn"
-                          Opacity="0"
-                          Kind="FadeFrom" />
+                          Kind="FadeFrom"
+                          Opacity="0" />
 
     <xf:AnimationSettings x:Key="FadeOut"
-                          Opacity="0"
-                          Kind="FadeTo" />
+                          Kind="FadeTo"
+                          Opacity="0" />
 
+    <!-- Scale to a larger value -->
     <xf:AnimationSettings x:Key="Expand"
-                          Scale="{StaticResource LargeScaleFactor}"
-                          Kind="ScaleTo" />
+                          Kind="ScaleXTo,ScaleYTo"
+                          ScaleX="{StaticResource LargeScaleFactor}"
+                          ScaleY="{StaticResource LargeScaleFactor}" />
 
-    <xf:AnimationSettings x:Key="SlideFromLeft"
-                          OffsetX="{StaticResource NegativeOffset}"
-                          Kind="TranslateFrom" />
-
-    <xf:AnimationSettings x:Key="SlideFromTop"
-                          OffsetY="{StaticResource NegativeOffset}"
-                          Kind="TranslateFrom" />
+    <!-- Scale from a larger value -->
+    <xf:AnimationSettings x:Key="Contract"
+                          Kind="ScaleXFrom,ScaleYFrom"
+                          ScaleX="{StaticResource LargeScaleFactor}"
+                          ScaleY="{StaticResource LargeScaleFactor}" />
     .
     .
     .
     </ResourceDictionary>
 ```
 
-## Setting up `Animations.xaml`
-
-To have a large set of pre-configured animation settings already available in your app, perform the following steps:
+To setup this set of pre-configured `AnimationSettings` already available in your app, perform the following steps:
 
 1. Right-click on your project, then click **Add > New Item...**
 2. Choose **Resource Dictionary** and name it `Animations.xaml`
@@ -153,11 +151,11 @@ To have a large set of pre-configured animation settings already available in yo
 
 - [Animation settings for WPF](https://github.com/XamlFlair/XamlFlair/blob/4fa2e00350df8391f26cab8f3552c56fc84fc416/Samples/XamlFlair.Samples.WPF/Animations.xaml#L6)
 
-Your app now has a pre-configured set of common animations ready to use.
+Your app now has a global set of **common** animations ready to use.
 
 ### Combining animations
 
-Animations can be combined, and as previously mentioned, any of these *combined* composite animations that are common should be placed in the global `ResourceDictionary` (ex: `Animations.xaml`):
+Animations can be combined, and as previously mentioned, any of these *combined* animations that are commonly used should be placed in the global `ResourceDictionary` (ex: `Animations.xaml`):
 
 ```xml
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -166,26 +164,26 @@ Animations can be combined, and as previously mentioned, any of these *combined*
     .
     .
     .
-    <xf:AnimationSettings x:Key="FadeInAndSlideFromRight"
-                          OffsetX="{StaticResource PositiveOffset}"
-                          Kind="FadeFrom,TranslateFrom" />
+    <xf:AnimationSettings x:Key="FadeInAndSlideFromLeft"
+                          Kind="FadeFrom,TranslateXFrom"
+                          Opacity="0"
+                          OffsetX="{StaticResource NegativeOffset}" />
 
-    <xf:AnimationSettings x:Key="FadeOutAndSlideToLeft"
-                          OffsetX="{StaticResource NegativeOffset}"
-                          Kind="FadeTo,TranslateTo" />
+    <xf:AnimationSettings x:Key="FadeInAndSlideFromTop"
+                          Kind="FadeFrom,TranslateYFrom"
+                          Opacity="0"
+                          OffsetY="{StaticResource NegativeOffset}" />
 
-    <xf:AnimationSettings x:Key="FadeOutAndSlideToTop"
-                          OffsetY="{StaticResource NegativeOffset}"
-                          Kind="FadeTo,TranslateTo" />
+    <xf:AnimationSettings x:Key="FadeInAndGrow"
+                          Kind="FadeFrom,ScaleXFrom,ScaleXFrom"
+                          Opacity="0"
+                          ScaleX="{StaticResource SmallScaleFactor}"
+                          ScaleY="{StaticResource SmallScaleFactor}" />
 
-    <xf:AnimationSettings x:Key="FadeInAndInflate"
-                          Scale="{StaticResource SmallScaleFactor}"
-                          Kind="FadeFrom,ScaleFrom" />
-
-    <xf:AnimationSettings x:Key="FadeInAndSlideFromLeftAndGrow"
-                          OffsetX="{StaticResource NegativeOffset}"
-                          Scale="{StaticResource SmallScaleFactor}"
-                          Kind="FadeFrom,TranslateFrom,ScaleFrom" />
+    <xf:AnimationSettings x:Key="FadeInAndGrowHorizontally"
+                          Kind="FadeFrom,ScaleXFrom"
+                          Opacity="0"
+                          ScaleX="{StaticResource SmallScaleFactor}" />
     .
     .
     .
@@ -196,13 +194,13 @@ This demonstrates a combined animation of a `FadeFrom` and `TranslateFrom`:
 
 ![Fade and translation animation](doc/gifs/FadeInTranslate.gif)
 
-This demonstrates a combined animation of a `FadeFrom`, `TranslateFrom`, `ScaleFrom`, and `RotateFrom`:
+This demonstrates a combined animation of a `FadeFrom`, `TranslateFrom`, and `ScaleFrom`:
 
 ![Fade, translation, and rotation snimation](doc/gifs/FadeInTranslateRotateScale.gif)
 
 ### Overriding values
 
-Primary animations can have their animation settings overridden directly on the `FrameworkElement`. This is commonly done to alter values for Delay and Duration so that we don't over-populate the `Animations.xaml` file with repeated resources. To achieve overriding, use the `Animate` markup extension paired with the `BasedOn` property:
+Animations can have their settings overridden directly on the `FrameworkElement`. This is commonly done to alter values for Delay and Duration so that we don't over-populate the `Animations.xaml` file with repeated resources. To achieve overriding, use the `Animate` markup extension paired with the `BasedOn` property:
 
 ```xml
 <Border xf:Animations.Primary="{xf:Animate BasedOn={StaticResource ScaleFromBottom}, Delay=500}">
@@ -218,22 +216,22 @@ A compound animation is simply a multi-step animation using the `CompoundSetting
 <xf:CompoundSettings x:Key="Progress">
     <xf:CompoundSettings.Sequence>
         <xf:AnimationSettings ScaleX="0"
-                              RenderTransformOrigin="1,0.5"
-                              Kind="ScaleTo" />
+                              Kind="ScaleTo"
+                              RenderTransformOrigin="1,0.5" />
         <xf:AnimationSettings ScaleX="0"
-                              RenderTransformOrigin="1,0.5"
-                              Kind="ScaleFrom" />
+                              Kind="ScaleFrom"
+                              RenderTransformOrigin="1,0.5" />
         <xf:AnimationSettings ScaleX="0"
-                              RenderTransformOrigin="0,0.5"
-                              Kind="ScaleTo" />
+                              Kind="ScaleTo"
+                              RenderTransformOrigin="0,0.5" />
         <xf:AnimationSettings ScaleX="0"
-                              RenderTransformOrigin="0,0.5"
-                              Kind="ScaleFrom" />
+                              Kind="ScaleFrom"
+                              RenderTransformOrigin="0,0.5" />
     </xf:CompoundSettings.Sequence>
 </xf:CompoundSettings>
 ```
 
-> **Note**: `CompoundSettings` support the `Event` property, which is discussed in the next section.
+> **Note**: `CompoundSettings` support the `Event` property, which is discussed in a later section.
 
 ### Repeating animations
 
@@ -262,9 +260,9 @@ Also note that it is also possible to repeat a Compound animation. For example, 
         xf:Animations.IterationCount="5" />
 ```
 
-> **Note**: When using repeating animations, you cannot set a `Secondary` animation on the element.
+> **Warning**: When using repeating animations, you cannot set a `Secondary` animation on the element.
 
-### Events and bindings
+### Events and Bindings
 
 By default, all animations execute once the UI element fires its `Loaded` event. This behavior can be overridden by setting the `Event` property. `Event` can be one of the following values:
 
@@ -291,14 +289,14 @@ The above animation will *only* execute when the `IsChecked` is `True`. If `None
 
 ### Using the *StartWith* property
 
-There will be cases when you will need your UI element to start in a specific state, for example, the element needs to be shrunk before its animation executes). This is achieved using the `StartWith` property: 
+There will be cases when you will need your UI element to start in a specific state, for example, the element needs to be shrunk before its animation executes. This is achieved using the `StartWith` property:
 
 ```xml
 <Rectangle xf:Animations.Primary="{xf:Animate BasedOn={StaticResource ScaleFromBottom}, Delay=500}"
            xf:Animations.StartWith="{StaticResource ScaleFromBottom}" />
 ```
 
-In the above example, since the element is scaling from the bottom, but with a delay, we need to _start_ in the _scaled_ position, so we use the `StartWith` property to set it in its initial state. What `StartWith` essentially does is setup the initial values on the element's CompositeTransform as soon as it has loaded.
+In the above example, since the element is scaling from the bottom, but with a delay, we need to _start_ in the _scaled_ position, so we use the `StartWith` property to set its initial state. What `StartWith` essentially does is setup the initial values on the element as soon as it has loaded.
 
 ### Logging animations
 
@@ -406,8 +404,9 @@ Just like `PrimaryBinding` and `SecondaryBinding`, item animations can be trigge
                       xf:Animations.ItemsBinding="{Binding MyViewModelProperty}"
                       xf:Animations:Items="{xf:Animate BasedOn={StaticResource FadeIn}, Event=Visibility}" />
 ```
+> **Warning (UWP ONLY)**: Be aware that if you have any `ItemContainerTransitions` set on the `AnimatedListView` or `AnimatedGridView`, they will be cleared. This is done to avoid conflicting item animations.
 
-> **Note (UWP ONLY)**: To avoid any flickers on item animations, there is currently a constraint in place: An `Items` animation **must** contain a `FadeFrom`.
+> **Note (UWP ONLY)**: To avoid any flickers on item animations, there is currently a constraint in place: `Items` animation **must** contain a `FadeFrom`.
 
 [UWPNuget]: https://www.nuget.org/packages/XamlFlair.UWP/
 [WPFNuget]: https://www.nuget.org/packages/XamlFlair.WPF/
