@@ -18,7 +18,7 @@
     <!--*-->
     <description>XamlFlair animation library for the UWP platform.</description>
     <!--*-->
-    <releaseNotes>Applied a FadeFrom requirement (limitation) for UWP AnimatedListViews and AnimatedGridViews to avoid flicker on first run of item animations.</releaseNotes>
+    <releaseNotes>Renamed the RenderTransformOrigin property to TransformCenterPoint.</releaseNotes>
     <copyright>Copyright © 2019</copyright>
     <tags>
     </tags>

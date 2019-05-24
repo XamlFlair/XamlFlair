@@ -2,7 +2,7 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/nuget_key.txt
+/nuget.txt
 /.vs/XamlFlair/v15
 /.vs/VSWorkspaceState.json
 /.vs/slnx.sqlite
@@ -17,3 +17,5 @@
 /Samples/XamlFlair.Samples.WPF/obj
 /XamlFlair.UWP/bin/Debug
 /XamlFlair.WPF/bin/Debug
+/XamlFlair.UWP/bin
+/XamlFlair.WPF/bin
