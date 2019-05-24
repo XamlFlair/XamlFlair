@@ -109,7 +109,7 @@ namespace XamlFlair.Extensions
 			updated.ScaleY = scaleY != 1 ? scaleY : settings.ScaleY;
 
 			var origin = other.TransformCenterPoint;
-			updated.TransformCenterPoint = origin != AnimationSettings.DEFAULT_TRANSFORM_ORIGIN ? origin : settings.TransformCenterPoint;
+			updated.TransformCenterPoint = origin != AnimationSettings.DEFAULT_TRANSFORM_CENTER_POINT ? origin : settings.TransformCenterPoint;
 
 			var easingMode = other.EasingMode;
 			updated.EasingMode = easingMode != AnimationSettings.DEFAULT_EASING_MODE ? easingMode : settings.EasingMode;

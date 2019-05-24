@@ -31,7 +31,7 @@ namespace XamlFlair
 		internal const AnimationKind DEFAULT_KIND = AnimationKind.FadeTo;
 		internal const double DEFAULT_DURATION = 500;
 		internal const double DEFAULT_INTER_ELEMENT_DELAY = 25;
-		internal static readonly Point DEFAULT_TRANSFORM_ORIGIN = new Point(0.5, 0.5);
+		internal static readonly Point DEFAULT_TRANSFORM_CENTER_POINT = new Point(0.5, 0.5);
 		internal const EasingType DEFAULT_EASING = EasingType.Cubic;
 		internal const EasingMode DEFAULT_EASING_MODE = EasingMode.EaseOut;
 		internal const EventType DEFAULT_EVENT = EventType.Loaded;
@@ -239,14 +239,14 @@ namespace XamlFlair
 		}
 
 		/// <summary>
-		/// Specifies the origin of the element's RenderTransform
+		/// Specifies the center point of the element's transform
 		/// </summary>
 		public static readonly DependencyProperty TransformCenterPointProperty =
 			DependencyProperty.Register(
 				nameof(TransformCenterPoint),
 				typeof(Point),
 				typeof(AnimationSettings),
-				new PropertyMetadata(DEFAULT_TRANSFORM_ORIGIN));
+				new PropertyMetadata(DEFAULT_TRANSFORM_CENTER_POINT));
 
 		public EasingType Easing
 		{
