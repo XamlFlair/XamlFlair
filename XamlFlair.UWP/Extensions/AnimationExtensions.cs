@@ -293,12 +293,7 @@ namespace XamlFlair.Extensions
 
 			if (settings.OffsetX != 0 || settings.OffsetY != 0)
 			{
-				var propSet = visual.Properties;
-
-				if (propSet.TryGetVector3(Constants.TargetProperties.Translation, out var _) == CompositionGetValueStatus.Succeeded)
-				{
-					propSet.InsertVector3(Constants.TargetProperties.Translation, new Vector3((float)settings.OffsetX, (float)settings.OffsetY, (float)settings.OffsetZ));
-				}
+				visual.Properties.InsertVector3(Constants.TargetProperties.Translation, new Vector3((float)settings.OffsetX, (float)settings.OffsetY, (float)settings.OffsetZ));
 			}
 
 			if (settings.Rotation != 0)
