@@ -284,60 +284,31 @@ namespace XamlFlair.Extensions
 		internal static void ApplyInitialSettings(this FrameworkElement element, AnimationSettings settings)
 		{
 			var group = new AnimationGroup();
+			var visual = ElementCompositionPreview.GetElementVisual(element);
 
 			if (settings.Opacity != 1)
 			{
-				var initialSettings = new AnimationSettings()
-				{
-					Opacity = settings.Opacity,
-					Duration = 1
-				};
-
-				FadeTo(element, initialSettings, ref group);
+				visual.Opacity = (float)settings.Opacity;
 			}
 
 			if (settings.OffsetX != 0 || settings.OffsetY != 0)
 			{
-				// TODO: Can we directly set the values instead of animating...
-				var initialSettings = new AnimationSettings()
-				{
-					OffsetX = settings.OffsetX,
-					OffsetY = settings.OffsetY,
-					OffsetZ = settings.OffsetZ,
-					Duration = 1
-				};
+				var propSet = visual.Properties;
 
-				TranslateXTo(element, initialSettings, ref group);
-				TranslateYTo(element, initialSettings, ref group);
-				TranslateZTo(element, initialSettings, ref group);
+				if (propSet.TryGetVector3(Constants.TargetProperties.Translation, out var _) == CompositionGetValueStatus.Succeeded)
+				{
+					propSet.InsertVector3(Constants.TargetProperties.Translation, new Vector3((float)settings.OffsetX, (float)settings.OffsetY, (float)settings.OffsetZ));
+				}
 			}
 
 			if (settings.Rotation != 0)
 			{
-				// TODO: Can we directly set the values instead of animating...
-				var initialSettings = new AnimationSettings()
-				{
-					Rotation = settings.Rotation,
-					Duration = 1
-				};
-
-				RotateTo(element, initialSettings, ref group);
+				visual.RotationAngleInDegrees = (float)settings.Rotation;
 			}
 
-			if (settings.ScaleX != 0 || settings.ScaleY != 0)
+			if (settings.ScaleX != 1 || settings.ScaleY != 1)
 			{
-				// TODO: Can we directly set the values instead of animating...
-				var initialSettings = new AnimationSettings()
-				{
-					ScaleX = settings.ScaleX,
-					ScaleY = settings.ScaleY,
-					ScaleZ = settings.ScaleZ,
-					Duration = 1
-				};
-
-				ScaleXTo(element, initialSettings, ref group);
-				ScaleYTo(element, initialSettings, ref group);
-				ScaleZTo(element, initialSettings, ref group);
+				visual.Scale = new Vector3((float)settings.ScaleX, (float)settings.ScaleY, (float)settings.ScaleZ);
 			}
 
 			if (settings.BlurRadius != 0)

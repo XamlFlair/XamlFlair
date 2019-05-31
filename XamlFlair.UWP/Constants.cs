@@ -16,11 +16,13 @@ namespace XamlFlair
 
 			internal static string Opacity = nameof(Opacity);
 
-			internal static string RotationAngleinDegrees = nameof(RotationAngleinDegrees);
+			internal static string RotationAngleInDegrees = nameof(RotationAngleInDegrees);
 
 			internal static string Blur = nameof(Blur);
 
 			internal static string BlurAmount = $"{nameof(Blur)}.{nameof(BlurAmount)}";
+
+			internal static string Translation = "Translation";
 
 			internal static string TranslationX = "Translation.X";
 

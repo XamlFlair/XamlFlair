@@ -317,7 +317,7 @@ namespace XamlFlair
 		private static void RunNextAnimation(Timeline timeline, FrameworkElement element)
 		{
 			var timelineGuid = GetTimelineGuid(timeline);
-			var elementGuid = GetElementGuid(timeline);
+			var elementGuid = GetElementGuid(element);
 			var active = _actives.Find(timelineGuid);
 
 			active.SetAnimationState(timelineGuid, AnimationState.Completed);
@@ -529,6 +529,7 @@ namespace XamlFlair
 			var startFirst = true;
 			var iterationBehavior = GetIterationBehavior(element);
 			var iterationCount = GetIterationCount(element);
+			var sequenceCounter = 0;
 
 			foreach (var settings in settingsList)
 			{
@@ -543,8 +544,10 @@ namespace XamlFlair
 				}
 				else
 				{
-					_actives.Add(null, settings, element, AnimationState.Idle, iterationBehavior, iterationCount, isSequence);
+					_actives.Add(null, settings, element, AnimationState.Idle, iterationBehavior, iterationCount, isSequence, sequenceOrder: sequenceCounter);
 				}
+
+				sequenceCounter++;
 			}
 		}
 
