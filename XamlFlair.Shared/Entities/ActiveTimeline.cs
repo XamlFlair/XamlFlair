@@ -29,9 +29,11 @@ namespace XamlFlair
 
 		internal bool IsSequence { get; set; }
 
+		internal int SequenceOrder { get; set; }
+
 		internal bool IsIterating { get => IterationCount > 0 || IterationBehavior == IterationBehavior.Forever; }
 
-#region Equality
+		#region Equality
 
 		public override bool Equals(object obj)
 		{
@@ -60,7 +62,9 @@ namespace XamlFlair
 				&& other.Settings.Equals(State)
 				&& other.Settings.Equals(IterationBehavior)
 				&& other.Settings.Equals(IterationCount)
-				&& other.Settings.Equals(IsSequence);
+				&& other.Settings.Equals(IsSequence)
+				&& other.Settings.Equals(SequenceOrder)
+				&& other.Settings.Equals(IsIterating);
 		}
 
 		public override int GetHashCode()
@@ -80,6 +84,8 @@ namespace XamlFlair
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, IterationBehavior) ? IterationBehavior.GetHashCode() : 0);
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, IterationCount) ? IterationCount.GetHashCode() : 0);
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, IsSequence) ? IsSequence.GetHashCode() : 0);
+				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, SequenceOrder) ? SequenceOrder.GetHashCode() : 0);
+				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, IsIterating) ? IsIterating.GetHashCode() : 0);
 				return hash;
 			}
 		}

@@ -18,8 +18,16 @@ namespace XamlFlair.Extensions
 {
 	internal static class ActiveTimelineExtensions
 	{
-		internal static ActiveTimeline<T> Add<T>(this ConcurrentDictionary<Guid, ActiveTimeline<T>> actives, T timeline, AnimationSettings settings, FrameworkElement element, AnimationState state, IterationBehavior iterationBehavior, int iterationCount, bool isSequence)
-			where T : DependencyObject
+		internal static ActiveTimeline<T> Add<T>(
+			this ConcurrentDictionary<Guid, ActiveTimeline<T>> actives,
+			T timeline, AnimationSettings settings,
+			FrameworkElement element,
+			AnimationState state,
+			IterationBehavior iterationBehavior,
+			int iterationCount,
+			bool isSequence,
+			int sequenceOrder = 0)
+				where T : DependencyObject
 		{
 			var elementGuid = Animations.GetElementGuid(element);
 			var timelineGuid = Guid.NewGuid();
@@ -46,7 +54,8 @@ namespace XamlFlair.Extensions
 				State = state,
 				IterationBehavior = iterationBehavior,
 				IterationCount = iterationCount,
-				IsSequence = isSequence
+				IsSequence = isSequence,
+				SequenceOrder = sequenceOrder
 			};
 
 			if (actives.TryAdd(timelineGuid, active) && Animations.EnableActiveTimelinesLogging)
@@ -81,6 +90,7 @@ namespace XamlFlair.Extensions
 			where T : DependencyObject
 		{
 			return actives
+				.OrderBy(kvp => kvp.Value.SequenceOrder)
 				.FirstOrDefault(kvp => kvp.Value.ElementGuid.Equals(elementGuid))
 				.Value;
 		}
@@ -106,9 +116,15 @@ namespace XamlFlair.Extensions
 		internal static ActiveTimeline<T> GetNextIdle<T>(this ConcurrentDictionary<Guid, ActiveTimeline<T>> actives, Guid elementGuid)
 			where T : DependencyObject
 		{
+			return actives.GetNextIdleKeyValuePair(elementGuid).Value;
+		}
+
+		private static KeyValuePair<Guid, ActiveTimeline<T>> GetNextIdleKeyValuePair<T>(this ConcurrentDictionary<Guid, ActiveTimeline<T>> actives, Guid elementGuid)
+			where T : DependencyObject
+		{
 			return actives
 				.Where(kvp => kvp.Value.State == AnimationState.Idle && kvp.Value.ElementGuid.Equals(elementGuid))
-				.Select(kvp => kvp.Value)
+				.OrderBy(kvp => kvp.Value.SequenceOrder)
 				.FirstOrDefault();
 		}
 
@@ -170,8 +186,7 @@ namespace XamlFlair.Extensions
 		internal static ActiveTimeline<T> SetTimeline<T>(this ConcurrentDictionary<Guid, ActiveTimeline<T>> actives, Guid elementGuid, T timeline)
 			where T : DependencyObject
 		{
-			var activeKvp = actives
-				.FirstOrDefault(kvp => kvp.Value.State == AnimationState.Idle && kvp.Value.ElementGuid.Equals(elementGuid));
+			var activeKvp = actives.GetNextIdleKeyValuePair(elementGuid);
 
 			if (activeKvp.Value != null)
 			{
@@ -259,6 +274,7 @@ namespace XamlFlair.Extensions
 						$"ElementGuid = {kvp.Value.ElementGuid}");
 					builder.AppendLine(
 						$"\t State = {kvp.Value.State},  " +
+						$"SequenceOrder = {kvp.Value.SequenceOrder},  " +
 						$"IsSequence = {kvp.Value.IsSequence},  " +
 						$"IsIterating = {kvp.Value.IsIterating},  " +
 						$"IterationBehavior = {kvp.Value.IterationBehavior},  " +

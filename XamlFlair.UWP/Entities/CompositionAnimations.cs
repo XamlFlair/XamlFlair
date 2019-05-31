@@ -294,7 +294,7 @@ namespace XamlFlair
 
 	internal class RotateAnimation : ScalarAnimationBase
 	{
-		public RotateAnimation() : base(Constants.TargetProperties.RotationAngleinDegrees) { }
+		public RotateAnimation() : base(Constants.TargetProperties.RotationAngleInDegrees) { }
 	}
 
 	//internal class SkewMatrixAnimation : ExpressionAnimationBase
