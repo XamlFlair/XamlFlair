@@ -31,11 +31,11 @@ The basic concept of XamlFlair is based on animations that are categorized as _F
 
 Example of a _From_ animation (a UI element sliding into its original state):
 
-![From animation](doc/gifs/From.gif)
+![From animation](doc/gifs/TranslateFrom.gif)
 
 Example of a _To_ animation (a UI element sliding away from its original state):
 
-![To animation](doc/gifs/To.gif)
+![To animation](doc/gifs/TranslateTo.gif)
 
 ## Usage
 
@@ -65,21 +65,21 @@ From here on, it's a simple matter of setting an attached property to any `Frame
 
 #### Fade
 
-![Fade animation](doc/gifs/FadeIn.gif)
+![Fade animation](doc/gifs/FadeFrom.gif)
 
 > **Warning**: Be careful when animating `FadeTo` since the element remains in the Visual Tree if the `Visibility` is `Visible`. There may be cases where you'll need to manually manage `IsHitTestVisible` to allow the user to tap *through* the element.
 
 #### Translate
 
-![Translation animation](doc/gifs/Translate.gif)
+![Translation animation](doc/gifs/TranslateFrom.gif)
 
 #### Scale
 
-![Scale animation](doc/gifs/Scale.gif)
+![Scale animation](doc/gifs/ScaleFrom.gif)
 
 #### Rotate
 
-![Rotation animation](doc/gifs/Rotate.gif)
+![Rotation animation](doc/gifs/RotateFrom.gif)
 
 The following lists some notable **default values** when working with XamlFlair:
 
@@ -192,11 +192,11 @@ Animations can be combined, and as previously mentioned, any of these *combined*
 
 This demonstrates a combined animation of a `FadeFrom` and `TranslateFrom`:
 
-![Fade and translation animation](doc/gifs/FadeInTranslate.gif)
+![Fade and translation animation](doc/gifs/FadeFromTranslateFrom.gif)
 
 This demonstrates a combined animation of a `FadeFrom`, `TranslateFrom`, and `ScaleFrom`:
 
-![Fade, translation, and rotation snimation](doc/gifs/FadeInTranslateRotateScale.gif)
+![Fade, translation, and scale snimation](doc/gifs/FadeFromTranslateFromScaleFrom.gif)
 
 ### Overriding values
 
@@ -213,20 +213,17 @@ A compound animation is simply a multi-step animation using the `CompoundSetting
 ![Compound animation](doc/gifs/Compound.gif)
 
 ```xml
-<xf:CompoundSettings x:Key="Progress">
+<xf:CompoundSettings x:Key="Compound">
     <xf:CompoundSettings.Sequence>
-        <xf:AnimationSettings ScaleX="0"
-                              Kind="ScaleTo"
-                              TransformCenterPoint="1,0.5" />
-        <xf:AnimationSettings ScaleX="0"
-                              Kind="ScaleFrom"
-                              TransformCenterPoint="1,0.5" />
-        <xf:AnimationSettings ScaleX="0"
-                              Kind="ScaleTo"
-                              TransformCenterPoint="0,0.5" />
-        <xf:AnimationSettings ScaleX="0"
-                              Kind="ScaleFrom"
-                              TransformCenterPoint="0,0.5" />
+        <xf:AnimationSettings Kind="ScaleXTo"
+                              ScaleX="1.25"
+                              Duration="1250" />
+        <xf:AnimationSettings Kind="ScaleXTo"
+                              ScaleX="1"
+                              Duration="1250" />
+        <xf:AnimationSettings Kind="RotateTo"
+                              Rotation="360"
+                              Duration="1250" />
     </xf:CompoundSettings.Sequence>
 </xf:CompoundSettings>
 ```
@@ -237,7 +234,7 @@ A compound animation is simply a multi-step animation using the `CompoundSetting
 
 An animation can be repeated by using the `IterationBehavior` and `IterationCount` properties (default values of `Count` and `1` respectively).
 
-**TODO**: INSERT GIF ...
+![Compound animation](doc/gifs/Repeating.gif)
 
 The following demonstrates how to run an animation only 5 times:
 

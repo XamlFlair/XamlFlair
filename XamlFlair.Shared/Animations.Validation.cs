@@ -101,15 +101,10 @@ namespace XamlFlair
 				throw new ArgumentException($"{nameof(SecondaryProperty)} is missing a trigger by an event or binding.");
 			}
 
-			// StartWith cannot be set with a compound animation.
-			if (startWith != DependencyProperty.UnsetValue)
+			// Cannot use StartWith without specifying a Primaryanimation.
+			if (startWith != DependencyProperty.UnsetValue && primary == DependencyProperty.UnsetValue)
 			{
-				var compound = GetStartWith(element)?.ToSettingsList();
-
-				if ((compound?.Count ?? 0) > 1)
-				{
-					throw new ArgumentException($"{nameof(StartWithProperty)} cannot be set with a compound animation.");
-				}
+				throw new ArgumentException($"Cannot use {nameof(StartWithProperty)} without specifying a {nameof(PrimaryProperty)} animation.");
 			}
 		}
 
