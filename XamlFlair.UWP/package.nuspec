@@ -4,7 +4,7 @@
     <!--*-->
     <id>XamlFlair.UWP</id>
     <!--*-->
-    <version>1.0.9</version>
+    <version>1.0.10</version>
     <title>XamlFlair.UWP</title>
     <!--*-->
     <authors>xamlflair</authors>
@@ -15,10 +15,12 @@
 			<iconUrl></iconUrl>
 		-->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
+	<projectUrl>https://github.com/XamlFlair/XamlFlair</projectUrl>
+    <iconUrl>https://github.com/XamlFlair/XamlFlair/blob/master/nuget_logo.png?raw=true</iconUrl>
     <!--*-->
     <description>XamlFlair animation library for the UWP platform.</description>
     <!--*-->
-    <releaseNotes>Renamed the RenderTransformOrigin property to TransformCenterPoint.</releaseNotes>
+    <releaseNotes>Added fixes related to Sequence animations.</releaseNotes>
     <copyright>Copyright © 2019</copyright>
     <tags>
     </tags>

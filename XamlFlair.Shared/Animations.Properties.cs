@@ -13,9 +13,23 @@ namespace XamlFlair
 		/// <summary>
 		/// Activates logging for the list of active storyboards (outputs the list on every item add/remove)
 		/// </summary>
-		public static bool EnableActiveTimelinesLogging { get; set; } = true;
+		public static bool EnableActiveTimelinesLogging { get; set; }
 
 		#region Attached Properties
+
+		internal static bool GetIsInitialized(DependencyObject obj) => (bool)obj.GetValue(IsInitializedProperty);
+
+		internal static void SetIsInitialized(DependencyObject obj, bool value) => obj.SetValue(IsInitializedProperty, value);
+
+		/// <summary>
+		/// Specifies that InitializeElement has executed for the corresponding FrameworkElement
+		/// </summary>
+		internal static readonly DependencyProperty IsInitializedProperty =
+			DependencyProperty.RegisterAttached(
+				"IsInitialized",
+				typeof(bool),
+				typeof(Animations),
+				new PropertyMetadata(false));
 
 		internal static Guid GetElementGuid(DependencyObject obj) => (Guid)obj.GetValue(ElementGuidProperty);
 
@@ -127,7 +141,7 @@ namespace XamlFlair
 				"StartWith",
 				typeof(AnimationSettings),
 				typeof(Animations),
-				new PropertyMetadata(null));
+				new PropertyMetadata(null, OnStartWithChanged));
 
 		public static int GetIterationCount(DependencyObject obj) => (int)obj.GetValue(IterationCountProperty);
 

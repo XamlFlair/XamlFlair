@@ -79,15 +79,53 @@ namespace XamlFlair
 
 			if (d is FrameworkElement element)
 			{
-				// Main one-time entry point for element initialization
 				InitializeElement(element);
 
 				RegisterElementEvents(element, e.NewValue as IAnimationSettings);
 			}
 		}
 
+		private static void OnSecondaryChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		{
+			// Prevent running animations in a Visual Designer
+			if (IsInDesignMode(d))
+			{
+				return;
+			}
+
+			if (d is FrameworkElement element)
+			{
+				InitializeElement(element);
+
+				RegisterElementEvents(element, e.NewValue as IAnimationSettings, useSecondarySettings: true);
+			}
+		}
+
+		private static void OnStartWithChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		{
+			// Prevent running animations in a Visual Designer
+			if (IsInDesignMode(d))
+			{
+				return;
+			}
+
+			if (d is FrameworkElement element)
+			{
+				InitializeElement(element);
+			}
+		}
+
+		// This can be called from the three main entry-points (Primary, Secondary, and StartWith)
 		private static void InitializeElement(FrameworkElement element)
 		{
+			if (GetIsInitialized(element))
+			{
+				return;
+			}
+
+			// Set IsInitialized to true to only run this code once per element
+			SetIsInitialized(element, true);
+
 #if __UWP__
 			// The new way of handling translate animations (see Translation property section):
 			// https://blogs.windows.com/buildingapps/2017/06/22/sweet-ui-made-possible-easy-windows-ui-windows-10-creators-update/
@@ -150,30 +188,6 @@ namespace XamlFlair
 					ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.SizeChanged)} event of {nameof(FrameworkElement)}", ex)
 				);
 #endif
-		}
-
-		private static void OnSecondaryChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-		{
-			// Prevent running animations in a Visual Designer
-			if (IsInDesignMode(d))
-			{
-				return;
-			}
-
-			if (d is FrameworkElement element)
-			{
-				element.Loaded += Validate_Loaded;
-
-				void Validate_Loaded(object sender, RoutedEventArgs args)
-				{
-					element.Loaded -= Validate_Loaded;
-
-					// Perform validations on element's attached properties
-					Validate(element);
-				}
-
-				RegisterElementEvents(element, e.NewValue as IAnimationSettings, useSecondarySettings: true);
-			}
 		}
 
 		#endregion
