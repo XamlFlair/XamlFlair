@@ -19,11 +19,15 @@ UWP:
 Install-Package XamlFlair.UWP
 ```
 
+> Your app must target a minimum of Windows 10 version 1803 (build 17134)
+
 WPF:
 
 ```
 Install-Package XamlFlair.WPF
 ```
+
+> Requires .Net Framework 4.7.2
 
 ## Basic Concepts
 
@@ -297,7 +301,22 @@ In the above example, since the element is scaling from the bottom, but with a d
 
 ### Logging animations
 
-**TODO**: EXPLAIN HOW WITH A SERILOG EXAMPLE ...
+The XamlFlair library abstracts its logging using [LibLog](https://github.com/damianh/LibLog). LibLib supports the major logging frameworks, which allows a developer using the XamlFlair library to choose their preferred logging system. Below is a logging example using [Serilog](https://serilog.net/) in a UWP app:
+
+```cs
+public App()
+{
+    this.InitializeComponent();
+    .
+    .
+    .
+    // Setup the Serilog logger
+    Log.Logger = new LoggerConfiguration()
+        .MinimumLevel.Debug()
+        .WriteTo.Debug()
+        .CreateLogger();
+}
+```
 
 To output the values of one or more animations, simply set `True` to the `EnableLogging` property on the target `FrameworkElement`:
 
@@ -355,7 +374,6 @@ Doing so will provide you with the following similar console output:
 
 In order to properly implement item animations on list items, it was not enough to simply create attached properties against the ListViewBase (UWP) and ListBox (WPF) controls. Instead, inherited controls were created: `AnimatedListView` and `AnimatedGridView` for UWP, and `AnimatedListView` and `AnimatedListBox` for WPF, all available from the `XamlFlair.Controls` namespace:
 
-
 **UWP namespace:**
 ```xml
 xmlns:xfc="using:XamlFlair.Controls"
@@ -399,7 +417,7 @@ Just like `PrimaryBinding` and `SecondaryBinding`, item animations can be trigge
 <xfc:AnimatedListView ItemsSource="Binding SampleDataList"
                       xf:Animations.AnimateOnLoad="False"
                       xf:Animations.ItemsBinding="{Binding MyViewModelProperty}"
-                      xf:Animations:Items="{xf:Animate BasedOn={StaticResource FadeIn}, Event=Visibility}" />
+                      xf:Animations:Items="{xf:Animate BasedOn={StaticResource FadeIn}}" />
 ```
 > **Warning (UWP ONLY)**: Be aware that if you have any `ItemContainerTransitions` set on the `AnimatedListView` or `AnimatedGridView`, they will be cleared. This is done to avoid conflicting item animations.
 
