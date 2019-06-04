@@ -15,12 +15,12 @@
 			<iconUrl></iconUrl>
 		-->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-	<projectUrl>https://github.com/XamlFlair/XamlFlair</projectUrl>
+    <projectUrl>https://github.com/XamlFlair/XamlFlair</projectUrl>
     <iconUrl>https://github.com/XamlFlair/XamlFlair/blob/master/nuget_logo.png?raw=true</iconUrl>
     <!--*-->
     <description>XamlFlair animation library for the WPF platform.</description>
     <!--*-->
-    <releaseNotes>Added fixes related to Sequence animations.</releaseNotes>
+    <releaseNotes>Added fixes related to Sequence animations and adjusted validation-related code.</releaseNotes>
     <copyright>Copyright © 2019</copyright>
     <tags>
     </tags>
