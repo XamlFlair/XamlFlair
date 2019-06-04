@@ -4,6 +4,8 @@
 
 The goal of the XamlFlair library is to ease the implementation of common animations and allow a developer to *easily* add a single or combined set of animations with just a few lines of Xaml.
 
+![Sample App](doc/gifs/uwp.gif)
+
 ## Install from Nuget
 
 | Platform | Package | NuGet |
