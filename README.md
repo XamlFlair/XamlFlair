@@ -288,7 +288,9 @@ When specifying `None`, you will manually need to trigger your animations using 
            xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Event=None}" />
 ```
 
-The above animation will *only* execute when the `IsChecked` is `True`. If `None` was not specified for `Event`, the animation would then execute on `Loaded` *and* on the binding.
+The above animation will *only* execute when the `IsChecked` is `True`. If `None` was not specified for `Event`, the animation would then execute on `Loaded` *and* on the binding. A value of `False` will stop any running animations on the element.
+
+> **Note:** If you have a binding that starts an animation, then stops it, then starts it, etc., this won't work for __To__ animations. In such a case, you would need to use a `Sequence` to have the initial value set whenever the animation runs.
 
 ### Using the *StartWith* property
 
