@@ -4,7 +4,7 @@
     <!--*-->
     <id>XamlFlair.WPF</id>
     <!--*-->
-    <version>1.0.10</version>
+    <version>1.0.11</version>
     <title>XamlFlair.WPF</title>
     <!--*-->
     <authors>xamlflair</authors>
@@ -20,7 +20,7 @@
     <!--*-->
     <description>XamlFlair animation library for the WPF platform.</description>
     <!--*-->
-    <releaseNotes>Added fixes related to Sequence animations and adjusted validation-related code.</releaseNotes>
+    <releaseNotes>Added support to stop animations when passing a False to PrimaryBinding and SecondaryBinding.</releaseNotes>
     <copyright>Copyright © 2019</copyright>
     <tags>
     </tags>

@@ -43,30 +43,12 @@ namespace XamlFlair
 
 		private static void OnPrimaryBindingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
 		{
-			// Prevent running animations in a Visual Designer
-			if (IsInDesignMode(d))
-			{
-				return;
-			}
-
-			if (d is FrameworkElement element && e.NewValue is bool isAnimating && isAnimating)
-			{
-				PrepareAnimations(element);
-			}
+			HandleBindingChange(d, e, useSecondaryAnimation: false);
 		}
 
 		private static void OnSecondaryBindingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
 		{
-			// Prevent running animations in a Visual Designer
-			if (IsInDesignMode(d))
-			{
-				return;
-			}
-
-			if (d is FrameworkElement element && e.NewValue is bool isAnimating && isAnimating)
-			{
-				PrepareAnimations(element, useSecondaryAnimation: true);
-			}
+			HandleBindingChange(d, e, useSecondaryAnimation: true);
 		}
 
 		private static void OnPrimaryChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -371,13 +353,34 @@ namespace XamlFlair
 			// Else if it's done animating, clean it up
 			else if (active.IterationCount <= 1 && active.IterationBehavior != IterationBehavior.Forever)
 			{
-				Cleanup(elementGuid, includeIterating: false, stopAnimation: false);
+				Cleanup(elementGuid, stopAnimation: false);
 			}
 		}
 
 		#endregion
 
 		#region Methods
+
+		private static void HandleBindingChange(DependencyObject d, DependencyPropertyChangedEventArgs e, bool useSecondaryAnimation)
+		{
+			// Prevent running animations in a Visual Designer
+			if (IsInDesignMode(d))
+			{
+				return;
+			}
+
+			if (d is FrameworkElement element && e.NewValue is bool isAnimating)
+			{
+				if (isAnimating)
+				{
+					PrepareAnimations(element, useSecondaryAnimation);
+				}
+				else
+				{
+					StopAnimations(GetElementGuid(element));
+				}
+			}
+		}
 
 		internal static void RunAnimation(FrameworkElement element, AnimationSettings settings, bool isSequence = false)
 		{
@@ -565,6 +568,22 @@ namespace XamlFlair
 			}
 		}
 
+		private static void StopAnimations(Guid elementGuid)
+		{
+			var actives = _actives.GetAll(elementGuid);
+
+			foreach (var active in actives)
+			{
+				if (active.Value.Timeline != null)
+				{
+					var timelineGuid = GetTimelineGuid(active.Value.Timeline);
+					active.Value.SetAnimationState(timelineGuid, AnimationState.Completed);
+				}
+
+				Cleanup(elementGuid, stopAnimation: true);
+			}
+		}
+
 		private static void UnregisterTimeline(Timeline timeline)
 		{
 			if (timeline == null)
@@ -589,30 +608,30 @@ namespace XamlFlair
 
 		private static void Cleanup(FrameworkElement element, bool includeIterating = true, bool stopAnimation = true)
 		{
-			Cleanup(GetElementGuid(element), includeIterating, stopAnimation);
+			Cleanup(GetElementGuid(element), stopAnimation);
 		}
 
-		private static void Cleanup(Guid elementGuid, bool includeIterating = true, bool stopAnimation = true)
+		private static void Cleanup(Guid elementGuid, bool stopAnimation = true)
 		{
-			var result = includeIterating
-				? _actives.GetAll(elementGuid)
-				: _actives.GetOnlyCompleted(elementGuid);
+			var result = _actives.GetAll(elementGuid);
 
-			foreach (var active in result.ToArray())
+			foreach (var kvp in result.ToArray())
 			{
-				var timeline = active.Timeline;
+				var timeline = kvp.Value.Timeline;
 
-				// We should only stop when the control unloads (since it can cause values to reset)
-				if (stopAnimation)
+				if (timeline != null)
 				{
-					timeline?.Stop();
+					// We should only stop when the control unloads (since it can cause values to reset)
+					if (stopAnimation)
+					{
+						timeline?.Stop();
+					}
+
+					UnregisterTimeline(timeline);
+					CleanupTimeline(timeline);
 				}
 
-				UnregisterTimeline(timeline);
-				CleanupTimeline(timeline);
-
-				var timelineGuid = GetTimelineGuid(timeline);
-				_actives.RemoveByID(timelineGuid);
+				_actives.RemoveByID(kvp.Key);
 			}
 		}
 

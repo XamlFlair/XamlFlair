@@ -95,22 +95,24 @@ namespace XamlFlair.Extensions
 				.Value;
 		}
 
-		internal static IEnumerable<ActiveTimeline<T>> GetAll<T>(this ConcurrentDictionary<Guid, ActiveTimeline<T>> actives, Guid elementGuid)
+		internal static IEnumerable<KeyValuePair<Guid, ActiveTimeline<T>>> GetAll<T>(this ConcurrentDictionary<Guid, ActiveTimeline<T>> actives, Guid elementGuid)
 			where T : DependencyObject
 		{
 			return actives
-				.Where(kvp => kvp.Value != null && kvp.Value.ElementGuid.Equals(elementGuid))
-				.Select(kvp => kvp.Value);
+				.Where(kvp => kvp.Value != null
+					&& kvp.Value.ElementGuid.Equals(elementGuid));
 		}
 
-		internal static IEnumerable<ActiveTimeline<T>> GetOnlyCompleted<T>(this ConcurrentDictionary<Guid, ActiveTimeline<T>> actives, Guid elementGuid)
+		internal static IEnumerable<KeyValuePair<Guid, ActiveTimeline<T>>> GetAllByState<T>(this ConcurrentDictionary<Guid, ActiveTimeline<T>> actives, Guid elementGuid, AnimationState state)
 			where T : DependencyObject
 		{
-			return actives
-				.Where(kvp => kvp.Value.ElementGuid.Equals(elementGuid)
-					&& kvp.Value.State == AnimationState.Completed
-					&& !kvp.Value.IsIterating)
-				.Select(kvp => kvp.Value);
+			return actives.GetAll(elementGuid).Where(kvp => kvp.Value.State == state);
+		}
+
+		internal static IEnumerable<ActiveTimeline<T>> GetAllTimelines<T>(this ConcurrentDictionary<Guid, ActiveTimeline<T>> actives, Guid elementGuid)
+			where T : DependencyObject
+		{
+			return actives.GetAll(elementGuid).Select(kvp => kvp.Value);
 		}
 
 		internal static ActiveTimeline<T> GetNextIdle<T>(this ConcurrentDictionary<Guid, ActiveTimeline<T>> actives, Guid elementGuid)
