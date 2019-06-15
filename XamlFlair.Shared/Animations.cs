@@ -144,7 +144,7 @@ namespace XamlFlair
 						var isVisible = element.Visibility == Visibility.Visible;
 						var elementGuid = GetElementGuid(element);
 
-						if (isVisible && _actives.GetNextIdle(elementGuid)?.Timeline is Timeline idle)
+						if (isVisible && _actives.GetNextIdleActiveTimeline(elementGuid)?.Timeline is Timeline idle)
 						{
 							RunNextAnimation(idle, element);
 						}
@@ -314,12 +314,12 @@ namespace XamlFlair
 		{
 			var timelineGuid = GetTimelineGuid(timeline);
 			var elementGuid = GetElementGuid(element);
-			var active = _actives.Find(timelineGuid);
+			var active = _actives.FindActiveTimeline(timelineGuid);
 
 			active.SetAnimationState(timelineGuid, AnimationState.Completed);
 
 			// If an idle animation exists, run it
-			if (_actives.GetNextIdle(elementGuid)?.Settings is AnimationSettings idleSettings)
+			if (_actives.GetNextIdleActiveTimeline(elementGuid)?.Settings is AnimationSettings idleSettings)
 			{
 				RunAnimation(element, idleSettings, runFromIdle: true);
 			}
@@ -333,7 +333,7 @@ namespace XamlFlair
 				// Make sure to run the next iteration on visible elements only
 				if (element.Visibility == Visibility.Visible)
 				{
-					var first = _actives.FindFirst(elementGuid);
+					var first = _actives.FindFirstActiveTimeline(elementGuid);
 					RunAnimation(element, first.Settings, runFromIdle: true);
 				}
 			}
@@ -570,7 +570,7 @@ namespace XamlFlair
 
 		private static void StopAnimations(Guid elementGuid)
 		{
-			var actives = _actives.GetAll(elementGuid);
+			var actives = _actives.GetAllKeyValuePairs(elementGuid);
 
 			foreach (var active in actives)
 			{
@@ -595,7 +595,7 @@ namespace XamlFlair
 
 			// Retrieve the original Storyboard since the one passed in is
 			// Frozen (to be able to unsubscribe from the event)
-			var original = _actives.Find(timelineGuid)?.Timeline;
+			var original = _actives.FindActiveTimeline(timelineGuid)?.Timeline;
 
 			if (original != null)
 			{
@@ -613,7 +613,7 @@ namespace XamlFlair
 
 		private static void Cleanup(Guid elementGuid, bool stopAnimation = true)
 		{
-			var result = _actives.GetAll(elementGuid);
+			var result = _actives.GetAllKeyValuePairs(elementGuid);
 
 			foreach (var kvp in result.ToArray())
 			{
@@ -646,7 +646,7 @@ namespace XamlFlair
 #if __WPF__
 			// Retrieve the original Storyboard since the one passed in is
 			// Frozen (to be able to unsubscribe from the event)
-			var original = _actives.Find(timelineGuid)?.Timeline;
+			var original = _actives.FindActiveTimeline(timelineGuid)?.Timeline;
 
 			if (original != null)
 			{
