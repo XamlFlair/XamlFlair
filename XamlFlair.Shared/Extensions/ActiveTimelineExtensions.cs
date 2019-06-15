@@ -75,7 +75,7 @@ namespace XamlFlair.Extensions
 			}
 		}
 
-		internal static ActiveTimeline<T> Find<T>(this ConcurrentDictionary<Guid, ActiveTimeline<T>> actives, Guid timelineGuid)
+		internal static ActiveTimeline<T> FindActiveTimeline<T>(this ConcurrentDictionary<Guid, ActiveTimeline<T>> actives, Guid timelineGuid)
 			where T : DependencyObject
 		{
 			if (actives.TryGetValue(timelineGuid, out var result))
@@ -83,10 +83,10 @@ namespace XamlFlair.Extensions
 				return result;
 			}
 
-			return default(ActiveTimeline<T>);
+			return default;
 		}
 
-		internal static ActiveTimeline<T> FindFirst<T>(this ConcurrentDictionary<Guid, ActiveTimeline<T>> actives, Guid elementGuid)
+		internal static ActiveTimeline<T> FindFirstActiveTimeline<T>(this ConcurrentDictionary<Guid, ActiveTimeline<T>> actives, Guid elementGuid)
 			where T : DependencyObject
 		{
 			return actives
@@ -95,7 +95,7 @@ namespace XamlFlair.Extensions
 				.Value;
 		}
 
-		internal static IEnumerable<KeyValuePair<Guid, ActiveTimeline<T>>> GetAll<T>(this ConcurrentDictionary<Guid, ActiveTimeline<T>> actives, Guid elementGuid)
+		internal static IEnumerable<KeyValuePair<Guid, ActiveTimeline<T>>> GetAllKeyValuePairs<T>(this ConcurrentDictionary<Guid, ActiveTimeline<T>> actives, Guid elementGuid)
 			where T : DependencyObject
 		{
 			return actives
@@ -103,19 +103,7 @@ namespace XamlFlair.Extensions
 					&& kvp.Value.ElementGuid.Equals(elementGuid));
 		}
 
-		internal static IEnumerable<KeyValuePair<Guid, ActiveTimeline<T>>> GetAllByState<T>(this ConcurrentDictionary<Guid, ActiveTimeline<T>> actives, Guid elementGuid, AnimationState state)
-			where T : DependencyObject
-		{
-			return actives.GetAll(elementGuid).Where(kvp => kvp.Value.State == state);
-		}
-
-		internal static IEnumerable<ActiveTimeline<T>> GetAllTimelines<T>(this ConcurrentDictionary<Guid, ActiveTimeline<T>> actives, Guid elementGuid)
-			where T : DependencyObject
-		{
-			return actives.GetAll(elementGuid).Select(kvp => kvp.Value);
-		}
-
-		internal static ActiveTimeline<T> GetNextIdle<T>(this ConcurrentDictionary<Guid, ActiveTimeline<T>> actives, Guid elementGuid)
+		internal static ActiveTimeline<T> GetNextIdleActiveTimeline<T>(this ConcurrentDictionary<Guid, ActiveTimeline<T>> actives, Guid elementGuid)
 			where T : DependencyObject
 		{
 			return actives.GetNextIdleKeyValuePair(elementGuid).Value;
@@ -237,12 +225,6 @@ namespace XamlFlair.Extensions
 			return actives.Any(kvp => kvp.Value.ElementGuid.Equals(elementGuid) && !kvp.Value.IsIterating);
 		}
 
-		internal static bool IsElementIterating<T>(this ConcurrentDictionary<Guid, ActiveTimeline<T>> actives, Guid elementGuid)
-			where T : DependencyObject
-		{
-			return actives.Any(kvp => kvp.Value.ElementGuid.Equals(elementGuid) && kvp.Value.IsIterating);
-		}
-
 		private static void LogActiveTimeline<T>(ActiveTimeline<T> active, Guid timelineGuid, string message)
 			where T : DependencyObject
 		{
@@ -270,17 +252,19 @@ namespace XamlFlair.Extensions
 			{
 				foreach (var kvp in actives)
 				{
+					var active = kvp.Value;
+
 					builder.AppendLine(
-						$"Element = {kvp.Value.Element.GetType().Name},  " +
+						$"Element = {active.Element.GetType().Name},  " +
 						$"Key = {kvp.Key},  " +
-						$"ElementGuid = {kvp.Value.ElementGuid}");
+						$"ElementGuid = {active.ElementGuid}");
 					builder.AppendLine(
-						$"\t State = {kvp.Value.State},  " +
-						$"SequenceOrder = {kvp.Value.SequenceOrder},  " +
-						$"IsSequence = {kvp.Value.IsSequence},  " +
-						$"IsIterating = {kvp.Value.IsIterating},  " +
-						$"IterationBehavior = {kvp.Value.IterationBehavior},  " +
-						$"IterationCount = {kvp.Value.IterationCount}");
+						$"\t State = {active.State},  " +
+						$"SequenceOrder = {active.SequenceOrder},  " +
+						$"IsSequence = {active.IsSequence},  " +
+						$"IsIterating = {active.IsIterating},  " +
+						$"IterationBehavior = {active.IterationBehavior},  " +
+						$"IterationCount = {active.IterationCount}");
 				}
 			}
 			else
