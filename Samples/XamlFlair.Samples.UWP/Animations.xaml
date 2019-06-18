@@ -185,7 +185,7 @@
 						  OffsetY="{StaticResource PositiveOffset}" />
 
 	<xf:AnimationSettings x:Key="FadeInAndGrow"
-						  Kind="FadeFrom,ScaleXFrom,ScaleXFrom"
+						  Kind="FadeFrom,ScaleXFrom,ScaleYFrom"
 						  Opacity="0"
 						  ScaleX="{StaticResource SmallScaleFactor}"
 						  ScaleY="{StaticResource SmallScaleFactor}" />
