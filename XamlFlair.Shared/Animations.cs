@@ -369,16 +369,9 @@ namespace XamlFlair
 				return;
 			}
 
-			if (d is FrameworkElement element && e.NewValue is bool isAnimating)
+			if (d is FrameworkElement element && e.NewValue is bool isAnimating && isAnimating)
 			{
-				if (isAnimating)
-				{
-					PrepareAnimations(element, useSecondaryAnimation);
-				}
-				else
-				{
-					StopAnimations(GetElementGuid(element));
-				}
+				PrepareAnimations(element, useSecondaryAnimation);
 			}
 		}
 
@@ -565,22 +558,6 @@ namespace XamlFlair
 				}
 
 				sequenceCounter++;
-			}
-		}
-
-		private static void StopAnimations(Guid elementGuid)
-		{
-			var actives = _actives.GetAllKeyValuePairs(elementGuid);
-
-			foreach (var active in actives)
-			{
-				if (active.Value.Timeline != null)
-				{
-					var timelineGuid = GetTimelineGuid(active.Value.Timeline);
-					active.Value.SetAnimationState(timelineGuid, AnimationState.Completed);
-				}
-
-				Cleanup(elementGuid, stopAnimation: true);
 			}
 		}
 
