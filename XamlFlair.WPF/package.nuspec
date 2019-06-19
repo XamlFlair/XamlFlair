@@ -4,7 +4,7 @@
     <!--*-->
     <id>XamlFlair.WPF</id>
     <!--*-->
-    <version>1.0.12</version>
+    <version>1.0.13</version>
     <title>XamlFlair.WPF</title>
     <!--*-->
     <authors>xamlflair</authors>
@@ -20,7 +20,7 @@
     <!--*-->
     <description>XamlFlair animation library for the WPF platform.</description>
     <!--*-->
-    <releaseNotes>Refactored method names for extension methods on the ActiveTimelines dictionary.</releaseNotes>
+    <releaseNotes>Removed the StopAnimations functionality since it conflicted with alternate animations on the same FrameworkElement.</releaseNotes>
     <copyright>Copyright © 2019</copyright>
     <tags>
     </tags>
