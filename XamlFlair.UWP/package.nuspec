@@ -4,7 +4,7 @@
     <!--*-->
     <id>XamlFlair.UWP</id>
     <!--*-->
-    <version>1.0.14</version>
+    <version>1.0.15</version>
     <title>XamlFlair.UWP</title>
     <!--*-->
     <authors>xamlflair</authors>
@@ -20,7 +20,7 @@
     <!--*-->
     <description>XamlFlair animation library for the UWP platform.</description>
     <!--*-->
-    <releaseNotes>Added support for the the Loading event.</releaseNotes>
+    <releaseNotes>Applied a versioning fix.</releaseNotes>
     <copyright>Copyright © 2019</copyright>
     <tags>
     </tags>
