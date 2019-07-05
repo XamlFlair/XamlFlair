@@ -193,7 +193,21 @@ namespace XamlFlair
 
 						break;
 					}
+#if __UWP__
+				case EventType.Loading:
+					{
+						element
+							.Events()
+							.LoadingUntilUnloaded
+							.Subscribe(
+								args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
+								ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.Loading)} event of {nameof(FrameworkElement)}", ex),
+								() => Cleanup(element)
+							);
 
+						break;
+					}
+#endif
 				case EventType.Visibility:
 					{
 						element
@@ -357,9 +371,9 @@ namespace XamlFlair
 			}
 		}
 
-		#endregion
+#endregion
 
-		#region Methods
+#region Methods
 
 		private static void HandleBindingChange(DependencyObject d, DependencyPropertyChangedEventArgs e, bool useSecondaryAnimation)
 		{
@@ -636,6 +650,6 @@ namespace XamlFlair
 #endif
 		}
 
-		#endregion
+#endregion
 	}
 }

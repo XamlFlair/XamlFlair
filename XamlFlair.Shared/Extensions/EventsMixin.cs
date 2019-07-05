@@ -91,6 +91,20 @@ namespace Windows.UI.Xaml
 				Observable.FromEventPattern<TypedEventHandler<FrameworkElement, DataContextChangedEventArgs>, DataContextChangedEventArgs>(
 					h => _element.DataContextChanged += h,
 					h => _element.DataContextChanged -= h);
+
+			// NOTE: Important to know about the Loading event is that if the control has
+			// Visibility.Hidden during startup, the Loading event will not be called.
+			// As well, if the control later becomes visible the Loading event gets called,
+			// by then Loaded already has been called
+			internal IObservable<EventPattern<object>> Loading =>
+				Observable.FromEventPattern<TypedEventHandler<FrameworkElement, object>, object>(
+					h => _element.Loading += h,
+					h => _element.Loading -= h);
+
+			internal IObservable<EventPattern<object>> LoadingUntilUnloaded =>
+				Loading
+					.DistinctUntilChanged()
+					.TakeUntil(UnloadedMaterialized);
 #endif
 		}
 	}
