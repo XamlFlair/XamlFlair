@@ -56,9 +56,9 @@ namespace XamlFlair
 				typeof(Animations),
 				new PropertyMetadata(AnimationSettings.DEFAULT_INTER_ELEMENT_DELAY));
 
-		public static bool GetAnimateOnLoad(DependencyObject obj) => (bool)obj.GetValue(AnimateOnLoadProperty);
+		public static bool GetAnimateOnLoad(ListViewBase obj) => (bool)obj.GetValue(AnimateOnLoadProperty);
 
-		public static void SetAnimateOnLoad(DependencyObject obj, bool value) => obj.SetValue(AnimateOnLoadProperty, value);
+		public static void SetAnimateOnLoad(ListViewBase obj, bool value) => obj.SetValue(AnimateOnLoadProperty, value);
 
 		/// <summary>
 		/// Specifies if the item animations should animate when the list control has loaded
