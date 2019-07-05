@@ -270,6 +270,7 @@ Also note that it is also possible to repeat a Compound animation. For example, 
 By default, all animations execute once the UI element fires its `Loaded` event. This behavior can be overridden by setting the `Event` property. `Event` can be one of the following values:
 
 * Loaded (default value)
+* Loading (UWP only)
 * None
 * Visibility
 * DataContextChanged
