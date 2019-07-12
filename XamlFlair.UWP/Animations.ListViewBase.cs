@@ -39,7 +39,7 @@ namespace XamlFlair
 				"Items",
 				typeof(AnimationSettings),
 				typeof(Animations),
-				new PropertyMetadata(null));
+				new PropertyMetadata(null, OnItemsChanged));
 
 		public static double GetInterElementDelay(ListViewBase obj) => (double)obj.GetValue(InterElementDelayProperty);
 
@@ -135,6 +135,23 @@ namespace XamlFlair
 				var settings = GetItems(lvb);
 
 				lvb.AnimateVisibleItems<SelectorItem>(settings, firstVisibleIndex, lastVisibleIndex);
+			}
+		}
+
+		private static void OnItemsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		{
+			if (d is ListViewBase lvb)
+			{
+				if (GetIsInitialized(lvb))
+				{
+					return;
+				}
+
+				// Set IsInitialized to true to only run this code once per element
+				SetIsInitialized(lvb, true);
+
+				// Pass an action to reset the "container loaded" flag when the ItemsSource changes
+				lvb.Initialize();
 			}
 		}
 

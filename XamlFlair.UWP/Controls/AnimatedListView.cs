@@ -19,7 +19,7 @@ namespace XamlFlair.Controls
 		public AnimatedListView()
 		{
 			// Pass an action to reset the "container loaded" flag when the ItemsSource changes
-			this.Initialize(() => _isFirstItemContainerLoaded = false);
+			this.RegisterListEvents(() => _isFirstItemContainerLoaded = false);
 		}
 
 		protected override void OnApplyTemplate()

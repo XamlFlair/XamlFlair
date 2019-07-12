@@ -9,7 +9,7 @@ namespace XamlFlair.Extensions
 {
 	internal static class ListBoxExtensions
 	{
-		internal static void Initialize(this ListBox lb, Action itemsSourceChangedAction)
+		internal static void Initialize(this ListBox lb)
 		{
 			lb.Loaded += AnimatedListBox_Loaded;
 
@@ -23,7 +23,10 @@ namespace XamlFlair.Extensions
 				// Perform validations on the ListBox items
 				Animations.ValidateListBox(lb);
 			}
+		}
 
+		internal static void RegisterListEvents(this ListBox lb, Action itemsSourceChangedAction)
+		{
 			// Observe the Unloaded of the control (including Error or Completed)
 			var unloaded = (lb as FrameworkElement).Events().UnloadedMaterialized;
 
