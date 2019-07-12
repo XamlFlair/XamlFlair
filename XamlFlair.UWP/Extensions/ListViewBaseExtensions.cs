@@ -13,7 +13,7 @@ namespace XamlFlair.Extensions
 {
 	internal static class ListViewBaseExtensions
 	{
-		internal static void Initialize(this ListViewBase lvb, Action itemsSourceChangedAction)
+		internal static void Initialize(this ListViewBase lvb)
 		{
 			lvb.Loaded += AnimatedListViewBase_Loaded;
 
@@ -27,7 +27,10 @@ namespace XamlFlair.Extensions
 				// Perform validations on the ListViewBase items
 				Animations.ValidateListViewBase(lvb);
 			}
+		}
 
+		internal static void RegisterListEvents(this ListViewBase lvb, Action itemsSourceChangedAction)
+		{
 			// Observe the Unloaded of the control (including Error or Completed)
 			var unloaded = (lvb as FrameworkElement).Events().UnloadedMaterialized;
 

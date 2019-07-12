@@ -138,16 +138,16 @@ namespace XamlFlair
 
 				var itemSettings = GetItems(lvb);
 
-				// LIMITATION: ListViewBase item animations MUST contain FadeFrom in the Kind with a value of 0 for Opacity.
-				if (!itemSettings.Kind.HasFlag(AnimationKind.FadeFrom) || itemSettings.Opacity != 0)
-				{
-					throw new ArgumentException($"LIMITATION: {nameof(ListViewBase)} item animations MUST contain {nameof(AnimationKind.FadeFrom)} in the {nameof(AnimationSettings.KindProperty)} with a value of 0 for {nameof(AnimationSettings.Opacity)}.");
-				}
-
 				// ItemsProperty can only be set on a AnimatedListView or AnimatedGridView.
 				if (itemSettings != null && !(lvb is AnimatedListView) && !(lvb is AnimatedGridView))
 				{
 					throw new ArgumentException($"{nameof(ItemsProperty)} can only be set on a {nameof(AnimatedListView)} or {nameof(AnimatedGridView)}.");
+				}
+
+				// LIMITATION: ListViewBase item animations MUST contain FadeFrom in the Kind with a value of 0 for Opacity.
+				if (!itemSettings.Kind.HasFlag(AnimationKind.FadeFrom) || itemSettings.Opacity != 0)
+				{
+					throw new ArgumentException($"LIMITATION: {nameof(ListViewBase)} item animations MUST contain {nameof(AnimationKind.FadeFrom)} in the {nameof(AnimationSettings.KindProperty)} with a value of 0 for {nameof(AnimationSettings.Opacity)}.");
 				}
 
 				// Don't set a value for the Event property, is it disregarded for ListViewBase item animations.
