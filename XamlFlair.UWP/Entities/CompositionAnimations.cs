@@ -6,11 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Graphics.Canvas.Effects;
 using Windows.Graphics.Effects;
+using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Media.Animation;
 using XamlFlair.Extensions;
+using static XamlFlair.Constants;
 
 namespace XamlFlair
 {
@@ -35,7 +37,7 @@ namespace XamlFlair
 			_animation = null;
 		}
 
-		private double Initialize(FrameworkElement element)
+		protected double Initialize(FrameworkElement element)
 		{
 			if (_element == null)
 			{
@@ -66,28 +68,6 @@ namespace XamlFlair
 			var animation = animationSetupAction(duration);
 
 			_visual.StartAnimation(TargetProperty, animation);
-
-			return animation;
-		}
-
-		protected T StartEffectAnimation<T>(
-			FrameworkElement element,
-			IGraphicsEffect effect,
-			Func<double, T> animationSetupFunc,
-			Action<CompositionEffectBrush> brushSetupAction)
-				where T : KeyFrameAnimation
-		{
-			var duration = Initialize(element);
-
-			// Call a Func that will be used to setup the animation and create the keyframes, delay, etc.
-			var animation = animationSetupFunc(duration);
-			var effectFactory = Window.Current.Compositor.CreateEffectFactory(effect, new[] { TargetProperty });
-			var brush = effectFactory.CreateBrush();
-
-			// Call an Action that will be used to setup the CompositionEffectBrush object
-			brushSetupAction(brush);
-
-			brush.StartAnimation(TargetProperty, animation);
 
 			return animation;
 		}
@@ -180,49 +160,116 @@ namespace XamlFlair
 		}
 	}
 
-	internal abstract class EffectAnimationBase : ScalarAnimationBase
+	internal abstract class EffectAnimationBase<T> : AnimationBase
 	{
-		private readonly IGraphicsEffect _effect;
+		internal T To { get; set; }
 
-		protected const string Backdrop = nameof(Backdrop);
+		protected EffectAnimationBase(string targetProperty) => TargetProperty = targetProperty;
 
-		protected EffectAnimationBase(string targetProperty, IGraphicsEffect effect)
+		protected IGraphicsEffect InitializeEffect(
+			FrameworkElement element,
+			bool isFrom,
+			Func<(double blur, double saturate, Color tint)> setValuesFunc)
 		{
-			_effect = effect;
-			TargetProperty = targetProperty;
+			/*
+				(input) Backdrop -> GaussianBlur -> |
+									 ColorSource -> | Blend -> Saturation (output)
+			 */
+
+			var compositor = _visual.Compositor;
+
+			var values = setValuesFunc();
+			var blur = isFrom ? values.blur : 0f;
+			var saturate = isFrom ? values.saturate : AnimationSettings.DEFAULT_SATURATION;
+			var tint = isFrom ? values.tint : AnimationSettings.DEFAULT_TINT;
+
+			var blurEffect = new GaussianBlurEffect()
+			{
+				Name = TargetProperties.BlurEffect,
+				BlurAmount = (float)blur,
+				BorderMode = EffectBorderMode.Hard,
+				Optimization = EffectOptimization.Balanced,
+				Source = new CompositionEffectSourceParameter(TargetProperties.BackDrop),
+			};
+
+			var colorEffect = new ColorSourceEffect
+			{
+				Name = TargetProperties.TintEffect,
+			};
+
+			var blendEffect = new BlendEffect
+			{
+				Background = blurEffect,
+				Foreground = colorEffect,
+				Mode = BlendEffectMode.Overlay,
+			};
+
+			var saturationEffect = new SaturationEffect
+			{
+				Name = TargetProperties.SaturationEffect,
+				Source = blendEffect,
+				Saturation = (float)saturate,
+			};
+
+			var factory = compositor.CreateEffectFactory(saturationEffect, new[]
+			{
+				TargetProperties.BlurEffectAmount,
+				TargetProperties.TintEffectColor,
+				TargetProperties.SaturationEffectAmount,
+			});
+
+			var brush = factory.CreateBrush();
+			brush.SetSourceParameter(TargetProperties.BackDrop, compositor.CreateBackdropBrush());
+
+			// Animatable properties
+			brush.Properties.InsertScalar(TargetProperties.BlurEffectAmount, (float)blur);
+			brush.Properties.InsertColor(TargetProperties.TintEffectColor, tint);
+			brush.Properties.InsertScalar(TargetProperties.SaturationEffectAmount, (float)saturate);
+
+			var sprite = compositor.CreateSpriteVisual();
+			sprite.Brush = brush;
+			sprite.Size = _visual.Size;
+			ElementCompositionPreview.SetElementChildVisual(element, sprite);
+
+			// Attach the effect on the element to retrieve later
+			Animations.SetSprite(element, sprite);
+
+			return saturationEffect;
 		}
 
 		internal override void Start(FrameworkElement element, bool isFrom = false)
 		{
-			_animation = base.StartEffectAnimation<ScalarKeyFrameAnimation>(element, _effect,
-				duration =>
+			if (isFrom)
+			{
+				Initialize(element);
+				InitializeEffect(element, isFrom, () => (Settings.BlurRadius, Settings.Saturation, Settings.Tint));
+			}
+			else
+			{
+				var duration = Initialize(element);
+				var sprite = Animations.GetSprite(element) as SpriteVisual;
+
+				if (sprite != null)
 				{
-					// TODO: Can we directly set the values instead of animating (ONLY for "from" animations)...
-
-					var scalarAnimation = Window.Current.Compositor.CreateScalarKeyFrameAnimation();
-
-					// It's very important to use a Delay value of 0 for all "from" animations
-					var delayTime = isFrom ? 0 : Settings.Delay;
-
-					scalarAnimation.InsertKeyFrame(1.0f, (float)To, Window.Current.Compositor.CreateEasingFunction(Settings.Easing, Settings.EasingMode));
-					scalarAnimation.DelayTime = TimeSpan.FromMilliseconds(delayTime);
-					scalarAnimation.Duration = TimeSpan.FromMilliseconds(duration);
-
-					return scalarAnimation;
-				},
-				brush =>
-				{
-					var sprite = Window.Current.Compositor.CreateSpriteVisual();
-
-					sprite.Brush = brush;
-					sprite.Size = _visual.Size;
-
 					ElementCompositionPreview.SetElementChildVisual(element, sprite);
+				}
+				else
+				{
+					InitializeEffect(element, isFrom, () => (0f, AnimationSettings.DEFAULT_SATURATION, AnimationSettings.DEFAULT_TINT));
+				}
 
-					var destinationBrush = Window.Current.Compositor.CreateBackdropBrush();
-					brush.SetSourceParameter(Backdrop, destinationBrush);
-				});
+				var animation = CreateAnimationWithKeyFrame();
+
+				animation.DelayTime = TimeSpan.FromMilliseconds(Settings.Delay);
+				animation.Duration = TimeSpan.FromMilliseconds(duration);
+
+				_animation = animation;
+
+				sprite.Brush.StartAnimation(TargetProperty, _animation);
+			}
 		}
+
+		protected abstract KeyFrameAnimation CreateAnimationWithKeyFrame();
 	}
 
 	internal abstract class ExpressionAnimationBase : AnimationBase
@@ -259,42 +306,42 @@ namespace XamlFlair
 
 	internal class FadeAnimation : ScalarAnimationBase
 	{
-		public FadeAnimation() : base(Constants.TargetProperties.Opacity) { }
+		public FadeAnimation() : base(TargetProperties.Opacity) { }
 	}
 
 	internal class TranslateXAnimation : ScalarAnimationBase
 	{
-		public TranslateXAnimation() : base(Constants.TargetProperties.TranslationX) { }
+		public TranslateXAnimation() : base(TargetProperties.TranslationX) { }
 	}
 
 	internal class TranslateYAnimation : ScalarAnimationBase
 	{
-		public TranslateYAnimation() : base(Constants.TargetProperties.TranslationY) { }
+		public TranslateYAnimation() : base(TargetProperties.TranslationY) { }
 	}
 
 	internal class TranslateZAnimation : ScalarAnimationBase
 	{
-		public TranslateZAnimation() : base(Constants.TargetProperties.TranslationZ) { }
+		public TranslateZAnimation() : base(TargetProperties.TranslationZ) { }
 	}
 
 	internal class ScaleXAnimation : ScalarAnimationBase
 	{
-		public ScaleXAnimation() : base(Constants.TargetProperties.ScaleX) { }
+		public ScaleXAnimation() : base(TargetProperties.ScaleX) { }
 	}
 
 	internal class ScaleYAnimation : ScalarAnimationBase
 	{
-		public ScaleYAnimation() : base(Constants.TargetProperties.ScaleY) { }
+		public ScaleYAnimation() : base(TargetProperties.ScaleY) { }
 	}
 
 	internal class ScaleZAnimation : ScalarAnimationBase
 	{
-		public ScaleZAnimation() : base(Constants.TargetProperties.ScaleZ) { }
+		public ScaleZAnimation() : base(TargetProperties.ScaleZ) { }
 	}
 
 	internal class RotateAnimation : ScalarAnimationBase
 	{
-		public RotateAnimation() : base(Constants.TargetProperties.RotationAngleInDegrees) { }
+		public RotateAnimation() : base(TargetProperties.RotationAngleInDegrees) { }
 	}
 
 	//internal class SkewMatrixAnimation : ExpressionAnimationBase
@@ -313,17 +360,43 @@ namespace XamlFlair
 	//			=> expressionAnim.SetReferenceParameter("visual", _visual);
 	//	}
 	//}
-
-	internal class BlurAnimation : EffectAnimationBase
+	
+	internal class BlurAnimation : EffectAnimationBase<double>
 	{
-		public BlurAnimation()
-			: base(Constants.TargetProperties.BlurAmount,
-				new GaussianBlurEffect()
-				{
-					Name = Constants.TargetProperties.Blur,
-					Source = new CompositionEffectSourceParameter(Backdrop),
-					BorderMode = EffectBorderMode.Hard,
-				})
-		{ }
+		public BlurAnimation() : base(TargetProperties.BlurEffectAmount) { }
+
+		protected override KeyFrameAnimation CreateAnimationWithKeyFrame()
+		{
+			var scalarAnimation = Window.Current.Compositor.CreateScalarKeyFrameAnimation();
+			scalarAnimation.InsertKeyFrame(1.0f, (float)To, Window.Current.Compositor.CreateEasingFunction(Settings.Easing, Settings.EasingMode));
+
+			return scalarAnimation;
+		}
+	}
+
+	internal class SaturateAnimation : EffectAnimationBase<double>
+	{
+		public SaturateAnimation() : base(TargetProperties.SaturationEffectAmount) { }
+
+		protected override KeyFrameAnimation CreateAnimationWithKeyFrame()
+		{
+			var scalarAnimation = Window.Current.Compositor.CreateScalarKeyFrameAnimation();
+			scalarAnimation.InsertKeyFrame(1.0f, (float)To, Window.Current.Compositor.CreateEasingFunction(Settings.Easing, Settings.EasingMode));
+
+			return scalarAnimation;
+		}
+	}
+
+	internal class TintAnimation : EffectAnimationBase<Color>
+	{
+		public TintAnimation() : base(TargetProperties.TintEffectColor) { }
+
+		protected override KeyFrameAnimation CreateAnimationWithKeyFrame()
+		{
+			var colorAnimation = Window.Current.Compositor.CreateColorKeyFrameAnimation();
+			colorAnimation.InsertKeyFrame(1.0f, To, Window.Current.Compositor.CreateEasingFunction(Settings.Easing, Settings.EasingMode));
+
+			return colorAnimation;
+		}
 	}
 }

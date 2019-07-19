@@ -256,7 +256,7 @@ namespace XamlFlair.Extensions
 		{
 			group.CreateAnimations(element, settings,
 				animGroup =>
-					animGroup.CreateEffectAnimation<BlurAnimation>(
+					animGroup.CreateEffectAnimation<BlurAnimation, double>(
 						element,
 						settings,
 						to: settings.BlurRadius));
@@ -267,14 +267,14 @@ namespace XamlFlair.Extensions
 			group.CreateAnimations(element, settings,
 				animGroup =>
 				{
-					animGroup.CreateEffectAnimation<BlurAnimation>(
+					animGroup.CreateEffectAnimation<BlurAnimation, double>(
 						element,
 						settings,
 						to: settings.BlurRadius,
 						duration: 1,
 						isFrom: true);
 
-					return animGroup.CreateEffectAnimation<BlurAnimation>(
+					return animGroup.CreateEffectAnimation<BlurAnimation, double>(
 						element,
 						settings,
 						to: 0);
@@ -352,10 +352,10 @@ namespace XamlFlair.Extensions
 			return animation;
 		}
 
-		private static T CreateEffectAnimation<T>(this AnimationGroup group, FrameworkElement element, AnimationSettings settings, double to = 1, double duration = AnimationSettings.DEFAULT_DURATION, bool isFrom = false)
-			where T : EffectAnimationBase, new()
+		private static TAnimation CreateEffectAnimation<TAnimation, TValue>(this AnimationGroup group, FrameworkElement element, AnimationSettings settings, TValue to, double duration = AnimationSettings.DEFAULT_DURATION, bool isFrom = false)
+			where TAnimation : EffectAnimationBase<TValue>, new()
 		{
-			var animation = new T()
+			var animation = new TAnimation()
 			{
 				To = to,
 				Duration = duration,

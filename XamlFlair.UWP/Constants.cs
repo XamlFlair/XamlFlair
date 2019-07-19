@@ -18,10 +18,6 @@ namespace XamlFlair
 
 			internal static string RotationAngleInDegrees = nameof(RotationAngleInDegrees);
 
-			internal static string Blur = nameof(Blur);
-
-			internal static string BlurAmount = $"{nameof(Blur)}.{nameof(BlurAmount)}";
-
 			internal static string Translation = "Translation";
 
 			internal static string TranslationX = "Translation.X";
@@ -35,6 +31,22 @@ namespace XamlFlair
 			internal static string ScaleY = "Scale.Y";
 
 			internal static string ScaleZ = "Scale.Z";
+
+			// EFFECTS
+
+			internal static string BackDrop = nameof(BackDrop);
+
+			internal static string BlurEffect = nameof(BlurEffect);
+
+			internal static string BlurEffectAmount = $"{nameof(BlurEffect)}.BlurAmount";
+
+			internal static string TintEffect = nameof(TintEffect);
+
+			internal static string TintEffectColor = $"{nameof(TintEffect)}.Color";
+
+			internal static string SaturationEffect = nameof(SaturationEffect);
+
+			internal static string SaturationEffectAmount = $"{nameof(SaturationEffect)}.Saturation";
 		}
 	}
 }

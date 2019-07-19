@@ -4,7 +4,7 @@
     <!--*-->
     <id>XamlFlair.UWP</id>
     <!--*-->
-    <version>1.0.16</version>
+    <version>1.0.17</version>
     <title>XamlFlair.UWP</title>
     <!--*-->
     <authors>xamlflair</authors>
@@ -20,7 +20,7 @@
     <!--*-->
     <description>XamlFlair animation library for the UWP platform.</description>
     <!--*-->
-    <releaseNotes>Applied validation fixes for List-based controls.</releaseNotes>
+    <releaseNotes>Added changes to support effect chaining in UWP, being able to combine Blur, Saturation, and Tint effects.</releaseNotes>
     <copyright>Copyright © 2019</copyright>
     <tags>
     </tags>

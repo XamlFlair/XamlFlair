@@ -95,6 +95,8 @@ The following lists some notable **default values** when working with XamlFlair:
 * **Easing Mode**: EaseOut
 * **TransformCenterPoint**: (0.5, 0.5)
 * **Event**: Loaded
+* **Saturation**: 0.5 (_UWP-only_)
+* **Tint**: Transparent (_UWP-only_)
 
 ### Using a `ResourceDictionary` for base settings
 
