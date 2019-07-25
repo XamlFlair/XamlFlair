@@ -103,6 +103,14 @@ namespace XamlFlair.Extensions
 					&& kvp.Value.ElementGuid.Equals(elementGuid));
 		}
 
+		internal static IEnumerable<ActiveTimeline<T>> GetAllNonIteratingActiveTimelines<T>(this ConcurrentDictionary<Guid, ActiveTimeline<T>> actives, Guid elementGuid)
+			where T : DependencyObject
+		{
+			return actives
+				.Where(kvp => kvp.Value.ElementGuid.Equals(elementGuid) && !kvp.Value.IsIterating)
+				.Select(kvp => kvp.Value);
+		}
+
 		internal static ActiveTimeline<T> GetNextIdleActiveTimeline<T>(this ConcurrentDictionary<Guid, ActiveTimeline<T>> actives, Guid elementGuid)
 			where T : DependencyObject
 		{

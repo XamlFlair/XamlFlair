@@ -256,6 +256,8 @@ namespace XamlFlair
 				else
 				{
 					InitializeEffect(element, isFrom, () => (0f, AnimationSettings.DEFAULT_SATURATION, AnimationSettings.DEFAULT_TINT));
+
+					sprite = Animations.GetSprite(element) as SpriteVisual;
 				}
 
 				var animation = CreateAnimationWithKeyFrame();

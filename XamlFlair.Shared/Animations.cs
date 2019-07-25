@@ -486,6 +486,28 @@ namespace XamlFlair
 				element.BlurFrom(settings, ref timeline);
 			}
 
+#if __UWP__
+			// SATURATE TO/FROM
+			if (settings.Kind.HasFlag(AnimationKind.SaturateTo))
+			{
+				element.SaturateTo(settings, ref timeline);
+			}
+			else if (settings.Kind.HasFlag(AnimationKind.SaturateFrom))
+			{
+				element.SaturateFrom(settings, ref timeline);
+			}
+
+			// TINT TO/FROM
+			if (settings.Kind.HasFlag(AnimationKind.TintTo))
+			{
+				element.TintTo(settings, ref timeline);
+			}
+			else if (settings.Kind.HasFlag(AnimationKind.TintFrom))
+			{
+				element.TintFrom(settings, ref timeline);
+			}
+#endif
+
 			ActiveTimeline<Timeline> active = null;
 
 			if (runFromIdle)
@@ -532,10 +554,13 @@ namespace XamlFlair
 				return;
 			}
 
-			// Make sure to not start an animation when another is already running
+			// Make sure to stop any running animations
 			if (_actives.IsElementAnimating(GetElementGuid(element)))
 			{
-				return;
+				foreach (var active in _actives.GetAllNonIteratingActiveTimelines(GetElementGuid(element)))
+				{
+					active.Timeline.Stop();
+				}
 			}
 
 			var animationSettings = element.GetSettings(

@@ -222,15 +222,15 @@ namespace XamlFlair
 				typeof(AnimationSettings),
 				new PropertyMetadata(0d));
 				
-		/// <summary>
-		/// Specifies the blur amount of the composite animation
-		/// </summary>
 		public double BlurRadius
 		{
 			get => (double)GetValue(BlurRadiusProperty);
 			set => SetValue(BlurRadiusProperty, value);
 		}
 
+		/// <summary>
+		/// Specifies the blur amount of the composite animation
+		/// </summary>
 		public static readonly DependencyProperty BlurRadiusProperty =
 			DependencyProperty.Register(
 				nameof(BlurRadius),
@@ -239,16 +239,15 @@ namespace XamlFlair
 				new PropertyMetadata(0d));
 
 #if __UWP__
-
-		/// <summary>
-		/// Specifies the saturation amount of the composite animation
-		/// </summary>
 		public double Saturation
 		{
 			get => (double)GetValue(SaturationProperty);
 			set => SetValue(SaturationProperty, value);
 		}
 
+		/// <summary>
+		/// Specifies the saturation amount of the composite animation
+		/// </summary>
 		public static readonly DependencyProperty SaturationProperty =
 			DependencyProperty.Register(
 				nameof(Saturation),
@@ -256,22 +255,21 @@ namespace XamlFlair
 				typeof(AnimationSettings),
 				new PropertyMetadata(AnimationSettings.DEFAULT_SATURATION));
 
-		/// <summary>
-		/// Specifies the tint color of the composite animation
-		/// </summary>
 		public Color Tint
 		{
 			get => (Color)GetValue(TintProperty);
 			set => SetValue(TintProperty, value);
 		}
 
+		/// <summary>
+		/// Specifies the tint color of the composite animation
+		/// </summary>
 		public static readonly DependencyProperty TintProperty =
 			DependencyProperty.Register(
 				nameof(Tint),
 				typeof(Color),
 				typeof(AnimationSettings),
 				new PropertyMetadata(AnimationSettings.DEFAULT_TINT));
-
 #endif
 
 		public Point TransformCenterPoint
@@ -370,6 +368,8 @@ namespace XamlFlair
 #if __UWP__
 				&& other.OffsetZ.Equals(OffsetZ)
 				&& other.ScaleZ.Equals(ScaleZ)
+				&& other.Saturation.Equals(Saturation)
+				&& other.Tint.Equals(Tint)
 #endif
 				&& other.Event.Equals(Event);
 		}
@@ -426,6 +426,8 @@ namespace XamlFlair
 #if __UWP__
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, OffsetZ) ? OffsetZ.GetHashCode() : 0);
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, ScaleZ) ? ScaleZ.GetHashCode() : 0);
+				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, Saturation) ? Saturation.GetHashCode() : 0);
+				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, Tint) ? Tint.GetHashCode() : 0);
 #endif
 				return hash;
 			}

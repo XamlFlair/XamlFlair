@@ -126,6 +126,12 @@ namespace XamlFlair.Extensions
 
 			var scaleZ = other.ScaleZ;
 			updated.ScaleZ = scaleZ != 1 ? scaleZ : settings.ScaleZ;
+
+			var saturation = other.Saturation;
+			updated.Saturation = saturation != AnimationSettings.DEFAULT_SATURATION ? saturation : settings.Saturation;
+
+			var tint = other.Tint;
+			updated.Tint = tint != AnimationSettings.DEFAULT_TINT ? tint : settings.Tint;
 #endif
 
 			return updated;

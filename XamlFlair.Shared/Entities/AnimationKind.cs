@@ -27,6 +27,10 @@ namespace XamlFlair
 		ScaleZFrom = 1 << 15,
 		TranslateZTo = 1 << 16,
 		TranslateZFrom = 1 << 17,
+		SaturateTo = 1 << 18,
+		SaturateFrom = 1 << 19,
+		TintTo = 1 << 20,
+		TintFrom = 1 << 21,
 #endif
 	}
 }

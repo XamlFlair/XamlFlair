@@ -5,6 +5,7 @@ using System.Numerics;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -281,6 +282,64 @@ namespace XamlFlair.Extensions
 				});
 		}
 
+		internal static void SaturateTo(this FrameworkElement element, AnimationSettings settings, ref AnimationGroup group)
+		{
+			group.CreateAnimations(element, settings,
+				animGroup =>
+					animGroup.CreateEffectAnimation<SaturateAnimation, double>(
+						element,
+						settings,
+						to: settings.Saturation));
+		}
+
+		internal static void SaturateFrom(this FrameworkElement element, AnimationSettings settings, ref AnimationGroup group)
+		{
+			group.CreateAnimations(element, settings,
+				animGroup =>
+				{
+					animGroup.CreateEffectAnimation<SaturateAnimation, double>(
+						element,
+						settings,
+						to: settings.Saturation,
+						duration: 1,
+						isFrom: true);
+
+					return animGroup.CreateEffectAnimation<SaturateAnimation, double>(
+						element,
+						settings,
+						to: AnimationSettings.DEFAULT_SATURATION);
+				});
+		}
+
+		internal static void TintTo(this FrameworkElement element, AnimationSettings settings, ref AnimationGroup group)
+		{
+			group.CreateAnimations(element, settings,
+				animGroup =>
+					animGroup.CreateEffectAnimation<TintAnimation, Color>(
+						element,
+						settings,
+						to: settings.Tint));
+		}
+
+		internal static void TintFrom(this FrameworkElement element, AnimationSettings settings, ref AnimationGroup group)
+		{
+			group.CreateAnimations(element, settings,
+				animGroup =>
+				{
+					animGroup.CreateEffectAnimation<TintAnimation, Color>(
+						element,
+						settings,
+						to: settings.Tint,
+						duration: 1,
+						isFrom: true);
+
+					return animGroup.CreateEffectAnimation<TintAnimation, Color>(
+						element,
+						settings,
+						to: AnimationSettings.DEFAULT_TINT);
+				});
+		}
+
 		internal static void ApplyInitialSettings(this FrameworkElement element, AnimationSettings settings)
 		{
 			var group = new AnimationGroup();
@@ -301,21 +360,35 @@ namespace XamlFlair.Extensions
 				visual.RotationAngleInDegrees = (float)settings.Rotation;
 			}
 
-			if (settings.ScaleX != 1 || settings.ScaleY != 1)
+			if (settings.ScaleX != 1 || settings.ScaleY != 1 || settings.ScaleZ != 1)
 			{
 				visual.Scale = new Vector3((float)settings.ScaleX, (float)settings.ScaleY, (float)settings.ScaleZ);
 			}
 
-			if (settings.BlurRadius != 0)
+			if (settings.BlurRadius != 0 || settings.Saturation != AnimationSettings.DEFAULT_SATURATION || settings.Tint != AnimationSettings.DEFAULT_TINT)
 			{
-				// TODO: Can we directly set the values instead of animating...
 				var initialSettings = new AnimationSettings()
 				{
 					BlurRadius = settings.BlurRadius,
+					Saturation = settings.Saturation,
+					Tint = settings.Tint,
 					Duration = 1
 				};
 
-				BlurTo(element, initialSettings, ref group);
+				if (settings.BlurRadius != 0)
+				{
+					BlurTo(element, initialSettings, ref group);
+				}
+
+				if (settings.Saturation != AnimationSettings.DEFAULT_SATURATION)
+				{
+					SaturateTo(element, initialSettings, ref group);
+				}
+
+				if (settings.Tint != AnimationSettings.DEFAULT_TINT)
+				{
+					TintTo(element, initialSettings, ref group);
+				}
 			}
 
 			group.Begin();
@@ -438,6 +511,10 @@ namespace XamlFlair.Extensions
 				$"	ScaleZ = {settings.ScaleZ} \n" +
 				$"	Rotation = {settings.Rotation} \n" +
 				$"	Blur = {settings.BlurRadius} \n" +
+#if __UWP__
+				$"	Saturation = {settings.Saturation} \n" +
+				$"	Tint = {settings.Tint} \n" +
+#endif
 				$"	TransformCenterPoint = {settings.TransformCenterPoint} \n" +
 				$"	Easing = {settings.Easing} \n" +
 				$"	EasingMode = {settings.EasingMode} \n" +
