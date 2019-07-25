@@ -11,6 +11,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
 using XamlFlair.UWP.Logging;
+using static XamlFlair.Constants;
 
 namespace XamlFlair.Extensions
 {
@@ -352,7 +353,7 @@ namespace XamlFlair.Extensions
 
 			if (settings.OffsetX != 0 || settings.OffsetY != 0)
 			{
-				visual.Properties.InsertVector3(Constants.TargetProperties.Translation, new Vector3((float)settings.OffsetX, (float)settings.OffsetY, (float)settings.OffsetZ));
+				visual.Properties.InsertVector3(TargetProperties.Translation, new Vector3((float)settings.OffsetX, (float)settings.OffsetY, (float)settings.OffsetZ));
 			}
 
 			if (settings.Rotation != 0)

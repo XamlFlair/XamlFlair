@@ -260,12 +260,10 @@ namespace XamlFlair
 					sprite = Animations.GetSprite(element) as SpriteVisual;
 				}
 
-				var animation = CreateAnimationWithKeyFrame();
+				_animation = CreateAnimationWithKeyFrame();
 
-				animation.DelayTime = TimeSpan.FromMilliseconds(Settings.Delay);
-				animation.Duration = TimeSpan.FromMilliseconds(duration);
-
-				_animation = animation;
+				((KeyFrameAnimation)_animation).DelayTime = TimeSpan.FromMilliseconds(Settings.Delay);
+				((KeyFrameAnimation)_animation).Duration = TimeSpan.FromMilliseconds(duration);
 
 				sprite.Brush.StartAnimation(TargetProperty, _animation);
 			}
