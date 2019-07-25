@@ -5,11 +5,13 @@ using System.Numerics;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
 using XamlFlair.UWP.Logging;
+using static XamlFlair.Constants;
 
 namespace XamlFlair.Extensions
 {
@@ -256,7 +258,7 @@ namespace XamlFlair.Extensions
 		{
 			group.CreateAnimations(element, settings,
 				animGroup =>
-					animGroup.CreateEffectAnimation<BlurAnimation>(
+					animGroup.CreateEffectAnimation<BlurAnimation, double>(
 						element,
 						settings,
 						to: settings.BlurRadius));
@@ -267,17 +269,75 @@ namespace XamlFlair.Extensions
 			group.CreateAnimations(element, settings,
 				animGroup =>
 				{
-					animGroup.CreateEffectAnimation<BlurAnimation>(
+					animGroup.CreateEffectAnimation<BlurAnimation, double>(
 						element,
 						settings,
 						to: settings.BlurRadius,
 						duration: 1,
 						isFrom: true);
 
-					return animGroup.CreateEffectAnimation<BlurAnimation>(
+					return animGroup.CreateEffectAnimation<BlurAnimation, double>(
 						element,
 						settings,
 						to: 0);
+				});
+		}
+
+		internal static void SaturateTo(this FrameworkElement element, AnimationSettings settings, ref AnimationGroup group)
+		{
+			group.CreateAnimations(element, settings,
+				animGroup =>
+					animGroup.CreateEffectAnimation<SaturateAnimation, double>(
+						element,
+						settings,
+						to: settings.Saturation));
+		}
+
+		internal static void SaturateFrom(this FrameworkElement element, AnimationSettings settings, ref AnimationGroup group)
+		{
+			group.CreateAnimations(element, settings,
+				animGroup =>
+				{
+					animGroup.CreateEffectAnimation<SaturateAnimation, double>(
+						element,
+						settings,
+						to: settings.Saturation,
+						duration: 1,
+						isFrom: true);
+
+					return animGroup.CreateEffectAnimation<SaturateAnimation, double>(
+						element,
+						settings,
+						to: AnimationSettings.DEFAULT_SATURATION);
+				});
+		}
+
+		internal static void TintTo(this FrameworkElement element, AnimationSettings settings, ref AnimationGroup group)
+		{
+			group.CreateAnimations(element, settings,
+				animGroup =>
+					animGroup.CreateEffectAnimation<TintAnimation, Color>(
+						element,
+						settings,
+						to: settings.Tint));
+		}
+
+		internal static void TintFrom(this FrameworkElement element, AnimationSettings settings, ref AnimationGroup group)
+		{
+			group.CreateAnimations(element, settings,
+				animGroup =>
+				{
+					animGroup.CreateEffectAnimation<TintAnimation, Color>(
+						element,
+						settings,
+						to: settings.Tint,
+						duration: 1,
+						isFrom: true);
+
+					return animGroup.CreateEffectAnimation<TintAnimation, Color>(
+						element,
+						settings,
+						to: AnimationSettings.DEFAULT_TINT);
 				});
 		}
 
@@ -293,7 +353,7 @@ namespace XamlFlair.Extensions
 
 			if (settings.OffsetX != 0 || settings.OffsetY != 0)
 			{
-				visual.Properties.InsertVector3(Constants.TargetProperties.Translation, new Vector3((float)settings.OffsetX, (float)settings.OffsetY, (float)settings.OffsetZ));
+				visual.Properties.InsertVector3(TargetProperties.Translation, new Vector3((float)settings.OffsetX, (float)settings.OffsetY, (float)settings.OffsetZ));
 			}
 
 			if (settings.Rotation != 0)
@@ -301,21 +361,35 @@ namespace XamlFlair.Extensions
 				visual.RotationAngleInDegrees = (float)settings.Rotation;
 			}
 
-			if (settings.ScaleX != 1 || settings.ScaleY != 1)
+			if (settings.ScaleX != 1 || settings.ScaleY != 1 || settings.ScaleZ != 1)
 			{
 				visual.Scale = new Vector3((float)settings.ScaleX, (float)settings.ScaleY, (float)settings.ScaleZ);
 			}
 
-			if (settings.BlurRadius != 0)
+			if (settings.BlurRadius != 0 || settings.Saturation != AnimationSettings.DEFAULT_SATURATION || settings.Tint != AnimationSettings.DEFAULT_TINT)
 			{
-				// TODO: Can we directly set the values instead of animating...
 				var initialSettings = new AnimationSettings()
 				{
 					BlurRadius = settings.BlurRadius,
+					Saturation = settings.Saturation,
+					Tint = settings.Tint,
 					Duration = 1
 				};
 
-				BlurTo(element, initialSettings, ref group);
+				if (settings.BlurRadius != 0)
+				{
+					BlurTo(element, initialSettings, ref group);
+				}
+
+				if (settings.Saturation != AnimationSettings.DEFAULT_SATURATION)
+				{
+					SaturateTo(element, initialSettings, ref group);
+				}
+
+				if (settings.Tint != AnimationSettings.DEFAULT_TINT)
+				{
+					TintTo(element, initialSettings, ref group);
+				}
 			}
 
 			group.Begin();
@@ -352,10 +426,10 @@ namespace XamlFlair.Extensions
 			return animation;
 		}
 
-		private static T CreateEffectAnimation<T>(this AnimationGroup group, FrameworkElement element, AnimationSettings settings, double to = 1, double duration = AnimationSettings.DEFAULT_DURATION, bool isFrom = false)
-			where T : EffectAnimationBase, new()
+		private static TAnimation CreateEffectAnimation<TAnimation, TValue>(this AnimationGroup group, FrameworkElement element, AnimationSettings settings, TValue to, double duration = AnimationSettings.DEFAULT_DURATION, bool isFrom = false)
+			where TAnimation : EffectAnimationBase<TValue>, new()
 		{
-			var animation = new T()
+			var animation = new TAnimation()
 			{
 				To = to,
 				Duration = duration,
@@ -438,6 +512,10 @@ namespace XamlFlair.Extensions
 				$"	ScaleZ = {settings.ScaleZ} \n" +
 				$"	Rotation = {settings.Rotation} \n" +
 				$"	Blur = {settings.BlurRadius} \n" +
+#if __UWP__
+				$"	Saturation = {settings.Saturation} \n" +
+				$"	Tint = {settings.Tint} \n" +
+#endif
 				$"	TransformCenterPoint = {settings.TransformCenterPoint} \n" +
 				$"	Easing = {settings.Easing} \n" +
 				$"	EasingMode = {settings.EasingMode} \n" +

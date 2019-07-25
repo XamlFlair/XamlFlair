@@ -4,6 +4,7 @@
 using System.Windows;
 #else
 using Windows.UI.Xaml;
+using Windows.UI.Composition;
 #endif
 
 namespace XamlFlair
@@ -15,7 +16,7 @@ namespace XamlFlair
 		/// </summary>
 		public static bool EnableActiveTimelinesLogging { get; set; }
 
-		#region Attached Properties
+		#region Internal Attached Properties
 
 		internal static bool GetIsInitialized(DependencyObject obj) => (bool)obj.GetValue(IsInitializedProperty);
 
@@ -50,7 +51,7 @@ namespace XamlFlair
 		internal static void SetTimelineGuid(DependencyObject obj, Guid value) => obj.SetValue(TimelineGuidProperty, value);
 
 		/// <summary>
-		/// Guid attached to a Timeline (Storyboard/Composition animation), used to identify them (used internally).
+		/// Guid attached to a FrameworkElement, used to identify them (used internally).
 		/// </summary>
 		internal static readonly DependencyProperty TimelineGuidProperty =
 			DependencyProperty.RegisterAttached(
@@ -58,6 +59,26 @@ namespace XamlFlair
 				typeof(Guid),
 				typeof(Animations),
 				new PropertyMetadata(Guid.Empty));
+
+#if __UWP__
+		internal static SpriteVisual GetSprite(DependencyObject obj) => (SpriteVisual)obj.GetValue(SpriteProperty);
+
+		internal static void SetSprite(DependencyObject obj, SpriteVisual value) => obj.SetValue(SpriteProperty, value);
+
+		/// <summary>
+		/// Composition Sprite attached to a FrameworkElement.
+		/// </summary>
+		internal static readonly DependencyProperty SpriteProperty =
+			DependencyProperty.RegisterAttached(
+				"Sprite",
+				typeof(SpriteVisual),
+				typeof(Animations),
+				new PropertyMetadata(null));
+#endif
+
+		#endregion
+
+		#region Public Attached Properties
 
 		public static bool GetEnableLogging(DependencyObject obj) => (bool)obj.GetValue(EnableLoggingProperty);
 

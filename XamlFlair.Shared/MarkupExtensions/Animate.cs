@@ -12,6 +12,7 @@ using System.Windows.Media.Animation;
 using XamlFlair.Extensions;
 #else
 using Windows.Foundation;
+using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Media.Animation;
@@ -97,6 +98,18 @@ namespace XamlFlair
 		/// </summary>
 		public double BlurRadius { get; set; }
 
+#if __UWP__
+		/// <summary>
+		/// Specifies the saturation amount of the composite animation
+		/// </summary>
+		public double Saturation { get; set; } = AnimationSettings.DEFAULT_SATURATION;
+
+		/// <summary>
+		/// Specifies the tint color of the composite animation
+		/// </summary>
+		public Color Tint { get; set; } = AnimationSettings.DEFAULT_TINT;
+#endif
+
 		/// <summary>
 		/// Specifies the center point of the element's transform
 		/// </summary>
@@ -110,7 +123,6 @@ namespace XamlFlair
 		/// </remarks>
 		public EventType Event { get; set; } = AnimationSettings.DEFAULT_EVENT;
 
-#if __UWP__
 		/// <summary>
 		/// Specifies the easing of the composite animation
 		/// </summary>
@@ -120,17 +132,6 @@ namespace XamlFlair
 		/// Specifies the easing's mode of the composite animation
 		/// </summary>
 		public EasingMode EasingMode { get; set; } = AnimationSettings.DEFAULT_EASING_MODE;
-#elif __WPF__
-		/// <summary>
-		/// Specifies the easing of the composite animation
-		/// </summary>
-		public EasingType Easing { get; set; } = AnimationSettings.DEFAULT_EASING;
-
-		/// <summary>
-		/// Specifies the easing's mode of the composite animation
-		/// </summary>
-		public EasingMode EasingMode { get; set; } = AnimationSettings.DEFAULT_EASING_MODE;
-#endif
 
 		private IAnimationSettings GetAnimationSettings()
 		{
@@ -164,6 +165,8 @@ namespace XamlFlair
 #if __UWP__
 				OffsetZ = OffsetZ,
 				ScaleZ = ScaleZ,
+				Saturation = Saturation,
+				Tint = Tint,
 #endif
 			};
 

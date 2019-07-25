@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Media.Animation;
 #else
 using Windows.Foundation;
+using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Animation;
@@ -35,6 +36,11 @@ namespace XamlFlair
 		internal const EasingType DEFAULT_EASING = EasingType.Cubic;
 		internal const EasingMode DEFAULT_EASING_MODE = EasingMode.EaseOut;
 		internal const EventType DEFAULT_EVENT = EventType.Loaded;
+
+#if __UWP__
+		internal const double DEFAULT_SATURATION = 0.5;
+		internal static readonly Color DEFAULT_TINT = Colors.Transparent;
+#endif
 
 		public AnimationKind Kind
 		{
@@ -216,21 +222,55 @@ namespace XamlFlair
 				typeof(AnimationSettings),
 				new PropertyMetadata(0d));
 				
-		/// <summary>
-		/// Specifies the blur amount of the composite animation
-		/// </summary>
 		public double BlurRadius
 		{
 			get => (double)GetValue(BlurRadiusProperty);
 			set => SetValue(BlurRadiusProperty, value);
 		}
 
+		/// <summary>
+		/// Specifies the blur amount of the composite animation
+		/// </summary>
 		public static readonly DependencyProperty BlurRadiusProperty =
 			DependencyProperty.Register(
 				nameof(BlurRadius),
 				typeof(double),
 				typeof(AnimationSettings),
 				new PropertyMetadata(0d));
+
+#if __UWP__
+		public double Saturation
+		{
+			get => (double)GetValue(SaturationProperty);
+			set => SetValue(SaturationProperty, value);
+		}
+
+		/// <summary>
+		/// Specifies the saturation amount of the composite animation
+		/// </summary>
+		public static readonly DependencyProperty SaturationProperty =
+			DependencyProperty.Register(
+				nameof(Saturation),
+				typeof(double),
+				typeof(AnimationSettings),
+				new PropertyMetadata(AnimationSettings.DEFAULT_SATURATION));
+
+		public Color Tint
+		{
+			get => (Color)GetValue(TintProperty);
+			set => SetValue(TintProperty, value);
+		}
+
+		/// <summary>
+		/// Specifies the tint color of the composite animation
+		/// </summary>
+		public static readonly DependencyProperty TintProperty =
+			DependencyProperty.Register(
+				nameof(Tint),
+				typeof(Color),
+				typeof(AnimationSettings),
+				new PropertyMetadata(AnimationSettings.DEFAULT_TINT));
+#endif
 
 		public Point TransformCenterPoint
 		{
@@ -299,7 +339,7 @@ namespace XamlFlair
 				typeof(AnimationSettings),
 				new PropertyMetadata(DEFAULT_EVENT));
 
-		#region Equality
+#region Equality
 
 		public bool Equals(AnimationSettings other)
 		{
@@ -328,6 +368,8 @@ namespace XamlFlair
 #if __UWP__
 				&& other.OffsetZ.Equals(OffsetZ)
 				&& other.ScaleZ.Equals(ScaleZ)
+				&& other.Saturation.Equals(Saturation)
+				&& other.Tint.Equals(Tint)
 #endif
 				&& other.Event.Equals(Event);
 		}
@@ -384,6 +426,8 @@ namespace XamlFlair
 #if __UWP__
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, OffsetZ) ? OffsetZ.GetHashCode() : 0);
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, ScaleZ) ? ScaleZ.GetHashCode() : 0);
+				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, Saturation) ? Saturation.GetHashCode() : 0);
+				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, Tint) ? Tint.GetHashCode() : 0);
 #endif
 				return hash;
 			}
@@ -399,6 +443,6 @@ namespace XamlFlair
 
 		public static bool operator !=(AnimationSettings obj, AnimationSettings other) => !(obj == other);
 
-		#endregion
+#endregion
 	}
 }
