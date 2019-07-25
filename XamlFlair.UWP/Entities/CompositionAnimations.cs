@@ -344,23 +344,6 @@ namespace XamlFlair
 		public RotateAnimation() : base(TargetProperties.RotationAngleInDegrees) { }
 	}
 
-	//internal class SkewMatrixAnimation : ExpressionAnimationBase
-	//{
-	//	public SkewMatrixAnimation() : base("TransformMatrix")
-	//	{
-	//		InitializeAction = () =>
-	//		{
-	//			// Insert scalar properties into a PropertySet for animated matrix entries 
-	//			_visual.Properties.InsertScalar("SkewX", 0f);
-	//			_visual.Properties.InsertScalar("SkewY", 0f);
-	//		};
-
-	//		// Set reference paramter
-	//		PostCreationAction = expressionAnim
-	//			=> expressionAnim.SetReferenceParameter("visual", _visual);
-	//	}
-	//}
-	
 	internal class BlurAnimation : EffectAnimationBase<double>
 	{
 		public BlurAnimation() : base(TargetProperties.BlurEffectAmount) { }

@@ -16,7 +16,6 @@ namespace XamlFlair.Extensions
 	internal static class AnimationExtensions
 	{
 		private const short SCALE_INDEX = 0;
-		private const short SKEW_INDEX = 1;
 		private const short ROTATE_INDEX = 2;
 		private const short TRANSLATE_INDEX = 3;
 
