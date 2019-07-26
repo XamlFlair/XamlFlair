@@ -104,13 +104,6 @@ namespace XamlFlair
 
 		internal override void Start(FrameworkElement element, bool isFrom = false)
 		{
-			if (this is TranslateXAnimation || this is TranslateYAnimation)
-			{
-				// The new way of handling translate animations (see Translation property section):
-				// https://blogs.windows.com/buildingapps/2017/06/22/sweet-ui-made-possible-easy-windows-ui-windows-10-creators-update/
-				ElementCompositionPreview.SetIsTranslationEnabled(element, true);
-			}
-
 			_animation = base.StartAnimation<ScalarKeyFrameAnimation>(element,
 				duration =>
 				{

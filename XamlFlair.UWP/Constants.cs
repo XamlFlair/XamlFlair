@@ -20,11 +20,11 @@ namespace XamlFlair
 
 			internal static string Translation = "Translation";
 
-			internal static string TranslationX = "Translation.X";
+			internal static string TranslationX = $"{nameof(Translation)}.X";
 
-			internal static string TranslationY = "Translation.Y";
+			internal static string TranslationY = $"{nameof(Translation)}.Y";
 
-			internal static string TranslationZ = "Translation.Z";
+			internal static string TranslationZ = $"{nameof(Translation)}.Z";
 
 			internal static string ScaleX = "Scale.X";
 

@@ -17,10 +17,9 @@ namespace XamlFlair.Extensions
 {
 	internal static class AnimationExtensions
 	{
-		// ---------------------------------------------------------------
-		// TODO: Investigate whether or not we should be specifying values 
-		// for the "z" on Vector3 (ex: visual.Offset.Z instead of 0f)
-		// ---------------------------------------------------------------
+		// ====================
+		// FADE
+		// ====================
 
 		internal static void FadeTo(this FrameworkElement element, AnimationSettings settings, ref AnimationGroup group)
 		{
@@ -37,12 +36,7 @@ namespace XamlFlair.Extensions
 			group.CreateAnimations(element, settings,
 				animGroup =>
 				{
-					animGroup.CreateScalarAnimation<FadeAnimation>(
-						element,
-						settings,
-						to: settings.Opacity,
-						duration: 1,
-						isFrom: true);
+					ElementCompositionPreview.GetElementVisual(element).Opacity = (float)settings.Opacity;
 
 					return animGroup.CreateScalarAnimation<FadeAnimation>(
 						element,
@@ -50,6 +44,10 @@ namespace XamlFlair.Extensions
 						to: 1);
 				});
 		}
+
+		// ====================
+		// TRANSLATE
+		// ====================
 
 		internal static void TranslateXTo(this FrameworkElement element, AnimationSettings settings, ref AnimationGroup group)
 		{
@@ -86,12 +84,17 @@ namespace XamlFlair.Extensions
 			group.CreateAnimations(element, settings,
 				animGroup =>
 				{
-					animGroup.CreateScalarAnimation<TranslateXAnimation>(
-						element,
-						settings,
-						to: (float)settings.OffsetX,
-						duration: 1,
-						isFrom: true);
+					var visual = ElementCompositionPreview.GetElementVisual(element);
+
+					// Since Translation doesn't exist as a property on Visual, we try to fetch it from the PropertySet
+					if (visual.Properties.TryGetVector3(TargetProperties.Translation, out var translation) == CompositionGetValueStatus.Succeeded)
+					{
+						visual.Properties.InsertVector3(TargetProperties.Translation, new Vector3((float)settings.OffsetX, translation.Y, translation.Z));
+					}
+					else
+					{
+						visual.Properties.InsertVector3(TargetProperties.Translation, new Vector3((float)settings.OffsetX, 0f, 0f));
+					}
 
 					return animGroup.CreateScalarAnimation<TranslateXAnimation>(
 						element,
@@ -105,12 +108,17 @@ namespace XamlFlair.Extensions
 			group.CreateAnimations(element, settings,
 				animGroup =>
 				{
-					animGroup.CreateScalarAnimation<TranslateYAnimation>(
-						element,
-						settings,
-						to: (float)settings.OffsetY,
-						duration: 1,
-						isFrom: true);
+					var visual = ElementCompositionPreview.GetElementVisual(element);
+
+					// Since Translation doesn't exist as a property on Visual, we try to fetch it from the PropertySet
+					if (visual.Properties.TryGetVector3(TargetProperties.Translation, out var translation) == CompositionGetValueStatus.Succeeded)
+					{
+						visual.Properties.InsertVector3(TargetProperties.Translation, new Vector3(translation.X, (float)settings.OffsetY, translation.Z));
+					}
+					else
+					{
+						visual.Properties.InsertVector3(TargetProperties.Translation, new Vector3(0f, (float)settings.OffsetY, 0f));
+					}
 
 					return animGroup.CreateScalarAnimation<TranslateYAnimation>(
 						element,
@@ -124,12 +132,17 @@ namespace XamlFlair.Extensions
 			group.CreateAnimations(element, settings,
 				animGroup =>
 				{
-					animGroup.CreateScalarAnimation<TranslateZAnimation>(
-						element,
-						settings,
-						to: (float)settings.OffsetZ,
-						duration: 1,
-						isFrom: true);
+					var visual = ElementCompositionPreview.GetElementVisual(element);
+
+					// Since Translation doesn't exist as a property on Visual, we try to fetch it from the PropertySet
+					if (visual.Properties.TryGetVector3(TargetProperties.Translation, out var translation) == CompositionGetValueStatus.Succeeded)
+					{
+						visual.Properties.InsertVector3(TargetProperties.Translation, new Vector3(translation.X, translation.Y, (float)settings.OffsetZ));
+					}
+					else
+					{
+						visual.Properties.InsertVector3(TargetProperties.Translation, new Vector3(0f, 0f, (float)settings.OffsetZ));
+					}
 
 					return animGroup.CreateScalarAnimation<TranslateZAnimation>(
 						element,
@@ -137,6 +150,10 @@ namespace XamlFlair.Extensions
 						to: 0f);
 				});
 		}
+
+		// ====================
+		// SCALE
+		// ====================
 
 		internal static void ScaleXTo(this FrameworkElement element, AnimationSettings settings, ref AnimationGroup group)
 		{
@@ -173,12 +190,8 @@ namespace XamlFlair.Extensions
 			group.CreateAnimations(element, settings,
 				animGroup =>
 				{
-					animGroup.CreateScalarAnimation<ScaleXAnimation>(
-						element,
-						settings,
-						to: (float)settings.ScaleX,
-						duration: 1,
-						isFrom: true);
+					var visual = ElementCompositionPreview.GetElementVisual(element);
+					visual.Scale = new Vector3((float)settings.ScaleX, visual.Scale.Y, visual.Scale.Z);
 
 					return animGroup.CreateScalarAnimation<ScaleXAnimation>(
 						element,
@@ -192,12 +205,8 @@ namespace XamlFlair.Extensions
 			group.CreateAnimations(element, settings,
 				animGroup =>
 				{
-					animGroup.CreateScalarAnimation<ScaleYAnimation>(
-						element,
-						settings,
-						to: (float)settings.ScaleY,
-						duration: 1,
-						isFrom: true);
+					var visual = ElementCompositionPreview.GetElementVisual(element);
+					visual.Scale = new Vector3(visual.Scale.X, (float)settings.ScaleY, visual.Scale.Z);
 
 					return animGroup.CreateScalarAnimation<ScaleYAnimation>(
 						element,
@@ -211,12 +220,8 @@ namespace XamlFlair.Extensions
 			group.CreateAnimations(element, settings,
 				animGroup =>
 				{
-					animGroup.CreateScalarAnimation<ScaleZAnimation>(
-						element,
-						settings,
-						to: (float)settings.ScaleZ,
-						duration: 1,
-						isFrom: true);
+					var visual = ElementCompositionPreview.GetElementVisual(element);
+					visual.Scale = new Vector3(visual.Scale.X, visual.Scale.Y, (float)settings.ScaleZ);
 
 					return animGroup.CreateScalarAnimation<ScaleZAnimation>(
 						element,
@@ -224,6 +229,10 @@ namespace XamlFlair.Extensions
 						to: 1f);
 				});
 		}
+
+		// ====================
+		// ROTATE
+		// ====================
 
 		internal static void RotateTo(this FrameworkElement element, AnimationSettings settings, ref AnimationGroup group)
 		{
@@ -240,12 +249,7 @@ namespace XamlFlair.Extensions
 			group.CreateAnimations(element, settings,
 				animGroup =>
 				{
-					animGroup.CreateScalarAnimation<RotateAnimation>(
-						element,
-						settings,
-						to: settings.Rotation,
-						duration: 1,
-						isFrom: true);
+					ElementCompositionPreview.GetElementVisual(element).RotationAngleInDegrees = (float)settings.Rotation;
 
 					return animGroup.CreateScalarAnimation<RotateAnimation>(
 						element,
@@ -253,6 +257,10 @@ namespace XamlFlair.Extensions
 						to: 0);
 				});
 		}
+
+		// ====================
+		// BLUR
+		// ====================
 
 		internal static void BlurTo(this FrameworkElement element, AnimationSettings settings, ref AnimationGroup group)
 		{
@@ -283,6 +291,10 @@ namespace XamlFlair.Extensions
 				});
 		}
 
+		// ====================
+		// SATURATE
+		// ====================
+
 		internal static void SaturateTo(this FrameworkElement element, AnimationSettings settings, ref AnimationGroup group)
 		{
 			group.CreateAnimations(element, settings,
@@ -311,6 +323,10 @@ namespace XamlFlair.Extensions
 						to: AnimationSettings.DEFAULT_SATURATION);
 				});
 		}
+
+		// ====================
+		// TINT
+		// ====================
 
 		internal static void TintTo(this FrameworkElement element, AnimationSettings settings, ref AnimationGroup group)
 		{
@@ -341,6 +357,7 @@ namespace XamlFlair.Extensions
 				});
 		}
 
+
 		internal static void ApplyInitialSettings(this FrameworkElement element, AnimationSettings settings)
 		{
 			var group = new AnimationGroup();
@@ -351,7 +368,7 @@ namespace XamlFlair.Extensions
 				visual.Opacity = (float)settings.Opacity;
 			}
 
-			if (settings.OffsetX != 0 || settings.OffsetY != 0)
+			if (settings.OffsetX != 0 || settings.OffsetY != 0 || settings.OffsetZ != 0)
 			{
 				visual.Properties.InsertVector3(TargetProperties.Translation, new Vector3((float)settings.OffsetX, (float)settings.OffsetY, (float)settings.OffsetZ));
 			}
