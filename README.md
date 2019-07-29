@@ -87,6 +87,18 @@ From here on, it's a simple matter of setting an attached property to any `Frame
 
 ![Rotation animation](doc/gifs/RotateFrom.gif)
 
+#### Blur
+
+![Blur animation](doc/gifs/Blur.gif)
+
+#### Saturate (_UWP-only_)
+
+![Saturate animation](doc/gifs/Saturate.gif)
+
+#### Tint (_UWP-only_)
+
+![Tint animation](doc/gifs/Tint.gif)
+
 The following lists some notable **default values** when working with XamlFlair:
 
 * **Kind**: FadeTo
