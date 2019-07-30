@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Hosting;
 using XamlFlair.UWP.Logging;
 
 namespace XamlFlair.Extensions
@@ -79,7 +80,7 @@ namespace XamlFlair.Extensions
 
 			// LIMITATION: Currently, for proper item animation handling, item animations
 			// MUST include a 'FadeFrom' animation with an Opacity value of 0
-			item.Opacity = 0;
+			ElementCompositionPreview.GetElementVisual(item).Opacity = (float)settings.Opacity;
 
 			if (!isFirstItemContainerLoaded)
 			{
@@ -121,6 +122,10 @@ namespace XamlFlair.Extensions
 
 		private static void AnimateVisibleItem(SelectorItem item, AnimationSettings settings, int index, double interElementDelay)
 		{
+			// The new way of handling translate animations (see Translation property section):
+			// https://blogs.windows.com/buildingapps/2017/06/22/sweet-ui-made-possible-easy-windows-ui-windows-10-creators-update/
+			ElementCompositionPreview.SetIsTranslationEnabled(item, true);
+
 			// Create a clone of 'settings'
 			var itemSettings = new AnimationSettings().ApplyOverrides(settings);
 

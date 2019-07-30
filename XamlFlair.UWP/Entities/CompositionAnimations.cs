@@ -54,7 +54,7 @@ namespace XamlFlair
 				: Duration;
 
 			_visual.Size = new Vector2((float)_element.ActualWidth, (float)_element.ActualHeight);
-			_visual.CenterPoint = GetTransformCenter();
+			_visual.CenterPoint = _element.GetTransformCenter(Settings);
 
 			return duration;
 		}
@@ -84,14 +84,6 @@ namespace XamlFlair
 
 			return expression;
 		}
-
-		protected Vector3 GetTransformCenter()
-		{
-			var centerX = (float)(_element.ActualWidth * Settings.TransformCenterPoint.X);
-			var centerY = (float)(_element.ActualHeight * Settings.TransformCenterPoint.Y);
-
-			return new Vector3(centerX, centerY, 0f);
-		}
 	}
 
 	internal abstract class ScalarAnimationBase : AnimationBase
@@ -104,13 +96,6 @@ namespace XamlFlair
 
 		internal override void Start(FrameworkElement element, bool isFrom = false)
 		{
-			if (this is TranslateXAnimation || this is TranslateYAnimation)
-			{
-				// The new way of handling translate animations (see Translation property section):
-				// https://blogs.windows.com/buildingapps/2017/06/22/sweet-ui-made-possible-easy-windows-ui-windows-10-creators-update/
-				ElementCompositionPreview.SetIsTranslationEnabled(element, true);
-			}
-
 			_animation = base.StartAnimation<ScalarKeyFrameAnimation>(element,
 				duration =>
 				{

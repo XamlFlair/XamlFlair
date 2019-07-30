@@ -19,6 +19,10 @@ namespace XamlFlair.Extensions
 		private const short ROTATE_INDEX = 2;
 		private const short TRANSLATE_INDEX = 3;
 
+		// ====================
+		// FADE
+		// ====================
+
 		internal static Storyboard FadeTo(this FrameworkElement element, AnimationSettings settings, ref Storyboard storyboard)
 		{
 			// TODO: Investigate to determine the use-case of having the need for calling BeginAnimation() in WPF
@@ -46,6 +50,10 @@ namespace XamlFlair.Extensions
 
 			return storyboard;
 		}
+
+		// ====================
+		// TRANSLATE
+		// ====================
 
 		internal static Storyboard TranslateXTo(this FrameworkElement element, AnimationSettings settings, ref Storyboard storyboard)
 		{
@@ -99,6 +107,10 @@ namespace XamlFlair.Extensions
 			return storyboard;
 		}
 
+		// ====================
+		// SCALE
+		// ====================
+
 		internal static Storyboard ScaleXTo(this FrameworkElement element, AnimationSettings settings, ref Storyboard storyboard)
 		{
 			var transform = (element.RenderTransform as TransformGroup) ?? CreateTransformGroup();
@@ -151,6 +163,10 @@ namespace XamlFlair.Extensions
 			return storyboard;
 		}
 
+		// ====================
+		// ROTATE
+		// ====================
+
 		internal static Storyboard RotateTo(this FrameworkElement element, AnimationSettings settings, ref Storyboard storyboard)
 		{
 			var transform = (element.RenderTransform as TransformGroup) ?? CreateTransformGroup();
@@ -176,6 +192,10 @@ namespace XamlFlair.Extensions
 
 			return storyboard;
 		}
+
+		// ====================
+		// BLUR
+		// ====================
 
 		internal static Storyboard BlurTo(this FrameworkElement element, AnimationSettings settings, ref Storyboard storyboard)
 		{
