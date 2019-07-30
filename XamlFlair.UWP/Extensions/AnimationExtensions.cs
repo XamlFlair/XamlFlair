@@ -191,6 +191,8 @@ namespace XamlFlair.Extensions
 				animGroup =>
 				{
 					var visual = ElementCompositionPreview.GetElementVisual(element);
+
+					visual.CenterPoint = element.GetTransformCenter(settings);
 					visual.Scale = new Vector3((float)settings.ScaleX, visual.Scale.Y, visual.Scale.Z);
 
 					return animGroup.CreateScalarAnimation<ScaleXAnimation>(
@@ -206,6 +208,8 @@ namespace XamlFlair.Extensions
 				animGroup =>
 				{
 					var visual = ElementCompositionPreview.GetElementVisual(element);
+
+					visual.CenterPoint = element.GetTransformCenter(settings);
 					visual.Scale = new Vector3(visual.Scale.X, (float)settings.ScaleY, visual.Scale.Z);
 
 					return animGroup.CreateScalarAnimation<ScaleYAnimation>(
@@ -221,6 +225,8 @@ namespace XamlFlair.Extensions
 				animGroup =>
 				{
 					var visual = ElementCompositionPreview.GetElementVisual(element);
+
+					visual.CenterPoint = element.GetTransformCenter(settings);
 					visual.Scale = new Vector3(visual.Scale.X, visual.Scale.Y, (float)settings.ScaleZ);
 
 					return animGroup.CreateScalarAnimation<ScaleZAnimation>(
@@ -249,7 +255,10 @@ namespace XamlFlair.Extensions
 			group.CreateAnimations(element, settings,
 				animGroup =>
 				{
-					ElementCompositionPreview.GetElementVisual(element).RotationAngleInDegrees = (float)settings.Rotation;
+					var visual = ElementCompositionPreview.GetElementVisual(element);
+
+					visual.CenterPoint = element.GetTransformCenter(settings);
+					visual.RotationAngleInDegrees = (float)settings.Rotation;
 
 					return animGroup.CreateScalarAnimation<RotateAnimation>(
 						element,
@@ -363,6 +372,8 @@ namespace XamlFlair.Extensions
 			var group = new AnimationGroup();
 			var visual = ElementCompositionPreview.GetElementVisual(element);
 
+			visual.CenterPoint = element.GetTransformCenter(settings);
+
 			if (settings.Opacity != 1)
 			{
 				visual.Opacity = (float)settings.Opacity;
@@ -472,36 +483,28 @@ namespace XamlFlair.Extensions
 			return animation;
 		}
 
-		// TODO: Not yet used... Attempt to use in order to specify the "from" values
-		// instead of animating the "from" values with a 1 millisecond animation
-		private static void SetFromVector3(this FrameworkElement element, string targetProperty, Func<Vector3> initialPropertyVectorFunc, Func<Vector3, Vector3> updatePropertyVectorFunc)
+		internal static Vector3 GetTransformCenter(this FrameworkElement element, AnimationSettings settings)
 		{
-			var props = ElementCompositionPreview.GetElementVisual(element).Properties;
+			// Based on the state of the element, try to get the width in the following precedence:
+			//		ActualWidth > Width > MinWidth
+			var elementWidth = element.ActualWidth > 0
+				? element.ActualWidth
+				: element.Width > 0
+					? element.Width
+					: element.MinWidth;
 
-			if (props.TryGetVector3(targetProperty, out var vector) == CompositionGetValueStatus.Succeeded)
-			{
-				props.InsertVector3(targetProperty, updatePropertyVectorFunc(vector));
-			}
-			else
-			{
-				props.InsertVector3(targetProperty, initialPropertyVectorFunc());
-			}
-		}
+			// Based on the state of the element, try to get the height in the following precedence:
+			//		ActualHeight > Height > MinHeight
+			var elementHeight = element.ActualHeight > 0
+				? element.ActualHeight
+				: element.Height > 0
+					? element.Height
+					: element.MinHeight;
 
-		// TODO: Not yet used... Attempt to use in order to specify the "from" values
-		// instead of animating the "from" values with a 1 millisecond animation
-		private static void SetFromScalar(this FrameworkElement element, string targetProperty, Func<float> initialPropertyScalarFunc, Func<float> updatePropertyScalarFunc)
-		{
-			var props = ElementCompositionPreview.GetElementVisual(element).Properties;
+			var centerX = (float)(elementWidth * settings.TransformCenterPoint.X);
+			var centerY = (float)(elementHeight * settings.TransformCenterPoint.Y);
 
-			if (props.TryGetScalar(targetProperty, out var scalar) == CompositionGetValueStatus.Succeeded)
-			{
-				props.InsertScalar(targetProperty, updatePropertyScalarFunc());
-			}
-			else
-			{
-				props.InsertScalar(targetProperty, initialPropertyScalarFunc());
-			}
+			return new Vector3(centerX, centerY, 0f);
 		}
 
 		internal static void LogAnimationInfo(this FrameworkElement element, AnimationSettings settings, string targetProperty)

@@ -54,7 +54,7 @@ namespace XamlFlair
 				: Duration;
 
 			_visual.Size = new Vector2((float)_element.ActualWidth, (float)_element.ActualHeight);
-			_visual.CenterPoint = GetTransformCenter();
+			_visual.CenterPoint = _element.GetTransformCenter(Settings);
 
 			return duration;
 		}
@@ -83,14 +83,6 @@ namespace XamlFlair
 			_visual.StartAnimation(TargetProperty, expression);
 
 			return expression;
-		}
-
-		protected Vector3 GetTransformCenter()
-		{
-			var centerX = (float)(_element.ActualWidth * Settings.TransformCenterPoint.X);
-			var centerY = (float)(_element.ActualHeight * Settings.TransformCenterPoint.Y);
-
-			return new Vector3(centerX, centerY, 0f);
 		}
 	}
 
