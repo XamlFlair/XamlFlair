@@ -28,7 +28,7 @@ namespace XamlFlair.Extensions
 		internal static void RegisterListEvents(this ListBox lb, Action itemsSourceChangedAction)
 		{
 			// Observe the Unloaded of the control (including Error or Completed)
-			var unloaded = (lb as FrameworkElement).Events().UnloadedMaterialized;
+			var unloaded = (lb as FrameworkElement).Events().Unloaded;
 
 			lb.Observe(ItemsControl.ItemsSourceProperty)
 				.TakeUntil(unloaded)
@@ -112,13 +112,6 @@ namespace XamlFlair.Extensions
 
 			var scroller = lb?.FindDescendant<ScrollViewer>();
 			var indexFromVisibleTop = lb.ItemContainerGenerator.IndexFromContainer(lbi) - scroller.VerticalOffset;
-			var viewportHeight = scroller.ViewportHeight * lbi.DesiredSize.Height;
-
-			// If viewportHeight couldn't be calculated based on scroller.ViewportHeight,
-			// then use scroller.ActualHeight as a fail-safe
-			viewportHeight = viewportHeight <= 0 ? scroller.ActualHeight : viewportHeight;
-
-			var itemPosition = lbi.TransformToAncestor(lb).Transform(new Point(0, 0));
 
 			// Create a clone of 'settings'
 			var itemSettings = new AnimationSettings().ApplyOverrides(settings);

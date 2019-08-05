@@ -38,14 +38,7 @@ namespace Windows.UI.Xaml
 			internal IObservable<EventPattern<RoutedEventArgs>> LoadedUntilUnloaded =>
 				Loaded
 					.DistinctUntilChanged()
-					.TakeUntil(UnloadedMaterialized);
-
-			internal IObservable<EventPattern<RoutedEventArgs>> UnloadedMaterialized =>
-				Unloaded
-					.Materialize()
-					.Where(notif => notif.Kind == NotificationKind.OnError ||
-									notif.Kind == NotificationKind.OnCompleted)
-					.Dematerialize();
+					.TakeUntil(Unloaded);
 
 			internal IObservable<EventPattern<RoutedEventArgs>> GotFocus =>
 				Observable.FromEventPattern<RoutedEventHandler, RoutedEventArgs>(
@@ -104,7 +97,7 @@ namespace Windows.UI.Xaml
 			internal IObservable<EventPattern<object>> LoadingUntilUnloaded =>
 				Loading
 					.DistinctUntilChanged()
-					.TakeUntil(UnloadedMaterialized);
+					.TakeUntil(Unloaded);
 #endif
 		}
 	}

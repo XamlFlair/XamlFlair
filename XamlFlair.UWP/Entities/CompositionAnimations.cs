@@ -196,28 +196,37 @@ namespace XamlFlair
 				Saturation = (float)saturate,
 			};
 
-			var factory = compositor.CreateEffectFactory(saturationEffect, new[]
+			var targetProperties = new[]
 			{
 				TargetProperties.BlurEffectAmount,
 				TargetProperties.TintEffectColor,
 				TargetProperties.SaturationEffectAmount,
-			});
+			};
 
-			var brush = factory.CreateBrush();
-			brush.SetSourceParameter(TargetProperties.BackDrop, compositor.CreateBackdropBrush());
+			using (var factory = compositor.CreateEffectFactory(saturationEffect, targetProperties))
+			{
+				var brush = factory.CreateBrush();
 
-			// Animatable properties
-			brush.Properties.InsertScalar(TargetProperties.BlurEffectAmount, (float)blur);
-			brush.Properties.InsertColor(TargetProperties.TintEffectColor, tint);
-			brush.Properties.InsertScalar(TargetProperties.SaturationEffectAmount, (float)saturate);
+				brush.SetSourceParameter(TargetProperties.BackDrop, compositor.CreateBackdropBrush());
 
-			var sprite = compositor.CreateSpriteVisual();
-			sprite.Brush = brush;
-			sprite.Size = _visual.Size;
-			ElementCompositionPreview.SetElementChildVisual(element, sprite);
+				// Animatable properties
+				brush.Properties.InsertScalar(TargetProperties.BlurEffectAmount, (float)blur);
+				brush.Properties.InsertColor(TargetProperties.TintEffectColor, tint);
+				brush.Properties.InsertScalar(TargetProperties.SaturationEffectAmount, (float)saturate);
 
-			// Attach the effect on the element to retrieve later
-			Animations.SetSprite(element, sprite);
+				var sprite = compositor.CreateSpriteVisual();
+				sprite.Brush = brush;
+				sprite.Size = _visual.Size;
+				ElementCompositionPreview.SetElementChildVisual(element, sprite);
+
+				// Clear any previous applied effect
+				var previousEffect = Animations.GetSprite(element);
+				previousEffect?.Dispose();
+				previousEffect = null;
+
+				// Attach the effect on the element to retrieve later
+				Animations.SetSprite(element, sprite);
+			}
 
 			return saturationEffect;
 		}

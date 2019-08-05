@@ -11,6 +11,7 @@ using System.Collections.Concurrent;
 using System.Windows;
 using System.Windows.Media.Animation;
 using XamlFlair.WPF.Logging;
+using static System.Windows.EventsMixin;
 using FrameworkElement = System.Windows.FrameworkElement;
 using Timeline = System.Windows.Media.Animation.Storyboard;
 #else
@@ -18,6 +19,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Composition;
 using XamlFlair.UWP.Logging;
+using static Windows.UI.Xaml.EventsMixin;
 using FrameworkElement = Windows.UI.Xaml.FrameworkElement;
 using Timeline = XamlFlair.AnimationGroup;
 #endif
@@ -118,26 +120,35 @@ namespace XamlFlair
 				.Events()
 				.LoadedUntilUnloaded
 				.Take(1)
+				.Select(args => args.Sender as FrameworkElement)
 				.Subscribe(
-					args =>
+					elem =>
 					{
 						// Perform validations on element's attached properties
-						Validate(element);
+						Validate(elem);
 
-						var startSettings = element.GetSettings(SettingsTarget.StartWith, getStartWithFunc: GetStartWith);
+						var startSettings = elem.GetSettings(SettingsTarget.StartWith, getStartWithFunc: GetStartWith);
 
 						// If any StartWith settings were specified, apply them
 						if (startSettings != null)
 						{
-							element.ApplyInitialSettings((AnimationSettings)startSettings);
+							elem.ApplyInitialSettings((AnimationSettings)startSettings);
 						}
 					},
-					ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.Loaded)} event of {nameof(FrameworkElement)}", ex)
+					ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElementEvents.LoadedUntilUnloaded)} event.", ex)
+				);
+
+			element
+				.Events()
+				.Unloaded
+				.Subscribe(
+					args => CleanupDisposables(args.Sender as FrameworkElement),
+					ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.Unloaded)} event.", ex)
 				);
 
 			element
 				.Observe(UIElement.VisibilityProperty)
-				.TakeUntil(element.Events().UnloadedMaterialized)
+				.TakeUntil(element.Events().Unloaded)
 				.Subscribe(
 					_ =>
 					{
@@ -156,7 +167,7 @@ namespace XamlFlair
 			element
 				.Events()
 				.SizeChanged
-				.TakeUntil(element.Events().UnloadedMaterialized)
+				.TakeUntil(element.Events().Unloaded)
 				.Subscribe(
 					args =>
 					{
@@ -167,14 +178,14 @@ namespace XamlFlair
 							sprite.Size = new Vector2((float)elem.ActualWidth, (float)elem.ActualHeight);
 						}
 					},
-					ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.SizeChanged)} event of {nameof(FrameworkElement)}", ex)
+					ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.SizeChanged)} event.", ex)
 				);
 #endif
 		}
 
-		#endregion
+#endregion
 
-		#region Events
+#region Events
 
 		private static void RegisterElementEvents(FrameworkElement element, IAnimationSettings settings, bool useSecondarySettings = false)
 		{
@@ -187,7 +198,7 @@ namespace XamlFlair
 							.LoadedUntilUnloaded
 							.Subscribe(
 								args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
-								ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.Loaded)} event of {nameof(FrameworkElement)}", ex),
+								ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.Loaded)} event.", ex),
 								() => Cleanup(element)
 							);
 
@@ -201,7 +212,7 @@ namespace XamlFlair
 							.LoadingUntilUnloaded
 							.Subscribe(
 								args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
-								ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.Loading)} event of {nameof(FrameworkElement)}", ex),
+								ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.Loading)} event.", ex),
 								() => Cleanup(element)
 							);
 
@@ -213,7 +224,7 @@ namespace XamlFlair
 						element
 							.Observe(FrameworkElement.VisibilityProperty)
 							.Where(_ => element.Visibility == Visibility.Visible)
-							.TakeUntil(element.Events().UnloadedMaterialized)
+							.TakeUntil(element.Events().Unloaded)
 							.Subscribe(
 								_ => PrepareAnimations(element, useSecondaryAnimation: useSecondarySettings),
 								ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.Visibility)} changes of {nameof(FrameworkElement)}", ex),
@@ -228,10 +239,10 @@ namespace XamlFlair
 						element
 							.Events()
 							.DataContextChanged
-							.TakeUntil(element.Events().UnloadedMaterialized)
+							.TakeUntil(element.Events().Unloaded)
 							.Subscribe(
 								args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
-								ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.DataContextChanged)} event of {nameof(FrameworkElement)}", ex),
+								ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.DataContextChanged)} event.", ex),
 								() => Cleanup(element)
 							);
 
@@ -243,13 +254,13 @@ namespace XamlFlair
 						element
 							.Events()
 							.PointerEntered
-							.TakeUntil(element.Events().UnloadedMaterialized)
+							.TakeUntil(element.Events().Unloaded)
 							.Subscribe(
 								args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
 #if __WPF__
-								ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.MouseEnter)} event of {nameof(FrameworkElement)}", ex),
+								ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.MouseEnter)} event.", ex),
 #else
-								ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.PointerEntered)} event of {nameof(FrameworkElement)}", ex),
+								ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.PointerEntered)} event.", ex),
 #endif
 								() => Cleanup(element)
 							);
@@ -262,13 +273,13 @@ namespace XamlFlair
 						element
 							.Events()
 							.PointerExited
-							.TakeUntil(element.Events().UnloadedMaterialized)
+							.TakeUntil(element.Events().Unloaded)
 							.Subscribe(
 								args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
 #if __WPF__
-								ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.MouseLeave)} event of {nameof(FrameworkElement)}", ex),
+								ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.MouseLeave)} event.", ex),
 #else
-								ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.PointerExited)} event of {nameof(FrameworkElement)}", ex),
+								ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.PointerExited)} event.", ex),
 #endif
 								() => Cleanup(element)
 							);
@@ -281,10 +292,10 @@ namespace XamlFlair
 						element
 							.Events()
 							.GotFocus
-							.TakeUntil(element.Events().UnloadedMaterialized)
+							.TakeUntil(element.Events().Unloaded)
 							.Subscribe(
 								args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
-								ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.GotFocus)} event of {nameof(FrameworkElement)}", ex),
+								ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.GotFocus)} event.", ex),
 								() => Cleanup(element)
 							);
 
@@ -296,10 +307,10 @@ namespace XamlFlair
 						element
 							.Events()
 							.LostFocus
-							.TakeUntil(element.Events().UnloadedMaterialized)
+							.TakeUntil(element.Events().Unloaded)
 							.Subscribe(
 								args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
-								ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.LostFocus)} event of {nameof(FrameworkElement)}", ex),
+								ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.LostFocus)} event.", ex),
 								() => Cleanup(element)
 							);
 
@@ -675,6 +686,18 @@ namespace XamlFlair
 #endif
 		}
 
-#endregion
+		private static void CleanupDisposables(FrameworkElement element)
+		{
+			var disposables = GetDisposables(element);
+			disposables?.Dispose();
+			disposables = null;
+#if __UWP__
+			var sprite = GetSprite(element);
+			sprite?.Dispose();
+			sprite = null;
+#endif
+		}
+
+		#endregion
 	}
 }
