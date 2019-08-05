@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reactive.Disposables;
 
 #if __WPF__
 using System.Windows;
@@ -75,6 +76,20 @@ namespace XamlFlair
 				typeof(Animations),
 				new PropertyMetadata(null));
 #endif
+
+		internal static CompositeDisposable GetDisposables(DependencyObject obj) => (CompositeDisposable)obj.GetValue(DisposablesProperty);
+
+		internal static void SetDisposables(DependencyObject obj, CompositeDisposable value) => obj.SetValue(DisposablesProperty, value);
+
+		/// <summary>
+		///  Internal property to hold an element's disposables
+		/// </summary>
+		internal static readonly DependencyProperty DisposablesProperty =
+			DependencyProperty.RegisterAttached(
+				"Disposables",
+				typeof(CompositeDisposable),
+				typeof(Animations),
+				new PropertyMetadata(null));
 
 		#endregion
 

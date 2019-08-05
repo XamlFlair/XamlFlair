@@ -33,7 +33,7 @@ namespace XamlFlair.Extensions
 		internal static void RegisterListEvents(this ListViewBase lvb, Action itemsSourceChangedAction)
 		{
 			// Observe the Unloaded of the control (including Error or Completed)
-			var unloaded = (lvb as FrameworkElement).Events().UnloadedMaterialized;
+			var unloaded = (lvb as FrameworkElement).Events().Unloaded;
 
 			lvb.Observe(ItemsControl.ItemsSourceProperty)
 				.TakeUntil(unloaded)
@@ -105,9 +105,6 @@ namespace XamlFlair.Extensions
 		{
 			// Make sure to retrieve the GetInterElementDelay value
 			var interElementDelay = Animations.GetInterElementDelay(lvb);
-
-			var scroller = lvb?.FindDescendant<ScrollViewer>();
-			var visibleItems = lastVisibleIndex - firstVisibleIndex;
 			var top = firstVisibleIndex;
 			var bottom = lastVisibleIndex;
 
