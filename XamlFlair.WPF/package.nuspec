@@ -4,7 +4,7 @@
     <!--*-->
     <id>XamlFlair.WPF</id>
     <!--*-->
-    <version>1.0.15</version>
+    <version>1.0.16</version>
     <title>XamlFlair.WPF</title>
     <!--*-->
     <authors>xamlflair</authors>
@@ -20,7 +20,7 @@
     <!--*-->
     <description>XamlFlair animation library for the WPF platform.</description>
     <!--*-->
-    <releaseNotes>Applied some animation fixes.</releaseNotes>
+    <releaseNotes>Applied changes related to observable lifetimes linked to the Unloaded event.</releaseNotes>
     <copyright>Copyright © 2019</copyright>
     <tags>
     </tags>
