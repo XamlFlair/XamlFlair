@@ -4,7 +4,7 @@
     <!--*-->
     <id>XamlFlair.WPF</id>
     <!--*-->
-    <version>1.0.16</version>
+    <version>1.0.17</version>
     <title>XamlFlair.WPF</title>
     <!--*-->
     <authors>xamlflair</authors>
@@ -20,7 +20,7 @@
     <!--*-->
     <description>XamlFlair animation library for the WPF platform.</description>
     <!--*-->
-    <releaseNotes>Applied changes related to observable lifetimes linked to the Unloaded event.</releaseNotes>
+    <releaseNotes>Added the AllowOpacityReset property for WPF to fix certain cases where an opacity animation won't change its value.</releaseNotes>
     <copyright>Copyright © 2019</copyright>
     <tags>
     </tags>

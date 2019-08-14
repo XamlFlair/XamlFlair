@@ -25,11 +25,12 @@ namespace XamlFlair.Extensions
 
 		internal static Storyboard FadeTo(this FrameworkElement element, AnimationSettings settings, ref Storyboard storyboard)
 		{
-			// TODO: Investigate to determine the use-case of having the need for calling BeginAnimation() in WPF
-
-			// Since a previous animation can have a "hold" on the Opacity property, we must "release" it before setting a new value:
-			// https://docs.microsoft.com/en-us/dotnet/framework/wpf/graphics-multimedia/how-to-set-a-property-after-animating-it-with-a-storyboard?view=netframework-4.7.2#remove-an-animation-from-an-individual-property
-			//element.BeginAnimation(UIElement.OpacityProperty, null);
+			// Since a previous animation can have a "hold" on the Opacity property, we must "release" it before
+			// setting a new value. See the Remarks section of the AttachedProperty for more info.
+			if (Animations.GetAllowOpacityReset(element))
+			{
+				element.BeginAnimation(UIElement.OpacityProperty, null);
+			}
 
 			element.ApplyAnimation(settings, element.Opacity, settings.Opacity, "Opacity", ref storyboard);
 
@@ -38,11 +39,12 @@ namespace XamlFlair.Extensions
 
 		internal static Storyboard FadeFrom(this FrameworkElement element, AnimationSettings settings, ref Storyboard storyboard)
 		{
-			// TODO: Investigate to determine the use-case of having the need for calling BeginAnimation() in WPF
-
-			// Since a previous animation can have a "hold" on the Opacity property, we must "release" it before setting a new value:
-			// https://docs.microsoft.com/en-us/dotnet/framework/wpf/graphics-multimedia/how-to-set-a-property-after-animating-it-with-a-storyboard?view=netframework-4.7.2#remove-an-animation-from-an-individual-property
-			//element.BeginAnimation(UIElement.OpacityProperty, null);
+			// Since a previous animation can have a "hold" on the Opacity property, we must "release" it before
+			// setting a new value. See the Remarks section of the AttachedProperty for more info.
+			if (Animations.GetAllowOpacityReset(element))
+			{
+				element.BeginAnimation(UIElement.OpacityProperty, null);
+			}
 
 			element.Opacity = settings.Opacity;
 
@@ -270,9 +272,13 @@ namespace XamlFlair.Extensions
 			translate.X = settings.OffsetX;
 			translate.Y = settings.OffsetY;
 
-			// Since a previous animation can have a "hold" on the Opacity property, we must "release" it before setting a new value:
-			// https://docs.microsoft.com/en-us/dotnet/framework/wpf/graphics-multimedia/how-to-set-a-property-after-animating-it-with-a-storyboard?view=netframework-4.7.2#remove-an-animation-from-an-individual-property
-			element.BeginAnimation(UIElement.OpacityProperty, null);
+			// Since a previous animation can have a "hold" on the Opacity property, we must "release" it before
+			// setting a new value. See the Remarks section of the AttachedProperty for more info.
+			if (Animations.GetAllowOpacityReset(element))
+			{
+				element.BeginAnimation(UIElement.OpacityProperty, null);
+			}
+
 			element.Opacity = settings.Opacity;
 
 			element.RenderTransformOrigin = settings.TransformCenterPoint;
