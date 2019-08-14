@@ -204,6 +204,25 @@ namespace XamlFlair
 				typeof(Animations),
 				new PropertyMetadata(IterationBehavior.Count));
 
+#if __WPF__
+		public static bool GetAllowOpacityReset(DependencyObject obj) => (bool)obj.GetValue(AllowOpacityResetProperty);
+
+		public static void SetAllowOpacityReset(DependencyObject obj, bool value) => obj.SetValue(AllowOpacityResetProperty, value);
+
+		/// <summary>
+		/// Allows the Opacity value to be reset after being animated (stops the animation from influencing the property).
+		/// </summary>
+		/// <remarks>
+		/// https://docs.microsoft.com/en-us/dotnet/framework/wpf/graphics-multimedia/how-to-set-a-property-after-animating-it-with-a-storyboard?view=netframework-4.7.2#remove-an-animation-from-an-individual-property
+		/// </remarks>
+		public static readonly DependencyProperty AllowOpacityResetProperty =
+			DependencyProperty.RegisterAttached(
+				"AllowOpacityReset",
+				typeof(bool),
+				typeof(Animations),
+				new PropertyMetadata(true));
+#endif
+
 		#endregion
 	}
 }

@@ -283,8 +283,8 @@ Also note that it is also possible to repeat a Compound animation. For example, 
 
 By default, all animations execute once the UI element fires its `Loaded` event. This behavior can be overridden by setting the `Event` property. `Event` can be one of the following values:
 
-* Loaded (default value)
-* Loading (UWP only)
+* Loaded (*default value*)
+* Loading (*UWP-only*)
 * None
 * Visibility
 * DataContextChanged
@@ -315,6 +315,21 @@ There will be cases when you will need your UI element to start in a specific st
 ```
 
 In the above example, since the element is scaling from the bottom, but with a delay, we need to _start_ in the _scaled_ position, so we use the `StartWith` property to set its initial state. What `StartWith` essentially does is setup the initial values on the element as soon as it has loaded.
+
+### Using the *AllowOpacityReset* property (*WPF-only*)
+
+The .Net documentation states the following:
+
+> In some cases, it might appear that you can't change the value of a property after it has been animated.
+> ...you must stop the animation from influencing the property.
+
+There may be cases when you animate the opacity, in which the opacity animation suddenly resets it's value instead of animating, or doesn't behave as you intend. In cases, you may need to set `AllowOpacityReset = False` (*the default value of `AllowOpacityReset` is `True`*) to achieve the intended behavior:
+
+```xml
+<Image xf:Animations.Primary="{StaticResource FadeInThenFadeOut}"
+       xf:Animations.AllowOpacityReset="False"
+       Source="/Assets/..." />
+```
 
 ### Logging animations
 
@@ -387,7 +402,7 @@ Doing so will provide you with the following similar console output:
     NO ACTIVE TIMELINES!
     ------------------------------------
 
-### `ListViewBase` (UWP) and `ListBox`-based (WPF) animations (WORK-IN-PROGRESS)
+### `ListViewBase` (UWP) and `ListBox`-based (WPF) animations (*work-in-progress*)
 
 In order to properly implement item animations on list items, it was not enough to simply create attached properties against the ListViewBase (UWP) and ListBox (WPF) controls. Instead, inherited controls were created: `AnimatedListView` and `AnimatedGridView` for UWP, and `AnimatedListView` and `AnimatedListBox` for WPF, all available from the `XamlFlair.Controls` namespace:
 
@@ -436,9 +451,9 @@ Just like `PrimaryBinding` and `SecondaryBinding`, item animations can be trigge
                       xf:Animations.ItemsBinding="{Binding MyViewModelProperty}"
                       xf:Animations:Items="{xf:Animate BasedOn={StaticResource FadeIn}}" />
 ```
-> **Warning (UWP ONLY)**: Be aware that if you have any `ItemContainerTransitions` set on the `AnimatedListView` or `AnimatedGridView`, they will be cleared. This is done to avoid conflicting item animations.
+> **Warning (*UWP-only*)**: Be aware that if you have any `ItemContainerTransitions` set on the `AnimatedListView` or `AnimatedGridView`, they will be cleared. This is done to avoid conflicting item animations.
 
-> **Note (UWP ONLY)**: To avoid any flickers on item animations, there is currently a constraint in place: `Items` animation **must** contain a `FadeFrom`.
+> **Note (*UWP-only*)**: To avoid any flickers on item animations, there is currently a constraint in place: `Items` animation **must** contain a `FadeFrom`.
 
 [UWPNuget]: https://www.nuget.org/packages/XamlFlair.UWP/
 [WPFNuget]: https://www.nuget.org/packages/XamlFlair.WPF/
