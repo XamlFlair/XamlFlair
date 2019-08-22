@@ -331,6 +331,18 @@ There may be cases when you animate the opacity, in which the opacity animation 
        Source="/Assets/..." />
 ```
 
+### Using the *ClipToBounds* property (*UWP-only*)
+
+A helpful property that exists in WPF, `ClipToBounds` is a helpful property that exists in WPF, but unfortunately not in UWP. Therefore, it has been added in XamlFlair due to its ease of use and handiness. To clip child content to the bounds of the containing element, simply set `ClipToBounds` to `True` on the containing element:
+
+```xml
+<Border xf:Layout.ClipToBounds="True">
+.
+.
+.
+<Border>
+```
+
 ### Logging animations
 
 The XamlFlair library abstracts its logging using [LibLog](https://github.com/damianh/LibLog). LibLib supports the major logging frameworks, which allows a developer using the XamlFlair library to choose their preferred logging system. Below is a logging example using [Serilog](https://serilog.net/) in a UWP app:
