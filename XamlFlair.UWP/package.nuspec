@@ -4,7 +4,7 @@
     <!--*-->
     <id>XamlFlair.UWP</id>
     <!--*-->
-    <version>1.0.20</version>
+    <version>1.0.21</version>
     <title>XamlFlair.UWP</title>
     <!--*-->
     <authors>xamlflair</authors>
@@ -20,7 +20,7 @@
     <!--*-->
     <description>XamlFlair animation library for the UWP platform.</description>
     <!--*-->
-    <releaseNotes>Added the ClipToBounds property to UWP.</releaseNotes>
+    <releaseNotes>Removed SourceLink dependencies until ready to be used in XamlFlair.</releaseNotes>
     <copyright>Copyright © 2019</copyright>
     <tags>
     </tags>
@@ -28,7 +28,6 @@
       <group targetFramework="uap10.0">
         <dependency id="LibLog" version="5.0.6" />
         <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="6.2.8" />
-        <dependency id="Microsoft.SourceLink.GitHub" version="1.0.0-beta2-18618-05" />
         <dependency id="System.Reactive" version="4.1.5" />
         <dependency id="Win2D.uwp" version="1.23.0" />
       </group>

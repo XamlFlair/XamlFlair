@@ -4,7 +4,7 @@
     <!--*-->
     <id>XamlFlair.WPF</id>
     <!--*-->
-    <version>1.0.17</version>
+    <version>1.0.18</version>
     <title>XamlFlair.WPF</title>
     <!--*-->
     <authors>xamlflair</authors>
@@ -20,14 +20,13 @@
     <!--*-->
     <description>XamlFlair animation library for the WPF platform.</description>
     <!--*-->
-    <releaseNotes>Added the AllowOpacityReset property for WPF to fix certain cases where an opacity animation won't change its value.</releaseNotes>
+    <releaseNotes>Removed SourceLink dependencies until ready to be used in XamlFlair.</releaseNotes>
     <copyright>Copyright © 2019</copyright>
     <tags>
     </tags>
     <dependencies>
       <group targetFramework="net472">
         <dependency id="LibLog" version="5.0.6" />
-        <dependency id="Microsoft.SourceLink.GitHub" version="1.0.0-beta2-18618-05" />
         <dependency id="System.Reactive" version="4.1.5" />
       </group>
     </dependencies>
