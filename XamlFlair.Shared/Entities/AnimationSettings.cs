@@ -36,6 +36,7 @@ namespace XamlFlair
 		internal const EasingType DEFAULT_EASING = EasingType.Cubic;
 		internal const EasingMode DEFAULT_EASING_MODE = EasingMode.EaseOut;
 		internal const EventType DEFAULT_EVENT = EventType.Loaded;
+		internal const string DEFAULT_TRANSLATION = "0";
 
 #if __UWP__
 		internal const double DEFAULT_SATURATION = 0.5;
@@ -106,9 +107,9 @@ namespace XamlFlair
 				typeof(AnimationSettings),
 				new PropertyMetadata(1d));
 
-		public double OffsetX
+		public string OffsetX
 		{
-			get => (double)GetValue(OffsetXProperty);
+			get => (string)GetValue(OffsetXProperty);
 			set => SetValue(OffsetXProperty, value);
 		}
 
@@ -118,13 +119,13 @@ namespace XamlFlair
 		public static readonly DependencyProperty OffsetXProperty =
 			DependencyProperty.Register(
 				nameof(OffsetX),
-				typeof(double),
+				typeof(string),
 				typeof(AnimationSettings),
-				new PropertyMetadata(0d));
+				new PropertyMetadata(DEFAULT_TRANSLATION));
 
-		public double OffsetY
+		public string OffsetY
 		{
-			get => (double)GetValue(OffsetYProperty);
+			get => (string)GetValue(OffsetYProperty);
 			set => SetValue(OffsetYProperty, value);
 		}
 
@@ -134,9 +135,9 @@ namespace XamlFlair
 		public static readonly DependencyProperty OffsetYProperty =
 			DependencyProperty.Register(
 				nameof(OffsetY),
-				typeof(double),
+				typeof(string),
 				typeof(AnimationSettings),
-				new PropertyMetadata(0d));
+				new PropertyMetadata(DEFAULT_TRANSLATION));
 
 #if __UWP__
 		public double OffsetZ

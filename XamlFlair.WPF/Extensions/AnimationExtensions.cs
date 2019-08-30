@@ -64,7 +64,7 @@ namespace XamlFlair.Extensions
 
 			SetRenderTransform(element, settings, transform);
 
-			element.ApplyAnimation(settings, translate.X, settings.OffsetX, $"RenderTransform.Children[{TRANSLATE_INDEX}].X", ref storyboard);
+			element.ApplyAnimation(settings, translate.X, element.GetCalculatedOffsetX(settings.OffsetX), $"RenderTransform.Children[{TRANSLATE_INDEX}].X", ref storyboard);
 
 			return storyboard;
 		}
@@ -76,7 +76,7 @@ namespace XamlFlair.Extensions
 
 			SetRenderTransform(element, settings, transform);
 
-			element.ApplyAnimation(settings, translate.Y, settings.OffsetY, $"RenderTransform.Children[{TRANSLATE_INDEX}].Y", ref storyboard);
+			element.ApplyAnimation(settings, translate.Y, element.GetCalculatedOffsetY(settings.OffsetY), $"RenderTransform.Children[{TRANSLATE_INDEX}].Y", ref storyboard);
 
 			return storyboard;
 		}
@@ -86,11 +86,11 @@ namespace XamlFlair.Extensions
 			var transform = (element.RenderTransform as TransformGroup) ?? CreateTransformGroup();
 			var translate = transform.Children[TRANSLATE_INDEX] as TranslateTransform;
 
-			translate.X = settings.OffsetX;
+			translate.X = element.GetCalculatedOffsetX(settings.OffsetX);
 
 			SetRenderTransform(element, settings, transform);
 
-			element.ApplyAnimation(settings, settings.OffsetX, 0, $"RenderTransform.Children[{TRANSLATE_INDEX}].X", ref storyboard);
+			element.ApplyAnimation(settings, translate.X, 0, $"RenderTransform.Children[{TRANSLATE_INDEX}].X", ref storyboard);
 
 			return storyboard;
 		}
@@ -100,11 +100,11 @@ namespace XamlFlair.Extensions
 			var transform = (element.RenderTransform as TransformGroup) ?? CreateTransformGroup();
 			var translate = transform.Children[TRANSLATE_INDEX] as TranslateTransform;
 
-			translate.Y = settings.OffsetY;
+			translate.Y = element.GetCalculatedOffsetY(settings.OffsetY);
 
 			SetRenderTransform(element, settings, transform);
 
-			element.ApplyAnimation(settings, settings.OffsetY, 0, $"RenderTransform.Children[{TRANSLATE_INDEX}].Y", ref storyboard);
+			element.ApplyAnimation(settings, translate.Y, 0, $"RenderTransform.Children[{TRANSLATE_INDEX}].Y", ref storyboard);
 
 			return storyboard;
 		}
@@ -269,8 +269,8 @@ namespace XamlFlair.Extensions
 			rotate.Angle = settings.Rotation;
 			scale.ScaleX = settings.ScaleX;
 			scale.ScaleY = settings.ScaleY;
-			translate.X = settings.OffsetX;
-			translate.Y = settings.OffsetY;
+			translate.X = element.GetCalculatedOffsetX(settings.OffsetX);
+			translate.Y = element.GetCalculatedOffsetY(settings.OffsetY);
 
 			// Since a previous animation can have a "hold" on the Opacity property, we must "release" it before
 			// setting a new value. See the Remarks section of the AttachedProperty for more info.

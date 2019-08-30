@@ -56,7 +56,7 @@ namespace XamlFlair.Extensions
 					animGroup.CreateScalarAnimation<TranslateXAnimation>(
 						element,
 						settings,
-						to: (float)settings.OffsetX));
+						to: (float)element.GetCalculatedOffsetX(settings.OffsetX)));
 		}
 
 		internal static void TranslateYTo(this FrameworkElement element, AnimationSettings settings, ref AnimationGroup group)
@@ -66,7 +66,7 @@ namespace XamlFlair.Extensions
 					animGroup.CreateScalarAnimation<TranslateYAnimation>(
 						element,
 						settings,
-						to: (float)settings.OffsetY));
+						to: (float)element.GetCalculatedOffsetY(settings.OffsetY)));
 		}
 
 		internal static void TranslateZTo(this FrameworkElement element, AnimationSettings settings, ref AnimationGroup group)
@@ -89,11 +89,11 @@ namespace XamlFlair.Extensions
 					// Since Translation doesn't exist as a property on Visual, we try to fetch it from the PropertySet
 					if (visual.Properties.TryGetVector3(TargetProperties.Translation, out var translation) == CompositionGetValueStatus.Succeeded)
 					{
-						visual.Properties.InsertVector3(TargetProperties.Translation, new Vector3((float)settings.OffsetX, translation.Y, translation.Z));
+						visual.Properties.InsertVector3(TargetProperties.Translation, new Vector3((float)element.GetCalculatedOffsetX(settings.OffsetX), translation.Y, translation.Z));
 					}
 					else
 					{
-						visual.Properties.InsertVector3(TargetProperties.Translation, new Vector3((float)settings.OffsetX, 0f, 0f));
+						visual.Properties.InsertVector3(TargetProperties.Translation, new Vector3((float)element.GetCalculatedOffsetX(settings.OffsetX), 0f, 0f));
 					}
 
 					return animGroup.CreateScalarAnimation<TranslateXAnimation>(
@@ -113,11 +113,11 @@ namespace XamlFlair.Extensions
 					// Since Translation doesn't exist as a property on Visual, we try to fetch it from the PropertySet
 					if (visual.Properties.TryGetVector3(TargetProperties.Translation, out var translation) == CompositionGetValueStatus.Succeeded)
 					{
-						visual.Properties.InsertVector3(TargetProperties.Translation, new Vector3(translation.X, (float)settings.OffsetY, translation.Z));
+						visual.Properties.InsertVector3(TargetProperties.Translation, new Vector3(translation.X, (float)element.GetCalculatedOffsetY(settings.OffsetY), translation.Z));
 					}
 					else
 					{
-						visual.Properties.InsertVector3(TargetProperties.Translation, new Vector3(0f, (float)settings.OffsetY, 0f));
+						visual.Properties.InsertVector3(TargetProperties.Translation, new Vector3(0f, (float)element.GetCalculatedOffsetY(settings.OffsetY), 0f));
 					}
 
 					return animGroup.CreateScalarAnimation<TranslateYAnimation>(
@@ -379,9 +379,14 @@ namespace XamlFlair.Extensions
 				visual.Opacity = (float)settings.Opacity;
 			}
 
-			if (settings.OffsetX != 0 || settings.OffsetY != 0 || settings.OffsetZ != 0)
+			if (settings.OffsetX != AnimationSettings.DEFAULT_TRANSLATION || settings.OffsetY != AnimationSettings.DEFAULT_TRANSLATION || settings.OffsetZ != 0)
 			{
-				visual.Properties.InsertVector3(TargetProperties.Translation, new Vector3((float)settings.OffsetX, (float)settings.OffsetY, (float)settings.OffsetZ));
+				visual.Properties.InsertVector3(
+					TargetProperties.Translation,
+					new Vector3(
+						(float)element.GetCalculatedOffsetX(settings.OffsetX),
+						(float)element.GetCalculatedOffsetY(settings.OffsetY),
+						(float)settings.OffsetZ));
 			}
 
 			if (settings.Rotation != 0)

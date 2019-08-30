@@ -44,5 +44,33 @@ namespace XamlFlair.Extensions
 
 			return settings;
 		}
+
+		internal static double GetCalculatedOffsetX(this FrameworkElement element, string translation)
+			=> GetCalculatedOffset(
+					translation,
+					dblValue => element.ActualWidth * dblValue,
+					nameof(AnimationSettings.OffsetX));
+
+		internal static double GetCalculatedOffsetY(this FrameworkElement element, string translation)
+			=> GetCalculatedOffset(
+					translation,
+					dblValue => element.ActualHeight * dblValue,
+					nameof(AnimationSettings.OffsetY));
+		
+
+		private static double GetCalculatedOffset(string translation, Func<double, double> calculateFunc, string propertyName)
+		{
+			if (translation.EndsWith("*") && double.TryParse(translation.TrimEnd('*'), out var result))
+			{
+				// Pass the 'double' value retrieved from the string to have it calculate against ActualWidth or ActualHeight
+				return calculateFunc(result);
+			}
+			else if (double.TryParse(translation, out var dbl))
+			{
+				return dbl;
+			}
+
+			throw new ArgumentException($"{propertyName} must be a double or a star-based value (ex: 150 or 0.75*).");
+		}
 	}
 }
