@@ -57,12 +57,12 @@ namespace XamlFlair
 		/// <summary>
 		/// Specifies the target x-offset of the composite animation
 		/// </summary>
-		public string OffsetX { get; set; }
+		public string OffsetX { get; set; } = AnimationSettings.DEFAULT_TRANSLATION;
 
 		/// <summary>
 		/// Specifies the target y-offset of the composite animation
 		/// </summary>
-		public string OffsetY { get; set; }
+		public string OffsetY { get; set; } = AnimationSettings.DEFAULT_TRANSLATION;
 
 #if __UWP__
 		/// <summary>
