@@ -6,6 +6,18 @@ The goal of the XamlFlair library is to ease the implementation of common animat
 
 ![Sample App](doc/gifs/uwp.gif)
 
+## Basic Concepts
+
+The basic concept of XamlFlair is based on animations that are categorized as _From_ and _To_. Any UI element that consists of a _From_ animation will **start with one or more arbitrary values, and complete using the default value of the corresponding property**. Any UI element that consists of a _To_ animation will **start in its current state and animate to one or more arbitrary values**.
+
+Example of a _From_ animation (a UI element translating to the default value of a Translation (0)):
+
+![From animation](doc/gifs/TranslateFrom.gif)
+
+Example of a _To_ animation (a UI element sliding away from its current state):
+
+![To animation](doc/gifs/TranslateTo.gif)
+
 ## Install from Nuget
 
 | Platform | Package | NuGet |
@@ -30,18 +42,6 @@ Install-Package XamlFlair.WPF
 ```
 
 > Requires .Net Framework 4.7.2
-
-## Basic Concepts
-
-The basic concept of XamlFlair is based on animations that are categorized as _From_ and _To_. Any UI element that consists of a _From_ animation will start with one or more arbitrary values, and complete in the original state. Any UI element that consists of a _To_ animation will start in its original state and animate to one or more arbitrary values.
-
-Example of a _From_ animation (a UI element sliding into its original state):
-
-![From animation](doc/gifs/TranslateFrom.gif)
-
-Example of a _To_ animation (a UI element sliding away from its original state):
-
-![To animation](doc/gifs/TranslateTo.gif)
 
 ## Usage
 
@@ -286,7 +286,7 @@ By default, all animations execute once the UI element fires its `Loaded` event.
 * Loaded (*default value*)
 * Loading (*UWP-only*)
 * None
-* Visibility
+* Visibility (*triggers only when Visibility == Visible*)
 * DataContextChanged
 * PointerOver
 * PointerExit
@@ -414,7 +414,9 @@ Doing so will provide you with the following similar console output:
     NO ACTIVE TIMELINES!
     ------------------------------------
 
-### `ListViewBase` (UWP) and `ListBox`-based (WPF) animations (*work-in-progress*)
+### `ListViewBase` (UWP) and `ListBox`-based (WPF) animations
+
+![ListView item animations](doc/gifs/ListView.gif)
 
 In order to properly implement item animations on list items, it was not enough to simply create attached properties against the ListViewBase (UWP) and ListBox (WPF) controls. Instead, inherited controls were created: `AnimatedListView` and `AnimatedGridView` for UWP, and `AnimatedListView` and `AnimatedListBox` for WPF, all available from the `XamlFlair.Controls` namespace:
 

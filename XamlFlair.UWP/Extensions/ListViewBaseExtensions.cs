@@ -78,10 +78,6 @@ namespace XamlFlair.Extensions
 				return;
 			}
 
-			// LIMITATION: Currently, for proper item animation handling, item animations
-			// MUST include a 'FadeFrom' animation with an Opacity value of 0
-			ElementCompositionPreview.GetElementVisual(item).Opacity = (float)settings.Opacity;
-
 			if (!isFirstItemContainerLoaded)
 			{
 				isFirstItemContainerLoaded = true;

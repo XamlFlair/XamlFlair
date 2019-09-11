@@ -239,6 +239,7 @@ namespace XamlFlair
 						element
 							.Events()
 							.DataContextChanged
+							.DistinctUntilChanged(args => args.EventArgs.NewValue)
 							.TakeUntil(element.Events().Unloaded)
 							.Subscribe(
 								args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
