@@ -4,7 +4,7 @@
     <!--*-->
     <id>XamlFlair.WPF</id>
     <!--*-->
-    <version>1.0.18</version>
+    <version>1.0.19</version>
     <title>XamlFlair.WPF</title>
     <!--*-->
     <authors>xamlflair</authors>
@@ -20,7 +20,7 @@
     <!--*-->
     <description>XamlFlair animation library for the WPF platform.</description>
     <!--*-->
-    <releaseNotes>Removed SourceLink dependencies until ready to be used in XamlFlair.</releaseNotes>
+    <releaseNotes>Applied a change to filter out null values for the DataContextChanged.</releaseNotes>
     <copyright>Copyright © 2019</copyright>
     <tags>
     </tags>
