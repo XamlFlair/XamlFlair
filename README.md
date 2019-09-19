@@ -6,6 +6,38 @@ The goal of the XamlFlair library is to ease the implementation of common animat
 
 ![Sample App](doc/gifs/uwp.gif)
 
+## Contents
+
+- [Basic Concepts](#basic-concepts)
+
+- [Install from Nuget](#install-from-nuget)
+
+- [Usage](#usage)
+
+- [Base Animation Types](#base-animation-types)
+
+- [Using a *ResourceDictionary* for Base Settings](#using-a-resourcedictionary-for-base-settings)
+
+- [Combining Animations](#combining-animations)
+
+- [Overriding Values](#overriding-values)
+
+- [Compound Animations](#compound-animations)
+
+- [Repeating Animations](#repeating-animations)
+
+- [Events and Bindings](#events-and-bindings)
+
+- [Using the *StartWith* Property](#using-the-startwith-property)
+
+- [Using the *AllowOpacityReset* Property (*WPF-Only*)](#using-the-allowopacityreset-property-wpf-only)
+
+- [Using the ClipToBounds Property (UWP-Only)](#using-the-cliptobounds-property-uwp-only)
+
+- [Logging Animations](#logging-animations)
+
+- [*ListViewBase* (UWP) and *ListBox*-based (WPF) Animations](#listviewbase-uwp-and-listbox-based-wpf-animations)
+
 ## Basic Concepts
 
 The basic concept of XamlFlair is based on animations that are categorized as _From_ and _To_. Any UI element that consists of a _From_ animation will **start with one or more arbitrary values, and complete using the default value of the corresponding property**. Any UI element that consists of a _To_ animation will **start in its current state and animate to one or more arbitrary values**.
@@ -110,7 +142,7 @@ The following lists some notable **default values** when working with XamlFlair:
 * **Saturation**: 0.5 (_UWP-only_)
 * **Tint**: Transparent (_UWP-only_)
 
-### Using a `ResourceDictionary` for base settings
+### Using a `ResourceDictionary` for Base Settings
 
 All **common** animations should be placed in a global `ResourceDictionary` (ex: `Animations.xaml`) and used where needed throughout the app. The goal is to consolidate all the animations into one file with meaningful names so that any developer can understand exactly what animation is applied to a `FrameworkElement`. Here's a small example of what it looks like:
 
@@ -173,7 +205,7 @@ To setup this set of pre-configured `AnimationSettings` already available in you
 
 Your app now has a global set of **common** animations ready to use.
 
-### Combining animations
+### Combining Animations
 
 Animations can be combined, and as previously mentioned, any of these *combined* animations that are commonly used should be placed in the global `ResourceDictionary` (ex: `Animations.xaml`):
 
@@ -218,7 +250,7 @@ This demonstrates a combined animation of a `FadeFrom`, `TranslateFrom`, and `Sc
 
 ![Fade, translation, and scale snimation](doc/gifs/FadeFromTranslateFromScaleFrom.gif)
 
-### Overriding values
+### Overriding Values
 
 Animations can have their settings overridden directly on the `FrameworkElement`. This is commonly done to alter values for Delay and Duration so that we don't over-populate the `Animations.xaml` file with repeated resources. To achieve overriding, use the `Animate` markup extension paired with the `BasedOn` property:
 
@@ -226,7 +258,7 @@ Animations can have their settings overridden directly on the `FrameworkElement`
 <Border xf:Animations.Primary="{xf:Animate BasedOn={StaticResource ScaleFromBottom}, Delay=500}">
 ```
 
-### Compound animation
+### Compound Animations
 
 A compound animation is simply a multi-step animation using the `CompoundSettings` class. Each inner animation executes once the previous one completes, hence they're sequential animations:
 
@@ -250,7 +282,7 @@ A compound animation is simply a multi-step animation using the `CompoundSetting
 
 > **Note**: `CompoundSettings` support the `Event` property, which is discussed in a later section.
 
-### Repeating animations
+### Repeating Animations
 
 An animation can be repeated by using the `IterationBehavior` and `IterationCount` properties (default values of `Count` and `1` respectively).
 
@@ -305,7 +337,7 @@ When specifying `None`, you will manually need to trigger your animations using 
 
 The above animation will *only* execute when the `IsChecked` is `True`. If `None` was not specified for `Event`, the animation would then execute on `Loaded` *and* on the binding.
 
-### Using the *StartWith* property
+### Using the *StartWith* Property
 
 There will be cases when you will need your UI element to start in a specific state, for example, the element needs to be shrunk before its animation executes. This is achieved using the `StartWith` property:
 
@@ -316,7 +348,7 @@ There will be cases when you will need your UI element to start in a specific st
 
 In the above example, since the element is scaling from the bottom, but with a delay, we need to _start_ in the _scaled_ position, so we use the `StartWith` property to set its initial state. What `StartWith` essentially does is setup the initial values on the element as soon as it has loaded.
 
-### Using the *AllowOpacityReset* property (*WPF-only*)
+### Using the *AllowOpacityReset* Property (*WPF-Only*)
 
 The .Net documentation states the following:
 
@@ -331,7 +363,7 @@ There may be cases when you animate the opacity, in which the opacity animation 
        Source="/Assets/..." />
 ```
 
-### Using the *ClipToBounds* property (*UWP-only*)
+### Using the *ClipToBounds* Property (*UWP-Only*)
 
 A helpful property that exists in WPF, `ClipToBounds` is a helpful property that exists in WPF, but unfortunately not in UWP. Therefore, it has been added in XamlFlair due to its ease of use and handiness. To clip child content to the bounds of the containing element, simply set `ClipToBounds` to `True` on the containing element:
 
@@ -343,7 +375,7 @@ A helpful property that exists in WPF, `ClipToBounds` is a helpful property that
 <Border>
 ```
 
-### Logging animations
+### Logging Animations
 
 The XamlFlair library abstracts its logging using [LibLog](https://github.com/damianh/LibLog). LibLib supports the major logging frameworks, which allows a developer using the XamlFlair library to choose their preferred logging system. Below is a logging example using [Serilog](https://serilog.net/) in a UWP app:
 
@@ -414,7 +446,7 @@ Doing so will provide you with the following similar console output:
     NO ACTIVE TIMELINES!
     ------------------------------------
 
-### `ListViewBase` (UWP) and `ListBox`-based (WPF) animations
+### `ListViewBase` (UWP) and `ListBox`-based (WPF) Animations
 
 ![ListView item animations](doc/gifs/ListView.gif)
 
