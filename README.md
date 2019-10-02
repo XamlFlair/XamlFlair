@@ -199,9 +199,9 @@ To setup this set of pre-configured `AnimationSettings` already available in you
 
 4. In `Animations.xaml`, copy & paste the contents from the corresponding links below:
 
-- [Animation settings for UWP](https://github.com/XamlFlair/XamlFlair/blob/4fa2e00350df8391f26cab8f3552c56fc84fc416/Samples/XamlFlair.Samples.UWP/Animations.xaml#L5)
+- [Animation settings for UWP](https://github.com/XamlFlair/XamlFlair/blob/master/Samples/XamlFlair.Samples.UWP/Animations.xaml)
 
-- [Animation settings for WPF](https://github.com/XamlFlair/XamlFlair/blob/4fa2e00350df8391f26cab8f3552c56fc84fc416/Samples/XamlFlair.Samples.WPF/Animations.xaml#L6)
+- [Animation settings for WPF](https://github.com/XamlFlair/XamlFlair/blob/master/Samples/XamlFlair.Samples.WPF/Animations.xaml)
 
 Your app now has a global set of **common** animations ready to use.
 
