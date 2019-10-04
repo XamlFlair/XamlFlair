@@ -1,241 +1,40 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{78F799E6-D1DF-426E-9728-5E69ADFB0BC0}</ProjectGuid>
+    <TargetFrameworks>net472;netcoreapp3.0</TargetFrameworks>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>XamlFlair.Samples.WPF</RootNamespace>
-    <AssemblyName>XamlFlair.Samples.WPF</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <WarningLevel>4</WarningLevel>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;WINDOWS;__WPF__</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;WINDOWS;__WPF__</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWPF>true</UseWPF>
     <ApplicationIcon>Logo.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>TRACE;DEBUG;WINDOWS;__WPF__</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DefineConstants>TRACE;WINDOWS;__WPF__</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xaml">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
+    <None Remove="SampleData\SampleUsers\SampleUsers_Files\*.jpg" />
+    <None Remove="SampleData\SampleUsers\SampleUsers_Files\*.jpeg" />
+    <None Remove="SampleData\SampleUsers\SampleUsers_Files\*.png" />
   </ItemGroup>
-  <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="Converters\BoolToValueConverter.cs" />
-    <Compile Include="Converters\BreakDebugConverter.cs" />
-    <Compile Include="Converters\InserveBoolConverter.cs" />
-    <Compile Include="PlacePage.xaml.cs">
-      <DependentUpon>PlacePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="StartPage.xaml.cs">
-      <DependentUpon>StartPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UsersPage.xaml.cs">
-      <DependentUpon>UsersPage.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Animations.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Converters.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="PlacePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="SampleData\SampleUsers\SampleUsers.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="SampleData\SampleUsers\SampleUsers.xaml.cs">
-      <DependentUpon>SampleUsers.xaml</DependentUpon>
-    </Compile>
-    <Page Include="StartPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\Colors.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\Controls\Button.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\Controls\ListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\Controls\ListViewItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\Controls\TextBlock.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UsersPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="SampleData\SampleUsers\SampleUsers.xsd" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\XamlFlair.WPF\XamlFlair.WPF.csproj">
-      <Project>{bdfe68a7-417f-4274-8fde-d1355a402171}</Project>
-      <Name>XamlFlair.WPF</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\gradient_002.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\gradient_003.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\gradient_004.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\gradient_005.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\gradient_006.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\gradient_007.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\gradient_008.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\gradient_009.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\place_00010.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\place_00011.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\place_00012.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\place_00013.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\place_00014.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\place_00015.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\place_00016.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\place_00017.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\place_00018.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\place_00019.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\place_0002.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\place_00020.jpeg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\place_00021.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\place_00022.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\place_00023.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\place_00024.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\place_0003.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\place_0004.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\place_0005.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\place_0006.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\place_0007.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\place_0008.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\place_0009.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\profile_001.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\profile_0010.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\profile_0011.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\profile_0012.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\profile_0013.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\profile_0014.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\profile_0015.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\profile_0016.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\profile_0017.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\profile_0018.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\profile_0019.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\profile_002.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\profile_0020.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\profile_0021.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\profile_0022.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\profile_0023.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\profile_0024.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\profile_0025.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\profile_0026.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\profile_003.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\profile_004.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\profile_005.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\profile_006.png" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\profile_007.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\profile_008.jpg" />
-    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\profile_009.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Serilog">
-      <Version>2.8.0</Version>
-    </PackageReference>
-    <PackageReference Include="Serilog.Sinks.Debug">
-      <Version>1.0.1</Version>
-    </PackageReference>
-  </ItemGroup>
+
   <ItemGroup>
     <Resource Include="Logo.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Logo.png" />
+    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\*.jpg" />
+    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\*.jpeg" />
+    <Resource Include="SampleData\SampleUsers\SampleUsers_Files\*.png" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
+  <ItemGroup>
+    <PackageReference Include="Serilog" Version="2.8.0" />
+    <PackageReference Include="Serilog.Sinks.Debug" Version="1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\XamlFlair.WPF\XamlFlair.WPF.csproj" />
+  </ItemGroup>
 </Project>

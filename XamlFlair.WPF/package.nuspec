@@ -25,14 +25,16 @@
     <tags>
     </tags>
     <dependencies>
-      <group targetFramework="net472">
+      <group>
         <dependency id="LibLog" version="5.0.6" />
         <dependency id="System.Reactive" version="4.1.5" />
       </group>
     </dependencies>
   </metadata>
   <files>
-    <file src="bin\Release\XamlFlair.WPF.dll" target="lib" />
-    <file src="bin\Release\XamlFlair.WPF.pdb" target="lib" />
+    <file src="bin\Release\net472\XamlFlair.WPF.dll" target="lib\net472" />
+    <file src="bin\Release\net472\XamlFlair.WPF.pdb" target="lib\net472" />
+    <file src="bin\Release\netcoreapp3.0\XamlFlair.WPF.dll" target="lib\netcoreapp3.0" />
+    <file src="bin\Release\netcoreapp3.0\XamlFlair.WPF.pdb" target="lib\netcoreapp3.0" />
   </files>
 </package>
