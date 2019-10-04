@@ -2,20 +2,9 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
+obj
+bin
+.vs/
 /nuget.txt
-/.vs/XamlFlair/v15
-/.vs/VSWorkspaceState.json
-/.vs/slnx.sqlite
-/.vs/ProjectSettings.json
-/XamlFlair.WPF/obj
-/XamlFlair.UWP/obj
-/Samples/XamlFlair.Samples.WPF/obj/Debug
-/Samples/XamlFlair.Samples.UWP/obj
-/.vs/XamlFlair/v16
-/Samples/XamlFlair.Samples.UWP/bin/x64/Debug
-/Samples/XamlFlair.Samples.WPF/bin/Debug
-/Samples/XamlFlair.Samples.WPF/obj
-/XamlFlair.UWP/bin/Debug
-/XamlFlair.WPF/bin/Debug
-/XamlFlair.UWP/bin
-/XamlFlair.WPF/bin
+*.user
+Thumbs.db
