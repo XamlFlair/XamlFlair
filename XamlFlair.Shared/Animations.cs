@@ -13,14 +13,24 @@ using System.Windows;
 using System.Windows.Media.Animation;
 using static System.Windows.EventsMixin;
 using FrameworkElement = System.Windows.FrameworkElement;
-using Timeline = System.Windows.Media.Animation.Storyboard;
 #else
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Composition;
 using static Windows.UI.Xaml.EventsMixin;
 using FrameworkElement = Windows.UI.Xaml.FrameworkElement;
+#endif
+
+#if __WPF__
+using Timeline = System.Windows.Media.Animation.Storyboard;
+using XamlFlair.WPF.Logging;
+#elif __UWP__
 using Timeline = XamlFlair.AnimationGroup;
+using XamlFlair.UWP.Logging;
+#elif __UNO__
+using Timeline = Windows.UI.Xaml.Media.Animation.Storyboard;
+using XamlFlair.Uno.Logging;
+using XamlFlair.Uno.Extensions;
 #endif
 
 namespace XamlFlair
@@ -48,8 +58,10 @@ namespace XamlFlair
 		{
 #if __WPF__
 			return System.ComponentModel.DesignerProperties.GetIsInDesignMode(d);
-#else
+#elif __UWP__
 			return Windows.ApplicationModel.DesignMode.DesignMode2Enabled;
+#else
+			return false;
 #endif
 		}
 
@@ -500,6 +512,7 @@ namespace XamlFlair
 			}
 #endif
 
+#if __WPF__ || __UWP__
 			// BLUR TO/FROM
 			if (settings.Kind.HasFlag(AnimationKind.BlurTo))
 			{
@@ -509,6 +522,7 @@ namespace XamlFlair
 			{
 				element.BlurFrom(settings, ref timeline);
 			}
+#endif
 
 #if __UWP__
 			// SATURATE TO/FROM
@@ -691,12 +705,11 @@ namespace XamlFlair
 			if (original != null)
 			{
 				original = null;
-				timeline = null;
 			}
-#else
+#elif __UWP__
 			timeline.Cleanup();
-			timeline = null;
 #endif
+			timeline = null;
 		}
 
 		private static void CleanupDisposables(FrameworkElement element)

@@ -12,6 +12,7 @@ bin
 /.vs/ProjectSettings.json
 /XamlFlair.WPF/obj
 /XamlFlair.UWP/obj
+/XamlFlair.Uno/obj
 /Samples/XamlFlair.Samples.WPF/obj/Debug
 /Samples/XamlFlair.Samples.UWP/obj
 /.vs/XamlFlair/v16
@@ -22,4 +23,9 @@ bin
 /XamlFlair.WPF/bin/Debug
 /XamlFlair.UWP/bin
 /XamlFlair.WPF/bin
+/XamlFlair.Uno/bin
 /.vs/XamlFlair/DesignTimeBuild/.dtbcache
+/Samples/XamlFlair.Samples.Uno/XamlFlair.Samples.Uno.Droid/obj
+/Samples/XamlFlair.Samples.Uno/XamlFlair.Samples.Uno.iOS/obj
+/Samples/XamlFlair.Samples.Uno/XamlFlair.Samples.Uno.UWP/obj
+/Samples/XamlFlair.Samples.Uno/XamlFlair.Samples.Uno.Wasm/obj

@@ -108,7 +108,7 @@ namespace XamlFlair
 			}
 		}
 
-#if __UWP__
+#if __UWP__ || __UNO__
 		internal static void ValidateListViewBase(ListViewBase element)
 		{
 			// Skip validation if a debugger isn't attached

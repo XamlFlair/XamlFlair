@@ -26,7 +26,7 @@ namespace XamlFlair
 
 	public class AnimationSettings : DependencyObject, IAnimationSettings, IEqualityComparer<AnimationSettings>
 #else
-	public class AnimationSettings : DependencyObject, IAnimationSettings, IEquatable<AnimationSettings>
+	public partial class AnimationSettings : DependencyObject, IAnimationSettings, IEquatable<AnimationSettings>
 #endif
 	{
 		internal const AnimationKind DEFAULT_KIND = AnimationKind.FadeTo;

@@ -1,15 +1,21 @@
-﻿using Windows.UI.Xaml;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reactive.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using XamlFlair.Extensions;
 
 namespace XamlFlair.Controls
 {
-	public class AnimatedGridView : GridView
+	public class AnimatedListView : ListView
 	{
 		private bool _isFirstItemContainerLoaded; // when first item container has been generated
-		private ItemsWrapGrid _virtualizedPanel;
+		private ItemsStackPanel _virtualizedPanel;
 
-		public AnimatedGridView()
+		public AnimatedListView()
 		{
 			// Pass an action to reset the "container loaded" flag when the ItemsSource changes
 			this.RegisterListEvents(() => _isFirstItemContainerLoaded = false);
@@ -25,13 +31,13 @@ namespace XamlFlair.Controls
 		{
 			base.PrepareContainerForItemOverride(element, item);
 
-			// First populate our local variable for referencing ItemsWrapGrid for the first time.
+			// First populate our local variable for referencing ItemsStackPanel for the first time.
 			if (!_isFirstItemContainerLoaded && _virtualizedPanel == null)
 			{
-				_virtualizedPanel = ItemsPanelRoot as ItemsWrapGrid;
+				_virtualizedPanel = ItemsPanelRoot as ItemsStackPanel;
 			}
 
-			this.PrepareContainerForItemOverrideEx<GridViewItem>(
+			this.PrepareContainerForItemOverrideEx<ListViewItem>(
 				element,
 				() => (_virtualizedPanel.FirstVisibleIndex, _virtualizedPanel.LastVisibleIndex),
 				ref _isFirstItemContainerLoaded);

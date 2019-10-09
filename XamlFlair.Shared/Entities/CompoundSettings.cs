@@ -17,7 +17,7 @@ namespace XamlFlair
 
 	public class CompoundSettings : DependencyObject, IAnimationSettings, IEqualityComparer<CompoundSettings>
 #else
-	public class CompoundSettings : DependencyObject, IAnimationSettings, IEquatable<CompoundSettings>
+	public partial class CompoundSettings : DependencyObject, IAnimationSettings, IEquatable<CompoundSettings>
 #endif
 	{
 		public EventType Event

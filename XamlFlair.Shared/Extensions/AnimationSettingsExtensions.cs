@@ -13,7 +13,7 @@ namespace XamlFlair.Extensions
 {
 	internal static class AnimationSettingsExtensions
 	{
-#if __WPF__
+#if __WPF__ || __UNO__
 		internal static EasingFunctionBase GetEase(this AnimationSettings settings)
 		{
 			EasingFunctionBase ease;

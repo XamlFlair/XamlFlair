@@ -4,13 +4,14 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Windows.UI.Xaml;
 
 #if __WPF__
-using System.Windows;
 using Timeline = System.Windows.Media.Animation.Storyboard;
-#else
-using Windows.UI.Xaml;
+#elif __UWP__
 using Timeline = XamlFlair.AnimationGroup;
+#elif __UNO__
+using Timeline = Windows.UI.Xaml.Media.Animation.Storyboard;
 #endif
 
 namespace XamlFlair.Extensions
@@ -84,7 +85,7 @@ namespace XamlFlair.Extensions
 				return result;
 			}
 
-			return default;
+			return default(ActiveTimeline<T>);
 		}
 
 		internal static ActiveTimeline<T> FindFirstActiveTimeline<T>(this ConcurrentDictionary<Guid, ActiveTimeline<T>> actives, Guid elementGuid)
@@ -191,7 +192,7 @@ namespace XamlFlair.Extensions
 			{
 				// Clear the previous one if it exists
 				(activeKvp.Value.Timeline as Timeline)?.Stop();
-				activeKvp.Value.Timeline = null;
+				activeKvp.Value.Timeline = default(T);
 
 				// Make sure to re-use the existing "timeline" Guid
 				Animations.SetTimelineGuid(timeline, activeKvp.Key);
