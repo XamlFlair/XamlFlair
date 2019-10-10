@@ -4,15 +4,13 @@
     <!--*-->
     <id>XamlFlair.WPF</id>
     <!--*-->
-    <version>1.0.19</version>
+    <version>1.0.20</version>
     <title>XamlFlair.WPF</title>
     <!--*-->
-    <authors>xamlflair</authors>
+    <authors>XamlFlair.WPF</authors>
     <owners>xamlflair</owners>
     <!--
 			<licenseUrl></licenseUrl>
-			<projectUrl></projectUrl>
-			<iconUrl></iconUrl>
 		-->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <projectUrl>https://github.com/XamlFlair/XamlFlair</projectUrl>
@@ -20,7 +18,7 @@
     <!--*-->
     <description>XamlFlair animation library for the WPF platform.</description>
     <!--*-->
-    <releaseNotes>Applied a change to filter out null values for the DataContextChanged.</releaseNotes>
+    <releaseNotes>Added support for WPF .Net Core 3.0</releaseNotes>
     <copyright>Copyright © 2019</copyright>
     <tags>
     </tags>
