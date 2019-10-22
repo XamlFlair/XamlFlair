@@ -106,37 +106,43 @@ namespace XamlFlair
 				typeof(AnimationSettings),
 				new PropertyMetadata(1d));
 
-		public double OffsetX
+		public Offset OffsetX
 		{
-			get => (double)GetValue(OffsetXProperty);
+			get => (Offset)GetValue(OffsetXProperty);
 			set => SetValue(OffsetXProperty, value);
 		}
 
 		/// <summary>
 		/// Specifies the target x-offset of the composite animation
 		/// </summary>
+		/// <remarks>
+		/// OffsetX must be a double or a star-based value (ex: 150 or 0.75*)
+		/// </remarks>
 		public static readonly DependencyProperty OffsetXProperty =
 			DependencyProperty.Register(
 				nameof(OffsetX),
-				typeof(double),
+				typeof(Offset),
 				typeof(AnimationSettings),
-				new PropertyMetadata(0d));
+				new PropertyMetadata(default(Offset)));
 
-		public double OffsetY
+		public Offset OffsetY
 		{
-			get => (double)GetValue(OffsetYProperty);
+			get => (Offset)GetValue(OffsetYProperty);
 			set => SetValue(OffsetYProperty, value);
 		}
 
 		/// <summary>
 		/// Specifies the target y-offset of the composite animation
 		/// </summary>
+		/// <remarks>
+		/// OffsetY must be a double or a star-based value (ex: 150 or 0.75*)
+		/// </remarks>
 		public static readonly DependencyProperty OffsetYProperty =
 			DependencyProperty.Register(
 				nameof(OffsetY),
-				typeof(double),
+				typeof(Offset),
 				typeof(AnimationSettings),
-				new PropertyMetadata(0d));
+				new PropertyMetadata(default(Offset)));
 
 #if __UWP__
 		public double OffsetZ

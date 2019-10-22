@@ -20,6 +20,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Entities\EasingType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\EventType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Contracts\IAnimationSettings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\Offset.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\OffsetTarget.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\SettingsTarget.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\IterationBehavior.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ActiveTimelineExtensions.cs" />
