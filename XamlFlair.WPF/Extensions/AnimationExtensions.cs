@@ -64,7 +64,7 @@ namespace XamlFlair.Extensions
 
 			SetRenderTransform(element, settings, transform);
 
-			element.ApplyAnimation(settings, translate.X, element.GetCalculatedOffsetX(settings.OffsetX), $"RenderTransform.Children[{TRANSLATE_INDEX}].X", ref storyboard);
+			element.ApplyAnimation(settings, translate.X, settings.OffsetX.GetCalculatedOffset(element, OffsetTarget.X), $"RenderTransform.Children[{TRANSLATE_INDEX}].X", ref storyboard);
 
 			return storyboard;
 		}
@@ -76,7 +76,7 @@ namespace XamlFlair.Extensions
 
 			SetRenderTransform(element, settings, transform);
 
-			element.ApplyAnimation(settings, translate.Y, element.GetCalculatedOffsetY(settings.OffsetY), $"RenderTransform.Children[{TRANSLATE_INDEX}].Y", ref storyboard);
+			element.ApplyAnimation(settings, translate.Y, settings.OffsetY.GetCalculatedOffset(element, OffsetTarget.Y), $"RenderTransform.Children[{TRANSLATE_INDEX}].Y", ref storyboard);
 
 			return storyboard;
 		}
@@ -86,7 +86,7 @@ namespace XamlFlair.Extensions
 			var transform = (element.RenderTransform as TransformGroup) ?? CreateTransformGroup();
 			var translate = transform.Children[TRANSLATE_INDEX] as TranslateTransform;
 
-			translate.X = element.GetCalculatedOffsetX(settings.OffsetX);
+			translate.X = settings.OffsetX.GetCalculatedOffset(element, OffsetTarget.X);
 
 			SetRenderTransform(element, settings, transform);
 
@@ -100,7 +100,7 @@ namespace XamlFlair.Extensions
 			var transform = (element.RenderTransform as TransformGroup) ?? CreateTransformGroup();
 			var translate = transform.Children[TRANSLATE_INDEX] as TranslateTransform;
 
-			translate.Y = element.GetCalculatedOffsetY(settings.OffsetY);
+			translate.Y = settings.OffsetY.GetCalculatedOffset(element, OffsetTarget.Y);
 
 			SetRenderTransform(element, settings, transform);
 
@@ -269,8 +269,8 @@ namespace XamlFlair.Extensions
 			rotate.Angle = settings.Rotation;
 			scale.ScaleX = settings.ScaleX;
 			scale.ScaleY = settings.ScaleY;
-			translate.X = element.GetCalculatedOffsetX(settings.OffsetX);
-			translate.Y = element.GetCalculatedOffsetY(settings.OffsetY);
+			translate.X = settings.OffsetX.GetCalculatedOffset(element, OffsetTarget.X);
+			translate.Y = settings.OffsetY.GetCalculatedOffset(element, OffsetTarget.Y);
 
 			// Since a previous animation can have a "hold" on the Opacity property, we must "release" it before
 			// setting a new value. See the Remarks section of the AttachedProperty for more info.

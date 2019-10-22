@@ -36,7 +36,6 @@ namespace XamlFlair
 		internal const EasingType DEFAULT_EASING = EasingType.Cubic;
 		internal const EasingMode DEFAULT_EASING_MODE = EasingMode.EaseOut;
 		internal const EventType DEFAULT_EVENT = EventType.Loaded;
-		internal const string DEFAULT_TRANSLATION = "0";
 
 #if __UWP__
 		internal const double DEFAULT_SATURATION = 0.5;
@@ -107,37 +106,43 @@ namespace XamlFlair
 				typeof(AnimationSettings),
 				new PropertyMetadata(1d));
 
-		public string OffsetX
+		public Offset OffsetX
 		{
-			get => (string)GetValue(OffsetXProperty);
+			get => (Offset)GetValue(OffsetXProperty);
 			set => SetValue(OffsetXProperty, value);
 		}
 
 		/// <summary>
 		/// Specifies the target x-offset of the composite animation
 		/// </summary>
+		/// <remarks>
+		/// OffsetX must be a double or a star-based value (ex: 150 or 0.75*)
+		/// </remarks>
 		public static readonly DependencyProperty OffsetXProperty =
 			DependencyProperty.Register(
 				nameof(OffsetX),
-				typeof(string),
+				typeof(Offset),
 				typeof(AnimationSettings),
-				new PropertyMetadata(DEFAULT_TRANSLATION));
+				new PropertyMetadata(default(Offset)));
 
-		public string OffsetY
+		public Offset OffsetY
 		{
-			get => (string)GetValue(OffsetYProperty);
+			get => (Offset)GetValue(OffsetYProperty);
 			set => SetValue(OffsetYProperty, value);
 		}
 
 		/// <summary>
 		/// Specifies the target y-offset of the composite animation
 		/// </summary>
+		/// <remarks>
+		/// OffsetY must be a double or a star-based value (ex: 150 or 0.75*)
+		/// </remarks>
 		public static readonly DependencyProperty OffsetYProperty =
 			DependencyProperty.Register(
 				nameof(OffsetY),
-				typeof(string),
+				typeof(Offset),
 				typeof(AnimationSettings),
-				new PropertyMetadata(DEFAULT_TRANSLATION));
+				new PropertyMetadata(default(Offset)));
 
 #if __UWP__
 		public double OffsetZ
