@@ -389,7 +389,7 @@ A helpful property that exists in WPF, `ClipToBounds` is a helpful property that
 
 ### Logging Animations
 
-The XamlFlair library abstracts its logging using [LibLog](https://github.com/damianh/LibLog). LibLib supports the major logging frameworks, which allows a developer using the XamlFlair library to choose their preferred logging system. Below is a logging example using [Serilog](https://serilog.net/) in a UWP app:
+The XamlFlair library abstracts its logging using [LibLog](https://github.com/damianh/LibLog). Liblog supports the major logging frameworks, which allows a developer using the XamlFlair library to choose their preferred logging system. Below is a logging example using [Serilog](https://serilog.net/) in a UWP app:
 
 ```cs
 public App()
