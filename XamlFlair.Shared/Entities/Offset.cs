@@ -54,8 +54,17 @@ namespace XamlFlair
 
 		internal double GetCalculatedOffset(FrameworkElement element, OffsetTarget target)
 		{
-			var width = element.ActualWidth > 0 ? element.ActualWidth : element.Width;
-			var height = element.ActualHeight > 0 ? element.ActualHeight : element.Height;
+			var width = element.ActualWidth > 0
+				? element.ActualWidth
+				: element.Width > 0
+					? element.Width
+					: 0;
+
+			var height = element.ActualHeight > 0
+				? element.ActualHeight
+				: element.Height > 0
+					? element.Height
+					: 0;
 
 			return target == OffsetTarget.X
 				? width * OffsetFactor

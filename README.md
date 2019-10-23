@@ -22,6 +22,8 @@ The goal of the XamlFlair library is to ease the implementation of common animat
 
 - [Overriding Values](#overriding-values)
 
+- [Relative Translations on X and Y Axes](#relative-translations-on-x-and-y-axes)
+
 - [Compound Animations](#compound-animations)
 
 - [Repeating Animations](#repeating-animations)
@@ -255,10 +257,20 @@ This demonstrates a combined animation of a `FadeFrom`, `TranslateFrom`, and `Sc
 Animations can have their settings overridden directly on the `FrameworkElement`. This is commonly done to alter values for Delay and Duration so that we don't over-populate the `Animations.xaml` file with repeated resources. To achieve overriding, use the `Animate` markup extension paired with the `BasedOn` property:
 
 ```xml
-<Border xf:Animations.Primary="{xf:Animate BasedOn={StaticResource ScaleFromBottom}, Delay=500}">
+<Border xf:Animations.Primary="{xf:Animate BasedOn={StaticResource ScaleFromBottom}, Delay=500}" />
 ```
 
-### Compound Animations
+### Relative Translations on X and Y Axes
+
+Since hard-coded values for `OffsetX` and `OffsetY` can be limiting (such as in cases when dealing with resizable windows), both `OffsetX` and `OffsetY` support star-based values:
+
+```xml
+<Border xf:Animations.Primary="{xf:Animate BasedOn={StaticResource SlideFromLeft}, OffsetX=1.5*}" />
+```
+
+> A star-based value will calculate the offset based on the **current** `ActualWidth` and/or `ActualHeight` value(s) of the `FrameworkElement`, therefore it's important that the element has executed its `Loaded` event. If `ActualWidth` and/or `ActualHeight` are not yet calculated, the offset value will try to be based on `Width` and/or `Height`.
+
+### Compound animation
 
 A compound animation is simply a multi-step animation using the `CompoundSettings` class. Each inner animation executes once the previous one completes, hence they're sequential animations:
 
