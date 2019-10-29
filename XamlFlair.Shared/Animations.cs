@@ -29,8 +29,7 @@ using Timeline = XamlFlair.AnimationGroup;
 using XamlFlair.UWP.Logging;
 #elif __UNO__
 using Timeline = Windows.UI.Xaml.Media.Animation.Storyboard;
-using XamlFlair.Uno.Logging;
-using XamlFlair.Uno.Extensions;
+using XamlFlair.UnoPlatform.Logging;
 #endif
 
 namespace XamlFlair
@@ -228,21 +227,7 @@ namespace XamlFlair
 
 						break;
 					}
-#if __UWP__
-				case EventType.Loading:
-					{
-						element
-							.Events()
-							.LoadingUntilUnloaded
-							.Subscribe(
-								args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
-								ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.Loading)} event.", ex),
-								() => Cleanup(element)
-							);
 
-						break;
-					}
-#endif
 				case EventType.Visibility:
 					{
 						element

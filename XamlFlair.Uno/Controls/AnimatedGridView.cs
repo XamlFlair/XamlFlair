@@ -4,7 +4,7 @@ using XamlFlair.Extensions;
 
 namespace XamlFlair.Controls
 {
-	public class AnimatedGridView : GridView
+	public partial class AnimatedGridView : GridView
 	{
 		private bool _isFirstItemContainerLoaded; // when first item container has been generated
 		private ItemsWrapGrid _virtualizedPanel;

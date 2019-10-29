@@ -7,14 +7,12 @@ using System.Threading.Tasks;
 
 #if __WPF__
 using System.Windows;
-using System.Windows.Markup;
 using System.Windows.Media.Animation;
 using XamlFlair.Extensions;
 #else
 using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.Composition;
-using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Media.Animation;
 using XamlFlair.Extensions;
 #endif
@@ -22,11 +20,11 @@ using XamlFlair.Extensions;
 namespace XamlFlair
 {
 #if __WPF__
-	[MarkupExtensionReturnType(typeof(IAnimationSettings))]
-	public class AnimateExtension : MarkupExtension
+	[System.Windows.Markup.MarkupExtensionReturnType(typeof(IAnimationSettings))]
+	public class AnimateExtension : System.Windows.Markup.MarkupExtension
 #else
-	[MarkupExtensionReturnType(ReturnType = typeof(IAnimationSettings))]
-	public class Animate : MarkupExtension
+	[Windows.UI.Xaml.Markup.MarkupExtensionReturnType(ReturnType = typeof(IAnimationSettings))]
+	public class Animate : Windows.UI.Xaml.Markup.MarkupExtension
 #endif
 	{
 		/// <summary>

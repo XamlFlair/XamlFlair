@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reactive;
-using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,7 +25,8 @@ namespace XamlFlair.Extensions
 		/// <typeparam name="T">Type to search for.</typeparam>
 		/// <param name="element">Parent element.</param>
 		/// <returns>Descendant control or null if not found.</returns>
-		internal static T FindDescendant<T>(this DependencyObject element) where T : DependencyObject
+		internal static T FindDescendant<T>(this DependencyObject element)
+			where T : UIElement
 		{
 			T retValue = null;
 			var childrenCount = VisualTreeHelper.GetChildrenCount(element);
@@ -58,7 +58,8 @@ namespace XamlFlair.Extensions
 		/// <typeparam name="T">Type to search for.</typeparam>
 		/// <param name="element">Child element.</param>
 		/// <returns>Ascendant control or null if not found.</returns>
-		internal static T FindAscendant<T>(this DependencyObject element) where T : DependencyObject
+		internal static T FindAscendant<T>(this DependencyObject element)
+			where T : UIElement
 		{
 			var parent = VisualTreeHelper.GetParent(element);
 

@@ -29,3 +29,7 @@ bin
 /Samples/XamlFlair.Samples.Uno/XamlFlair.Samples.Uno.iOS/obj
 /Samples/XamlFlair.Samples.Uno/XamlFlair.Samples.Uno.UWP/obj
 /Samples/XamlFlair.Samples.Uno/XamlFlair.Samples.Uno.Wasm/obj
+/Samples/XamlFlair.Samples.Uno/XamlFlair.Samples.Uno.Droid/XamlFlair.Samples.Uno.Droid.csproj.user
+/XamlFlair.Uno/XamlFlair.Uno.csproj.user
+/XamlFlair.Shared/XamlFlair.Shared.shproj.user
+/Samples/XamlFlair.Samples.Uno/XamlFlair.Samples.Uno.iOS/XamlFlair.Samples.Uno.iOS.csproj.user

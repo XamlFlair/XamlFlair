@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Hosting;
-using XamlFlair.Uno.Logging;
+using XamlFlair.UnoPlatform.Logging;
 
 namespace XamlFlair.Extensions
 {
@@ -47,7 +43,7 @@ namespace XamlFlair.Extensions
 		internal static void OnApplyTemplateEx(this ListViewBase lvb)
 		{
 			// VERY IMPORTANT to clear any existing transitions in order to avoid item flickering 
-			lvb.ItemContainerTransitions?.Clear();
+			//lvb.ItemContainerTransitions?.Clear();
 		}
 
 		internal static void PrepareContainerForItemOverrideEx<TItem>(this ListViewBase lvb, DependencyObject element, Func<(int firstVisibleIndex, int lastVisibleIndex)> getIndicesFunc, ref bool isFirstItemContainerLoaded)

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Uno.Extensions;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -29,7 +30,7 @@ namespace XamlFlair.Samples.Uno
 		/// </summary>
 		public App()
 		{
-			ConfigureFilters(Uno.Extensions.LogExtensionPoint.AmbientLoggerFactory);
+			ConfigureFilters(LogExtensionPoint.AmbientLoggerFactory);
 
 			this.InitializeComponent();
 			this.Suspending += OnSuspending;

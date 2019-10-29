@@ -7,9 +7,9 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using XamlFlair.Extensions;
-using XamlFlair.Uno.Logging;
+using XamlFlair.UnoPlatform.Logging;
 
-namespace XamlFlair.Uno.Extensions
+namespace XamlFlair.Extensions
 {
 	internal static class AnimationExtensions
 	{
@@ -43,7 +43,7 @@ namespace XamlFlair.Uno.Extensions
 
 			SetRenderTransform(element, settings, transform);
 
-			element.ApplyAnimation(settings, transform.TranslateX, settings.OffsetX, "(UIElement.RenderTransform).(CompositeTransform.TranslateX)", ref storyboard);
+			element.ApplyAnimation(settings, transform.TranslateX, settings.OffsetX.GetCalculatedOffset(element, OffsetTarget.X), "(UIElement.RenderTransform).(CompositeTransform.TranslateX)", ref storyboard);
 
 			return storyboard;
 		}
@@ -54,7 +54,7 @@ namespace XamlFlair.Uno.Extensions
 
 			SetRenderTransform(element, settings, transform);
 
-			element.ApplyAnimation(settings, transform.TranslateY, settings.OffsetY, "(UIElement.RenderTransform).(CompositeTransform.TranslateY)", ref storyboard);
+			element.ApplyAnimation(settings, transform.TranslateY, settings.OffsetY.GetCalculatedOffset(element, OffsetTarget.Y), "(UIElement.RenderTransform).(CompositeTransform.TranslateY)", ref storyboard);
 
 			return storyboard;
 		}
@@ -62,11 +62,11 @@ namespace XamlFlair.Uno.Extensions
 		internal static Storyboard TranslateXFrom(this FrameworkElement element, AnimationSettings settings, ref Storyboard storyboard)
 		{
 			var transform = (element.RenderTransform as CompositeTransform) ?? new CompositeTransform();
-			transform.TranslateX = settings.OffsetX;
+			transform.TranslateX = settings.OffsetX.GetCalculatedOffset(element, OffsetTarget.X);
 
 			SetRenderTransform(element, settings, transform);
 
-			element.ApplyAnimation(settings, settings.OffsetX, 0, "(UIElement.RenderTransform).(CompositeTransform.TranslateX)", ref storyboard);
+			element.ApplyAnimation(settings, transform.TranslateX, 0, "(UIElement.RenderTransform).(CompositeTransform.TranslateX)", ref storyboard);
 
 			return storyboard;
 		}
@@ -74,11 +74,11 @@ namespace XamlFlair.Uno.Extensions
 		internal static Storyboard TranslateYFrom(this FrameworkElement element, AnimationSettings settings, ref Storyboard storyboard)
 		{
 			var transform = (element.RenderTransform as CompositeTransform) ?? new CompositeTransform();
-			transform.TranslateY = settings.OffsetY;
+			transform.TranslateY = settings.OffsetY.GetCalculatedOffset(element, OffsetTarget.Y);
 
 			SetRenderTransform(element, settings, transform);
 
-			element.ApplyAnimation(settings, settings.OffsetY, 0, "(UIElement.RenderTransform).(CompositeTransform.TranslateY)", ref storyboard);
+			element.ApplyAnimation(settings, transform.TranslateY, 0, "(UIElement.RenderTransform).(CompositeTransform.TranslateY)", ref storyboard);
 
 			return storyboard;
 		}
@@ -210,8 +210,8 @@ namespace XamlFlair.Uno.Extensions
 		{
 			var transform = (element.RenderTransform as CompositeTransform) ?? new CompositeTransform();
 
-			transform.TranslateX = settings.OffsetX;
-			transform.TranslateY = settings.OffsetY;
+			transform.TranslateX = settings.OffsetX.GetCalculatedOffset(element, OffsetTarget.X);
+			transform.TranslateY = settings.OffsetY.GetCalculatedOffset(element, OffsetTarget.Y);
 			transform.Rotation = settings.Rotation;
 			transform.ScaleX = settings.ScaleX;
 			transform.ScaleY = settings.ScaleY;

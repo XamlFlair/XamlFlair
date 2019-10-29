@@ -4,12 +4,16 @@
     <TargetFrameworks>netstandard2.0;xamarinios10;monoandroid80;monoandroid90;uap10.0.16299</TargetFrameworks>
     <!-- Ensures the .xr.xml files are generated in a proper layout folder -->
     <GenerateLibraryLayout>true</GenerateLibraryLayout>
+    <RootNamespace>XamlFlair.UnoPlatform</RootNamespace>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetFramework)'=='xamarinios10' or '$(TargetFramework)'=='monoandroid80' or '$(TargetFramework)'=='monoandroid90' or '$(TargetFramework)'=='netstandard2.0' or '$(TargetFramework)'=='uap10.0.16299'">
+  <PropertyGroup Condition="'$(TargetFramework)'=='xamarinios10' or '$(TargetFramework)'=='monoandroid80' or '$(TargetFramework)'=='monoandroid90' or '$(TargetFramework)'=='netstandard2.0'">
     <DefineConstants>TRACE;__UNO__</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='uap10.0.16299'">
+    <DefineConstants>TRACE;__UNO__;__UNO_UWP__</DefineConstants>
+  </PropertyGroup>
   <ItemGroup Condition="'$(TargetFramework)'=='xamarinios10' or '$(TargetFramework)'=='monoandroid80' or '$(TargetFramework)'=='monoandroid90' or '$(TargetFramework)'=='netstandard2.0'">
-    <PackageReference Include="Uno.UI" Version="1.45.0" />
+    <PackageReference Include="Uno.UI" Version="2.1.0-dev.88" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="**\*.xaml" Exclude="bin\**\*.xaml;obj\**\*.xaml" />

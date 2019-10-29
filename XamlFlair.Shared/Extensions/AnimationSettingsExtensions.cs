@@ -28,9 +28,12 @@ namespace XamlFlair.Extensions
 					ease = new BounceEase();
 					break;
 
+#if !__UNO__
+				// Circle easing not supported in Uno
 				case EasingType.Circle:
 					ease = new CircleEase();
 					break;
+#endif
 
 				case EasingType.Cubic:
 					ease = new CubicEase();
@@ -74,7 +77,7 @@ namespace XamlFlair.Extensions
 		}
 #endif
 
-		internal static AnimationSettings ApplyOverrides(this AnimationSettings settings, AnimationSettings other)
+					internal static AnimationSettings ApplyOverrides(this AnimationSettings settings, AnimationSettings other)
 		{
 			var updated = new AnimationSettings();
 

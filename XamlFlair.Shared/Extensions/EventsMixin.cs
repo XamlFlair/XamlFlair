@@ -64,11 +64,6 @@ namespace Windows.UI.Xaml
 				Observable.FromEventPattern<MouseEventHandler, MouseEventArgs>(
 					h => _element.MouseLeave += h,
 					h => _element.MouseLeave -= h);
-
-			internal IObservable<EventPattern<DependencyPropertyChangedEventArgs>> DataContextChanged =>
-				Observable.FromEventPattern<DependencyPropertyChangedEventHandler, DependencyPropertyChangedEventArgs>(
-					h => _element.DataContextChanged += h,
-					h => _element.DataContextChanged -= h);
 #else
 			internal IObservable<EventPattern<PointerRoutedEventArgs>> PointerEntered =>
 				Observable.FromEventPattern<PointerEventHandler, PointerRoutedEventArgs>(
@@ -79,26 +74,27 @@ namespace Windows.UI.Xaml
 				Observable.FromEventPattern<PointerEventHandler, PointerRoutedEventArgs>(
 					h => _element.PointerExited += h,
 					h => _element.PointerExited -= h);
+#endif
 
+// Specific section for DataContextChanged for each platform
+// =========================================================
+#if __WPF__
+			internal IObservable<EventPattern<DependencyPropertyChangedEventArgs>> DataContextChanged =>
+				Observable.FromEventPattern<DependencyPropertyChangedEventHandler, DependencyPropertyChangedEventArgs>(
+					h => _element.DataContextChanged += h,
+					h => _element.DataContextChanged -= h);
+#elif __UWP__ || __UNO_UWP__
 			internal IObservable<EventPattern<DataContextChangedEventArgs>> DataContextChanged =>
 				Observable.FromEventPattern<TypedEventHandler<FrameworkElement, DataContextChangedEventArgs>, DataContextChangedEventArgs>(
 					h => _element.DataContextChanged += h,
 					h => _element.DataContextChanged -= h);
-
-			// NOTE: Important to know about the Loading event is that if the control has
-			// Visibility.Hidden during startup, the Loading event will not be called.
-			// As well, if the control later becomes visible the Loading event gets called,
-			// by then Loaded already has been called
-			internal IObservable<EventPattern<object>> Loading =>
-				Observable.FromEventPattern<TypedEventHandler<FrameworkElement, object>, object>(
-					h => _element.Loading += h,
-					h => _element.Loading -= h);
-
-			internal IObservable<EventPattern<object>> LoadingUntilUnloaded =>
-				Loading
-					.DistinctUntilChanged()
-					.TakeUntil(Unloaded);
+#elif __UNO__
+			internal IObservable<EventPattern<DataContextChangedEventArgs>> DataContextChanged =>
+				Observable.FromEventPattern<TypedEventHandler<DependencyObject, DataContextChangedEventArgs>, DataContextChangedEventArgs>(
+					h => _element.DataContextChanged += h,
+					h => _element.DataContextChanged -= h);
 #endif
+// =========================================================
 		}
 	}
 }
