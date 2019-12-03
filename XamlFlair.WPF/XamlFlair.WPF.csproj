@@ -7,7 +7,7 @@
     <ApplicationIcon>Logo.ico</ApplicationIcon>
     <PackageId>XamlFlair.WPF</PackageId>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-    <PackageReleaseNotes>Added a new feature: Relative Translations (support for star values on OffsetX and OffsetY).</PackageReleaseNotes>
+    <PackageReleaseNotes>Applied a fix for the Offset calculations for absolute values.</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
     <Authors>XamlFlair.WPF</Authors>
     <PackageProjectUrl>https://github.com/XamlFlair/XamlFlair</PackageProjectUrl>
