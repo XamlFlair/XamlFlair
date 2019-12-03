@@ -21,12 +21,43 @@ namespace XamlFlair
 	{
 		internal double OffsetFactor { get; set; }
 
+		internal double OffsetValue { get; set; }
+
 		internal OffsetTarget Target { get; set; }
 
 		public static Offset ConvertToOffsetFactor(string translation)
 		{
-			var offsetValue = translation.Trim();
+			return Offset.Create(translation.Trim());
+		}
 
+		internal double GetCalculatedOffset(FrameworkElement element, OffsetTarget target)
+		{
+			// Make sure that an offset value is used
+			// if an offset factor wasn't specified
+			if (OffsetFactor == 0 && OffsetValue > 0)
+			{
+				return OffsetValue;
+			}
+
+			var width = element.ActualWidth > 0
+				? element.ActualWidth
+				: element.Width > 0
+					? element.Width
+					: 0;
+
+			var height = element.ActualHeight > 0
+				? element.ActualHeight
+				: element.Height > 0
+					? element.Height
+					: 0;
+
+			return target == OffsetTarget.X
+				? width * OffsetFactor
+				: height * OffsetFactor;
+		}
+
+		internal static Offset Create(string offsetValue)
+		{
 			if (offsetValue.Equals("*", StringComparison.InvariantCulture))
 			{
 				return new Offset()
@@ -45,30 +76,11 @@ namespace XamlFlair
 			{
 				return new Offset()
 				{
-					OffsetFactor = dbl
+					OffsetValue = dbl
 				};
 			}
 
 			throw new ArgumentException($"{nameof(Offset)} must be a double or a star-based value (ex: 150 or 0.75*).");
-		}
-
-		internal double GetCalculatedOffset(FrameworkElement element, OffsetTarget target)
-		{
-			var width = element.ActualWidth > 0
-				? element.ActualWidth
-				: element.Width > 0
-					? element.Width
-					: 0;
-
-			var height = element.ActualHeight > 0
-				? element.ActualHeight
-				: element.Height > 0
-					? element.Height
-					: 0;
-
-			return target == OffsetTarget.X
-				? width * OffsetFactor
-				: height * OffsetFactor;
 		}
 
 		#region Equality
@@ -153,22 +165,7 @@ namespace XamlFlair
 		{
 			var offsetValue = ((value as string) ?? string.Empty).Trim();
 
-			if (offsetValue.EndsWith("*") && double.TryParse(offsetValue.TrimEnd('*'), out var result))
-			{
-				return new Offset()
-				{
-					OffsetFactor = result
-				};
-			}
-			else if (double.TryParse(offsetValue, out var dbl))
-			{
-				return new Offset()
-				{
-					OffsetFactor = dbl
-				};
-			}
-
-			throw new ArgumentException($"{nameof(Offset)} must be a double or a star-based value (ex: 150 or 0.75*).");
+			return Offset.Create(offsetValue);
 		}
 	}
 }
