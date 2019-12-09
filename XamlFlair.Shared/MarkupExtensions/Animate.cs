@@ -60,7 +60,7 @@ namespace XamlFlair
 		/// <remarks>
 		/// OffsetX must be a double or a star-based value (ex: 150 or 0.75*)
 		/// </remarks>
-		public Offset OffsetX { get; set; }
+		public Offset OffsetX { get; set; } = new Offset() { OffsetValue = 0 };
 
 		/// <summary>
 		/// Specifies the target y-offset of the composite animation
@@ -68,7 +68,7 @@ namespace XamlFlair
 		/// <remarks>
 		/// OffsetY must be a double or a star-based value (ex: 150 or 0.75*)
 		/// </remarks>
-		public Offset OffsetY { get; set; }
+		public Offset OffsetY { get; set; } = new Offset() { OffsetValue = 0 };
 
 #if __UWP__
 		/// <summary>

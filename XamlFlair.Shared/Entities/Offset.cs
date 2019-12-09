@@ -16,12 +16,12 @@ namespace XamlFlair
 	public class Offset
 #else
 	[Windows.Foundation.Metadata.CreateFromString(MethodName = "XamlFlair.Offset.ConvertToOffsetFactor")]
-	public struct Offset
+	public class Offset
 #endif
 	{
-		internal double OffsetFactor { get; set; }
+		public double OffsetFactor { get; set; }
 
-		internal double OffsetValue { get; set; }
+		public double OffsetValue { get; set; }
 
 		internal OffsetTarget Target { get; set; }
 
