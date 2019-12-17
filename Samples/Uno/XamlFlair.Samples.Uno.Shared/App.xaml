@@ -5,6 +5,14 @@
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="Animations.xaml" />
+
+				<ResourceDictionary Source="Styles\Colors.xaml" />
+				<ResourceDictionary Source="Styles\Controls\Button.xaml" />
+				<ResourceDictionary Source="Styles\Controls\GridViewItem.xaml" />
+				<ResourceDictionary Source="Styles\Controls\GridView.xaml" />
+				<ResourceDictionary Source="Styles\Controls\ListViewItem.xaml" />
+				<ResourceDictionary Source="Styles\Controls\ListView.xaml" />
+				<ResourceDictionary Source="Styles\Controls\TextBlock.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Application.Resources>

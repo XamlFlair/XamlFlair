@@ -8,6 +8,8 @@ The goal of the XamlFlair library is to ease the implementation of common animat
 
 ## Contents
 
+- [Features Overview](#features-overview)
+
 - [Basic Concepts](#basic-concepts)
 
 - [Install from Nuget](#install-from-nuget)
@@ -39,6 +41,26 @@ The goal of the XamlFlair library is to ease the implementation of common animat
 - [Logging Animations](#logging-animations)
 
 - [*ListViewBase* (UWP) and *ListBox*-based (WPF) Animations](#listviewbase-uwp-and-listbox-based-wpf-animations)
+
+## Features Overview
+
+Feature               | **UWP**     | **WPF**     | **UWP (Uno)** | **iOS (Uno)** | **Android (Uno)** | **Wasm (Uno)**
+--------------------- | ----------- | ----------- | ------------- | ------------- | ----------------- | --------------
+*Animation System*    | Composition | Storyboards | Storyboards   | Storyboards   | Storyboards       | Storyboards
+Composite Transforms  |      X      |     X       |       X       |       X       |         X         |        X
+Compound Animations   |      X      |     X       |       X       |       X       |         X         |        X
+Relative Translations |      X      |     X       |       X       |       X       |         X         |        X
+Repeating Animations  |      X      |     X       |       X       |       X       |         X         |        X
+Events & Bindings     |      X      |     X       |       X       |       X       |         X         |        X
+`StartWith`           |      X      |     X       |       X       |       X       |         X         |        X
+`AllowOpacityReset `  |      -      |     X       |       -       |       -       |         -         |        -
+`ClipToBounds  `      |      X      |    N/A      |       X       |       X       |         X         |        X
+Animated Lists        |      X      |     X       |       -       |       -       |         -         |        -
+Blur Effect           |      X      |     X       |       -       |       -       |         -         |        -
+Saturation Effect     |      X      |     -       |       -       |       -       |         -         |        -
+Tint Effect           |      X      |     -       |       -       |       -       |         -         |        -
+
+> Note that a standard UWP app and a Uno app (UWP head) are different when it comes to XamlFlair. A standard UWP app referencing `XamlFlair.UWP` will use Composition-based animations behind the scenes. An Uno app (including the UWP head) that references `XamlFlair.Uno` will all use Storyboarding behind the scenes.
 
 ## Basic Concepts
 
