@@ -7,7 +7,7 @@
     <ApplicationIcon>Logo.ico</ApplicationIcon>
     <PackageId>XamlFlair.WPF</PackageId>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-    <PackageReleaseNotes>Applied a fix for Offsets + changed Offset from struct to class.</PackageReleaseNotes>
+    <PackageReleaseNotes>Added Offset changes + fixes for the Offset object comparisions.</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
     <Authors>XamlFlair.WPF</Authors>
     <PackageProjectUrl>https://github.com/XamlFlair/XamlFlair</PackageProjectUrl>

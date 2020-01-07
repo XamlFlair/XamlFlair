@@ -379,7 +379,7 @@ namespace XamlFlair.Extensions
 				visual.Opacity = (float)settings.Opacity;
 			}
 
-			if (settings.OffsetX != default(Offset) || settings.OffsetY != default(Offset) || settings.OffsetZ != 0)
+			if (settings.OffsetX != Offset.Empty || settings.OffsetY != Offset.Empty || settings.OffsetZ != 0)
 			{
 				visual.Properties.InsertVector3(
 					TargetProperties.Translation,

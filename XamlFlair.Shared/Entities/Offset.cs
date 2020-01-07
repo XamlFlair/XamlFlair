@@ -19,6 +19,8 @@ namespace XamlFlair
 	public class Offset
 #endif
 	{
+		internal static Offset Empty = new Offset();
+
 		public double OffsetFactor { get; set; }
 
 		public double OffsetValue { get; set; }
@@ -34,7 +36,7 @@ namespace XamlFlair
 		{
 			// Make sure that an offset value is used
 			// if an offset factor wasn't specified
-			if (OffsetFactor == 0 && OffsetValue > 0)
+			if (OffsetFactor == 0 && (OffsetValue > 0 || OffsetValue < 0))
 			{
 				return OffsetValue;
 			}
@@ -83,6 +85,16 @@ namespace XamlFlair
 			throw new ArgumentException($"{nameof(Offset)} must be a double or a star-based value (ex: 150 or 0.75*).");
 		}
 
+		public override string ToString()
+		{
+			if (OffsetValue > 0 || OffsetValue < 0)
+			{
+				return OffsetValue.ToString();
+			}
+
+			return OffsetFactor.ToString();
+		}
+
 		#region Equality
 
 		public bool Equals(Offset other)
@@ -103,9 +115,9 @@ namespace XamlFlair
 #if __WPF__
 		public bool Equals(Offset x, Offset y)
 		{
-			if (Object.ReferenceEquals(null, y)) return false;	// Is null?
-			if (Object.ReferenceEquals(x, y)) return true;		// Is the same object?
-			if (x.GetType() != y.GetType()) return false;		// Is the same type?
+			if (Object.ReferenceEquals(null, y)) return false;  // Is null?
+			if (Object.ReferenceEquals(x, y)) return true;      // Is the same object?
+			if (x.GetType() != y.GetType()) return false;       // Is the same type?
 
 			return IsEqual((Offset)y);
 		}

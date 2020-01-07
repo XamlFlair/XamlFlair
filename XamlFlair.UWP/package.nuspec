@@ -4,7 +4,7 @@
     <!--*-->
     <id>XamlFlair.UWP</id>
     <!--*-->
-    <version>1.0.25</version>
+    <version>1.0.26</version>
     <title>XamlFlair.UWP</title>
     <!--*-->
     <authors>xamlflair</authors>
@@ -20,8 +20,8 @@
     <!--*-->
     <description>XamlFlair animation library for the UWP platform.</description>
     <!--*-->
-    <releaseNotes>Applied a fix for Offsets + changed Offset from struct to class.</releaseNotes>
-    <copyright>Copyright © 2019</copyright>
+    <releaseNotes>Added Offset changes + fixes for the Offset object comparisions.</releaseNotes>
+    <copyright>Copyright © 2020</copyright>
     <tags>
     </tags>
     <dependencies>

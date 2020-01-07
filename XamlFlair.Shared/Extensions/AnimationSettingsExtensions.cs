@@ -91,10 +91,10 @@ namespace XamlFlair.Extensions
 			updated.Opacity = opacity != 1 ? opacity : settings.Opacity;
 
 			var offsetX = other.OffsetX;
-			updated.OffsetX = offsetX != default(Offset) ? offsetX : settings.OffsetX;
+			updated.OffsetX = offsetX != Offset.Empty ? offsetX : settings.OffsetX;
 
 			var offsetY = other.OffsetY;
-			updated.OffsetY = offsetY != default(Offset) ? offsetY : settings.OffsetY;
+			updated.OffsetY = offsetY != Offset.Empty ? offsetY : settings.OffsetY;
 
 			var rotation = other.Rotation;
 			updated.Rotation = rotation != 0 ? rotation : settings.Rotation;

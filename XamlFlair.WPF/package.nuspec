@@ -4,7 +4,7 @@
     <!--*-->
     <id>XamlFlair.WPF</id>
     <!--*-->
-    <version>1.0.23</version>
+    <version>1.0.24</version>
     <title>XamlFlair.WPF</title>
     <!--*-->
     <authors>XamlFlair.WPF</authors>
@@ -18,8 +18,8 @@
     <!--*-->
     <description>XamlFlair animation library for the WPF platform.</description>
     <!--*-->
-    <releaseNotes>Applied a fix for Offsets + changed Offset from struct to class.</releaseNotes>
-    <copyright>Copyright © 2019</copyright>
+    <releaseNotes>Added Offset changes + fixes for the Offset object comparisions.</releaseNotes>
+    <copyright>Copyright © 2020</copyright>
     <tags>
     </tags>
     <dependencies>
