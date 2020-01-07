@@ -15,6 +15,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Uno.Extensions;
+using Serilog;
 
 namespace XamlFlair.Samples.Uno
 {
@@ -29,7 +31,13 @@ namespace XamlFlair.Samples.Uno
 		/// </summary>
 		public App()
 		{
-			ConfigureFilters(Uno.Extensions.LogExtensionPoint.AmbientLoggerFactory);
+			ConfigureFilters(LogExtensionPoint.AmbientLoggerFactory);
+
+			// Setup the Serilog logger
+			Log.Logger = new LoggerConfiguration()
+				.MinimumLevel.Debug()
+				.WriteTo.Debug()
+				.CreateLogger();
 
 			this.InitializeComponent();
 			this.Suspending += OnSuspending;

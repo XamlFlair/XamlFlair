@@ -9,34 +9,40 @@
 			<StackPanel Orientation="Horizontal"
 						HorizontalAlignment="Center"
 						Margin="0,0,0,24">
-				<Image Source="/Assets/Logo.png"
-					   Height="200"
-					   Width="200"
-					   VerticalAlignment="Center"
-					   Stretch="Uniform"
-					   xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromLeft}, Duration=2000, Delay=500}" />
+				<!-- Place a container for the image to get animations to work -->
+				<Border Height="100"
+						Width="100"
+						VerticalAlignment="Center"
+						xf:Animations.EnableLogging="True"
+						xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromLeft}, Duration=1000, Delay=500}">
+					<Image Source="/Assets/Logo.png"
+						   Stretch="Uniform" />
+				</Border>
 
 				<Path Data="M20.53299,0L20.583008,11.763 32,11.763 32,20.442017 20.619995,20.442017 20.666992,31.963013 11.97699,32 11.927002,20.442017 0,20.442017 0,11.762024 11.895996,11.762024 11.842987,0.038024902z"
 					  Width="32"
 					  Height="32"
+					  Margin="16,0"
 					  Fill="{StaticResource PrimaryColor01Brush}"
 					  VerticalAlignment="Center"
 					  Stretch="Uniform"
-					  xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=2000, Delay=500}" />
+					  xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=1000, Delay=750}" />
 
-				<Image Source="/Assets/Logo_Uno.png"
-					   Height="200"
-					   Width="200"
-					   Stretch="Uniform"
-					   VerticalAlignment="Center"
-					   xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromRight}, Duration=2000, Delay=500}" />
+				<!-- Place a container for the image to get animations to work -->
+				<Border Height="100"
+						Width="100"
+						VerticalAlignment="Center"
+						xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromRight}, Duration=1000, Delay=1000}">
+					<Image Source="/Assets/Logo_Uno.png"
+						   Stretch="Uniform" />
+				</Border>
 			</StackPanel>
 
 			<Button Style="{StaticResource SimpleButtonStyle}"
 					VerticalAlignment="Center"
 					HorizontalAlignment="Center"
 					Background="Transparent"
-					xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=2000, Delay=1000}">
+					xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Duration=1000, Delay=1200}">
 				<Button.Content>
 					<Path Data="M17.295033,7.0030014L26.298132,16.005965 17.295033,25.009969 14.693987,22.408963 19.395094,17.70695 7.2909427,17.70695 7.2909427,14.305959 18.995064,14.305959 14.492995,9.8039877z M15.994051,1.9009957C12.392995,1.9009956 8.7909613,3.301016 5.9899016,6.0019972 0.58785832,11.503995 0.58785832,20.507968 5.9899016,26.009965 11.491983,31.511903 20.396082,31.511903 25.898163,26.009965 31.400183,20.507968 31.400183,11.604978 25.898163,6.1020028 23.197081,3.301016 19.595047,1.9009956 15.994051,1.9009957z M15.994051,0C20.09609,0 24.197094,1.6010086 27.298143,4.7020127 33.601261,10.903991 33.501221,21.107942 27.298143,27.310926 21.096104,33.512935 10.891938,33.61291 4.6898981,27.310926 -1.6132182,21.007966 -1.5131804,10.903991 4.6898981,4.7020127 7.7909489,1.6010086 11.891951,0 15.994051,0z"
 						  Width="48"

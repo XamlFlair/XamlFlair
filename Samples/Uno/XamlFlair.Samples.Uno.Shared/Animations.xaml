@@ -20,14 +20,6 @@
 						  Kind="FadeTo"
 						  Opacity="0" />
 
-	<xf:AnimationSettings x:Key="Unblur"
-						  Kind="BlurFrom"
-						  BlurRadius="{StaticResource BlurRadius}" />
-
-	<xf:AnimationSettings x:Key="Blur"
-						  Kind="BlurTo"
-						  BlurRadius="{StaticResource BlurRadius}" />
-
 	<!-- Scale to a larger value -->
 	<xf:AnimationSettings x:Key="Expand"
 						  Kind="ScaleXTo,ScaleYTo"

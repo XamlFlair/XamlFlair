@@ -77,7 +77,7 @@ namespace XamlFlair.Extensions
 		}
 #endif
 
-					internal static AnimationSettings ApplyOverrides(this AnimationSettings settings, AnimationSettings other)
+		internal static AnimationSettings ApplyOverrides(this AnimationSettings settings, AnimationSettings other)
 		{
 			var updated = new AnimationSettings();
 

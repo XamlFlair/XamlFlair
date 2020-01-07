@@ -33,7 +33,9 @@
     <!-- Note that for WebAssembly version 1.1.1 of the console logger required -->
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Filter" Version="1.1.1" />
-    <PackageReference Include="Uno.UI" Version="2.1.0-dev.331" />
+    <PackageReference Include="Serilog" Version="2.8.0" />
+    <PackageReference Include="Serilog.Sinks.Debug" Version="1.0.1" />
+    <PackageReference Include="Uno.UI" Version="2.1.0-dev.617" />
     <PackageReference Include="Uno.Wasm.Bootstrap" Version="1.0.10" />
     <DotNetCliToolReference Include="Uno.Wasm.Bootstrap.Cli" Version="1.0.0-dev.244" />
   </ItemGroup>

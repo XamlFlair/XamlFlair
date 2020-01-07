@@ -166,12 +166,7 @@ namespace XamlFlair.Extensions
 
 			if (updateTransformCenterPoint)
 			{
-//#if __ANDROID__
-//				transform.CenterX = element.ActualWidth * settings.RenderTransformOrigin.X;
-//				transform.CenterY = element.ActualHeight * settings.RenderTransformOrigin.Y;
-//#else
 				element.RenderTransformOrigin = settings.TransformCenterPoint;
-//#endif
 			}
 		}
 
@@ -218,12 +213,7 @@ namespace XamlFlair.Extensions
 
 			element.Opacity = settings.Opacity;
 
-			//#if __ANDROID__
-			//			composite.CenterX = element.ActualWidth * settings.RenderTransformOrigin.X;
-			//			composite.CenterY = element.ActualHeight * settings.RenderTransformOrigin.Y;
-			//#else
 			element.RenderTransformOrigin = settings.TransformCenterPoint;
-			//#endif
 			element.RenderTransform = transform;
 		}
 
