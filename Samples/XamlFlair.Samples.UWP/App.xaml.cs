@@ -1,21 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Blend.SampleData.SampleUsers;
+﻿using Blend.SampleData.SampleUsers;
+using Microsoft.Extensions.Logging;
 using Serilog;
+using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace XamlFlair.Samples.UWP
@@ -41,6 +33,9 @@ namespace XamlFlair.Samples.UWP
 				.MinimumLevel.Debug()
 				.WriteTo.Debug()
 				.CreateLogger();
+
+			// Initalie the XamlFlair loggers using the LoggerFactory (with Serilog support)
+			XamlFlair.Animations.InitializeLoggers(new LoggerFactory().AddSerilog());
 		}
 
 		/// <summary>

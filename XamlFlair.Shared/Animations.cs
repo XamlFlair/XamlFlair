@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using XamlFlair.Extensions;
 using System.Reactive.Linq;
 using System.Linq;
 using System.Numerics;
 using System.Collections.Concurrent;
+using Microsoft.Extensions.Logging;
+using XamlFlair.Extensions;
 
 #if __WPF__
 using System.Windows;
 using System.Windows.Media.Animation;
-using XamlFlair.WPF.Logging;
 using static System.Windows.EventsMixin;
 using FrameworkElement = System.Windows.FrameworkElement;
 using Timeline = System.Windows.Media.Animation.Storyboard;
@@ -18,7 +18,6 @@ using Timeline = System.Windows.Media.Animation.Storyboard;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Composition;
-using XamlFlair.UWP.Logging;
 using static Windows.UI.Xaml.EventsMixin;
 using FrameworkElement = Windows.UI.Xaml.FrameworkElement;
 using Timeline = XamlFlair.AnimationGroup;
@@ -30,7 +29,20 @@ namespace XamlFlair
 	{
 		private static readonly ConcurrentDictionary<Guid, ActiveTimeline<Timeline>> _actives = new ConcurrentDictionary<Guid, ActiveTimeline<Timeline>>();
 
-		internal static readonly ILog Logger = LogProvider.GetCurrentClassLogger();
+		private static ILogger Logger;
+
+		public static void InitializeLoggers(ILoggerFactory loggerFactory)
+		{
+			Logger = loggerFactory.CreateLogger(nameof(Animations));
+			ActiveTimelineExtensions.Logger = loggerFactory.CreateLogger(nameof(ActiveTimelineExtensions));
+			AnimationExtensions.Logger = loggerFactory.CreateLogger(nameof(AnimationExtensions));
+#if __WPF__
+			ListBoxExtensions.Logger = loggerFactory.CreateLogger(nameof(ListBoxExtensions));
+#else
+			Layout.Logger = loggerFactory.CreateLogger(nameof(Layout));
+			ListViewBaseExtensions.Logger = loggerFactory.CreateLogger(nameof(ListViewBaseExtensions));
+#endif
+		}
 
 		internal static bool IsInDesignMode(DependencyObject d)
 		{
@@ -41,7 +53,7 @@ namespace XamlFlair
 #endif
 		}
 
-		#region Attached Property Callbacks
+#region Attached Property Callbacks
 
 		private static void OnPrimaryBindingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
 		{
@@ -135,7 +147,7 @@ namespace XamlFlair
 							elem.ApplyInitialSettings((AnimationSettings)startSettings);
 						}
 					},
-					ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElementEvents.LoadedUntilUnloaded)} event.", ex)
+					ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElementEvents.LoadedUntilUnloaded)} event.", ex)
 				);
 
 			element
@@ -143,7 +155,7 @@ namespace XamlFlair
 				.Unloaded
 				.Subscribe(
 					args => CleanupDisposables(args.Sender as FrameworkElement),
-					ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.Unloaded)} event.", ex)
+					ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.Unloaded)} event.", ex)
 				);
 
 			element
@@ -160,7 +172,7 @@ namespace XamlFlair
 							RunNextAnimation(idle, element);
 						}
 					},
-					ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.Visibility)} changes of {nameof(FrameworkElement)}", ex)
+					ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.Visibility)} changes of {nameof(FrameworkElement)}", ex)
 				);
 
 #if __UWP__
@@ -178,7 +190,7 @@ namespace XamlFlair
 							sprite.Size = new Vector2((float)elem.ActualWidth, (float)elem.ActualHeight);
 						}
 					},
-					ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.SizeChanged)} event.", ex)
+					ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.SizeChanged)} event.", ex)
 				);
 #endif
 		}
@@ -198,7 +210,7 @@ namespace XamlFlair
 							.LoadedUntilUnloaded
 							.Subscribe(
 								args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
-								ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.Loaded)} event.", ex),
+								ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.Loaded)} event.", ex),
 								() => Cleanup(element)
 							);
 
@@ -212,7 +224,7 @@ namespace XamlFlair
 							.LoadingUntilUnloaded
 							.Subscribe(
 								args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
-								ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.Loading)} event.", ex),
+								ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.Loading)} event.", ex),
 								() => Cleanup(element)
 							);
 
@@ -227,7 +239,7 @@ namespace XamlFlair
 							.TakeUntil(element.Events().Unloaded)
 							.Subscribe(
 								_ => PrepareAnimations(element, useSecondaryAnimation: useSecondarySettings),
-								ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.Visibility)} changes of {nameof(FrameworkElement)}", ex),
+								ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.Visibility)} changes of {nameof(FrameworkElement)}", ex),
 								() => Cleanup(element)
 							);
 
@@ -243,7 +255,7 @@ namespace XamlFlair
 							.TakeUntil(element.Events().Unloaded)
 							.Subscribe(
 								args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
-								ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.DataContextChanged)} event.", ex),
+								ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.DataContextChanged)} event.", ex),
 								() => Cleanup(element)
 							);
 
@@ -259,9 +271,9 @@ namespace XamlFlair
 							.Subscribe(
 								args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
 #if __WPF__
-								ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.MouseEnter)} event.", ex),
+								ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.MouseEnter)} event.", ex),
 #else
-								ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.PointerEntered)} event.", ex),
+								ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.PointerEntered)} event.", ex),
 #endif
 								() => Cleanup(element)
 							);
@@ -278,9 +290,9 @@ namespace XamlFlair
 							.Subscribe(
 								args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
 #if __WPF__
-								ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.MouseLeave)} event.", ex),
+								ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.MouseLeave)} event.", ex),
 #else
-								ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.PointerExited)} event.", ex),
+								ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.PointerExited)} event.", ex),
 #endif
 								() => Cleanup(element)
 							);
@@ -296,7 +308,7 @@ namespace XamlFlair
 							.TakeUntil(element.Events().Unloaded)
 							.Subscribe(
 								args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
-								ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.GotFocus)} event.", ex),
+								ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.GotFocus)} event.", ex),
 								() => Cleanup(element)
 							);
 
@@ -311,7 +323,7 @@ namespace XamlFlair
 							.TakeUntil(element.Events().Unloaded)
 							.Subscribe(
 								args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
-								ex => Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.LostFocus)} event.", ex),
+								ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.LostFocus)} event.", ex),
 								() => Cleanup(element)
 							);
 
@@ -699,6 +711,6 @@ namespace XamlFlair
 #endif
 		}
 
-		#endregion
+#endregion
 	}
 }

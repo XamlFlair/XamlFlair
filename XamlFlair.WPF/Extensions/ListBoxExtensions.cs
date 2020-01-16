@@ -1,14 +1,16 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using XamlFlair.WPF.Logging;
 
 namespace XamlFlair.Extensions
 {
 	internal static class ListBoxExtensions
 	{
+		internal static ILogger Logger;
+
 		internal static void Initialize(this ListBox lb)
 		{
 			lb.Loaded += AnimatedListBox_Loaded;
@@ -36,7 +38,7 @@ namespace XamlFlair.Extensions
 				.Where(_ => Animations.GetAnimateOnItemsSourceChange(lb))
 				.Subscribe(
 				_ => itemsSourceChangedAction?.Invoke(),
-				ex => Animations.Logger.ErrorException($"Error on subscription to changes of the {nameof(ListBox.ItemsSource)} property of {nameof(ListBox)}", ex));
+				ex => Logger?.LogError($"Error on subscription to changes of the {nameof(ListBox.ItemsSource)} property of {nameof(ListBox)}", ex));
 		}
 
 		internal static void PrepareContainerForItemOverrideEx(this ListBox lb, DependencyObject element, ref bool isFirstItemContainerLoaded)

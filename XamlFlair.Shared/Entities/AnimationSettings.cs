@@ -259,7 +259,7 @@ namespace XamlFlair
 				nameof(Saturation),
 				typeof(double),
 				typeof(AnimationSettings),
-				new PropertyMetadata(AnimationSettings.DEFAULT_SATURATION));
+				new PropertyMetadata(DEFAULT_SATURATION));
 
 		public Color Tint
 		{
@@ -275,7 +275,7 @@ namespace XamlFlair
 				nameof(Tint),
 				typeof(Color),
 				typeof(AnimationSettings),
-				new PropertyMetadata(AnimationSettings.DEFAULT_TINT));
+				new PropertyMetadata(DEFAULT_TINT));
 #endif
 
 		public Point TransformCenterPoint
@@ -345,7 +345,56 @@ namespace XamlFlair
 				typeof(AnimationSettings),
 				new PropertyMetadata(DEFAULT_EVENT));
 
-#region Equality
+		// TODO: Determine if really needed to have AnimationSettings
+		// as a DependencyObject. Here are the properties listed
+		// as regular CLR poroperties
+		// -----------------------------------------
+		/*
+		public AnimationKind Kind { get; set; } = DEFAULT_KIND;
+
+		public double Duration { get; set; } = DEFAULT_DURATION;
+
+		public double Delay { get; set; } = 0d;
+
+		public double Opacity { get; set; } = 1d;
+
+		public Offset OffsetX { get; set; } = new Offset() { OffsetValue = 0 };
+
+		public Offset OffsetY { get; set; } = new Offset() { OffsetValue = 0 };
+
+#if __UWP__
+		public double OffsetZ { get; set; } = 0d;
+#endif
+
+		public double ScaleX { get; set; } = 1d;
+
+		public double ScaleY { get; set; } = 1d;
+
+#if __UWP__
+		public double ScaleZ { get; set; } = 1d;
+#endif
+
+		public double Rotation { get; set; } = 0d;
+
+		public double BlurRadius { get; set; } = 0d;
+
+#if __UWP__
+		public double Saturation { get; set; } = DEFAULT_SATURATION;
+
+		public Color Tint { get; set; } = DEFAULT_TINT;
+#endif
+
+		public Point TransformCenterPoint { get; set; } = DEFAULT_TRANSFORM_CENTER_POINT;
+
+		public EasingType Easing { get; set; } = DEFAULT_EASING;
+
+		public EasingMode EasingMode { get; set; } = DEFAULT_EASING_MODE;
+
+		public EventType Event { get; set; } = DEFAULT_EVENT;
+		*/
+		// -----------------------------------------
+
+		#region Equality
 
 		public bool Equals(AnimationSettings other)
 		{

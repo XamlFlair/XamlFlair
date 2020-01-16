@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
@@ -8,12 +9,13 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Hosting;
-using XamlFlair.UWP.Logging;
 
 namespace XamlFlair.Extensions
 {
 	internal static class ListViewBaseExtensions
 	{
+		internal static ILogger Logger;
+
 		internal static void Initialize(this ListViewBase lvb)
 		{
 			lvb.Loaded += AnimatedListViewBase_Loaded;
@@ -41,7 +43,7 @@ namespace XamlFlair.Extensions
 				.Where(_ => Animations.GetAnimateOnItemsSourceChange(lvb))
 				.Subscribe(
 				_ => itemsSourceChangedAction?.Invoke(),
-				ex => Animations.Logger.ErrorException($"Error on subscription to changes of the {nameof(ListViewBase.ItemsSource)} property of {nameof(ListViewBase)}", ex));
+				ex => Logger?.LogError($"Error on subscription to changes of the {nameof(ListViewBase.ItemsSource)} property of {nameof(ListViewBase)}", ex));
 		}
 
 		internal static void OnApplyTemplateEx(this ListViewBase lvb)

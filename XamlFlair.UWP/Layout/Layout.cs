@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
@@ -7,12 +8,13 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
-using XamlFlair.UWP.Logging;
 
 namespace XamlFlair
 {
 	public static class Layout
 	{
+		internal static ILogger Logger;
+
 		public static bool GetClipToBounds(DependencyObject obj) => (bool)obj.GetValue(ClipToBoundsProperty);
 
 		public static void SetClipToBounds(DependencyObject obj, bool value) => obj.SetValue(ClipToBoundsProperty, value);
@@ -46,7 +48,7 @@ namespace XamlFlair
 								Rect = new Rect(0, 0, elem.ActualWidth, elem.ActualHeight)
 							};
 						},
-						ex => Animations.Logger.ErrorException($"Error on subscription to the {nameof(FrameworkElement.SizeChanged)} event.", ex)
+						ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.SizeChanged)} event.", ex)
 					);
 			}
 		}

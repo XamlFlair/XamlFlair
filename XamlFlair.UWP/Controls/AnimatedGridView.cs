@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using XamlFlair.Extensions;
-using XamlFlair.UWP.Logging;
 
 namespace XamlFlair.Controls
 {

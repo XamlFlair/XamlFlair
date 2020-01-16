@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,11 +7,9 @@ using System.Text;
 
 #if __WPF__
 using System.Windows;
-using XamlFlair.WPF.Logging;
 using Timeline = System.Windows.Media.Animation.Storyboard;
 #else
 using Windows.UI.Xaml;
-using XamlFlair.UWP.Logging;
 using Timeline = XamlFlair.AnimationGroup;
 #endif
 
@@ -18,6 +17,8 @@ namespace XamlFlair.Extensions
 {
 	internal static class ActiveTimelineExtensions
 	{
+		internal static ILogger Logger;
+
 		internal static ActiveTimeline<T> Add<T>(
 			this ConcurrentDictionary<Guid, ActiveTimeline<T>> actives,
 			T timeline, AnimationSettings settings,
@@ -243,7 +244,7 @@ namespace XamlFlair.Extensions
 			builder.AppendLine($"Guid {timelineGuid} - {message} at {DateTimeOffset.Now.ToString("HH:mm:ss:fffff")}");
 			builder.AppendLine("------------------------------------");
 
-			Animations.Logger.Debug(builder.ToString());
+			Logger?.LogDebug(builder.ToString());
 		}
 
 		private static void LogActiveTimelines<T>(ConcurrentDictionary<Guid, ActiveTimeline<T>> actives, string message)
@@ -282,7 +283,7 @@ namespace XamlFlair.Extensions
 
 			builder.AppendLine("------------------------------------");
 
-			Animations.Logger.Debug(builder.ToString());
+			Logger?.LogDebug(builder.ToString());
 		}
 	}
 }
