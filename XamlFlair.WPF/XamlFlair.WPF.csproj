@@ -7,7 +7,7 @@
     <ApplicationIcon>Logo.ico</ApplicationIcon>
     <PackageId>XamlFlair.WPF</PackageId>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-    <PackageReleaseNotes>Added Offset changes + fixes for the Offset object comparisions.</PackageReleaseNotes>
+    <PackageReleaseNotes>Removed dependency on LibLog and replaced it with Microsoft.Extensions.Logging.Abstractions.</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
     <Authors>XamlFlair.WPF</Authors>
     <PackageProjectUrl>https://github.com/XamlFlair/XamlFlair</PackageProjectUrl>
@@ -23,7 +23,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="LibLog" Version="5.0.6" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="1.1.1" />
     <PackageReference Include="System.Reactive" Version="4.1.5" />
   </ItemGroup>
 

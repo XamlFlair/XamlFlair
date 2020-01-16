@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
@@ -9,12 +10,13 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
-using XamlFlair.WPF.Logging;
 
 namespace XamlFlair.Extensions
 {
 	internal static class AnimationExtensions
 	{
+		internal static ILogger Logger;
+
 		private const short SCALE_INDEX = 0;
 		private const short ROTATE_INDEX = 2;
 		private const short TRANSLATE_INDEX = 3;
@@ -335,7 +337,7 @@ namespace XamlFlair.Extensions
 					$"	EasingMode = {settings.EasingMode} \n" +
 				"------------------------------------";
 
-			Animations.Logger.Debug(output);
+			Logger?.LogDebug(output);
 		}
 	}
 }

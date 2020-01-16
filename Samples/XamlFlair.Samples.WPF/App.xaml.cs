@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using Microsoft.Extensions.Logging;
 using Serilog;
+using System.Windows;
 
 namespace XamlFlair.Samples.WPF
 {
@@ -21,6 +16,9 @@ namespace XamlFlair.Samples.WPF
 				.MinimumLevel.Debug()
 				.WriteTo.Debug()
 				.CreateLogger();
+
+			// Initalie the XamlFlair loggers using the LoggerFactory (with Serilog support)
+			XamlFlair.Animations.InitializeLoggers(new LoggerFactory().AddSerilog());
 		}
 	}
 }

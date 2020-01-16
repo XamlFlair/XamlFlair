@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -10,13 +11,14 @@ using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
-using XamlFlair.UWP.Logging;
 using static XamlFlair.Constants;
 
 namespace XamlFlair.Extensions
 {
 	internal static class AnimationExtensions
 	{
+		internal static ILogger Logger;
+
 		// ====================
 		// FADE
 		// ====================
@@ -546,7 +548,7 @@ namespace XamlFlair.Extensions
 				$"	EasingMode = {settings.EasingMode} \n" +
 				" ------------------------------------";
 
-			Animations.Logger.Debug(output);
+			Logger?.LogDebug(output);
 		}
 	}
 }
