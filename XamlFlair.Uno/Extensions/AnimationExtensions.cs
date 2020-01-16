@@ -6,13 +6,15 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
+using Microsoft.Extensions.Logging;
 using XamlFlair.Extensions;
-using XamlFlair.UnoPlatform.Logging;
 
 namespace XamlFlair.Extensions
 {
 	internal static class AnimationExtensions
 	{
+		internal static ILogger Logger;
+
 		// ====================
 		// FADE
 		// ====================
@@ -248,7 +250,7 @@ namespace XamlFlair.Extensions
 					$"	EasingMode = {settings.EasingMode} \n" +
 				"------------------------------------";
 
-			Animations.Logger.Debug(output);
+			Logger?.LogDebug(output);
 		}
 	}
 }

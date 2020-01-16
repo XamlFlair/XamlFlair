@@ -4,13 +4,15 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Windows.UI.Xaml;
 
 #if __WPF__
+using System.Windows;
 using Timeline = System.Windows.Media.Animation.Storyboard;
 #elif __UWP__
+using Windows.UI.Xaml;
 using Timeline = XamlFlair.AnimationGroup;
 #elif __UNO__
+using Windows.UI.Xaml;
 using Timeline = Windows.UI.Xaml.Media.Animation.Storyboard;
 #endif
 

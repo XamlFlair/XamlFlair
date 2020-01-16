@@ -23,13 +23,10 @@ using FrameworkElement = Windows.UI.Xaml.FrameworkElement;
 
 #if __WPF__
 using Timeline = System.Windows.Media.Animation.Storyboard;
-using XamlFlair.WPF.Logging;
 #elif __UWP__
 using Timeline = XamlFlair.AnimationGroup;
-using XamlFlair.UWP.Logging;
 #elif __UNO__
 using Timeline = Windows.UI.Xaml.Media.Animation.Storyboard;
-using XamlFlair.UnoPlatform.Logging;
 #endif
 
 namespace XamlFlair
