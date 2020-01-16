@@ -4,7 +4,7 @@
     <!--*-->
     <id>XamlFlair.UWP</id>
     <!--*-->
-    <version>1.0.26</version>
+    <version>1.0.27</version>
     <title>XamlFlair.UWP</title>
     <!--*-->
     <authors>xamlflair</authors>
@@ -20,13 +20,13 @@
     <!--*-->
     <description>XamlFlair animation library for the UWP platform.</description>
     <!--*-->
-    <releaseNotes>Added Offset changes + fixes for the Offset object comparisions.</releaseNotes>
+    <releaseNotes>Removed dependency on LibLog and replaced it with Microsoft.Extensions.Logging.Abstractions.</releaseNotes>
     <copyright>Copyright © 2020</copyright>
     <tags>
     </tags>
     <dependencies>
       <group targetFramework="uap10.0">
-        <dependency id="LibLog" version="5.0.6" />
+        <dependency id="Microsoft.Extensions.Logging.Abstractions" version="1.1.1" />
         <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="6.2.8" />
         <dependency id="System.Reactive" version="4.1.5" />
         <dependency id="Win2D.uwp" version="1.23.0" />

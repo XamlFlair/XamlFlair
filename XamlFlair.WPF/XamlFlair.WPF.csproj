@@ -7,7 +7,7 @@
     <ApplicationIcon>Logo.ico</ApplicationIcon>
     <PackageId>XamlFlair.WPF</PackageId>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-    <PackageReleaseNotes>Added Offset changes + fixes for the Offset object comparisions.</PackageReleaseNotes>
+    <PackageReleaseNotes>Removed dependency on LibLog and replaced it with Microsoft.Extensions.Logging.Abstractions.</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
     <Authors>XamlFlair.WPF</Authors>
     <PackageProjectUrl>https://github.com/XamlFlair/XamlFlair</PackageProjectUrl>
