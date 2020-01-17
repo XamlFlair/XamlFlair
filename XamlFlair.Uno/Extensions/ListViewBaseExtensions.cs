@@ -39,7 +39,7 @@ namespace XamlFlair.Extensions
 				.Where(_ => Animations.GetAnimateOnItemsSourceChange(lvb))
 				.Subscribe(
 				_ => itemsSourceChangedAction?.Invoke(),
-				ex => Logger?.ErrorException($"Error on subscription to changes of the {nameof(ListViewBase.ItemsSource)} property of {nameof(ListViewBase)}", ex));
+				ex => Logger?.LogError($"Error on subscription to changes of the {nameof(ListViewBase.ItemsSource)} property of {nameof(ListViewBase)}", ex));
 		}
 
 		internal static void OnApplyTemplateEx(this ListViewBase lvb)
