@@ -83,12 +83,12 @@ namespace Windows.UI.Xaml
 				Observable.FromEventPattern<DependencyPropertyChangedEventHandler, DependencyPropertyChangedEventArgs>(
 					h => _element.DataContextChanged += h,
 					h => _element.DataContextChanged -= h);
-#elif __UWP__ || __UNO_UWP__
+#elif NETFX_CORE
 			internal IObservable<EventPattern<DataContextChangedEventArgs>> DataContextChanged =>
 				Observable.FromEventPattern<TypedEventHandler<FrameworkElement, DataContextChangedEventArgs>, DataContextChangedEventArgs>(
 					h => _element.DataContextChanged += h,
 					h => _element.DataContextChanged -= h);
-#elif __UNO__
+#elif HAS_UNO
 			internal IObservable<EventPattern<DataContextChangedEventArgs>> DataContextChanged =>
 				Observable.FromEventPattern<TypedEventHandler<DependencyObject, DataContextChangedEventArgs>, DataContextChangedEventArgs>(
 					h => _element.DataContextChanged += h,

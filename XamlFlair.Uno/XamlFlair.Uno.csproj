@@ -7,16 +7,10 @@
 	<RootNamespace>XamlFlair.UnoPlatform</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
-		<DefineConstants>TRACE;__UNO__;__WASM__</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetFramework)'=='xamarinios10' or '$(TargetFramework)'=='monoandroid80' or '$(TargetFramework)'=='monoandroid90'">
-	<DefineConstants>TRACE;__UNO__</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetFramework)'=='uap10.0.16299'">
-	<DefineConstants>TRACE;__UNO__;__UNO_UWP__</DefineConstants>
+	<DefineConstants>$(DefineConstants);__WASM__</DefineConstants>
   </PropertyGroup>
   <ItemGroup Condition="'$(TargetFramework)'=='xamarinios10' or '$(TargetFramework)'=='monoandroid80' or '$(TargetFramework)'=='monoandroid90' or '$(TargetFramework)'=='netstandard2.0'">
-	<PackageReference Include="Uno.UI" Version="2.1.0-dev.617" />
+	<PackageReference Include="Uno.UI" Version="2.1.0-dev.767" />
   </ItemGroup>
   <ItemGroup>
 	<Page Include="**\*.xaml" Exclude="bin\**\*.xaml;obj\**\*.xaml" />

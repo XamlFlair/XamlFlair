@@ -11,7 +11,7 @@ using Timeline = System.Windows.Media.Animation.Storyboard;
 #elif __UWP__
 using Windows.UI.Xaml;
 using Timeline = XamlFlair.AnimationGroup;
-#elif __UNO__
+#else
 using Windows.UI.Xaml;
 using Timeline = Windows.UI.Xaml.Media.Animation.Storyboard;
 #endif

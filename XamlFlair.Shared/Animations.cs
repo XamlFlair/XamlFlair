@@ -25,7 +25,7 @@ using FrameworkElement = Windows.UI.Xaml.FrameworkElement;
 using Timeline = System.Windows.Media.Animation.Storyboard;
 #elif __UWP__
 using Timeline = XamlFlair.AnimationGroup;
-#elif __UNO__
+#else
 using Timeline = Windows.UI.Xaml.Media.Animation.Storyboard;
 #endif
 

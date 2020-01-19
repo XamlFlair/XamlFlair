@@ -10,7 +10,7 @@ namespace XamlFlair
 		Back,
 		Bounce,
 // Circle easing not supported in Uno
-#if !__UNO__
+#if !HAS_UNO
 		Circle,
 #endif
 		Cubic,
