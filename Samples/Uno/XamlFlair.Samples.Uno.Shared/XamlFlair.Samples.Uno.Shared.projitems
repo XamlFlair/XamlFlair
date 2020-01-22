@@ -21,6 +21,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UsersPage.xaml.cs">
+      <DependentUpon>UsersPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)Animations.xaml">
@@ -59,6 +63,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UsersPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)Assets\LockScreenLogo.scale-200.png" />
@@ -70,6 +78,63 @@
     <Content Include="$(MSBuildThisFileDirectory)Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\StoreLogo.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\gradient_002.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\gradient_003.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\gradient_004.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\gradient_005.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\gradient_006.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\gradient_007.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\gradient_008.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\gradient_009.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\place_00010.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\place_00011.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\place_00012.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\place_00013.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\place_00014.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\place_00015.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\place_00016.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\place_00017.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\place_00018.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\place_00019.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\place_0002.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\place_00020.jpeg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\place_00021.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\place_00022.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\place_00023.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\place_00024.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\place_0003.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\place_0004.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\place_0005.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\place_0006.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\place_0007.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\place_0008.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\place_0009.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\profile_001.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\profile_0010.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\profile_0011.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\profile_0012.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\profile_0013.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\profile_0014.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\profile_0015.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\profile_0016.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\profile_0017.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\profile_0018.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\profile_0019.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\profile_002.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\profile_0020.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\profile_0021.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\profile_0022.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\profile_0023.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\profile_0024.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\profile_0025.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\profile_0026.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\profile_003.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\profile_004.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\profile_005.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\profile_006.png" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\profile_007.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\profile_008.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\profile_009.jpg" />
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\en\Resources.resw" />

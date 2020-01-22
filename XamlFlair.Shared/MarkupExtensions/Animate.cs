@@ -23,7 +23,6 @@ namespace XamlFlair
 	[System.Windows.Markup.MarkupExtensionReturnType(typeof(IAnimationSettings))]
 	public class AnimateExtension : System.Windows.Markup.MarkupExtension
 #else
-	[Windows.UI.Xaml.Markup.MarkupExtensionReturnType(ReturnType = typeof(IAnimationSettings))]
 	public class Animate : Windows.UI.Xaml.Markup.MarkupExtension
 #endif
 	{
