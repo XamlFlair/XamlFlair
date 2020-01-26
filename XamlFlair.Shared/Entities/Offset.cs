@@ -108,6 +108,7 @@ namespace XamlFlair
 		private bool IsEqual(Offset obj)
 		{
 			return obj is Offset other
+				&& other.OffsetValue.Equals(OffsetValue)
 				&& other.OffsetFactor.Equals(OffsetFactor)
 				&& other.Target.Equals(Target);
 		}
@@ -147,6 +148,7 @@ namespace XamlFlair
 				const int HashingMultiplier = 16777619;
 
 				int hash = HashingBase;
+				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, OffsetValue) ? OffsetValue.GetHashCode() : 0);
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, OffsetFactor) ? OffsetFactor.GetHashCode() : 0);
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, Target) ? Target.GetHashCode() : 0);
 				return hash;

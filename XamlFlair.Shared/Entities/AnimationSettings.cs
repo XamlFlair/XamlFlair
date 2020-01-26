@@ -123,7 +123,7 @@ namespace XamlFlair
 				nameof(OffsetX),
 				typeof(Offset),
 				typeof(AnimationSettings),
-				new PropertyMetadata(new Offset() { OffsetValue = 0 }));
+				new PropertyMetadata(Offset.Empty));
 
 		public Offset OffsetY
 		{
@@ -142,7 +142,7 @@ namespace XamlFlair
 				nameof(OffsetY),
 				typeof(Offset),
 				typeof(AnimationSettings),
-				new PropertyMetadata(new Offset() { OffsetValue = 0 }));
+				new PropertyMetadata(Offset.Empty));
 
 #if __UWP__
 		public double OffsetZ

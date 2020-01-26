@@ -120,7 +120,7 @@
 								  SelectionMode="Single"
 								  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
 								  xf:Animations.AnimateOnItemsSourceChange="False"
-								  xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Delay=500}"
+								  xf:Animations.InterElementDelay="50"
 								  xf:Animations.Items="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromBottom}, Delay=750}" />
 		</Border>
 

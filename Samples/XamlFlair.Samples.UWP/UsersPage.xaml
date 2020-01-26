@@ -117,7 +117,7 @@
 								  ItemsSource="{x:Bind SampleUsers.Users}"
 								  ItemTemplate="{StaticResource UserItemTemplate}"
 								  xf:Animations.AnimateOnItemsSourceChange="False"
-								  xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Delay=350}"
+								  xf:Animations.InterElementDelay="50"
 								  xf:Animations.Items="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromBottom}, Delay=500}" />
 		</Border>
 
