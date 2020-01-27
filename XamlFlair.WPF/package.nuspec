@@ -18,7 +18,7 @@
     <!--*-->
     <description>XamlFlair animation library for the WPF platform.</description>
     <!--*-->
-    <releaseNotes>Removed dependency on LibLog and replaced it with Microsoft.Extensions.Logging.Abstractions.</releaseNotes>
+    <releaseNotes>Removed dependency on LibLog and replaced it with Microsoft.Extensions.Logging.Abstractions. Also applied and Offset equality fix.</releaseNotes>
     <copyright>Copyright © 2020</copyright>
     <tags>
     </tags>
