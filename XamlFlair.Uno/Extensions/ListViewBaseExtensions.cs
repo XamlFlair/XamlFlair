@@ -63,36 +63,43 @@ namespace XamlFlair.Extensions
 				return;
 			}
 
-			lvb.AnimateItems<TItem>(item, getIndicesFunc, ref isFirstItemContainerLoaded);
-		}
-
-		internal static void AnimateItems<TItem>(this ListViewBase lvb, SelectorItem item, Func<(int firstVisibleIndex, int lastVisibleIndex)> getIndicesFunc, ref bool isFirstItemContainerLoaded)
-			where TItem : SelectorItem
-		{
+			// Make sure to retrieve the GetInterElementDelay value
+			var interElementDelay = Animations.GetInterElementDelay(lvb);
 			var settings = Animations.GetItems(lvb);
+			var scroller = lvb?.FindDescendant<ScrollViewer>();
 
-			if (settings == null)
-			{
-				return;
-			}
+			AnimateVisibleItem(lvb, item, settings, interElementDelay);
 
-			if (!isFirstItemContainerLoaded)
-			{
-				isFirstItemContainerLoaded = true;
-
-				item.Loaded += OnContainerLoaded;
-
-				// At this point, the index values are all ready to use.
-				void OnContainerLoaded(object _, RoutedEventArgs __)
-				{
-					item.Loaded -= OnContainerLoaded;
-
-					var (firstVisibleIndex, lastVisibleIndex) = getIndicesFunc();
-
-					AnimateVisibleItems<TItem>(lvb, settings, firstVisibleIndex, lastVisibleIndex);
-				}
-			}
+			//lvb.AnimateItems<TItem>(item, getIndicesFunc, ref isFirstItemContainerLoaded);
 		}
+
+		//internal static void AnimateItems<TItem>(this ListViewBase lvb, SelectorItem item, Func<(int firstVisibleIndex, int lastVisibleIndex)> getIndicesFunc, ref bool isFirstItemContainerLoaded)
+		//	where TItem : SelectorItem
+		//{
+		//	var settings = Animations.GetItems(lvb);
+
+		//	if (settings == null)
+		//	{
+		//		return;
+		//	}
+
+		//	if (!isFirstItemContainerLoaded)
+		//	{
+		//		isFirstItemContainerLoaded = true;
+
+		//		item.Loaded += OnContainerLoaded;
+
+		//		// At this point, the index values are all ready to use.
+		//		void OnContainerLoaded(object _, RoutedEventArgs __)
+		//		{
+		//			item.Loaded -= OnContainerLoaded;
+
+		//			var (firstVisibleIndex, lastVisibleIndex) = getIndicesFunc();
+
+		//			AnimateVisibleItems<TItem>(lvb, settings, firstVisibleIndex, lastVisibleIndex);
+		//		}
+		//	}
+		//}
 
 		internal static void AnimateVisibleItems<TItem>(this ListViewBase lvb, AnimationSettings settings, int firstVisibleIndex, int lastVisibleIndex)
 			where TItem : SelectorItem
@@ -106,12 +113,12 @@ namespace XamlFlair.Extensions
 			{
 				if (lvb.ContainerFromIndex(index) is TItem item)
 				{
-					AnimateVisibleItem(lvb, item, settings, index, interElementDelay);
+					AnimateVisibleItem(lvb, item, settings, interElementDelay);
 				}
 			}
 		}
 
-		private static void AnimateVisibleItem(ListViewBase lvb, SelectorItem item, AnimationSettings settings, int index, double interElementDelay)
+		private static void AnimateVisibleItem(ListViewBase lvb, SelectorItem item, AnimationSettings settings, double interElementDelay)
 		{
 			var scroller = lvb?.FindDescendant<ScrollViewer>();
 			var indexFromVisibleTop = lvb.IndexFromContainer(item) - scroller.VerticalOffset;

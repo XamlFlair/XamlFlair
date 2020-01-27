@@ -25,6 +25,8 @@ namespace XamlFlair.Samples.Uno
 	/// </summary>
 	sealed partial class App : Application
 	{
+		internal static Frame RootFrame { get; private set; }
+
 		/// <summary>
 		/// Initializes the singleton application object.  This is the first line of authored code
 		/// executed, and as such is the logical equivalent of main() or WinMain().
@@ -33,14 +35,17 @@ namespace XamlFlair.Samples.Uno
 		{
 			ConfigureFilters(LogExtensionPoint.AmbientLoggerFactory);
 
+			this.InitializeComponent();
+			this.Suspending += OnSuspending;
+
 			// Setup the Serilog logger
 			Log.Logger = new LoggerConfiguration()
 				.MinimumLevel.Debug()
 				.WriteTo.Debug()
 				.CreateLogger();
 
-			this.InitializeComponent();
-			this.Suspending += OnSuspending;
+			// Initalie the XamlFlair loggers using the LoggerFactory (with Serilog support)
+			XamlFlair.Animations.InitializeLoggers(new LoggerFactory().AddSerilog());
 		}
 
 		/// <summary>
@@ -56,16 +61,19 @@ namespace XamlFlair.Samples.Uno
 				// this.DebugSettings.EnableFrameRateCounter = true;
 			}
 #endif
-			Frame rootFrame = Windows.UI.Xaml.Window.Current.Content as Frame;
+			// Initialize the sample data
+			SampleData.SampleData.InitializeSampleData();
+
+			RootFrame = Windows.UI.Xaml.Window.Current.Content as Frame;
 
 			// Do not repeat app initialization when the Window already has content,
 			// just ensure that the window is active
-			if (rootFrame == null)
+			if (RootFrame == null)
 			{
 				// Create a Frame to act as the navigation context and navigate to the first page
-				rootFrame = new Frame();
+				RootFrame = new Frame();
 
-				rootFrame.NavigationFailed += OnNavigationFailed;
+				RootFrame.NavigationFailed += OnNavigationFailed;
 
 				if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
 				{
@@ -73,17 +81,17 @@ namespace XamlFlair.Samples.Uno
 				}
 
 				// Place the frame in the current Window
-				Windows.UI.Xaml.Window.Current.Content = rootFrame;
+				Windows.UI.Xaml.Window.Current.Content = RootFrame;
 			}
 
 			if (e.PrelaunchActivated == false)
 			{
-				if (rootFrame.Content == null)
+				if (RootFrame.Content == null)
 				{
 					// When the navigation stack isn't restored navigate to the first page,
 					// configuring the new page by passing required information as a navigation
 					// parameter
-					rootFrame.Navigate(typeof(MainPage), e.Arguments);
+					RootFrame.Navigate(typeof(MainPage), e.Arguments);
 				}
 				// Ensure the current window is active
 				Windows.UI.Xaml.Window.Current.Activate();

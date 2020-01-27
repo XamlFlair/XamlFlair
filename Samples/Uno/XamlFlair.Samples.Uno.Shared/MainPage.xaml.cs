@@ -25,7 +25,7 @@ namespace XamlFlair.Samples.Uno
 
 		private void StartButton_Click(object sender, RoutedEventArgs e)
 		{
-			(Window.Current.Content as Frame)?.Navigate(typeof(UsersPage), null, new DrillInNavigationTransitionInfo());
+			App.RootFrame?.Navigate(typeof(UsersPage), null, new DrillInNavigationTransitionInfo());
 		}
 	}
 }

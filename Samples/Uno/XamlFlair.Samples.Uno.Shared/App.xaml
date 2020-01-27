@@ -12,6 +12,7 @@
 				<ResourceDictionary Source="Styles\Controls\GridView.xaml" />
 				<ResourceDictionary Source="Styles\Controls\ListViewItem.xaml" />
 				<ResourceDictionary Source="Styles\Controls\ListView.xaml" />
+				<ResourceDictionary Source="Styles\Controls\ScrollViewer.xaml" />
 				<ResourceDictionary Source="Styles\Controls\TextBlock.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>

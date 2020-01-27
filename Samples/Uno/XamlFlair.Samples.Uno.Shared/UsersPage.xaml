@@ -61,11 +61,11 @@
 			<xfc:AnimatedListView x:Name="UsersListView"
 								  Padding="0,16"
 								  ItemTemplate="{StaticResource UserItemTemplate}"
-								  ItemsSource="{x:Bind sampleData:SampleData.Users}"
+								  ItemsSource="{x:Bind Users}"
 								  SelectionMode="Single"
 								  xf:Animations.AnimateOnItemsSourceChange="False"
-								  xf:Animations.Items="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromBottom}, Delay=500}"
-								  xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Delay=350}" />
+								  xf:Animations.InterElementDelay="50"
+								  xf:Animations.Items="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromBottom}, Delay=500}" />
 		</Border>
 	</Grid>
 </Page>

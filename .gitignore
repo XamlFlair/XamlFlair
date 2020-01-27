@@ -33,3 +33,6 @@ bin
 /XamlFlair.Uno/XamlFlair.Uno.csproj.user
 /XamlFlair.Shared/XamlFlair.Shared.shproj.user
 /Samples/XamlFlair.Samples.Uno/XamlFlair.Samples.Uno.iOS/XamlFlair.Samples.Uno.iOS.csproj.user
+/XamlFlair.WPF/XamlFlair.WPF.csproj.user
+/XamlFlair.UWP/XamlFlair.UWP.csproj.user
+/Samples/Uno/XamlFlair.Samples.Uno.Droid/XamlFlair.Samples.Uno.Droid.csproj.user
