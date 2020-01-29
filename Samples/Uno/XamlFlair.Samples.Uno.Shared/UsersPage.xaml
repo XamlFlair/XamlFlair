@@ -63,6 +63,7 @@
 								  ItemTemplate="{StaticResource UserItemTemplate}"
 								  ItemsSource="{x:Bind Users}"
 								  SelectionMode="Single"
+								  SelectionChanged="UsersListView_SelectionChanged"
 								  xf:Animations.AnimateOnItemsSourceChange="False"
 								  xf:Animations.InterElementDelay="50"
 								  xf:Animations.Items="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromBottom}, Delay=500}" />

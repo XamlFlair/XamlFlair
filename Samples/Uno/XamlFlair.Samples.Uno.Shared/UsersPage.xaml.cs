@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Animation;
 using XamlFlair.Samples.Uno.SampleData;
 
 namespace XamlFlair.Samples.Uno
@@ -11,6 +12,14 @@ namespace XamlFlair.Samples.Uno
 		public UsersPage()
 		{
 			this.InitializeComponent();
+		}
+
+		private void UsersListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			if (sender is ListViewBase lvb && lvb.SelectedItem is User user)
+			{
+				App.RootFrame?.Navigate(typeof(UserDetailPage), user, new DrillInNavigationTransitionInfo());
+			}
 		}
 	}
 }
