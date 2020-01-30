@@ -3,19 +3,62 @@
 	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	  xmlns:sampleData="using:XamlFlair.Samples.Uno.SampleData"
 	  xmlns:xf="using:XamlFlair"
 	  xmlns:xfc="using:XamlFlair.Controls"
 	  mc:Ignorable="d">
+
+	<Page.Resources>
+		<DataTemplate x:Key="PlaceItemTemplate"
+					  x:DataType="sampleData:Place">
+			<Grid Margin="2"
+				  Padding="0,0,8,0">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*" />
+					<RowDefinition Height="*" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+
+				<!-- Place pic -->
+				<Border CornerRadius="4,0,0,4"
+						Width="76"
+						MinHeight="76"
+						Grid.RowSpan="2"
+						Margin="0,0,12,0">
+					<Border.Background>
+						<ImageBrush ImageSource="{x:Bind Image}"
+									Stretch="UniformToFill" />
+					</Border.Background>
+				</Border>
+
+				<!-- Place name -->
+				<TextBlock Text="{x:Bind Name}"
+						   Style="{StaticResource Typo02}"
+						   VerticalAlignment="Bottom"
+						   Grid.Column="1" />
+
+				<!-- Place visited date -->
+				<TextBlock Text="{x:Bind Visited}"
+						   Style="{StaticResource Typo01}"
+						   VerticalAlignment="Top"
+						   Grid.Row="1"
+						   Grid.Column="1" />
+			</Grid>
+		</DataTemplate>
+	</Page.Resources>
 
 	<Grid Background="{StaticResource AppBackgroundBrush}">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
-		
+
 		<!-- Selected user profile info -->
 		<Grid Grid.Column="1"
-			  DataContext="{x:Bind CurrentUser}">
+			  DataContext="{x:Bind CurrentUser, Mode=OneWay}">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="*" />
 				<ColumnDefinition Width="*" />
@@ -30,11 +73,11 @@
 				<Image Source="{Binding ProfileBackground}"
 					   Stretch="UniformToFill"
 					   VerticalAlignment="Stretch"
-					   xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn},Event=DataContextChanged, Duration=1000}" />
+					   xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Event=DataContextChanged, Duration=1000}" />
 			</Border>
 
 			<!-- Profile pic -->
-			<Ellipse Width="100"
+			<!--<Ellipse Width="100"
 					 Height="100"
 					 Stretch="Uniform"
 					 HorizontalAlignment="Right"
@@ -43,7 +86,7 @@
 					<ImageBrush ImageSource="{Binding ProfilePic}"
 								Stretch="UniformToFill" />
 				</Ellipse.Fill>
-			</Ellipse>
+			</Ellipse>-->
 
 			<!-- Profile info -->
 			<StackPanel Grid.Column="1"
@@ -64,23 +107,16 @@
 				Grid.Column="1"
 				Margin="0,16,16,16"
 				Background="{StaticResource TranslucentColor02Brush}"
+				DataContext="{x:Bind CurrentUser, Mode=OneWay}"
 				xf:Animations.Primary="{xf:Animate BasedOn={StaticResource ScaleFromRight}, Delay=200}">
-			<xfc:AnimatedListView x:Name="PlacesGridView"
+			<xfc:AnimatedListView x:Name="PlacesListView"
 								  Padding="8"
 								  SelectionMode="Single"
 								  SelectionChanged="PlacesListView_SelectionChanged"
-								  DataContext="{x:Bind CurrentUser}"
 								  ItemsSource="{Binding Places}"
 								  ItemTemplate="{StaticResource PlaceItemTemplate}"
-								  xf:Animations.Items="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromBottom}}">
-				<xfc:AnimatedListView.ItemsPanel>
-					<ItemsPanelTemplate>
-						<ItemsWrapGrid Orientation="Horizontal"
-									   ItemWidth="250"
-									   ItemHeight="85" />
-					</ItemsPanelTemplate>
-				</xfc:AnimatedListView.ItemsPanel>
-			</xfc:AnimatedListView>
+								  xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Delay=350}"
+								  xf:Animations.Items="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromBottom}, Delay=750}" />
 		</Border>
 	</Grid>
 </Page>

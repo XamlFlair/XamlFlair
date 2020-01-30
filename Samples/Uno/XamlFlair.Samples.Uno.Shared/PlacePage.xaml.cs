@@ -7,6 +7,19 @@ namespace XamlFlair.Samples.Uno
 {
 	public sealed partial class PlacePage : Page
 	{
+		public bool IsPopupShown
+		{
+			get => (bool)GetValue(IsPopupShownProperty);
+			set => SetValue(IsPopupShownProperty, value);
+		}
+
+		public static readonly DependencyProperty IsPopupShownProperty =
+			DependencyProperty.Register(
+				nameof(IsPopupShown),
+				typeof(bool),
+				typeof(PlacePage),
+				new PropertyMetadata(false));
+
 		public Place CurrentPlace
 		{
 			get => (Place)GetValue(CurrentPlaceProperty);
@@ -31,6 +44,16 @@ namespace XamlFlair.Samples.Uno
 			base.OnNavigatedTo(e);
 
 			CurrentPlace = e.Parameter as Place;
+		}
+
+		private void ShowPopupButton_Click(object sender, RoutedEventArgs e)
+		{
+			IsPopupShown = true;
+		}
+
+		private void ClosePopupButton_Click(object sender, RoutedEventArgs e)
+		{
+			IsPopupShown = false;
 		}
 	}
 }

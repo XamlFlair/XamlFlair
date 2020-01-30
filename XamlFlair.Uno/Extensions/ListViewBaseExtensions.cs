@@ -66,7 +66,7 @@ namespace XamlFlair.Extensions
 			// Make sure to retrieve the GetInterElementDelay value
 			var interElementDelay = Animations.GetInterElementDelay(lvb);
 			var settings = Animations.GetItems(lvb);
-			var scroller = lvb?.FindDescendant<ScrollViewer>();
+			//var scroller = lvb?.FindDescendant<ScrollViewer>();
 
 			AnimateVisibleItem(lvb, item, settings, interElementDelay);
 

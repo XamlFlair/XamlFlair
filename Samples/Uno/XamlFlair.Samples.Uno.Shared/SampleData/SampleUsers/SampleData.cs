@@ -234,6 +234,7 @@ namespace XamlFlair.Samples.Uno.SampleData
 		}
 	}
 
+	[Windows.UI.Xaml.Data.Bindable]
 	public class User : INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -433,6 +434,7 @@ namespace XamlFlair.Samples.Uno.SampleData
 		}
 	}
 
+	[Windows.UI.Xaml.Data.Bindable]
 	public class Place : INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;

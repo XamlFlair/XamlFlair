@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Text;
 using XamlFlair.Extensions;
 using XamlFlair.Controls;
+using Microsoft.Extensions.Logging;
 
 #if __WPF__
 using System.Windows;
@@ -119,6 +120,12 @@ namespace XamlFlair
 
 			if (element is ListViewBase lvb)
 			{
+				if (lvb.ItemsSource == null)
+				{
+					Logger?.LogWarning($"Cannot animate {nameof(lvb.ItemsSource)} items because ItemsSource is null.");
+					return;
+				}
+
 				Panel panel = null;
 
 				if (lvb is ListView lv)
@@ -164,6 +171,12 @@ namespace XamlFlair
 
 			if (element is ListBox lb)
 			{
+				if (lb.ItemsSource == null)
+				{
+					Logger?.LogWarning($"Cannot animate ListBox items because {nameof(lb.ItemsSource)} is null.");
+					return;
+				}
+
 				var itemSettings = GetItems(lb);
 
 				// ItemsProperty can only be set on a AnimatedListBox or AnimatedListView.
