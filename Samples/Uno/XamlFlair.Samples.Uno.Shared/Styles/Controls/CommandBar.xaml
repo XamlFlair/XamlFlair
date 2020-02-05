@@ -1,0 +1,179 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+					xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:toolkit="using:Uno.UI.Toolkit"
+					xmlns:xamarin="http://nventive.com/xamarin"
+					xmlns:wasm="http://nventive.com/wasm"
+					xmlns:android="http://nventive.com/android"
+					xmlns:ios="http://nventive.com/ios"
+					mc:Ignorable="ios android xamarin wasm">
+	
+	<x:Double x:Key="CommandBarHeight">48</x:Double>
+	<GridLength x:Key="CommandBarGridLength">48</GridLength>
+
+	<Style x:Key="DefaultCommandBarStyle"
+		   TargetType="CommandBar"
+		   xamarin:BasedOn="{StaticResource NativeDefaultCommandBar}">
+
+		<Setter Property="Background"
+				Value="{StaticResource PrimaryColor06Brush}" />
+		<Setter Property="Foreground"
+				Value="{StaticResource PrimaryColor01Brush}" />
+		<Setter Property="FontWeight"
+				Value="Bold" />
+		<Setter Property="FontSize"
+				Value="17" />
+		<Setter Property="VerticalContentAlignment"
+				Value="Center" />
+		<Setter Property="HorizontalContentAlignment"
+				Value="Center" />
+		<!--<Setter Property="toolkit:VisibleBoundsPadding.PaddingMask"
+				Value="All" />-->
+		<win:Setter Property="Height"
+					Value="{StaticResource CommandBarHeight}" />
+
+		<!-- Setting content to empty to avoid getting the datacontext-->
+		<Setter Property="Content"
+				Value="" />
+
+		<!-- ANDROID SETTERS -->
+		<android:Setter Property="(toolkit:UIElementExtensions.Elevation)"
+						Value="0.4" />
+
+		<!-- IOS SETTERS -->
+		<!-- Remove the back button title (and only leave the back arrow) -->
+		<ios:Setter Property="(toolkit:CommandBarExtensions.BackButtonTitle)"
+					Value="" />
+
+		<!-- BACK BUTTON -->
+		<Setter Property="toolkit:CommandBarExtensions.BackButtonForeground"
+				Value="{StaticResource PrimaryColor01Brush}" />
+
+		<ios:Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="CommandBar">
+					<!-- 
+						Context:
+						On iOS, all pages share the same UINavigationBar instance.
+						During a transition from two pages with different CommandBar colors, the shared UINavigationBar bar instance can only display one of those colors.
+					
+						Example:
+						Page A has an opaque CommandBar and Page B has a transparent CommandBar.
+						When transitioning from Page A to Page B, the shared UINavigationBar instance becomes transparent, which reveals a white space at the top of Page A.
+					
+						Solution:
+						To circumvent this issue, we duplicate the background color of the UINavigationBar with this Border.
+						Note that this only works because we're not using semi-transparent background colors (which would add up and look off). 
+					-->
+					<Border BorderBrush="{TemplateBinding Background}"
+							BorderThickness="{TemplateBinding Padding}"
+							Background="{TemplateBinding Background}">
+						<NativeCommandBarPresenter Height="44" />
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</ios:Setter>
+
+		<Setter Property="ContentTemplate">
+			<Setter.Value>
+				<DataTemplate>
+					<TextBlock Text="{Binding}"
+							   HorizontalAlignment="Left"
+							   VerticalAlignment="Center"
+							   FontFamily="{TemplateBinding FontFamily}"
+							   FontWeight="{TemplateBinding FontWeight}"
+							   FontSize="{TemplateBinding FontSize}"
+							   Margin="12,0" />
+				</DataTemplate>
+			</Setter.Value>
+		</Setter>
+
+		<!-- Simplified CommandBar template that adds support for Uno.UI.CommandBarExtensions.NavigationCommand on Windows. -->
+		<win:Setter Property="Template"
+					Value="{StaticResource CommandBarControlTemplate}" />
+
+		<wasm:Setter Property="Template"
+					 Value="{StaticResource CommandBarControlTemplate}" />
+	</Style>
+
+	<ControlTemplate x:Key="CommandBarControlTemplate"
+					 TargetType="CommandBar">
+		<Grid x:Name="LayoutRoot"
+			  Background="{TemplateBinding Background}"
+			  Height="{StaticResource CommandBarHeight}">
+
+			<Grid x:Name="ContentRoot"
+				  VerticalAlignment="Top"
+				  Margin="{TemplateBinding Padding}"
+				  Height="{TemplateBinding Height}"
+				  Background="{TemplateBinding Background}"
+				  Opacity="{TemplateBinding Opacity}">
+
+				<!-- Content="{Binding (toolkit:CommandBarExtensions.NavigationCommand), RelativeSource={RelativeSource TemplatedParent}}" -->
+				<ContentControl x:Name="NavigationCommand"
+								Foreground="{TemplateBinding Foreground}"
+								IsTabStop="False"
+								HorizontalAlignment="Left" />
+
+				<!-- Use a ContentControl rather than a ContentPresenter so that IsEnabled can be set to false
+								 in the Minimal/HiddenClosed states to remove it from being a tab-stop candidate. -->
+				<ContentControl x:Name="ContentControl"
+								Content="{TemplateBinding Content}"
+								ContentTemplate="{TemplateBinding ContentTemplate}"
+								Foreground="{TemplateBinding Foreground}"
+								Height="{StaticResource CommandBarHeight}"
+								HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+								VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+								HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+								VerticalAlignment="{TemplateBinding VerticalAlignment}"
+								IsTabStop="False"
+								Margin="70,0" />
+
+				<ItemsControl x:Name="PrimaryItemsControl"
+							  HorizontalAlignment="Right"
+							  IsTabStop="False">
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<StackPanel Orientation="Horizontal" />
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+				</ItemsControl>
+
+				<Rectangle x:Name="HighContrastBorder"
+						   x:DeferLoadStrategy="Lazy"
+						   Visibility="Collapsed"
+						   VerticalAlignment="Stretch"
+						   Stroke="Transparent"
+						   StrokeThickness="1" />
+			</Grid>
+		</Grid>
+	</ControlTemplate>
+
+	<!-- Android Default CommandBar Style-->
+	<android:Style x:Key="NativeDefaultCommandBar"
+				   TargetType="CommandBar">
+
+		<!--Android-specific property-->
+		<Setter Property="(toolkit:UIElementExtensions.Elevation)"
+				Value="4" />
+
+		<Setter Property="Height"
+				Value="{StaticResource CommandBarHeight}" />
+
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="CommandBar">
+					<Border Background="{TemplateBinding Background}">
+						<NativeCommandBarPresenter Padding="0,0,8,0" />
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</android:Style>
+
+	<!-- Default Style -->
+	<Style TargetType="CommandBar"
+		   BasedOn="{StaticResource DefaultCommandBarStyle}" />
+	
+</ResourceDictionary>

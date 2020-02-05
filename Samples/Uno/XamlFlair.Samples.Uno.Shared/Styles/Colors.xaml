@@ -6,6 +6,8 @@
 	<Color x:Key="PrimaryColor03">#F1F1F1</Color>
 	<Color x:Key="PrimaryColor04">#C6C6C6</Color>
 	<Color x:Key="PrimaryColor05">#4292C3</Color>
+	<Color x:Key="PrimaryColor06">#223043</Color>
+	<Color x:Key="PrimaryColor07">#121922</Color>
 
 	<SolidColorBrush x:Key="PrimaryColor01Brush"
 					 Color="{StaticResource PrimaryColor01}" />
@@ -17,6 +19,10 @@
 					 Color="{StaticResource PrimaryColor04}" />
 	<SolidColorBrush x:Key="PrimaryColor05Brush"
 					 Color="{StaticResource PrimaryColor05}" />
+	<SolidColorBrush x:Key="PrimaryColor06Brush"
+					 Color="{StaticResource PrimaryColor06}" />
+	<SolidColorBrush x:Key="PrimaryColor07Brush"
+					 Color="{StaticResource PrimaryColor07}" />
 
 	<SolidColorBrush x:Key="TranslucentColor01Brush"
 					 Color="{StaticResource PrimaryColor01}"
@@ -29,8 +35,8 @@
 	<LinearGradientBrush x:Key="AppBackgroundBrush"
 						 StartPoint="0,0"
 						 EndPoint="1,1">
-		<GradientStop Color="#FF223043" />
-		<GradientStop Color="#FF121922"
+		<GradientStop Color="{StaticResource PrimaryColor06}" />
+		<GradientStop Color="{StaticResource PrimaryColor07}"
 					  Offset="1" />
 	</LinearGradientBrush>
 

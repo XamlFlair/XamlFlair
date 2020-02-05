@@ -23,15 +23,14 @@
 				</Grid.ColumnDefinitions>
 
 				<!-- Place pic -->
-				<Border CornerRadius="4,0,0,4"
-						Width="76"
-						MinHeight="76"
+				<Border Margin="0,0,12,0"
 						Grid.RowSpan="2"
-						Margin="0,0,12,0">
-					<Border.Background>
-						<ImageBrush ImageSource="{x:Bind Image}"
-									Stretch="UniformToFill" />
-					</Border.Background>
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center">
+					<Image Width="64"
+						   Height="64"
+						   Stretch="UniformToFill"
+						   Source="{x:Bind Image}" />
 				</Border>
 
 				<!-- Place name -->
@@ -52,45 +51,54 @@
 
 	<Grid Background="{StaticResource AppBackgroundBrush}">
 		<Grid.RowDefinitions>
+			<RowDefinition Height="{StaticResource CommandBarGridLength}" />
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 
+		<CommandBar Content="XamlFlair Sample App">
+			<CommandBar.PrimaryCommands>
+				<AppBarButton Icon="Back" />
+			</CommandBar.PrimaryCommands>
+		</CommandBar>
+
 		<!-- Selected user profile info -->
-		<Grid Grid.Column="1"
+		<Grid Grid.Row="1"
 			  DataContext="{x:Bind CurrentUser, Mode=OneWay}">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="*" />
-				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="1.5*" />
 			</Grid.ColumnDefinitions>
 
 			<!-- Profile background -->
-			<Border Grid.ColumnSpan="3"
+			<Border Grid.ColumnSpan="2"
 					Background="{StaticResource TranslucentColor02Brush}"
 					Height="200"
-					Margin="0,16,16,0"
 					xf:Animations.Primary="{xf:Animate BasedOn={StaticResource ScaleFromRight}, Delay=100}">
-				<Image Source="{Binding ProfileBackground}"
-					   Stretch="UniformToFill"
-					   VerticalAlignment="Stretch"
-					   xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Event=DataContextChanged, Duration=1000}" />
+				<Border xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Event=DataContextChanged, Duration=1000}">
+					<Image Source="{Binding ProfileBackground}"
+						   Stretch="UniformToFill"
+						   VerticalAlignment="Stretch" />
+				</Border>
 			</Border>
 
 			<!-- Profile pic -->
-			<!--<Ellipse Width="100"
-					 Height="100"
-					 Stretch="Uniform"
-					 HorizontalAlignment="Right"
-					 Margin="0,0,16,0">
-				<Ellipse.Fill>
-					<ImageBrush ImageSource="{Binding ProfilePic}"
-								Stretch="UniformToFill" />
-				</Ellipse.Fill>
-			</Ellipse>-->
+			<Border HorizontalAlignment="Right"
+					VerticalAlignment="Center"
+					Margin="0,0,16,0"
+					xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromLeft}, Delay=750}">
+				<Image Width="100"
+					   Height="100"
+					   Stretch="UniformToFill"
+					   HorizontalAlignment="Center"
+					   VerticalAlignment="Center"
+					   Source="{Binding ProfilePic}" />
+			</Border>
 
 			<!-- Profile info -->
 			<StackPanel Grid.Column="1"
-						VerticalAlignment="Center">
+						VerticalAlignment="Center"
+						xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromRight}, Delay=1000}">
 				<TextBlock Text="{Binding FullName}"
 						   Style="{StaticResource Typo02}" />
 				<TextBlock Text="{Binding Address}"
@@ -103,9 +111,7 @@
 		</Grid>
 
 		<!-- Selected user places -->
-		<Border Grid.Row="1"
-				Grid.Column="1"
-				Margin="0,16,16,16"
+		<Border Grid.Row="2"
 				Background="{StaticResource TranslucentColor02Brush}"
 				DataContext="{x:Bind CurrentUser, Mode=OneWay}"
 				xf:Animations.Primary="{xf:Animate BasedOn={StaticResource ScaleFromRight}, Delay=200}">

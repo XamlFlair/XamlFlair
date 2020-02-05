@@ -9,6 +9,7 @@
 
 				<ResourceDictionary Source="Styles\Colors.xaml" />
 				<ResourceDictionary Source="Styles\Controls\Button.xaml" />
+				<ResourceDictionary Source="Styles\Controls\CommandBar.xaml" />
 				<ResourceDictionary Source="Styles\Controls\GridViewItem.xaml" />
 				<ResourceDictionary Source="Styles\Controls\GridView.xaml" />
 				<ResourceDictionary Source="Styles\Controls\ListViewItem.xaml" />

@@ -23,18 +23,15 @@
 				</Grid.ColumnDefinitions>
 
 				<!-- Profile pic -->
-				<Ellipse Width="64"
-						 Height="64"
-						 Margin="0,0,12,0"
-						 Stretch="Uniform"
-						 Stroke="{StaticResource PrimaryColor04Brush}"
-						 StrokeThickness="1"
-						 Grid.RowSpan="2">
-					<Ellipse.Fill>
-						<ImageBrush ImageSource="{x:Bind ProfilePic}"
-									Stretch="UniformToFill" />
-					</Ellipse.Fill>
-				</Ellipse>
+				<Border Margin="0,0,12,0"
+						Grid.RowSpan="2">
+					<Image Width="64"
+						   Height="64"
+						   HorizontalAlignment="Center"
+						   VerticalAlignment="Center"
+						   Stretch="UniformToFill"
+						   Source="{x:Bind ProfilePic}" />
+				</Border>
 
 				<!-- User name -->
 				<TextBlock Text="{x:Bind FullName}"
@@ -53,10 +50,17 @@
 	</Page.Resources>
 
 	<Grid Background="{StaticResource AppBackgroundBrush}">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="{StaticResource CommandBarGridLength}" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<CommandBar Content="XamlFlair Sample App" />
+		
 		<!-- Users list -->
-		<Border Margin="16"
-				Padding="8,0"
+		<Border Padding="8,0"
 				Background="{StaticResource TranslucentColor02Brush}"
+				Grid.Row="1"
 				xf:Animations.Primary="{xf:Animate BasedOn={StaticResource ScaleFromLeft}}">
 			<xfc:AnimatedListView x:Name="UsersListView"
 								  Padding="0,16"

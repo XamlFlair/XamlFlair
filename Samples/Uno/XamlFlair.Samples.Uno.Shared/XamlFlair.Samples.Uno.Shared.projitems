@@ -60,6 +60,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\CommandBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\GridView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -122,7 +126,7 @@
     <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\place_00018.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\place_00019.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\place_0002.jpg" />
-    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\place_00020.jpeg" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\place_00020.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\place_00021.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\place_00022.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\place_00023.jpg" />
@@ -156,7 +160,7 @@
     <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\profile_003.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\profile_004.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\profile_005.jpg" />
-    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\profile_006.png" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\profile_006.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\profile_007.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\profile_008.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)SampleData\SampleUsers\SampleUsers_Files\profile_009.jpg" />
