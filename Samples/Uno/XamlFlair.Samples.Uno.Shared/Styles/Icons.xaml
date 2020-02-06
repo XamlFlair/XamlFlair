@@ -1,0 +1,6 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<x:String x:Key="IconBack">M11.299988,0L16.599976,0 7.0999756,8.8999959 32,8.8999959 32,12.399997 7.0999756,12.399997 16.5,21.299993 16.400024,21.399999 11.299988,21.399999 2.5999756,13.100009 0,10.699985z</x:String>
+
+</ResourceDictionary>

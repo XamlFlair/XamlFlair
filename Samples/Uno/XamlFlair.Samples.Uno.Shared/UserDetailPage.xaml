@@ -4,6 +4,7 @@
 	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	  xmlns:sampleData="using:XamlFlair.Samples.Uno.SampleData"
+	  xmlns:ctl="using:XamlFlair.Samples.Uno.Controls"
 	  xmlns:xf="using:XamlFlair"
 	  xmlns:xfc="using:XamlFlair.Controls"
 	  mc:Ignorable="d">
@@ -51,16 +52,10 @@
 
 	<Grid Background="{StaticResource AppBackgroundBrush}">
 		<Grid.RowDefinitions>
-			<RowDefinition Height="{StaticResource CommandBarGridLength}" />
+			<RowDefinition Height="{StaticResource PageHeaderGridLength}" />
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
-
-		<CommandBar Content="XamlFlair Sample App">
-			<CommandBar.PrimaryCommands>
-				<AppBarButton Icon="Back" />
-			</CommandBar.PrimaryCommands>
-		</CommandBar>
 
 		<!-- Selected user profile info -->
 		<Grid Grid.Row="1"
@@ -85,11 +80,11 @@
 			<!-- Profile pic -->
 			<Border HorizontalAlignment="Right"
 					VerticalAlignment="Center"
+					Width="100"
+					Height="100"
 					Margin="0,0,16,0"
 					xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromLeft}, Delay=750}">
-				<Image Width="100"
-					   Height="100"
-					   Stretch="UniformToFill"
+				<Image Stretch="UniformToFill"
 					   HorizontalAlignment="Center"
 					   VerticalAlignment="Center"
 					   Source="{Binding ProfilePic}" />
@@ -124,5 +119,7 @@
 								  xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Delay=350}"
 								  xf:Animations.Items="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromBottom}, Delay=750}" />
 		</Border>
+
+		<ctl:PageHeader Click="NavigateBackButton_Click" />
 	</Grid>
 </Page>

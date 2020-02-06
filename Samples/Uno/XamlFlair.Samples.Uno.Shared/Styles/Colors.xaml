@@ -24,6 +24,9 @@
 	<SolidColorBrush x:Key="PrimaryColor07Brush"
 					 Color="{StaticResource PrimaryColor07}" />
 
+	<SolidColorBrush x:Key="TransparentBrush"
+					 Color="Transparent" />
+
 	<SolidColorBrush x:Key="TranslucentColor01Brush"
 					 Color="{StaticResource PrimaryColor01}"
 					 Opacity="0.7" />

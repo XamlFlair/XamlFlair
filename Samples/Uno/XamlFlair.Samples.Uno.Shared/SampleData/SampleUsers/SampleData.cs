@@ -235,6 +235,14 @@ namespace XamlFlair.Samples.Uno.SampleData
 	}
 
 	[Windows.UI.Xaml.Data.Bindable]
+	public class SelectedDetails
+	{
+		public User User { get; set; }
+
+		public Place Place { get; set; }
+	}
+
+	[Windows.UI.Xaml.Data.Bindable]
 	public class User : INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;

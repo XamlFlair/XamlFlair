@@ -1,5 +1,6 @@
 ﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using XamlFlair.Samples.Uno.SampleData;
 
@@ -33,6 +34,7 @@ namespace XamlFlair.Samples.Uno
 				typeof(PlacePage),
 				new PropertyMetadata(null));
 
+		private User CurrentUser;
 
 		public PlacePage()
 		{
@@ -43,7 +45,8 @@ namespace XamlFlair.Samples.Uno
 		{
 			base.OnNavigatedTo(e);
 
-			CurrentPlace = e.Parameter as Place;
+			CurrentUser = (e.Parameter as SelectedDetails)?.User;
+			CurrentPlace = (e.Parameter as SelectedDetails)?.Place;
 		}
 
 		private void ShowPopupButton_Click(object sender, RoutedEventArgs e)
@@ -54,6 +57,11 @@ namespace XamlFlair.Samples.Uno
 		private void ClosePopupButton_Click(object sender, RoutedEventArgs e)
 		{
 			IsPopupShown = false;
+		}
+
+		private void NavigateBackButton_Click(object sender, RoutedEventArgs e)
+		{
+			App.RootFrame?.Navigate(typeof(UserDetailPage), CurrentUser, new DrillInNavigationTransitionInfo());
 		}
 	}
 }

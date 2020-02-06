@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml;
+﻿using System.Windows.Input;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
@@ -37,8 +38,19 @@ namespace XamlFlair.Samples.Uno
 		{
 			if (sender is ListViewBase lvb && lvb.SelectedItem is Place place)
 			{
-				App.RootFrame?.Navigate(typeof(PlacePage), place, new DrillInNavigationTransitionInfo());
+				var selected = new SelectedDetails()
+				{
+					User = CurrentUser,
+					Place = place
+				};
+
+				App.RootFrame?.Navigate(typeof(PlacePage), selected, new DrillInNavigationTransitionInfo());
 			}
+		}
+
+		private void NavigateBackButton_Click(object sender, RoutedEventArgs e)
+		{
+			App.RootFrame?.Navigate(typeof(UsersPage), null, new DrillInNavigationTransitionInfo());
 		}
 	}
 }
