@@ -51,5 +51,7 @@
 	<string>Portait</string>
 	<key>UILaunchImageSize</key>
 	<string>{320, 568}</string>
+	<key>XSAppIconAssets</key>
+	<string>Media.xcassets/AppIcons.appiconset</string>
   </dict>
 </plist>
