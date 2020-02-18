@@ -129,6 +129,51 @@
     <None Include="XamlFlair.Samples.Uno.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Icon\LargeTile.scale-100.png" />
+    <Content Include="Assets\Icon\LargeTile.scale-125.png" />
+    <Content Include="Assets\Icon\LargeTile.scale-150.png" />
+    <Content Include="Assets\Icon\LargeTile.scale-200.png" />
+    <Content Include="Assets\Icon\LargeTile.scale-400.png" />
+    <Content Include="Assets\Icon\SmallTile.scale-100.png" />
+    <Content Include="Assets\Icon\SmallTile.scale-125.png" />
+    <Content Include="Assets\Icon\SmallTile.scale-150.png" />
+    <Content Include="Assets\Icon\SmallTile.scale-200.png" />
+    <Content Include="Assets\Icon\SmallTile.scale-400.png" />
+    <Content Include="Assets\Icon\SplashScreen.scale-100.png" />
+    <Content Include="Assets\Icon\SplashScreen.scale-125.png" />
+    <Content Include="Assets\Icon\SplashScreen.scale-150.png" />
+    <Content Include="Assets\Icon\SplashScreen.scale-200.png" />
+    <Content Include="Assets\Icon\SplashScreen.scale-400.png" />
+    <Content Include="Assets\Icon\Square150x150Logo.scale-100.png" />
+    <Content Include="Assets\Icon\Square150x150Logo.scale-125.png" />
+    <Content Include="Assets\Icon\Square150x150Logo.scale-150.png" />
+    <Content Include="Assets\Icon\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\Icon\Square150x150Logo.scale-400.png" />
+    <Content Include="Assets\Icon\Square44x44Logo.altform-unplated_targetsize-16.png" />
+    <Content Include="Assets\Icon\Square44x44Logo.altform-unplated_targetsize-24.png" />
+    <Content Include="Assets\Icon\Square44x44Logo.altform-unplated_targetsize-256.png" />
+    <Content Include="Assets\Icon\Square44x44Logo.altform-unplated_targetsize-32.png" />
+    <Content Include="Assets\Icon\Square44x44Logo.altform-unplated_targetsize-48.png" />
+    <Content Include="Assets\Icon\Square44x44Logo.scale-100.png" />
+    <Content Include="Assets\Icon\Square44x44Logo.scale-125.png" />
+    <Content Include="Assets\Icon\Square44x44Logo.scale-150.png" />
+    <Content Include="Assets\Icon\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\Icon\Square44x44Logo.scale-400.png" />
+    <Content Include="Assets\Icon\Square44x44Logo.targetsize-16.png" />
+    <Content Include="Assets\Icon\Square44x44Logo.targetsize-24.png" />
+    <Content Include="Assets\Icon\Square44x44Logo.targetsize-256.png" />
+    <Content Include="Assets\Icon\Square44x44Logo.targetsize-32.png" />
+    <Content Include="Assets\Icon\Square44x44Logo.targetsize-48.png" />
+    <Content Include="Assets\Icon\StoreLogo.scale-100.png" />
+    <Content Include="Assets\Icon\StoreLogo.scale-125.png" />
+    <Content Include="Assets\Icon\StoreLogo.scale-150.png" />
+    <Content Include="Assets\Icon\StoreLogo.scale-200.png" />
+    <Content Include="Assets\Icon\StoreLogo.scale-400.png" />
+    <Content Include="Assets\Icon\Wide310x150Logo.scale-100.png" />
+    <Content Include="Assets\Icon\Wide310x150Logo.scale-125.png" />
+    <Content Include="Assets\Icon\Wide310x150Logo.scale-150.png" />
+    <Content Include="Assets\Icon\Wide310x150Logo.scale-200.png" />
+    <Content Include="Assets\Icon\Wide310x150Logo.scale-400.png" />
     <Content Include="Properties\Default.rd.xml" />
   </ItemGroup>
   <Import Project="..\XamlFlair.Samples.Uno.Shared\XamlFlair.Samples.Uno.Shared.projitems" Label="Shared" Condition="Exists('..\XamlFlair.Samples.Uno.Shared\XamlFlair.Samples.Uno.Shared.projitems')" />
