@@ -80,6 +80,7 @@
 				  VerticalAlignment="Center"
 				  HorizontalAlignment="Center"
 				  Background="{StaticResource PrimaryColor01Brush}"
+				  xf:Layout.ClipToBounds="True"
 				  xf:Animations.StartWith="{xf:Animate BasedOn={StaticResource FadeOutAndShrinkHorizontally}, ScaleX={StaticResource PopupScaleFactor}}"
 				  xf:Animations.PrimaryBinding="{x:Bind IsPopupShown, Mode=OneWay}"
 				  xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndGrowHorizontally}, ScaleX=0, Event=None, Delay=500}"
@@ -96,9 +97,9 @@
 						Height="250"
 						Margin="0,0,0,8"
 						xf:Animations.PrimaryBinding="{x:Bind IsPopupShown, Mode=OneWay}"
-						xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromRight}, Event=None, Delay=1000}"
+						xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromTop}, Event=None, Delay=1000}"
 						xf:Animations.SecondaryBinding="{x:Bind IsPopupShown, Mode=OneWay, Converter={StaticResource InverseBool}}"
-						xf:Animations.Secondary="{xf:Animate BasedOn={StaticResource FadeOutAndSlideToRight}, Event=None, Delay=1}">
+						xf:Animations.Secondary="{xf:Animate BasedOn={StaticResource FadeOutAndSlideToTop}, Event=None, Delay=1}">
 					<Image Source="{Binding Image}"
 						   Stretch="UniformToFill" />
 				</Border>
