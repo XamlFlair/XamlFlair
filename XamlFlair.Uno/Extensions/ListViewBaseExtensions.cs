@@ -5,6 +5,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace XamlFlair.Extensions
 {
@@ -45,7 +46,7 @@ namespace XamlFlair.Extensions
 		internal static void OnApplyTemplateEx(this ListViewBase lvb)
 		{
 			// VERY IMPORTANT to clear any existing transitions in order to avoid item flickering 
-			//lvb.ItemContainerTransitions?.Clear();
+			lvb.ItemContainerTransitions?.Clear();
 		}
 
 		internal static void PrepareContainerForItemOverrideEx<TItem>(this ListViewBase lvb, DependencyObject element, Func<(int firstVisibleIndex, int lastVisibleIndex)> getIndicesFunc, ref bool isFirstItemContainerLoaded)
@@ -63,43 +64,46 @@ namespace XamlFlair.Extensions
 				return;
 			}
 
-			// Make sure to retrieve the GetInterElementDelay value
-			var interElementDelay = Animations.GetInterElementDelay(lvb);
-			var settings = Animations.GetItems(lvb);
-			//var scroller = lvb?.FindDescendant<ScrollViewer>();
-
-			AnimateVisibleItem(lvb, item, settings, interElementDelay);
-
-			//lvb.AnimateItems<TItem>(item, getIndicesFunc, ref isFirstItemContainerLoaded);
+			lvb.AnimateItems<TItem>(item, getIndicesFunc, ref isFirstItemContainerLoaded);
 		}
 
-		//internal static void AnimateItems<TItem>(this ListViewBase lvb, SelectorItem item, Func<(int firstVisibleIndex, int lastVisibleIndex)> getIndicesFunc, ref bool isFirstItemContainerLoaded)
-		//	where TItem : SelectorItem
-		//{
-		//	var settings = Animations.GetItems(lvb);
+		internal static void AnimateItems<TItem>(this ListViewBase lvb, SelectorItem item, Func<(int firstVisibleIndex, int lastVisibleIndex)> getIndicesFunc, ref bool isFirstItemContainerLoaded)
+			where TItem : SelectorItem
+		{
+			var settings = Animations.GetItems(lvb);
 
-		//	if (settings == null)
-		//	{
-		//		return;
-		//	}
+			if (settings == null)
+			{
+				return;
+			}
 
-		//	if (!isFirstItemContainerLoaded)
-		//	{
-		//		isFirstItemContainerLoaded = true;
+			if (!isFirstItemContainerLoaded)
+			{
+				isFirstItemContainerLoaded = true;
 
-		//		item.Loaded += OnContainerLoaded;
+				item.Loaded += OnContainerLoaded;
 
-		//		// At this point, the index values are all ready to use.
-		//		void OnContainerLoaded(object _, RoutedEventArgs __)
-		//		{
-		//			item.Loaded -= OnContainerLoaded;
+				// At this point, the index values are all ready to use.
+				async void OnContainerLoaded(object sender, RoutedEventArgs _)
+				{
+					((SelectorItem)sender).Loaded -= OnContainerLoaded;
 
-		//			var (firstVisibleIndex, lastVisibleIndex) = getIndicesFunc();
+					try
+					{
+						await lvb.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+						{
+							var (firstVisibleIndex, lastVisibleIndex) = getIndicesFunc();
 
-		//			AnimateVisibleItems<TItem>(lvb, settings, firstVisibleIndex, lastVisibleIndex);
-		//		}
-		//	}
-		//}
+							AnimateVisibleItems<TItem>(lvb, settings, firstVisibleIndex, lastVisibleIndex);
+						});
+					}
+					catch (Exception ex)
+					{
+						Logger?.LogError($"Error within OnContainerLoaded when trying to animate ListViewBase items", ex);
+					}
+				}
+			}
+		}
 
 		internal static void AnimateVisibleItems<TItem>(this ListViewBase lvb, AnimationSettings settings, int firstVisibleIndex, int lastVisibleIndex)
 			where TItem : SelectorItem
@@ -113,20 +117,17 @@ namespace XamlFlair.Extensions
 			{
 				if (lvb.ContainerFromIndex(index) is TItem item)
 				{
-					AnimateVisibleItem(lvb, item, settings, interElementDelay);
+					AnimateVisibleItem(item, settings, index, interElementDelay);
 				}
 			}
 		}
 
-		private static void AnimateVisibleItem(ListViewBase lvb, SelectorItem item, AnimationSettings settings, double interElementDelay)
+		private static void AnimateVisibleItem(SelectorItem item, AnimationSettings settings, int index, double interElementDelay)
 		{
-			var scroller = lvb?.FindDescendant<ScrollViewer>();
-			var indexFromVisibleTop = lvb.IndexFromContainer(item) - scroller.VerticalOffset;
-
 			// Create a clone of 'settings'
 			var itemSettings = new AnimationSettings().ApplyOverrides(settings);
 
-			itemSettings.Delay += indexFromVisibleTop * interElementDelay;
+			itemSettings.Delay += index * interElementDelay;
 
 			Animations.RunAnimation(item, settings: itemSettings);
 		}
