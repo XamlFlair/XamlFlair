@@ -8,11 +8,11 @@ The goal of the XamlFlair library is to ease the implementation of common animat
 
 ## Contents
 
+- [Install from Nuget](#install-from-nuget)
+
 - [Features Overview](#features-overview)
 
 - [Basic Concepts](#basic-concepts)
-
-- [Install from Nuget](#install-from-nuget)
 
 - [Usage](#usage)
 
@@ -34,45 +34,13 @@ The goal of the XamlFlair library is to ease the implementation of common animat
 
 - [Using the *StartWith* Property](#using-the-startwith-property)
 
-- [Using the *AllowOpacityReset* Property (*WPF-Only*)](#using-the-allowopacityreset-property-wpf-only)
+- [Using the *AllowOpacityReset* Property (*WPF Only*)](#using-the-allowopacityreset-property-wpf-only)
 
-- [Using the ClipToBounds Property (UWP-Only)](#using-the-cliptobounds-property-uwp-only)
+- [Using the ClipToBounds Property (UWP Only)](#using-the-cliptobounds-property-uwp-only)
 
 - [Logging Animations](#logging-animations)
 
 - [*ListViewBase* (UWP) and *ListBox*-based (WPF) Animations](#listviewbase-uwp-and-listbox-based-wpf-animations)
-
-## Features Overview
-
-Feature               | **UWP**     | **WPF**     | **UWP (Uno)** | **iOS (Uno)** | **Android (Uno)** | **Wasm (Uno)**
---------------------- | ----------- | ----------- | ------------- | ------------- | ----------------- | --------------
-*Animation System*    | Composition | Storyboards | Storyboards   | Storyboards   | Storyboards       | Storyboards
-Composite Transforms  |      X      |     X       |       X       |       X       |         X         |        X
-Compound Animations   |      X      |     X       |       X       |       X       |         X         |        X
-Relative Translations |      X      |     X       |       X       |       X       |         X         |        X
-Repeating Animations  |      X      |     X       |       X       |       X       |         X         |        X
-Events & Bindings     |      X      |     X       |       X       |       X       |         X         |        X
-`StartWith`           |      X      |     X       |       X       |       X       |         X         |        X
-`AllowOpacityReset `  |      -      |     X       |       -       |       -       |         -         |        -
-`ClipToBounds  `      |      X      |    N/A      |       X       |       X       |         X         |        X
-Animated Lists        |      X      |     X       |       -       |       -       |         -         |        -
-Blur Effect           |      X      |     X       |       -       |       -       |         -         |        -
-Saturation Effect     |      X      |     -       |       -       |       -       |         -         |        -
-Tint Effect           |      X      |     -       |       -       |       -       |         -         |        -
-
-> Note that a standard UWP app and a Uno app (UWP head) are different when it comes to XamlFlair. A standard UWP app referencing `XamlFlair.UWP` will use Composition-based animations behind the scenes. An Uno app (including the UWP head) that references `XamlFlair.Uno` will all use Storyboarding behind the scenes.
-
-## Basic Concepts
-
-The basic concept of XamlFlair is based on animations that are categorized as _From_ and _To_. Any UI element that consists of a _From_ animation will **start with one or more arbitrary values, and complete using the default value of the corresponding property**. Any UI element that consists of a _To_ animation will **start in its current state and animate to one or more arbitrary values**.
-
-Example of a _From_ animation (a UI element translating to the default value of a Translation (0)):
-
-![From animation](doc/gifs/TranslateFrom.gif)
-
-Example of a _To_ animation (a UI element sliding away from its current state):
-
-![To animation](doc/gifs/TranslateTo.gif)
 
 ## Install from Nuget
 
@@ -80,6 +48,7 @@ Example of a _To_ animation (a UI element sliding away from its current state):
 | -------- | -------- | ------- |
 | UWP | [XamlFlair.UWP][UWPNuGet] | [![UWPNuGetShield]][UWPNuGet] |
 | WPF | [XamlFlair.WPF][WPFNuGet] | [![WPFNuGetShield]][WPFNuGet] |
+| Uno | [XamlFlair.Uno][UNONuGet] | [![UNONuGetShield]][UNONuGet] |
 
 To install **XamlFlair**, run the following command in the **Package Manager Console**:
 
@@ -99,11 +68,49 @@ Install-Package XamlFlair.WPF
 
 > Requires .Net Framework 4.7.2
 
+Uno:
+
+```
+Install-Package XamlFlair.Uno
+```
+
+## Features Overview
+
+Feature               | **UWP**     | **WPF**     | **UWP (Uno)** | **iOS (Uno)** | **Android (Uno)** | **Wasm (Uno) EXPERIMENTAL **
+--------------------- | ----------- | ----------- | ------------- | ------------- | ----------------- | ----------------------------
+*Animation System*    | Composition | Storyboards | Storyboards   | Storyboards   | Storyboards       |         Storyboards
+Composite Transforms  |      X      |     X       |       X       |       X       |         X         |              X
+Compound Animations   |      X      |     X       |       X       |       X       |         X         |              X
+Relative Translations |      X      |     X       |       X       |       X       |         X         |              X
+Repeating Animations  |      X      |     X       |       X       |       X       |         X         |              X
+Events & Bindings     |      X      |     X       |       X       |       X       |         X         |              X
+`StartWith`           |      X      |     X       |       X       |       X       |         X         |              X
+`AllowOpacityReset`   |      -      |     X       |       -       |       -       |         -         |              -
+`ClipToBounds `       |      X      |    N/A      |       X       |       X       |         X         |              X
+Animated Lists        |      X      |     X       |       X       |       X       |         X         |              X
+Blur Effect           |      X      |     X       |       -       |       -       |         -         |              -
+Saturation Effect     |      X      |     -       |       -       |       -       |         -         |              -
+Tint Effect           |      X      |     -       |       -       |       -       |         -         |              -
+
+> **Note**: A standard UWP app and a Uno app (UWP head) are different when it comes to XamlFlair. A standard UWP app referencing `XamlFlair.UWP` will use Composition-based animations behind the scenes. An Uno app (including the UWP head) that references `XamlFlair.Uno` will all use Storyboarding behind the scenes.
+
+## Basic Concepts
+
+The basic concept of XamlFlair is based on animations that are categorized as _From_ and _To_. Any UI element that consists of a _From_ animation will **start with one or more arbitrary values, and complete using the default value of the corresponding property**. Any UI element that consists of a _To_ animation will **start in its current state and animate to one or more arbitrary values**.
+
+Example of a _From_ animation (a UI element translating to the default value of a Translation (0)):
+
+![From animation](doc/gifs/TranslateFrom.gif)
+
+Example of a _To_ animation (a UI element sliding away from its current state):
+
+![To animation](doc/gifs/TranslateTo.gif)
+
 ## Usage
 
 To begin, you need to have the following Xaml namespace reference:
 
-UWP:
+UWP and Uno:
 ```xml
 xmlns:xf="using:XamlFlair"
 ```
@@ -143,15 +150,15 @@ From here on, it's a simple matter of setting an attached property to any `Frame
 
 ![Rotation animation](doc/gifs/RotateFrom.gif)
 
-#### Blur
+#### Blur (_UWP and WPF only_)
 
 ![Blur animation](doc/gifs/Blur.gif)
 
-#### Saturate (_UWP-only_)
+#### Saturate (_UWP only_)
 
 ![Saturate animation](doc/gifs/Saturate.gif)
 
-#### Tint (_UWP-only_)
+#### Tint (_UWP only_)
 
 ![Tint animation](doc/gifs/Tint.gif)
 
@@ -163,8 +170,8 @@ The following lists some notable **default values** when working with XamlFlair:
 * **Easing Mode**: EaseOut
 * **TransformCenterPoint**: (0.5, 0.5)
 * **Event**: Loaded
-* **Saturation**: 0.5 (_UWP-only_)
-* **Tint**: Transparent (_UWP-only_)
+* **Saturation**: 0.5 (_UWP only_)
+* **Tint**: Transparent (_UWP only_)
 
 ### Using a `ResourceDictionary` for Base Settings
 
@@ -226,6 +233,8 @@ To setup this set of pre-configured `AnimationSettings` already available in you
 - [Animation settings for UWP](https://github.com/XamlFlair/XamlFlair/blob/master/Samples/XamlFlair.Samples.UWP/Animations.xaml)
 
 - [Animation settings for WPF](https://github.com/XamlFlair/XamlFlair/blob/master/Samples/XamlFlair.Samples.WPF/Animations.xaml)
+
+- [Animation settings for Uno](https://github.com/XamlFlair/XamlFlair/blob/master/Samples/Uno/XamlFlair.Samples.Uno.Shared/Animations.xaml)
 
 Your app now has a global set of **common** animations ready to use.
 
@@ -350,7 +359,6 @@ Also note that it is also possible to repeat a Compound animation. For example, 
 By default, all animations execute once the UI element fires its `Loaded` event. This behavior can be overridden by setting the `Event` property. `Event` can be one of the following values:
 
 * Loaded (*default value*)
-* Loading (*UWP-only*)
 * None
 * Visibility (*triggers only when Visibility == Visible*)
 * DataContextChanged
@@ -382,7 +390,7 @@ There will be cases when you will need your UI element to start in a specific st
 
 In the above example, since the element is scaling from the bottom, but with a delay, we need to _start_ in the _scaled_ position, so we use the `StartWith` property to set its initial state. What `StartWith` essentially does is setup the initial values on the element as soon as it has loaded.
 
-### Using the *AllowOpacityReset* Property (*WPF-Only*)
+### Using the *AllowOpacityReset* Property (*WPF Only*)
 
 The .Net documentation states the following:
 
@@ -397,7 +405,7 @@ There may be cases when you animate the opacity, in which the opacity animation 
        Source="/Assets/..." />
 ```
 
-### Using the *ClipToBounds* Property (*UWP-Only*)
+### Using the *ClipToBounds* Property (*UWP and Uno Only*)
 
 A helpful property that exists in WPF, `ClipToBounds` is a helpful property that exists in WPF, but unfortunately not in UWP. Therefore, it has been added in XamlFlair due to its ease of use and handiness. To clip child content to the bounds of the containing element, simply set `ClipToBounds` to `True` on the containing element:
 
@@ -483,13 +491,13 @@ Doing so will provide you with the following similar console output:
     NO ACTIVE TIMELINES!
     ------------------------------------
 
-### `ListViewBase` (UWP) and `ListBox`-based (WPF) Animations
+### `ListViewBase` (_UWP and Uno_) and `ListBox`-based (_WPF_) Animations
 
 ![ListView item animations](doc/gifs/ListView.gif)
 
 In order to properly implement item animations on list items, it was not enough to simply create attached properties against the ListViewBase (UWP) and ListBox (WPF) controls. Instead, inherited controls were created: `AnimatedListView` and `AnimatedGridView` for UWP, and `AnimatedListView` and `AnimatedListBox` for WPF, all available from the `XamlFlair.Controls` namespace:
 
-**UWP namespace:**
+**UWP and Uno namespace:**
 ```xml
 xmlns:xfc="using:XamlFlair.Controls"
 ```
@@ -534,11 +542,13 @@ Just like `PrimaryBinding` and `SecondaryBinding`, item animations can be trigge
                       xf:Animations.ItemsBinding="{Binding MyViewModelProperty}"
                       xf:Animations:Items="{xf:Animate BasedOn={StaticResource FadeIn}}" />
 ```
-> **Warning (*UWP-only*)**: Be aware that if you have any `ItemContainerTransitions` set on the `AnimatedListView` or `AnimatedGridView`, they will be cleared. This is done to avoid conflicting item animations.
+> **Warning (*UWP only*)**: Be aware that if you have any `ItemContainerTransitions` set on the `AnimatedListView` or `AnimatedGridView`, they will be cleared. This is done to avoid conflicting item animations.
 
-> **Note (*UWP-only*)**: To avoid any flickers on item animations, there is currently a constraint in place: `Items` animation **must** contain a `FadeFrom`.
+> **Note (*Uno only*)**: To avoid any flickers on item animations, there is currently a constraint in place: `Items` animation **must** contain a `FadeFrom`.
 
 [UWPNuget]: https://www.nuget.org/packages/XamlFlair.UWP/
 [WPFNuget]: https://www.nuget.org/packages/XamlFlair.WPF/
+[UNONuget]: https://www.nuget.org/packages/XamlFlair.Uno/
 [UWPNugetShield]: https://img.shields.io/nuget/v/XamlFlair.UWP.svg?style=for-the-badge
 [WPFNugetShield]: https://img.shields.io/nuget/v/XamlFlair.WPF.svg?style=for-the-badge
+[UNONugetShield]: https://img.shields.io/nuget/v/XamlFlair.Uno.svg?style=for-the-badge

@@ -135,15 +135,6 @@ namespace XamlFlair
 		{
 			if (d is ListViewBase lvb)
 			{
-				if (GetIsInitialized(lvb))
-				{
-					return;
-				}
-
-				// Set IsInitialized to true to only run this code once per element
-				SetIsInitialized(lvb, true);
-
-				// Pass an action to reset the "container loaded" flag when the ItemsSource changes
 				lvb.Initialize();
 			}
 		}
