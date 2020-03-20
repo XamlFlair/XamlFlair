@@ -22,7 +22,7 @@
 	<DefineConstants>$(DefineConstants);__WASM__</DefineConstants>
   </PropertyGroup>
   <ItemGroup Condition="'$(TargetFramework)'=='xamarinios10' or '$(TargetFramework)'=='monoandroid80' or '$(TargetFramework)'=='monoandroid90' or '$(TargetFramework)'=='netstandard2.0'">
-	<PackageReference Include="Uno.UI" Version="2.2.0-dev.81" />
+	<PackageReference Include="Uno.UI" Version="2.1.0-dev.1402" />
   </ItemGroup>
   <ItemGroup>
 	<Page Include="**\*.xaml" Exclude="bin\**\*.xaml;obj\**\*.xaml" />
@@ -35,7 +35,7 @@
   </ItemGroup>
   <ItemGroup>
 	<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="1.1.1" />
-	<PackageReference Include="System.Reactive" Version="4.1.5" />
+	<PackageReference Include="System.Reactive" Version="4.3.2" />
   </ItemGroup>
   <Import Project="..\XamlFlair.Shared\XamlFlair.Shared.projitems" Label="Shared" />
 </Project>

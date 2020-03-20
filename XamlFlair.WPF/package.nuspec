@@ -4,7 +4,7 @@
     <!--*-->
     <id>XamlFlair.WPF</id>
     <!--*-->
-    <version>1.0.25</version>
+    <version>1.1.0</version>
     <title>XamlFlair.WPF</title>
     <!--*-->
     <authors>XamlFlair.WPF</authors>
@@ -18,14 +18,14 @@
     <!--*-->
     <description>XamlFlair animation library for the WPF platform.</description>
     <!--*-->
-    <releaseNotes>Removed dependency on LibLog and replaced it with Microsoft.Extensions.Logging.Abstractions. Also applied and Offset equality fix.</releaseNotes>
+    <releaseNotes>Removed ListBox validation on OnItemsChanged + version parity with Uno support</releaseNotes>
     <copyright>Copyright © 2020</copyright>
     <tags>
     </tags>
     <dependencies>
       <group>
         <dependency id="Microsoft.Extensions.Logging.Abstractions" version="1.1.1" />
-        <dependency id="System.Reactive" version="4.1.5" />
+        <dependency id="System.Reactive" version="4.3.2" />
       </group>
     </dependencies>
   </metadata>

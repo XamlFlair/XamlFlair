@@ -29,8 +29,8 @@
         <dependency id="Microsoft.Extensions.Logging.Abstractions" version="1.1.1" />
         <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="6.2.9" />
 		<dependency id="NETStandard.Library" version="2.0.3" />
-        <dependency id="System.Reactive" version="4.1.5" />
-        <dependency id="Uno.UI" version="2.2.0-dev.81" />
+        <dependency id="System.Reactive" version="4.3.2" />
+        <dependency id="Uno.UI" version="2.1.0" />
       </group>
     </dependencies>
   </metadata>

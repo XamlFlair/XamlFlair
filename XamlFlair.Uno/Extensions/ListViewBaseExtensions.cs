@@ -77,9 +77,12 @@ namespace XamlFlair.Extensions
 				return;
 			}
 
+			// Wasm listview animations don't work, therefore don't initially hide the item
+#if !__WASM__
 			// LIMITATION: Currently, for proper item animation handling, item animations
 			// MUST include a 'FadeFrom' animation with an Opacity value of 0
 			item.Opacity = settings.Opacity;
+#endif
 
 			if (!isFirstItemContainerLoaded)
 			{
