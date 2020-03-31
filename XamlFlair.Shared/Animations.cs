@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Reactive.Linq;
 using System.Linq;
 using System.Numerics;
+using System.Windows.Input;
 using System.Collections.Concurrent;
 using Microsoft.Extensions.Logging;
 using XamlFlair.Extensions;
@@ -385,6 +384,7 @@ namespace XamlFlair
 			// Else if it's done animating, clean it up
 			else if (active.IterationCount <= 1 && active.IterationBehavior != IterationBehavior.Forever)
 			{
+				ExecuteCompletionCommand(element, active);
 				Cleanup(elementGuid, stopAnimation: false);
 			}
 		}
@@ -617,6 +617,23 @@ namespace XamlFlair
 				}
 
 				sequenceCounter++;
+			}
+		}
+
+		private static void ExecuteCompletionCommand(FrameworkElement element, ActiveTimeline<Timeline> active)
+		{
+			// If a secondary completion command exists and the completing animation is a
+			// secondary animation, execute the corresponding command
+			if (GetSecondaryCompletionCommand(element) is ICommand secondaryCompletion
+				&& GetSecondary(element) is IAnimationSettings secondary
+				&& (AnimationSettings)secondary == active.Settings)
+			{
+				secondaryCompletion.Execute(null);
+			}
+			// Else execute the primary completion command if it exists
+			else if (GetPrimaryCompletionCommand(element) is ICommand primaryCompletion)
+			{
+				primaryCompletion.Execute(null);
 			}
 		}
 

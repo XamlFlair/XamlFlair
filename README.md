@@ -32,6 +32,8 @@ The goal of the XamlFlair library is to ease the implementation of common animat
 
 - [Events and Bindings](#events-and-bindings)
 
+- [Primary and Secondary Completion Commands](#primary-and-secondary-completion-commands)
+
 - [Using the *StartWith* Property](#using-the-startwith-property)
 
 - [Using the *AllowOpacityReset* Property (*WPF Only*)](#using-the-allowopacityreset-property-wpf-only)
@@ -76,21 +78,22 @@ Install-Package XamlFlair.Uno
 
 ## Features Overview
 
-Feature               | **UWP**     | **WPF**     | **UWP (Uno)** | **iOS (Uno)** | **Android (Uno)** | **Wasm (Uno) EXPERIMENTAL **
---------------------- | ----------- | ----------- | ------------- | ------------- | ----------------- | ----------------------------
-*Animation System*    | Composition | Storyboards | Storyboards   | Storyboards   | Storyboards       |         Storyboards
-Composite Transforms  |      X      |     X       |       X       |       X       |         X         |              X
-Compound Animations   |      X      |     X       |       X       |       X       |         X         |              X
-Relative Translations |      X      |     X       |       X       |       X       |         X         |              X
-Repeating Animations  |      X      |     X       |       X       |       X       |         X         |              X
-Events & Bindings     |      X      |     X       |       X       |       X       |         X         |              X
-`StartWith`           |      X      |     X       |       X       |       X       |         X         |              X
-`AllowOpacityReset`   |      -      |     X       |       -       |       -       |         -         |              -
-`ClipToBounds `       |      X      |    N/A      |       X       |       X       |         X         |              X
-Animated Lists        |      X      |     X       |       X       |       X       |         X         |              X
-Blur Effect           |      X      |     X       |       -       |       -       |         -         |              -
-Saturation Effect     |      X      |     -       |       -       |       -       |         -         |              -
-Tint Effect           |      X      |     -       |       -       |       -       |         -         |              -
+Feature                               | **UWP**     | **WPF**     | **UWP (Uno)** | **iOS (Uno)** | **Android (Uno)** | **Wasm (Uno) EXPERIMENTAL **
+------------------------------------- | ----------- | ----------- | ------------- | ------------- | ----------------- | ----------------------------
+*Animation System*                    | Composition | Storyboards | Storyboards   | Storyboards   | Storyboards       |         Storyboards
+Composite Transforms                  |      X      |     X       |       X       |       X       |         X         |              X
+Compound Animations                   |      X      |     X       |       X       |       X       |         X         |              X
+Relative Translations                 |      X      |     X       |       X       |       X       |         X         |              X
+Repeating Animations                  |      X      |     X       |       X       |       X       |         X         |              X
+Events & Bindings                     |      X      |     X       |       X       |       X       |         X         |              X
+Primary/Secondary Completion Commands |      X      |     X       |       X       |       X       |         X         |              X
+`StartWith`                           |      X      |     X       |       X       |       X       |         X         |              X
+`AllowOpacityReset`                   |      -      |     X       |       -       |       -       |         -         |              -
+`ClipToBounds `                       |      X      |    N/A      |       X       |       X       |         X         |              X
+Animated Lists                        |      X      |     X       |       X       |       X       |         X         |              X
+Blur Effect                           |      X      |     X       |       -       |       -       |         -         |              -
+Saturation Effect                     |      X      |     -       |       -       |       -       |         -         |              -
+Tint Effect                           |      X      |     -       |       -       |       -       |         -         |              -
 
 > **Note**: A standard UWP app and a Uno app (UWP head) are different when it comes to XamlFlair. A standard UWP app referencing `XamlFlair.UWP` will use Composition-based animations behind the scenes. An Uno app (including the UWP head) that references `XamlFlair.Uno` will all use Storyboarding behind the scenes.
 
@@ -378,6 +381,18 @@ When specifying `None`, you will manually need to trigger your animations using 
 ```
 
 The above animation will *only* execute when the `IsChecked` is `True`. If `None` was not specified for `Event`, the animation would then execute on `Loaded` *and* on the binding.
+
+### Primary and Secondary Completion Commands
+
+There may be scenarios where you may want to execute an `ICommand` when an animation completes. In such a case, two properties exist: `PrimaryCompletionCommand` and `SecondaryCompletionCommand`.
+
+In the following example, the command named _MyCustomCommand_ will execute once the primary animation completes:
+
+```xml
+<TextBlock Text="Example of a completion command"
+           xf:Animations.Primary="{StaticResource FadeInAndSlideFromBottom}"
+           xf:Animations.PrimaryCompletionCommand="{x:Bind MyCustomCommand}" />
+```
 
 ### Using the *StartWith* Property
 
