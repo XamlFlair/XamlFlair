@@ -27,9 +27,9 @@
     <dependencies>
       <group targetFramework="uap10.0">
         <dependency id="Microsoft.Extensions.Logging.Abstractions" version="1.1.1" />
-        <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="6.2.8" />
-        <dependency id="System.Reactive" version="4.3.2" />
-        <dependency id="Win2D.uwp" version="1.23.0" />
+        <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="6.2.9" />
+        <dependency id="System.Reactive" version="4.4.1" />
+        <dependency id="Win2D.uwp" version="1.25.0" />
       </group>
     </dependencies>
   </metadata>

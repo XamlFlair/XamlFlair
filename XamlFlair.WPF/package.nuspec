@@ -25,7 +25,7 @@
     <dependencies>
       <group>
         <dependency id="Microsoft.Extensions.Logging.Abstractions" version="1.1.1" />
-        <dependency id="System.Reactive" version="4.3.2" />
+        <dependency id="System.Reactive" version="4.4.1" />
       </group>
     </dependencies>
   </metadata>
