@@ -8,14 +8,14 @@
 
   <Identity
     Name="da66e8a3-4be2-4329-abba-92a273989dab"
-    Publisher="CN=massimo.cacchiotti"
+    Publisher="CN=xamlflair"
     Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="da66e8a3-4be2-4329-abba-92a273989dab" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>XamlFlair.Samples.UWP</DisplayName>
-    <PublisherDisplayName>massimo.cacchiotti</PublisherDisplayName>
+    <PublisherDisplayName>xamlflair</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 

@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <!--*-->
+    <id>XamlFlair.Uno</id>
+    <!--*-->
+    <version>1.1.0</version>
+    <title>XamlFlair.Uno</title>
+    <!--*-->
+    <authors>xamlflair</authors>
+    <owners>xamlflair</owners>
+    <!--
+			<licenseUrl></licenseUrl>
+			<projectUrl></projectUrl>
+			<iconUrl></iconUrl>
+		-->
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectUrl>https://github.com/XamlFlair/XamlFlair</projectUrl>
+    <iconUrl>https://github.com/XamlFlair/XamlFlair/blob/master/nuget_logo.png?raw=true</iconUrl>
+    <!--*-->
+    <description>XamlFlair animation library for the Uno platform.</description>
+    <!--*-->
+    <releaseNotes>Added support for the Uno platform to XamlFlair.</releaseNotes>
+    <copyright>Copyright © 2020</copyright>
+    <tags>
+    </tags>
+    <dependencies>
+      <group>
+        <dependency id="Microsoft.Extensions.Logging.Abstractions" version="1.1.1" />
+        <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="6.2.9" />
+		    <dependency id="NETStandard.Library" version="2.0.3" />
+        <dependency id="System.Reactive" version="4.4.1" />
+        <dependency id="Uno.UI" version="2.1.37" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

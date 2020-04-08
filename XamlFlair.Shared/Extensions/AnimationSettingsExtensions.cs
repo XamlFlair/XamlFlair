@@ -13,7 +13,7 @@ namespace XamlFlair.Extensions
 {
 	internal static class AnimationSettingsExtensions
 	{
-#if __WPF__
+#if !__UWP__
 		internal static EasingFunctionBase GetEase(this AnimationSettings settings)
 		{
 			EasingFunctionBase ease;
@@ -28,9 +28,12 @@ namespace XamlFlair.Extensions
 					ease = new BounceEase();
 					break;
 
+#if !HAS_UNO
+				// Circle easing not supported in Uno
 				case EasingType.Circle:
 					ease = new CircleEase();
 					break;
+#endif
 
 				case EasingType.Cubic:
 					ease = new CubicEase();

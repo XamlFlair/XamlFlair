@@ -126,15 +126,6 @@ namespace XamlFlair
 		{
 			if (d is ListBox lb)
 			{
-				if (GetIsInitialized(lb))
-				{
-					return;
-				}
-
-				// Set IsInitialized to true to only run this code once per element
-				SetIsInitialized(lb, true);
-
-				// Pass an action to reset the "container loaded" flag when the ItemsSource changes
 				lb.Initialize();
 			}
 		}

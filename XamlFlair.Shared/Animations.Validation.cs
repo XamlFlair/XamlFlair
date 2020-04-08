@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Text;
 using XamlFlair.Extensions;
 using XamlFlair.Controls;
+using Microsoft.Extensions.Logging;
 
 #if __WPF__
 using System.Windows;
@@ -108,7 +109,7 @@ namespace XamlFlair
 			}
 		}
 
-#if __UWP__
+#if !__WPF__
 		internal static void ValidateListViewBase(ListViewBase element)
 		{
 			// Skip validation if a debugger isn't attached
@@ -119,6 +120,12 @@ namespace XamlFlair
 
 			if (element is ListViewBase lvb)
 			{
+				if (lvb.ItemsSource == null)
+				{
+					Logger?.LogWarning($"Cannot animate {nameof(lvb.ItemsSource)} items because ItemsSource is null.");
+					return;
+				}
+
 				Panel panel = null;
 
 				if (lvb is ListView lv)
@@ -144,6 +151,14 @@ namespace XamlFlair
 					throw new ArgumentException($"{nameof(ItemsProperty)} can only be set on a {nameof(AnimatedListView)} or {nameof(AnimatedGridView)}.");
 				}
 
+#if HAS_UNO
+				// LIMITATION (Uno-Only): ListViewBase item animations MUST contain FadeFrom in the Kind with a value of 0 for Opacity.
+				if (!itemSettings.Kind.HasFlag(AnimationKind.FadeFrom) || itemSettings.Opacity != 0)
+				{
+					throw new ArgumentException($"LIMITATION: {nameof(ListViewBase)} item animations MUST contain {nameof(AnimationKind.FadeFrom)} in the {nameof(AnimationSettings.KindProperty)} with a value of 0 for {nameof(AnimationSettings.Opacity)}.");
+				}
+#endif
+
 				// Don't set a value for the Event property, is it disregarded for ListViewBase item animations.
 				if (itemSettings.Event != AnimationSettings.DEFAULT_EVENT)
 				{
@@ -164,6 +179,12 @@ namespace XamlFlair
 
 			if (element is ListBox lb)
 			{
+				if (lb.ItemsSource == null)
+				{
+					Logger?.LogWarning($"Cannot animate ListBox items because {nameof(lb.ItemsSource)} is null.");
+					return;
+				}
+
 				var itemSettings = GetItems(lb);
 
 				// ItemsProperty can only be set on a AnimatedListBox or AnimatedListView.
@@ -186,5 +207,5 @@ namespace XamlFlair
 			}
 		}
 #endif
-	}
+			}
 }

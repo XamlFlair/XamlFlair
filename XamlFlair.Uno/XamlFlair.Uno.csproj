@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="MSBuild.Sdk.Extras/2.0.54">
+  <PropertyGroup>
+	<TargetFrameworks>netstandard2.0;xamarinios10;monoandroid80;monoandroid90;uap10.0.16299</TargetFrameworks>
+	<!-- Ensures the .xr.xml files are generated in a proper layout folder -->
+	<GenerateLibraryLayout>true</GenerateLibraryLayout>
+	<RootNamespace>XamlFlair.UnoPlatform</RootNamespace>
+	<Product>XamlFlair.Uno</Product>
+	<Description>XamlFlair animation library for the Uno platform.</Description>
+	<Copyright>Copyright © 2020</Copyright>
+	<PackageId>XamlFlair.Uno</PackageId>
+	<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+	<PackageReleaseNotes>Added support for the Uno platform to XamlFlair.</PackageReleaseNotes>
+	<Version>1.1.0</Version>
+	<PackageProjectUrl>https://github.com/XamlFlair/XamlFlair</PackageProjectUrl>
+	<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+	<Company>xamlflair</Company>
+	<PackageIconUrl>https://github.com/XamlFlair/XamlFlair/blob/master/nuget_logo.png?raw=true</PackageIconUrl>
+	<Authors>xamlflair</Authors>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
+	<DefineConstants>$(DefineConstants);__WASM__</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(TargetFramework)'=='xamarinios10' or '$(TargetFramework)'=='monoandroid80' or '$(TargetFramework)'=='monoandroid90' or '$(TargetFramework)'=='netstandard2.0'">
+	<PackageReference Include="Uno.UI" Version="2.1.37" />
+  </ItemGroup>
+  <ItemGroup>
+	<Page Include="**\*.xaml" Exclude="bin\**\*.xaml;obj\**\*.xaml" />
+	<Compile Update="**\*.xaml.cs">
+	  <DependentUpon>%(Filename)</DependentUpon>
+	</Compile>
+  </ItemGroup>
+  <ItemGroup>
+	<UpToDateCheckInput Include="**\*.xaml" Exclude="bin\**\*.xaml;obj\**\*.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+	<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="1.1.1" />
+	<PackageReference Include="System.Reactive" Version="4.4.1" />
+  </ItemGroup>
+  <Import Project="..\XamlFlair.Shared\XamlFlair.Shared.projitems" Label="Shared" />
+</Project>

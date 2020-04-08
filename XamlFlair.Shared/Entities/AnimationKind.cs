@@ -8,8 +8,10 @@ namespace XamlFlair
 	[Flags]
 	public enum AnimationKind
 	{
+#if __UWP__ || __WPF__
 		BlurTo = 1 << 0,
 		BlurFrom = 1 << 1,
+#endif
 		FadeTo = 1 << 2,
 		FadeFrom = 1 << 3,
 		RotateTo = 1 << 4,

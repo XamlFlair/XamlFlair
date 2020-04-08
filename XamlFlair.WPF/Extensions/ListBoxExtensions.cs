@@ -74,9 +74,9 @@ namespace XamlFlair.Extensions
 				item.Loaded += OnContainerLoaded;
 
 				// At this point, the index values are all ready to use.
-				void OnContainerLoaded(object _, RoutedEventArgs __)
+				void OnContainerLoaded(object sender, RoutedEventArgs _)
 				{
-					item.Loaded -= OnContainerLoaded;
+					((ListBoxItem)sender).Loaded -= OnContainerLoaded;
 
 					AnimateVisibleItems(lb, settings);
 				}

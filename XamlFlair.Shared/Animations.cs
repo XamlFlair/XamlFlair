@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Reactive.Linq;
 using System.Linq;
 using System.Numerics;
+using System.Windows.Input;
 using System.Collections.Concurrent;
 using Microsoft.Extensions.Logging;
 using XamlFlair.Extensions;
@@ -13,14 +12,20 @@ using System.Windows;
 using System.Windows.Media.Animation;
 using static System.Windows.EventsMixin;
 using FrameworkElement = System.Windows.FrameworkElement;
-using Timeline = System.Windows.Media.Animation.Storyboard;
 #else
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Composition;
 using static Windows.UI.Xaml.EventsMixin;
 using FrameworkElement = Windows.UI.Xaml.FrameworkElement;
+#endif
+
+#if __WPF__
+using Timeline = System.Windows.Media.Animation.Storyboard;
+#elif __UWP__
 using Timeline = XamlFlair.AnimationGroup;
+#else
+using Timeline = Windows.UI.Xaml.Media.Animation.Storyboard;
 #endif
 
 namespace XamlFlair
@@ -48,8 +53,10 @@ namespace XamlFlair
 		{
 #if __WPF__
 			return System.ComponentModel.DesignerProperties.GetIsInDesignMode(d);
-#else
+#elif __UWP__
 			return Windows.ApplicationModel.DesignMode.DesignMode2Enabled;
+#else
+			return false;
 #endif
 		}
 
@@ -216,21 +223,7 @@ namespace XamlFlair
 
 						break;
 					}
-#if __UWP__
-				case EventType.Loading:
-					{
-						element
-							.Events()
-							.LoadingUntilUnloaded
-							.Subscribe(
-								args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
-								ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.Loading)} event.", ex),
-								() => Cleanup(element)
-							);
 
-						break;
-					}
-#endif
 				case EventType.Visibility:
 					{
 						element
@@ -391,6 +384,7 @@ namespace XamlFlair
 			// Else if it's done animating, clean it up
 			else if (active.IterationCount <= 1 && active.IterationBehavior != IterationBehavior.Forever)
 			{
+				ExecuteCompletionCommand(element, active);
 				Cleanup(elementGuid, stopAnimation: false);
 			}
 		}
@@ -500,6 +494,7 @@ namespace XamlFlair
 			}
 #endif
 
+#if __WPF__ || __UWP__
 			// BLUR TO/FROM
 			if (settings.Kind.HasFlag(AnimationKind.BlurTo))
 			{
@@ -509,6 +504,7 @@ namespace XamlFlair
 			{
 				element.BlurFrom(settings, ref timeline);
 			}
+#endif
 
 #if __UWP__
 			// SATURATE TO/FROM
@@ -624,6 +620,23 @@ namespace XamlFlair
 			}
 		}
 
+		private static void ExecuteCompletionCommand(FrameworkElement element, ActiveTimeline<Timeline> active)
+		{
+			// If a secondary completion command exists and the completing animation is a
+			// secondary animation, execute the corresponding command
+			if (GetSecondaryCompletionCommand(element) is ICommand secondaryCompletion
+				&& GetSecondary(element) is IAnimationSettings secondary
+				&& (AnimationSettings)secondary == active.Settings)
+			{
+				secondaryCompletion.Execute(null);
+			}
+			// Else execute the primary completion command if it exists
+			else if (GetPrimaryCompletionCommand(element) is ICommand primaryCompletion)
+			{
+				primaryCompletion.Execute(null);
+			}
+		}
+
 		private static void UnregisterTimeline(Timeline timeline)
 		{
 			if (timeline == null)
@@ -691,12 +704,11 @@ namespace XamlFlair
 			if (original != null)
 			{
 				original = null;
-				timeline = null;
 			}
-#else
+#elif __UWP__
 			timeline.Cleanup();
-			timeline = null;
 #endif
+			timeline = null;
 		}
 
 		private static void CleanupDisposables(FrameworkElement element)

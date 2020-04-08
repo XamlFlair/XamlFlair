@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reactive.Disposables;
+using System.Windows.Input;
 
 #if __WPF__
 using System.Windows;
@@ -203,6 +204,34 @@ namespace XamlFlair
 				typeof(IterationBehavior),
 				typeof(Animations),
 				new PropertyMetadata(IterationBehavior.Count));
+
+		public static ICommand GetPrimaryCompletionCommand(DependencyObject obj) => (ICommand)obj.GetValue(PrimaryCompletionCommandProperty);
+
+		public static void SetPrimaryCompletionCommand(DependencyObject obj, ICommand value) => obj.SetValue(PrimaryCompletionCommandProperty, value);
+
+		/// <summary>
+		/// Specifies a command that executes when the Primary animation completes
+		/// </summary>
+		public static readonly DependencyProperty PrimaryCompletionCommandProperty =
+			DependencyProperty.RegisterAttached(
+				"PrimaryCompletionCommand",
+				typeof(ICommand),
+				typeof(Animations),
+				new PropertyMetadata(null));
+
+		public static ICommand GetSecondaryCompletionCommand(DependencyObject obj) => (ICommand)obj.GetValue(SecondaryCompletionCommandProperty);
+
+		public static void SetSecondaryCompletionCommand(DependencyObject obj, ICommand value) => obj.SetValue(SecondaryCompletionCommandProperty, value);
+
+		/// <summary>
+		/// Specifies a command that executes when the Secondary animation completes
+		/// </summary>
+		public static readonly DependencyProperty SecondaryCompletionCommandProperty =
+			DependencyProperty.RegisterAttached(
+				"SecondaryCompletionCommand",
+				typeof(ICommand),
+				typeof(Animations),
+				new PropertyMetadata(null));
 
 #if __WPF__
 		public static bool GetAllowOpacityReset(DependencyObject obj) => (bool)obj.GetValue(AllowOpacityResetProperty);

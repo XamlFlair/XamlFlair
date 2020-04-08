@@ -1,0 +1,43 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+					xmlns:ios="http://uno.ui/ios"
+					xmlns:android="http://uno.ui/android"
+					xmlns:xamarin="http://uno.ui/xamarin"
+					mc:Ignorable="xamarin ios android">
+
+	<xamarin:Style x:Key="ListViewBaseScrollViewerStyle"
+				   TargetType="ScrollViewer">
+		<Setter Property="HorizontalAlignment"
+				Value="Stretch" />
+		<Setter Property="HorizontalContentAlignment"
+				Value="Left" />
+		<ios:Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="ScrollViewer">
+					<ListViewBaseScrollContentPresenter x:Name="ScrollContentPresenter"
+														HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+														HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+														Content="{TemplateBinding Content}"
+														ContentTemplate="{TemplateBinding ContentTemplate}"
+														ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+														Background="{TemplateBinding Background}" />
+				</ControlTemplate>
+			</Setter.Value>
+		</ios:Setter>
+		<android:Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="ScrollViewer">
+					<ListViewBaseScrollContentPresenter x:Name="ScrollContentPresenter"
+														HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+														HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+														Content="{TemplateBinding Content}"
+														ContentTemplate="{TemplateBinding ContentTemplate}"
+														ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+														Background="{TemplateBinding Background}" />
+				</ControlTemplate>
+			</Setter.Value>
+		</android:Setter>
+	</xamarin:Style>
+
+</ResourceDictionary>
