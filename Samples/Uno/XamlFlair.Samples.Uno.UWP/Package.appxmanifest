@@ -15,7 +15,7 @@
 
   <Properties>
     <DisplayName>XamlFlair.Samples.Uno</DisplayName>
-    <PublisherDisplayName>xamlflair</PublisherDisplayName>
+    <PublisherDisplayName>XamlFlair</PublisherDisplayName>
     <Logo>Assets\Icon\StoreLogo.png</Logo>
   </Properties>
 

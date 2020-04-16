@@ -11,14 +11,14 @@
 	<PackageId>XamlFlair.Uno</PackageId>
 	<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
 	<PackageReleaseNotes>Added support for the Uno platform to XamlFlair.</PackageReleaseNotes>
-	<Version>1.1.1</Version>
+	<Version>1.1.2</Version>
 	<PackageProjectUrl>https://github.com/XamlFlair/XamlFlair</PackageProjectUrl>
 	<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-	<Company>xamlflair</Company>
+	<Company>XamlFlair</Company>
 	<PackageIconUrl>https://github.com/XamlFlair/XamlFlair/blob/master/nuget_logo.png?raw=true</PackageIconUrl>
-	<Authors>xamlflair</Authors>
-	<FileVersion>1.1.1</FileVersion>
-	<AssemblyVersion>1.1.1</AssemblyVersion>
+	<Authors>XamlFlair</Authors>
+	<FileVersion>1.1.2</FileVersion>
+	<AssemblyVersion>1.1.2</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
 	<DefineConstants>$(DefineConstants);__WASM__</DefineConstants>
