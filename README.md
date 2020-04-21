@@ -266,7 +266,7 @@ Where you should replace the merged dictionary URI accordling,
 <ResourceDictionary Source="pack://application:,,,/XamlFlair.UWP;component/DefaultAnimations.xaml"/>
 
 <!-- UWP -->
-<ResourceDictionary Source="pack://application:,,,/XamlFlair.UWP;component/DefaultAnimations.xaml"/>
+<ResourceDictionary Source="ms-appx:///XamlFlair.UWP/DefaultAnimations.xaml" />
 ```
 
 
