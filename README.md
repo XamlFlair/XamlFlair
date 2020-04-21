@@ -241,6 +241,37 @@ To setup this set of pre-configured `AnimationSettings` already available in you
 
 Your app now has a global set of **common** animations ready to use.
 
+### Default Animations
+
+Alternatively to creating your own `ResourceDictionary` containing your custom  `AnimationSettings`, XamlFlair provides some **Default** Animations.
+
+To reference these Default Animations in your app, perform the following steps:
+
+1. In your `App.xaml`, add the following
+
+```xml
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/XamlFlair.WPF;component/DefaultAnimations.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+```
+
+Where you should replace the merged dictionary URI accordling,
+
+```xml
+<!-- WPF -->
+<ResourceDictionary Source="pack://application:,,,/XamlFlair.UWP;component/DefaultAnimations.xaml"/>
+
+<!-- UWP -->
+<ResourceDictionary Source="pack://application:,,,/XamlFlair.UWP;component/DefaultAnimations.xaml"/>
+```
+
+
+Your app now has a global set of **Default** animations ready to use.
+
 ### Combining Animations
 
 Animations can be combined, and as previously mentioned, any of these *combined* animations that are commonly used should be placed in the global `ResourceDictionary` (ex: `Animations.xaml`):

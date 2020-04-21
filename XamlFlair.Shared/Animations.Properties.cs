@@ -11,56 +11,56 @@ using Windows.UI.Composition;
 
 namespace XamlFlair
 {
-	public static partial class Animations
-	{
-		/// <summary>
-		/// Activates logging for the list of active storyboards (outputs the list on every item add/remove)
-		/// </summary>
-		public static bool EnableActiveTimelinesLogging { get; set; }
+    public static partial class Animations
+    {
+        /// <summary>
+        /// Activates logging for the list of active storyboards (outputs the list on every item add/remove)
+        /// </summary>
+        public static bool EnableActiveTimelinesLogging { get; set; }
 
-		#region Internal Attached Properties
+        #region Internal Attached Properties
 
-		internal static bool GetIsInitialized(DependencyObject obj) => (bool)obj.GetValue(IsInitializedProperty);
+        internal static bool GetIsInitialized(DependencyObject obj) => (bool)obj.GetValue(IsInitializedProperty);
 
-		internal static void SetIsInitialized(DependencyObject obj, bool value) => obj.SetValue(IsInitializedProperty, value);
+        internal static void SetIsInitialized(DependencyObject obj, bool value) => obj.SetValue(IsInitializedProperty, value);
 
-		/// <summary>
-		/// Specifies that InitializeElement has executed for the corresponding FrameworkElement
-		/// </summary>
-		internal static readonly DependencyProperty IsInitializedProperty =
-			DependencyProperty.RegisterAttached(
-				"IsInitialized",
-				typeof(bool),
-				typeof(Animations),
-				new PropertyMetadata(false));
+        /// <summary>
+        /// Specifies that InitializeElement has executed for the corresponding FrameworkElement
+        /// </summary>
+        internal static readonly DependencyProperty IsInitializedProperty =
+            DependencyProperty.RegisterAttached(
+                "IsInitialized",
+                typeof(bool),
+                typeof(Animations),
+                new PropertyMetadata(false));
 
-		internal static Guid GetElementGuid(DependencyObject obj) => (Guid)obj.GetValue(ElementGuidProperty);
+        internal static Guid GetElementGuid(DependencyObject obj) => (Guid)obj.GetValue(ElementGuidProperty);
 
-		internal static void SetElementGuid(DependencyObject obj, Guid value) => obj.SetValue(ElementGuidProperty, value);
+        internal static void SetElementGuid(DependencyObject obj, Guid value) => obj.SetValue(ElementGuidProperty, value);
 
-		/// <summary>
-		/// Guid attached to a FrameworkElement, used to identify them (used internally).
-		/// </summary>
-		internal static readonly DependencyProperty ElementGuidProperty =
-			DependencyProperty.RegisterAttached(
-				"ElementGuid",
-				typeof(Guid),
-				typeof(Animations),
-				new PropertyMetadata(Guid.Empty));
+        /// <summary>
+        /// Guid attached to a FrameworkElement, used to identify them (used internally).
+        /// </summary>
+        internal static readonly DependencyProperty ElementGuidProperty =
+            DependencyProperty.RegisterAttached(
+                "ElementGuid",
+                typeof(Guid),
+                typeof(Animations),
+                new PropertyMetadata(Guid.Empty));
 
-		internal static Guid GetTimelineGuid(DependencyObject obj) => (Guid)obj.GetValue(TimelineGuidProperty);
+        internal static Guid GetTimelineGuid(DependencyObject obj) => (Guid)obj.GetValue(TimelineGuidProperty);
 
-		internal static void SetTimelineGuid(DependencyObject obj, Guid value) => obj.SetValue(TimelineGuidProperty, value);
+        internal static void SetTimelineGuid(DependencyObject obj, Guid value) => obj.SetValue(TimelineGuidProperty, value);
 
-		/// <summary>
-		/// Guid attached to a FrameworkElement, used to identify them (used internally).
-		/// </summary>
-		internal static readonly DependencyProperty TimelineGuidProperty =
-			DependencyProperty.RegisterAttached(
-				"TimelineGuid",
-				typeof(Guid),
-				typeof(Animations),
-				new PropertyMetadata(Guid.Empty));
+        /// <summary>
+        /// Guid attached to a FrameworkElement, used to identify them (used internally).
+        /// </summary>
+        internal static readonly DependencyProperty TimelineGuidProperty =
+            DependencyProperty.RegisterAttached(
+                "TimelineGuid",
+                typeof(Guid),
+                typeof(Animations),
+                new PropertyMetadata(Guid.Empty));
 
 #if __UWP__
 		internal static SpriteVisual GetSprite(DependencyObject obj) => (SpriteVisual)obj.GetValue(SpriteProperty);
@@ -78,180 +78,194 @@ namespace XamlFlair
 				new PropertyMetadata(null));
 #endif
 
-		internal static CompositeDisposable GetDisposables(DependencyObject obj) => (CompositeDisposable)obj.GetValue(DisposablesProperty);
+        internal static CompositeDisposable GetDisposables(DependencyObject obj) => (CompositeDisposable)obj.GetValue(DisposablesProperty);
 
-		internal static void SetDisposables(DependencyObject obj, CompositeDisposable value) => obj.SetValue(DisposablesProperty, value);
+        internal static void SetDisposables(DependencyObject obj, CompositeDisposable value) => obj.SetValue(DisposablesProperty, value);
 
-		/// <summary>
-		///  Internal property to hold an element's disposables
-		/// </summary>
-		internal static readonly DependencyProperty DisposablesProperty =
-			DependencyProperty.RegisterAttached(
-				"Disposables",
-				typeof(CompositeDisposable),
-				typeof(Animations),
-				new PropertyMetadata(null));
+        /// <summary>
+        ///  Internal property to hold an element's disposables
+        /// </summary>
+        internal static readonly DependencyProperty DisposablesProperty =
+            DependencyProperty.RegisterAttached(
+                "Disposables",
+                typeof(CompositeDisposable),
+                typeof(Animations),
+                new PropertyMetadata(null));
 
-		#endregion
+        #endregion
 
-		#region Public Attached Properties
+        #region Public Attached Properties
 
-		public static bool GetEnableLogging(DependencyObject obj) => (bool)obj.GetValue(EnableLoggingProperty);
+        public static bool GetEnableLogging(DependencyObject obj) => (bool)obj.GetValue(EnableLoggingProperty);
 
-		public static void SetEnableLogging(DependencyObject obj, bool value) => obj.SetValue(EnableLoggingProperty, value);
+        public static void SetEnableLogging(DependencyObject obj, bool value) => obj.SetValue(EnableLoggingProperty, value);
 
-		/// <summary>
-		/// Specifies if animation data should be logged to the console for debugging purposes.
-		/// </summary>
-		public static readonly DependencyProperty EnableLoggingProperty =
-			DependencyProperty.RegisterAttached(
-				"EnableLogging",
-				typeof(bool),
-				typeof(Animations),
-				new PropertyMetadata(false));
+        /// <summary>
+        /// Specifies if animation data should be logged to the console for debugging purposes.
+        /// </summary>
+        public static readonly DependencyProperty EnableLoggingProperty =
+            DependencyProperty.RegisterAttached(
+                "EnableLogging",
+                typeof(bool),
+                typeof(Animations),
+                new PropertyMetadata(false));
 
-		public static bool GetPrimaryBinding(DependencyObject obj) => (bool)obj.GetValue(PrimaryBindingProperty);
+        public static bool GetBinding(DependencyObject obj) => (bool)obj.GetValue(BindingProperty);
 
-		public static void SetPrimaryBinding(DependencyObject obj, bool value) => obj.SetValue(PrimaryBindingProperty, value);
+        public static void SetBinding(DependencyObject obj, bool value) => obj.SetValue(BindingProperty, value);
 
-		/// <summary>
-		/// Triggers the Primary animation when a True value is set.
-		/// </summary>
-		public static readonly DependencyProperty PrimaryBindingProperty =
-			DependencyProperty.RegisterAttached(
-				"PrimaryBinding",
-				typeof(bool),
-				typeof(Animations),
-				new PropertyMetadata(false, OnPrimaryBindingChanged));
+        /// <summary>
+        /// Triggers the Primary animation when a True value is set.
+        /// </summary>
+        public static readonly DependencyProperty BindingProperty =
+            DependencyProperty.RegisterAttached(
+                "Binding",
+                typeof(bool),
+                typeof(Animations),
+                new PropertyMetadata(false, OnBindingChanged));
 
-		public static IAnimationSettings GetPrimary(DependencyObject obj) => (IAnimationSettings)obj.GetValue(PrimaryProperty);
+        public static bool GetPrimaryBinding(DependencyObject obj) => (bool)obj.GetValue(PrimaryBindingProperty);
 
-		public static void SetPrimary(DependencyObject obj, IAnimationSettings value) => obj.SetValue(PrimaryProperty, value);
+        public static void SetPrimaryBinding(DependencyObject obj, bool value) => obj.SetValue(PrimaryBindingProperty, value);
 
-		/// <summary>
-		/// The Primary animation intended to run on FrameworkElement's Loaded event or a value change on PrimaryBinding.
-		/// </summary>
-		public static readonly DependencyProperty PrimaryProperty =
-			DependencyProperty.RegisterAttached(
-				"Primary",
-				typeof(IAnimationSettings),
-				typeof(Animations),
-				new PropertyMetadata(null, OnPrimaryChanged));
+        /// <summary>
+        /// Triggers the Primary animation when a True value is set.
+        /// </summary>
+        public static readonly DependencyProperty PrimaryBindingProperty =
+            DependencyProperty.RegisterAttached(
+                "PrimaryBinding",
+                typeof(bool),
+                typeof(Animations),
+                new PropertyMetadata(false, OnPrimaryBindingChanged));
 
-		public static bool GetSecondaryBinding(DependencyObject obj) => (bool)obj.GetValue(SecondaryBindingProperty);
+        public static IAnimationSettings GetPrimary(DependencyObject obj) => (IAnimationSettings)obj.GetValue(PrimaryProperty);
 
-		public static void SetSecondaryBinding(DependencyObject obj, bool value) => obj.SetValue(SecondaryBindingProperty, value);
+        public static void SetPrimary(DependencyObject obj, IAnimationSettings value) => obj.SetValue(PrimaryProperty, value);
 
-		/// <summary>
-		/// Triggers the Secondary animation when a True value is set.
-		/// </summary>
-		public static readonly DependencyProperty SecondaryBindingProperty =
-			DependencyProperty.RegisterAttached(
-				"SecondaryBinding",
-				typeof(bool),
-				typeof(Animations),
-				new PropertyMetadata(false, OnSecondaryBindingChanged));
+        /// <summary>
+        /// The Primary animation intended to run on FrameworkElement's Loaded event or a value change on PrimaryBinding.
+        /// </summary>
+        public static readonly DependencyProperty PrimaryProperty =
+            DependencyProperty.RegisterAttached(
+                "Primary",
+                typeof(IAnimationSettings),
+                typeof(Animations),
+                new PropertyMetadata(null, OnPrimaryChanged));
 
-		public static IAnimationSettings GetSecondary(DependencyObject obj) => (IAnimationSettings)obj.GetValue(SecondaryProperty);
+        public static bool GetSecondaryBinding(DependencyObject obj) => (bool)obj.GetValue(SecondaryBindingProperty);
 
-		public static void SetSecondary(DependencyObject obj, IAnimationSettings value) => obj.SetValue(SecondaryProperty, value);
+        public static void SetSecondaryBinding(DependencyObject obj, bool value) => obj.SetValue(SecondaryBindingProperty, value);
 
-		/// <summary>
-		/// The Secondary animation intended to run only through a value change on SecondaryBinding.
-		/// </summary>
-		public static readonly DependencyProperty SecondaryProperty =
-			DependencyProperty.RegisterAttached(
-				"Secondary",
-				typeof(IAnimationSettings),
-				typeof(Animations),
-				new PropertyMetadata(null, OnSecondaryChanged));
+        /// <summary>
+        /// Triggers the Secondary animation when a True value is set.
+        /// </summary>
+        public static readonly DependencyProperty SecondaryBindingProperty =
+            DependencyProperty.RegisterAttached(
+                "SecondaryBinding",
+                typeof(bool),
+                typeof(Animations),
+                new PropertyMetadata(false, OnSecondaryBindingChanged));
 
-		public static AnimationSettings GetStartWith(DependencyObject obj) => (AnimationSettings)obj.GetValue(StartWithProperty);
+        public static IAnimationSettings GetSecondary(DependencyObject obj) => (IAnimationSettings)obj.GetValue(SecondaryProperty);
 
-		public static void SetStartWith(DependencyObject obj, AnimationSettings value) => obj.SetValue(StartWithProperty, value);
+        public static void SetSecondary(DependencyObject obj, IAnimationSettings value) => obj.SetValue(SecondaryProperty, value);
 
-		/// <summary>
-		/// Initializes the element with the specified settings.
-		/// </summary>
-		public static readonly DependencyProperty StartWithProperty =
-			DependencyProperty.RegisterAttached(
-				"StartWith",
-				typeof(AnimationSettings),
-				typeof(Animations),
-				new PropertyMetadata(null, OnStartWithChanged));
+        /// <summary>
+        /// The Secondary animation intended to run only through a value change on SecondaryBinding.
+        /// </summary>
+        public static readonly DependencyProperty SecondaryProperty =
+            DependencyProperty.RegisterAttached(
+                "Secondary",
+                typeof(IAnimationSettings),
+                typeof(Animations),
+                new PropertyMetadata(null, OnSecondaryChanged));
 
-		public static int GetIterationCount(DependencyObject obj) => (int)obj.GetValue(IterationCountProperty);
+        public static AnimationSettings GetStartWith(DependencyObject obj) => (AnimationSettings)obj.GetValue(StartWithProperty);
 
-		public static void SetIterationCount(DependencyObject obj, int value) => obj.SetValue(IterationCountProperty, value);
+        public static void SetStartWith(DependencyObject obj, AnimationSettings value) => obj.SetValue(StartWithProperty, value);
 
-		public static readonly DependencyProperty IterationCountProperty =
-			DependencyProperty.RegisterAttached(
-				"IterationCount",
-				typeof(int),
-				typeof(Animations),
-				new PropertyMetadata(1));
+        /// <summary>
+        /// Initializes the element with the specified settings.
+        /// </summary>
+        public static readonly DependencyProperty StartWithProperty =
+            DependencyProperty.RegisterAttached(
+                "StartWith",
+                typeof(AnimationSettings),
+                typeof(Animations),
+                new PropertyMetadata(null, OnStartWithChanged));
 
-		public static IterationBehavior GetIterationBehavior(DependencyObject obj) => (IterationBehavior)obj.GetValue(IterationBehaviorProperty);
+        public static int GetIterationCount(DependencyObject obj) => (int)obj.GetValue(IterationCountProperty);
 
-		public static void SetIterationBehavior(DependencyObject obj, IterationBehavior value) => obj.SetValue(IterationBehaviorProperty, value);
+        public static void SetIterationCount(DependencyObject obj, int value) => obj.SetValue(IterationCountProperty, value);
 
-		/// <summary>
-		/// Specifies the iteration behavior for the animation
-		/// </summary>
-		public static readonly DependencyProperty IterationBehaviorProperty =
-			DependencyProperty.RegisterAttached(
-				"IterationBehavior",
-				typeof(IterationBehavior),
-				typeof(Animations),
-				new PropertyMetadata(IterationBehavior.Count));
+        public static readonly DependencyProperty IterationCountProperty =
+            DependencyProperty.RegisterAttached(
+                "IterationCount",
+                typeof(int),
+                typeof(Animations),
+                new PropertyMetadata(1));
 
-		public static ICommand GetPrimaryCompletionCommand(DependencyObject obj) => (ICommand)obj.GetValue(PrimaryCompletionCommandProperty);
+        public static IterationBehavior GetIterationBehavior(DependencyObject obj) => (IterationBehavior)obj.GetValue(IterationBehaviorProperty);
 
-		public static void SetPrimaryCompletionCommand(DependencyObject obj, ICommand value) => obj.SetValue(PrimaryCompletionCommandProperty, value);
+        public static void SetIterationBehavior(DependencyObject obj, IterationBehavior value) => obj.SetValue(IterationBehaviorProperty, value);
 
-		/// <summary>
-		/// Specifies a command that executes when the Primary animation completes
-		/// </summary>
-		public static readonly DependencyProperty PrimaryCompletionCommandProperty =
-			DependencyProperty.RegisterAttached(
-				"PrimaryCompletionCommand",
-				typeof(ICommand),
-				typeof(Animations),
-				new PropertyMetadata(null));
+        /// <summary>
+        /// Specifies the iteration behavior for the animation
+        /// </summary>
+        public static readonly DependencyProperty IterationBehaviorProperty =
+            DependencyProperty.RegisterAttached(
+                "IterationBehavior",
+                typeof(IterationBehavior),
+                typeof(Animations),
+                new PropertyMetadata(IterationBehavior.Count));
 
-		public static ICommand GetSecondaryCompletionCommand(DependencyObject obj) => (ICommand)obj.GetValue(SecondaryCompletionCommandProperty);
+        public static ICommand GetPrimaryCompletionCommand(DependencyObject obj) => (ICommand)obj.GetValue(PrimaryCompletionCommandProperty);
 
-		public static void SetSecondaryCompletionCommand(DependencyObject obj, ICommand value) => obj.SetValue(SecondaryCompletionCommandProperty, value);
+        public static void SetPrimaryCompletionCommand(DependencyObject obj, ICommand value) => obj.SetValue(PrimaryCompletionCommandProperty, value);
 
-		/// <summary>
-		/// Specifies a command that executes when the Secondary animation completes
-		/// </summary>
-		public static readonly DependencyProperty SecondaryCompletionCommandProperty =
-			DependencyProperty.RegisterAttached(
-				"SecondaryCompletionCommand",
-				typeof(ICommand),
-				typeof(Animations),
-				new PropertyMetadata(null));
+        /// <summary>
+        /// Specifies a command that executes when the Primary animation completes
+        /// </summary>
+        public static readonly DependencyProperty PrimaryCompletionCommandProperty =
+            DependencyProperty.RegisterAttached(
+                "PrimaryCompletionCommand",
+                typeof(ICommand),
+                typeof(Animations),
+                new PropertyMetadata(null));
+
+        public static ICommand GetSecondaryCompletionCommand(DependencyObject obj) => (ICommand)obj.GetValue(SecondaryCompletionCommandProperty);
+
+        public static void SetSecondaryCompletionCommand(DependencyObject obj, ICommand value) => obj.SetValue(SecondaryCompletionCommandProperty, value);
+
+        /// <summary>
+        /// Specifies a command that executes when the Secondary animation completes
+        /// </summary>
+        public static readonly DependencyProperty SecondaryCompletionCommandProperty =
+            DependencyProperty.RegisterAttached(
+                "SecondaryCompletionCommand",
+                typeof(ICommand),
+                typeof(Animations),
+                new PropertyMetadata(null));
 
 #if __WPF__
-		public static bool GetAllowOpacityReset(DependencyObject obj) => (bool)obj.GetValue(AllowOpacityResetProperty);
+        public static bool GetAllowOpacityReset(DependencyObject obj) => (bool)obj.GetValue(AllowOpacityResetProperty);
 
-		public static void SetAllowOpacityReset(DependencyObject obj, bool value) => obj.SetValue(AllowOpacityResetProperty, value);
+        public static void SetAllowOpacityReset(DependencyObject obj, bool value) => obj.SetValue(AllowOpacityResetProperty, value);
 
-		/// <summary>
-		/// Allows the Opacity value to be reset after being animated (stops the animation from influencing the property).
-		/// </summary>
-		/// <remarks>
-		/// https://docs.microsoft.com/en-us/dotnet/framework/wpf/graphics-multimedia/how-to-set-a-property-after-animating-it-with-a-storyboard?view=netframework-4.7.2#remove-an-animation-from-an-individual-property
-		/// </remarks>
-		public static readonly DependencyProperty AllowOpacityResetProperty =
-			DependencyProperty.RegisterAttached(
-				"AllowOpacityReset",
-				typeof(bool),
-				typeof(Animations),
-				new PropertyMetadata(true));
+        /// <summary>
+        /// Allows the Opacity value to be reset after being animated (stops the animation from influencing the property).
+        /// </summary>
+        /// <remarks>
+        /// https://docs.microsoft.com/en-us/dotnet/framework/wpf/graphics-multimedia/how-to-set-a-property-after-animating-it-with-a-storyboard?view=netframework-4.7.2#remove-an-animation-from-an-individual-property
+        /// </remarks>
+        public static readonly DependencyProperty AllowOpacityResetProperty =
+            DependencyProperty.RegisterAttached(
+                "AllowOpacityReset",
+                typeof(bool),
+                typeof(Animations),
+                new PropertyMetadata(true));
 #endif
 
-		#endregion
-	}
+        #endregion
+    }
 }

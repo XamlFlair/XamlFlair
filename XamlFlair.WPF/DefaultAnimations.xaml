@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:cor="clr-namespace:System;assembly=mscorlib"
-					xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF">
+                    xmlns:xf="clr-namespace:XamlFlair">
+
 
 	<cor:Double x:Key="BlurRadius">24</cor:Double>
 	<cor:Double x:Key="SmallScaleFactor">0.75</cor:Double>
