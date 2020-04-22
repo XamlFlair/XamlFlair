@@ -4,7 +4,7 @@
 	<Application.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/XamlFlair.UWP;component/DefaultAnimations.xaml"/>
+                <ResourceDictionary Source="ms-appx:///XamlFlair.UWP/DefaultAnimations.xaml" />
 				<ResourceDictionary Source="Converters.xaml" />
 
 				<ResourceDictionary Source="Styles\Colors.xaml" />
