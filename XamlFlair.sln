@@ -31,13 +31,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XamlFlair.Samples.Uno.Wasm"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Samples\Uno\XamlFlair.Samples.Uno.Shared\XamlFlair.Samples.Uno.Shared.projitems*{10d93a03-df30-47e2-aa44-03b1418efcf0}*SharedItemsImports = 5
 		XamlFlair.Shared\XamlFlair.Shared.projitems*{42523bca-c3a9-44d5-9f56-0e4bdf21bad4}*SharedItemsImports = 13
 		Samples\Uno\XamlFlair.Samples.Uno.Shared\XamlFlair.Samples.Uno.Shared.projitems*{6279c845-92f8-4333-ab99-3d213163593c}*SharedItemsImports = 13
 		Samples\Uno\XamlFlair.Samples.Uno.Shared\XamlFlair.Samples.Uno.Shared.projitems*{b21e8839-081c-405c-9419-2b8e9037271c}*SharedItemsImports = 4
 		Samples\Uno\XamlFlair.Samples.Uno.Shared\XamlFlair.Samples.Uno.Shared.projitems*{b8b6c94a-0757-4b4d-9510-94bd405865ed}*SharedItemsImports = 4
-		XamlFlair.Shared\XamlFlair.Shared.projitems*{bdfe68a7-417f-4274-8fde-d1355a402171}*SharedItemsImports = 4
+		XamlFlair.Shared\XamlFlair.Shared.projitems*{bdfe68a7-417f-4274-8fde-d1355a402171}*SharedItemsImports = 5
 		XamlFlair.Shared\XamlFlair.Shared.projitems*{c5161313-ffe1-4fab-a0da-513ec62dc93c}*SharedItemsImports = 4
 		Samples\Uno\XamlFlair.Samples.Uno.Shared\XamlFlair.Samples.Uno.Shared.projitems*{d9974767-0b02-4f1c-bbad-8c3163ab5d0f}*SharedItemsImports = 4
+		XamlFlair.Shared\XamlFlair.Shared.projitems*{dda71cce-063c-44c9-ad5b-e288f2af4995}*SharedItemsImports = 5
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
