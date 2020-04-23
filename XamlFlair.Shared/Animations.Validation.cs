@@ -27,11 +27,11 @@ namespace XamlFlair
 			}
 
 			var startWith = element.ReadLocalValue(StartWithProperty);
-			var startWithSettings = GetStartWith(element);
-			var primary = element.ReadLocalValue(PrimaryProperty);
-			var primaryBinding = element.ReadLocalValue(PrimaryBindingProperty);
-			var secondary = element.ReadLocalValue(SecondaryProperty);
-			var secondaryBinding = element.ReadLocalValue(SecondaryBindingProperty);
+			var primaryIsSet = (element.ReadLocalValue(PrimaryProperty) != DependencyProperty.UnsetValue);
+			var primaryBindingIsSet = (element.ReadLocalValue(PrimaryBindingProperty) != DependencyProperty.UnsetValue);
+			var secondaryIsSet = (element.ReadLocalValue(SecondaryProperty) != DependencyProperty.UnsetValue);
+			var secondaryBindingIsSet = (element.ReadLocalValue(SecondaryBindingProperty) != DependencyProperty.UnsetValue);
+			var combinedBindingIsSet = (element.ReadLocalValue(CombinedBindingProperty) != DependencyProperty.UnsetValue);
 			var isIterating = GetIterationBehavior(element) == IterationBehavior.Forever || GetIterationCount(element) > 1;
 
 			AnimationSettings primarySettings = null;
@@ -58,28 +58,27 @@ namespace XamlFlair
 			}
 
 			// Cannot set an animation for Secondary when specifying values for IterationCount or IterationBehavior.
-			if (isIterating && secondary != DependencyProperty.UnsetValue)
+			if (isIterating && secondaryIsSet)
 			{
 				throw new ArgumentException($"Cannot set an animation for {nameof(SecondaryProperty)} when specifying values for {nameof(IterationCountProperty)} or {nameof(IterationBehaviorProperty)}.");
 			}
 
 			// Primary must be set first before specifying a value for Secondary.
-			if (primary == DependencyProperty.UnsetValue
-				&& secondary != DependencyProperty.UnsetValue)
+			if (!primaryIsSet && secondaryIsSet)
 			{
 				throw new ArgumentException($"{nameof(PrimaryProperty)} must be set first before specifying a value for {nameof(SecondaryProperty)}.");
 			}
 
-			// PrimaryBinding was set wtihout a corresponding value for Primary.
-			if (primaryBinding != DependencyProperty.UnsetValue
-				&& primary == DependencyProperty.UnsetValue)
+			// PrimaryBinding or CombinedBinding was set wtihout a corresponding value for Primary.
+			if ((primaryBindingIsSet || combinedBindingIsSet) && !primaryIsSet)
 			{
-				throw new ArgumentException($"{nameof(PrimaryBindingProperty)} was set wtihout a corresponding value for {nameof(PrimaryProperty)}.");
+				throw new ArgumentException($"{nameof(PrimaryBindingProperty)} or {nameof(CombinedBindingProperty)} was set wtihout a corresponding value for {nameof(PrimaryProperty)}.");
 			}
 
 			// Primary is missing a trigger by an event or binding.
-			if (primary != DependencyProperty.UnsetValue
-				&& primaryBinding == DependencyProperty.UnsetValue
+			if (primaryIsSet
+				&& !primaryBindingIsSet
+				&& !combinedBindingIsSet
 				&& primarySettings != null
 				&& primarySettings?.Event == EventType.None)
 			{
@@ -87,23 +86,23 @@ namespace XamlFlair
 			}
 
 			// SecondaryBinding was set wtihout a corresponding value for Secondary.
-			if (secondaryBinding != DependencyProperty.UnsetValue
-				&& secondary == DependencyProperty.UnsetValue)
+			if ((secondaryBindingIsSet || combinedBindingIsSet) && !secondaryIsSet)
 			{
-				throw new ArgumentException($"{nameof(SecondaryBindingProperty)} was set wtihout a corresponding value for {nameof(SecondaryProperty)}.");
+				throw new ArgumentException($"{nameof(SecondaryBindingProperty)} or {nameof(CombinedBindingProperty)} was set wtihout a corresponding value for {nameof(SecondaryProperty)}.");
 			}
 
 			// Secondary is missing a trigger by an event or binding.
-			if (secondary != DependencyProperty.UnsetValue
-				&& secondaryBinding == DependencyProperty.UnsetValue
+			if (secondaryIsSet
+				&& !secondaryBindingIsSet
+				&& !combinedBindingIsSet
 				&& secondarySettings != null
 				&& secondarySettings.Event == EventType.None)
 			{
 				throw new ArgumentException($"{nameof(SecondaryProperty)} is missing a trigger by an event or binding.");
 			}
 
-			// Cannot use StartWith without specifying a Primaryanimation.
-			if (startWith != DependencyProperty.UnsetValue && primary == DependencyProperty.UnsetValue)
+			// Cannot use StartWith without specifying a Primary animation.
+			if (startWith != DependencyProperty.UnsetValue && !primaryIsSet)
 			{
 				throw new ArgumentException($"Cannot use {nameof(StartWithProperty)} without specifying a {nameof(PrimaryProperty)} animation.");
 			}

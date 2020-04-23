@@ -88,7 +88,7 @@ namespace XamlFlair
 				nameof(Delay),
 				typeof(double),
 				typeof(AnimationSettings),
-				new PropertyMetadata(10d));
+				new PropertyMetadata(0d));
 
 		public double Opacity
 		{

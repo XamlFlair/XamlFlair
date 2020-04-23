@@ -10,21 +10,21 @@
 	<Copyright>Copyright © 2020</Copyright>
 	<PackageId>XamlFlair.Uno</PackageId>
 	<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-	<PackageReleaseNotes>Added support for the Uno platform to XamlFlair.</PackageReleaseNotes>
-	<Version>1.1.2</Version>
+	<PackageReleaseNotes>Added a new binding property called CombinedBinding + update to the validation logic. + Uno nuget update</PackageReleaseNotes>
+	<Version>1.1.3</Version>
 	<PackageProjectUrl>https://github.com/XamlFlair/XamlFlair</PackageProjectUrl>
 	<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
 	<Company>XamlFlair</Company>
 	<PackageIconUrl>https://github.com/XamlFlair/XamlFlair/blob/master/nuget_logo.png?raw=true</PackageIconUrl>
 	<Authors>XamlFlair</Authors>
-	<FileVersion>1.1.2</FileVersion>
-	<AssemblyVersion>1.1.2</AssemblyVersion>
+	<FileVersion>1.1.3</FileVersion>
+	<AssemblyVersion>1.1.3</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
 	<DefineConstants>$(DefineConstants);__WASM__</DefineConstants>
   </PropertyGroup>
   <ItemGroup Condition="'$(TargetFramework)'=='xamarinios10' or '$(TargetFramework)'=='monoandroid80' or '$(TargetFramework)'=='monoandroid90' or '$(TargetFramework)'=='netstandard2.0'">
-	<PackageReference Include="Uno.UI" Version="2.1.37" />
+	<PackageReference Include="Uno.UI" Version="2.2.0" />
   </ItemGroup>
   <ItemGroup>
 	<Page Include="**\*.xaml" Exclude="bin\**\*.xaml;obj\**\*.xaml" />

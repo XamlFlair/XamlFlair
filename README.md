@@ -413,6 +413,33 @@ When specifying `None`, you will manually need to trigger your animations using 
 
 The above animation will *only* execute when the `IsChecked` is `True`. If `None` was not specified for `Event`, the animation would then execute on `Loaded` *and* on the binding.
 
+When working with both `PrimaryBinding` and `SecondaryBinding` together (based on the same boolean value), it may be cleaner and simpler to use `CombinedBinding`. `CombinedBinding` simply acts as both `PrimaryBinding` and `SecondaryBinding` together. Instead of the following:
+
+```xml
+<CheckBox x:Name="SampleCheckBox"
+          IsChecked="False" />
+
+<Rectangle xf:Animations.PrimaryBinding="{Binding IsChecked, ElementName=SampleCheckBox}"
+           xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Event=None}"
+           xf:Animations.SecondaryBinding="{Binding IsChecked, ElementName=SampleCheckBox, Converter={StaticResource InverseBoolConverter}}"
+           xf:Animations.Secondary="{xf:Animate BasedOn={StaticResource FadeOut}, Event=None}"
+           xf:Animations.StartWith="{StaticResource FadeOut}" />
+```
+
+You would use it as such:
+
+```xml
+<CheckBox x:Name="SampleCheckBox"
+          IsChecked="False" />
+
+<Rectangle xf:Animations.CombinedBinding="{Binding IsChecked, ElementName=SampleCheckBox}"
+           xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Event=None}"
+           xf:Animations.Secondary="{xf:Animate BasedOn={StaticResource FadeOut}, Event=None}"
+           xf:Animations.StartWith="{StaticResource FadeOut}" />
+```
+
+By using `CombinedBinding` in this way, it saves on having to use a converter for the inverse boolean value, which is handled internally.
+
 ### Primary and Secondary Completion Commands
 
 There may be scenarios where you may want to execute an `ICommand` when an animation completes. In such a case, two properties exist: `PrimaryCompletionCommand` and `SecondaryCompletionCommand`.

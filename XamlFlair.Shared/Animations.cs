@@ -30,110 +30,110 @@ using Timeline = Windows.UI.Xaml.Media.Animation.Storyboard;
 
 namespace XamlFlair
 {
-    public static partial class Animations
-    {
-        private static readonly ConcurrentDictionary<Guid, ActiveTimeline<Timeline>> _actives = new ConcurrentDictionary<Guid, ActiveTimeline<Timeline>>();
+	public static partial class Animations
+	{
+		private static readonly ConcurrentDictionary<Guid, ActiveTimeline<Timeline>> _actives = new ConcurrentDictionary<Guid, ActiveTimeline<Timeline>>();
 
-        private static ILogger Logger;
+		private static ILogger Logger;
 
-        public static void InitializeLoggers(ILoggerFactory loggerFactory)
-        {
-            Logger = loggerFactory.CreateLogger(nameof(Animations));
-            ActiveTimelineExtensions.Logger = loggerFactory.CreateLogger(nameof(ActiveTimelineExtensions));
-            AnimationExtensions.Logger = loggerFactory.CreateLogger(nameof(AnimationExtensions));
+		public static void InitializeLoggers(ILoggerFactory loggerFactory)
+		{
+			Logger = loggerFactory.CreateLogger(nameof(Animations));
+			ActiveTimelineExtensions.Logger = loggerFactory.CreateLogger(nameof(ActiveTimelineExtensions));
+			AnimationExtensions.Logger = loggerFactory.CreateLogger(nameof(AnimationExtensions));
 #if __WPF__
-            ListBoxExtensions.Logger = loggerFactory.CreateLogger(nameof(ListBoxExtensions));
+			ListBoxExtensions.Logger = loggerFactory.CreateLogger(nameof(ListBoxExtensions));
 #else
 			Layout.Logger = loggerFactory.CreateLogger(nameof(Layout));
 			ListViewBaseExtensions.Logger = loggerFactory.CreateLogger(nameof(ListViewBaseExtensions));
 #endif
-        }
+		}
 
-        internal static bool IsInDesignMode(DependencyObject d)
-        {
+		internal static bool IsInDesignMode(DependencyObject d)
+		{
 #if __WPF__
-            return System.ComponentModel.DesignerProperties.GetIsInDesignMode(d);
+			return System.ComponentModel.DesignerProperties.GetIsInDesignMode(d);
 #elif __UWP__
 			return Windows.ApplicationModel.DesignMode.DesignMode2Enabled;
 #else
 			return false;
 #endif
-        }
+		}
 
-        #region Attached Property Callbacks
+		#region Attached Property Callbacks
 
-        private static void OnBindingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            HandleBindingChange(d, e, useSecondaryAnimation: false);
-            HandleBindingChange(d, e, useSecondaryAnimation: true, invertAnimation: true);
-        }
+		private static void OnCombinedBindingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		{
+			HandleBindingChange(d, e, useSecondaryAnimation: false);
+			HandleBindingChange(d, e, useSecondaryAnimation: true, invertAnimation: true);
+		}
 
-        private static void OnPrimaryBindingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            HandleBindingChange(d, e, useSecondaryAnimation: false);
-        }
+		private static void OnPrimaryBindingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		{
+			HandleBindingChange(d, e, useSecondaryAnimation: false);
+		}
 
-        private static void OnSecondaryBindingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            HandleBindingChange(d, e, useSecondaryAnimation: true);
-        }
+		private static void OnSecondaryBindingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		{
+			HandleBindingChange(d, e, useSecondaryAnimation: true);
+		}
 
-        private static void OnPrimaryChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            // Prevent running animations in a Visual Designer
-            if (IsInDesignMode(d))
-            {
-                return;
-            }
+		private static void OnPrimaryChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		{
+			// Prevent running animations in a Visual Designer
+			if (IsInDesignMode(d))
+			{
+				return;
+			}
 
-            if (d is FrameworkElement element)
-            {
-                InitializeElement(element);
+			if (d is FrameworkElement element)
+			{
+				InitializeElement(element);
 
-                RegisterElementEvents(element, e.NewValue as IAnimationSettings);
-            }
-        }
+				RegisterElementEvents(element, e.NewValue as IAnimationSettings);
+			}
+		}
 
-        private static void OnSecondaryChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            // Prevent running animations in a Visual Designer
-            if (IsInDesignMode(d))
-            {
-                return;
-            }
+		private static void OnSecondaryChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		{
+			// Prevent running animations in a Visual Designer
+			if (IsInDesignMode(d))
+			{
+				return;
+			}
 
-            if (d is FrameworkElement element)
-            {
-                InitializeElement(element);
+			if (d is FrameworkElement element)
+			{
+				InitializeElement(element);
 
-                RegisterElementEvents(element, e.NewValue as IAnimationSettings, useSecondarySettings: true);
-            }
-        }
+				RegisterElementEvents(element, e.NewValue as IAnimationSettings, useSecondarySettings: true);
+			}
+		}
 
-        private static void OnStartWithChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            // Prevent running animations in a Visual Designer
-            if (IsInDesignMode(d))
-            {
-                return;
-            }
+		private static void OnStartWithChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		{
+			// Prevent running animations in a Visual Designer
+			if (IsInDesignMode(d))
+			{
+				return;
+			}
 
-            if (d is FrameworkElement element)
-            {
-                InitializeElement(element);
-            }
-        }
+			if (d is FrameworkElement element)
+			{
+				InitializeElement(element);
+			}
+		}
 
-        // This can be called from the three main entry-points (Primary, Secondary, and StartWith)
-        private static void InitializeElement(FrameworkElement element)
-        {
-            if (GetIsInitialized(element))
-            {
-                return;
-            }
+		// This can be called from the three main entry-points (Primary, Secondary, and StartWith)
+		private static void InitializeElement(FrameworkElement element)
+		{
+			if (GetIsInitialized(element))
+			{
+				return;
+			}
 
-            // Set IsInitialized to true to only run this code once per element
-            SetIsInitialized(element, true);
+			// Set IsInitialized to true to only run this code once per element
+			SetIsInitialized(element, true);
 
 #if __UWP__
 			// The new way of handling translate animations (see Translation property section):
@@ -141,52 +141,52 @@ namespace XamlFlair
 			ElementCompositionPreview.SetIsTranslationEnabled(element, true);
 #endif
 
-            element
-                .Events()
-                .LoadedUntilUnloaded
-                .Take(1)
-                .Select(args => args.Sender as FrameworkElement)
-                .Subscribe(
-                    elem =>
-                    {
-                        // Perform validations on element's attached properties
-                        Validate(elem);
+			element
+				.Events()
+				.LoadedUntilUnloaded
+				.Take(1)
+				.Select(args => args.Sender as FrameworkElement)
+				.Subscribe(
+					elem =>
+					{
+						// Perform validations on element's attached properties
+						Validate(elem);
 
-                        var startSettings = elem.GetSettings(SettingsTarget.StartWith, getStartWithFunc: GetStartWith);
+						var startSettings = elem.GetSettings(SettingsTarget.StartWith, getStartWithFunc: GetStartWith);
 
-                        // If any StartWith settings were specified, apply them
-                        if (startSettings != null)
-                        {
-                            elem.ApplyInitialSettings((AnimationSettings)startSettings);
-                        }
-                    },
-                    ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElementEvents.LoadedUntilUnloaded)} event.", ex)
-                );
+						// If any StartWith settings were specified, apply them
+						if (startSettings != null)
+						{
+							elem.ApplyInitialSettings((AnimationSettings)startSettings);
+						}
+					},
+					ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElementEvents.LoadedUntilUnloaded)} event.", ex)
+				);
 
-            element
-                .Events()
-                .Unloaded
-                .Subscribe(
-                    args => CleanupDisposables(args.Sender as FrameworkElement),
-                    ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.Unloaded)} event.", ex)
-                );
+			element
+				.Events()
+				.Unloaded
+				.Subscribe(
+					args => CleanupDisposables(args.Sender as FrameworkElement),
+					ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.Unloaded)} event.", ex)
+				);
 
-            element
-                .Observe(UIElement.VisibilityProperty)
-                .TakeUntil(element.Events().Unloaded)
-                .Subscribe(
-                    _ =>
-                    {
-                        var isVisible = element.Visibility == Visibility.Visible;
-                        var elementGuid = GetElementGuid(element);
+			element
+				.Observe(UIElement.VisibilityProperty)
+				.TakeUntil(element.Events().Unloaded)
+				.Subscribe(
+					_ =>
+					{
+						var isVisible = element.Visibility == Visibility.Visible;
+						var elementGuid = GetElementGuid(element);
 
-                        if (isVisible && _actives.GetNextIdleActiveTimeline(elementGuid)?.Timeline is Timeline idle)
-                        {
-                            RunNextAnimation(idle, element);
-                        }
-                    },
-                    ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.Visibility)} changes of {nameof(FrameworkElement)}", ex)
-                );
+						if (isVisible && _actives.GetNextIdleActiveTimeline(elementGuid)?.Timeline is Timeline idle)
+						{
+							RunNextAnimation(idle, element);
+						}
+					},
+					ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.Visibility)} changes of {nameof(FrameworkElement)}", ex)
+				);
 
 #if __UWP__
 			element
@@ -206,261 +206,261 @@ namespace XamlFlair
 					ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.SizeChanged)} event.", ex)
 				);
 #endif
-        }
+		}
 
-        #endregion
+		#endregion
 
-        #region Events
+		#region Events
 
-        private static void RegisterElementEvents(FrameworkElement element, IAnimationSettings settings, bool useSecondarySettings = false)
-        {
-            switch (settings?.Event ?? AnimationSettings.DEFAULT_EVENT)
-            {
-                case EventType.Loaded:
-                {
-                    element
-                        .Events()
-                        .LoadedUntilUnloaded
-                        .Subscribe(
-                            args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
-                            ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.Loaded)} event.", ex),
-                            () => Cleanup(element)
-                        );
+		private static void RegisterElementEvents(FrameworkElement element, IAnimationSettings settings, bool useSecondarySettings = false)
+		{
+			switch (settings?.Event ?? AnimationSettings.DEFAULT_EVENT)
+			{
+				case EventType.Loaded:
+				{
+					element
+						.Events()
+						.LoadedUntilUnloaded
+						.Subscribe(
+							args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
+							ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.Loaded)} event.", ex),
+							() => Cleanup(element)
+						);
 
-                    break;
-                }
+					break;
+				}
 
-                case EventType.Visibility:
-                {
-                    element
-                        .Observe(FrameworkElement.VisibilityProperty)
-                        .Where(_ => element.Visibility == Visibility.Visible)
-                        .TakeUntil(element.Events().Unloaded)
-                        .Subscribe(
-                            _ => PrepareAnimations(element, useSecondaryAnimation: useSecondarySettings),
-                            ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.Visibility)} changes of {nameof(FrameworkElement)}", ex),
-                            () => Cleanup(element)
-                        );
+				case EventType.Visibility:
+				{
+					element
+						.Observe(FrameworkElement.VisibilityProperty)
+						.Where(_ => element.Visibility == Visibility.Visible)
+						.TakeUntil(element.Events().Unloaded)
+						.Subscribe(
+							_ => PrepareAnimations(element, useSecondaryAnimation: useSecondarySettings),
+							ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.Visibility)} changes of {nameof(FrameworkElement)}", ex),
+							() => Cleanup(element)
+						);
 
-                    break;
-                }
+					break;
+				}
 
-                case EventType.DataContextChanged:
-                {
-                    element
-                        .Events()
-                        .DataContextChanged
-                        .DistinctUntilChanged(args => args.EventArgs.NewValue)
-                        .TakeUntil(element.Events().Unloaded)
-                        .Subscribe(
-                            args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
-                            ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.DataContextChanged)} event.", ex),
-                            () => Cleanup(element)
-                        );
+				case EventType.DataContextChanged:
+				{
+					element
+						.Events()
+						.DataContextChanged
+						.DistinctUntilChanged(args => args.EventArgs.NewValue)
+						.TakeUntil(element.Events().Unloaded)
+						.Subscribe(
+							args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
+							ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.DataContextChanged)} event.", ex),
+							() => Cleanup(element)
+						);
 
-                    break;
-                }
+					break;
+				}
 
-                case EventType.PointerOver:
-                {
-                    element
-                        .Events()
-                        .PointerEntered
-                        .TakeUntil(element.Events().Unloaded)
-                        .Subscribe(
-                            args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
+				case EventType.PointerOver:
+				{
+					element
+						.Events()
+						.PointerEntered
+						.TakeUntil(element.Events().Unloaded)
+						.Subscribe(
+							args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
 #if __WPF__
-                                ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.MouseEnter)} event.", ex),
+								ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.MouseEnter)} event.", ex),
 #else
 								ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.PointerEntered)} event.", ex),
 #endif
-                                () => Cleanup(element)
-                        );
+								() => Cleanup(element)
+						);
 
-                    break;
-                }
+					break;
+				}
 
-                case EventType.PointerExit:
-                {
-                    element
-                        .Events()
-                        .PointerExited
-                        .TakeUntil(element.Events().Unloaded)
-                        .Subscribe(
-                            args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
+				case EventType.PointerExit:
+				{
+					element
+						.Events()
+						.PointerExited
+						.TakeUntil(element.Events().Unloaded)
+						.Subscribe(
+							args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
 #if __WPF__
-                                ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.MouseLeave)} event.", ex),
+								ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.MouseLeave)} event.", ex),
 #else
 								ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.PointerExited)} event.", ex),
 #endif
-                                () => Cleanup(element)
-                        );
+								() => Cleanup(element)
+						);
 
-                    break;
-                }
+					break;
+				}
 
-                case EventType.GotFocus:
-                {
-                    element
-                        .Events()
-                        .GotFocus
-                        .TakeUntil(element.Events().Unloaded)
-                        .Subscribe(
-                            args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
-                            ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.GotFocus)} event.", ex),
-                            () => Cleanup(element)
-                        );
+				case EventType.GotFocus:
+				{
+					element
+						.Events()
+						.GotFocus
+						.TakeUntil(element.Events().Unloaded)
+						.Subscribe(
+							args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
+							ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.GotFocus)} event.", ex),
+							() => Cleanup(element)
+						);
 
-                    break;
-                }
+					break;
+				}
 
-                case EventType.LostFocus:
-                {
-                    element
-                        .Events()
-                        .LostFocus
-                        .TakeUntil(element.Events().Unloaded)
-                        .Subscribe(
-                            args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
-                            ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.LostFocus)} event.", ex),
-                            () => Cleanup(element)
-                        );
+				case EventType.LostFocus:
+				{
+					element
+						.Events()
+						.LostFocus
+						.TakeUntil(element.Events().Unloaded)
+						.Subscribe(
+							args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
+							ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.LostFocus)} event.", ex),
+							() => Cleanup(element)
+						);
 
-                    break;
-                }
-            }
-        }
+					break;
+				}
+			}
+		}
 
-        private static void Timeline_Completed(object sender, object e)
-        {
+		private static void Timeline_Completed(object sender, object e)
+		{
 #if __WPF__
-            var timeline = (sender as ClockGroup)?.Timeline as Timeline;
+			var timeline = (sender as ClockGroup)?.Timeline as Timeline;
 #else
 			var timeline = sender as Timeline;
 #endif
-            // Unregister the Completed event
-            UnregisterTimeline(timeline);
+			// Unregister the Completed event
+			UnregisterTimeline(timeline);
 
-            if (_actives.GetElementByTimeline(timeline) is FrameworkElement element)
-            {
-                RunNextAnimation(timeline, element);
-            }
-        }
+			if (_actives.GetElementByTimeline(timeline) is FrameworkElement element)
+			{
+				RunNextAnimation(timeline, element);
+			}
+		}
 
-        private static void RunNextAnimation(Timeline timeline, FrameworkElement element)
-        {
-            var timelineGuid = GetTimelineGuid(timeline);
-            var elementGuid = GetElementGuid(element);
-            var active = _actives.FindActiveTimeline(timelineGuid);
+		private static void RunNextAnimation(Timeline timeline, FrameworkElement element)
+		{
+			var timelineGuid = GetTimelineGuid(timeline);
+			var elementGuid = GetElementGuid(element);
+			var active = _actives.FindActiveTimeline(timelineGuid);
 
-            active.SetAnimationState(timelineGuid, AnimationState.Completed);
+			active.SetAnimationState(timelineGuid, AnimationState.Completed);
 
-            // If an idle animation exists, run it
-            if (_actives.GetNextIdleActiveTimeline(elementGuid)?.Settings is AnimationSettings idleSettings)
-            {
-                RunAnimation(element, idleSettings, runFromIdle: true);
-            }
+			// If an idle animation exists, run it
+			if (_actives.GetNextIdleActiveTimeline(elementGuid)?.Settings is AnimationSettings idleSettings)
+			{
+				RunAnimation(element, idleSettings, runFromIdle: true);
+			}
 
-            // Else if the animation is a repetitive sequence and they're all completed,
-            // then reset the Completed to be Idle and re-start the sequence
-            else if (active.IsSequence && active.IsIterating && _actives.AllIteratingCompleted(elementGuid))
-            {
-                _actives.ResetAllIteratingCompletedToIdle(elementGuid);
+			// Else if the animation is a repetitive sequence and they're all completed,
+			// then reset the Completed to be Idle and re-start the sequence
+			else if (active.IsSequence && active.IsIterating && _actives.AllIteratingCompleted(elementGuid))
+			{
+				_actives.ResetAllIteratingCompletedToIdle(elementGuid);
 
-                // Make sure to run the next iteration on visible elements only
-                if (element.Visibility == Visibility.Visible)
-                {
-                    var first = _actives.FindFirstActiveTimeline(elementGuid);
-                    RunAnimation(element, first.Settings, runFromIdle: true);
-                }
-            }
+				// Make sure to run the next iteration on visible elements only
+				if (element.Visibility == Visibility.Visible)
+				{
+					var first = _actives.FindFirstActiveTimeline(elementGuid);
+					RunAnimation(element, first.Settings, runFromIdle: true);
+				}
+			}
 
-            // Else if the animation needs to repeat, re-start it
-            else if (!active.IsSequence && active.IsIterating)
-            {
-                active.SetAnimationState(timelineGuid, AnimationState.Idle);
+			// Else if the animation needs to repeat, re-start it
+			else if (!active.IsSequence && active.IsIterating)
+			{
+				active.SetAnimationState(timelineGuid, AnimationState.Idle);
 
-                // Make sure to run the next iteration on visible elements only
-                if (element.Visibility == Visibility.Visible)
-                {
-                    RunAnimation(element, active.Settings, runFromIdle: true);
-                }
-            }
+				// Make sure to run the next iteration on visible elements only
+				if (element.Visibility == Visibility.Visible)
+				{
+					RunAnimation(element, active.Settings, runFromIdle: true);
+				}
+			}
 
-            // Else if it's done animating, clean it up
-            else if (active.IterationCount <= 1 && active.IterationBehavior != IterationBehavior.Forever)
-            {
-                ExecuteCompletionCommand(element, active);
-                Cleanup(elementGuid, stopAnimation: false);
-            }
-        }
+			// Else if it's done animating, clean it up
+			else if (active.IterationCount <= 1 && active.IterationBehavior != IterationBehavior.Forever)
+			{
+				ExecuteCompletionCommand(element, active);
+				Cleanup(elementGuid, stopAnimation: false);
+			}
+		}
 
-        #endregion
+		#endregion
 
-        #region Methods
+		#region Methods
 
-        private static void HandleBindingChange(DependencyObject d, DependencyPropertyChangedEventArgs e, bool useSecondaryAnimation, bool invertAnimation = false)
-        {
-            // Prevent running animations in a Visual Designer
-            if (IsInDesignMode(d))
-            {
-                return;
-            }
+		private static void HandleBindingChange(DependencyObject d, DependencyPropertyChangedEventArgs e, bool useSecondaryAnimation, bool invertAnimation = false)
+		{
+			// Prevent running animations in a Visual Designer
+			if (IsInDesignMode(d))
+			{
+				return;
+			}
 
-            if (d is FrameworkElement element && e.NewValue is bool isAnimating && isAnimating != invertAnimation)
-            {
-                PrepareAnimations(element, useSecondaryAnimation);
-            }
-        }
+			if (d is FrameworkElement element && e.NewValue is bool isAnimating && isAnimating != invertAnimation)
+			{
+				PrepareAnimations(element, useSecondaryAnimation);
+			}
+		}
 
-        internal static void RunAnimation(FrameworkElement element, AnimationSettings settings, bool isSequence = false)
-        {
-            RunAnimation(element, settings, runFromIdle: false, isSequence: isSequence);
-        }
+		internal static void RunAnimation(FrameworkElement element, AnimationSettings settings, bool isSequence = false)
+		{
+			RunAnimation(element, settings, runFromIdle: false, isSequence: isSequence);
+		}
 
-        private static void RunAnimation(FrameworkElement element, AnimationSettings settings, bool runFromIdle, bool isSequence = false)
-        {
-            var timeline = new Timeline();
-            var iterationBehavior = GetIterationBehavior(element);
-            var iterationCount = GetIterationCount(element);
+		private static void RunAnimation(FrameworkElement element, AnimationSettings settings, bool runFromIdle, bool isSequence = false)
+		{
+			var timeline = new Timeline();
+			var iterationBehavior = GetIterationBehavior(element);
+			var iterationCount = GetIterationCount(element);
 
-            // FADE IN/OUT
-            if (settings.Kind.HasFlag(AnimationKind.FadeTo))
-            {
-                element.FadeTo(settings, ref timeline);
-            }
-            else if (settings.Kind.HasFlag(AnimationKind.FadeFrom))
-            {
-                element.FadeFrom(settings, ref timeline);
-            }
+			// FADE IN/OUT
+			if (settings.Kind.HasFlag(AnimationKind.FadeTo))
+			{
+				element.FadeTo(settings, ref timeline);
+			}
+			else if (settings.Kind.HasFlag(AnimationKind.FadeFrom))
+			{
+				element.FadeFrom(settings, ref timeline);
+			}
 
-            // ROTATE TO/FROM
-            if (settings.Kind.HasFlag(AnimationKind.RotateTo))
-            {
-                element.RotateTo(settings, ref timeline);
-            }
-            else if (settings.Kind.HasFlag(AnimationKind.RotateFrom))
-            {
-                element.RotateFrom(settings, ref timeline);
-            }
+			// ROTATE TO/FROM
+			if (settings.Kind.HasFlag(AnimationKind.RotateTo))
+			{
+				element.RotateTo(settings, ref timeline);
+			}
+			else if (settings.Kind.HasFlag(AnimationKind.RotateFrom))
+			{
+				element.RotateFrom(settings, ref timeline);
+			}
 
-            // SCALE TO/FROM
-            if (settings.Kind.HasFlag(AnimationKind.ScaleXTo))
-            {
-                element.ScaleXTo(settings, ref timeline);
-            }
-            else if (settings.Kind.HasFlag(AnimationKind.ScaleXFrom))
-            {
-                element.ScaleXFrom(settings, ref timeline);
-            }
-            if (settings.Kind.HasFlag(AnimationKind.ScaleYTo))
-            {
-                element.ScaleYTo(settings, ref timeline);
-            }
-            else if (settings.Kind.HasFlag(AnimationKind.ScaleYFrom))
-            {
-                element.ScaleYFrom(settings, ref timeline);
-            }
+			// SCALE TO/FROM
+			if (settings.Kind.HasFlag(AnimationKind.ScaleXTo))
+			{
+				element.ScaleXTo(settings, ref timeline);
+			}
+			else if (settings.Kind.HasFlag(AnimationKind.ScaleXFrom))
+			{
+				element.ScaleXFrom(settings, ref timeline);
+			}
+			if (settings.Kind.HasFlag(AnimationKind.ScaleYTo))
+			{
+				element.ScaleYTo(settings, ref timeline);
+			}
+			else if (settings.Kind.HasFlag(AnimationKind.ScaleYFrom))
+			{
+				element.ScaleYFrom(settings, ref timeline);
+			}
 #if __UWP__
 			if (settings.Kind.HasFlag(AnimationKind.ScaleZTo))
 			{
@@ -472,23 +472,23 @@ namespace XamlFlair
 			}
 #endif
 
-            // TRANSLATE TO/FROM
-            if (settings.Kind.HasFlag(AnimationKind.TranslateXTo))
-            {
-                element.TranslateXTo(settings, ref timeline);
-            }
-            else if (settings.Kind.HasFlag(AnimationKind.TranslateXFrom))
-            {
-                element.TranslateXFrom(settings, ref timeline);
-            }
-            if (settings.Kind.HasFlag(AnimationKind.TranslateYTo))
-            {
-                element.TranslateYTo(settings, ref timeline);
-            }
-            else if (settings.Kind.HasFlag(AnimationKind.TranslateYFrom))
-            {
-                element.TranslateYFrom(settings, ref timeline);
-            }
+			// TRANSLATE TO/FROM
+			if (settings.Kind.HasFlag(AnimationKind.TranslateXTo))
+			{
+				element.TranslateXTo(settings, ref timeline);
+			}
+			else if (settings.Kind.HasFlag(AnimationKind.TranslateXFrom))
+			{
+				element.TranslateXFrom(settings, ref timeline);
+			}
+			if (settings.Kind.HasFlag(AnimationKind.TranslateYTo))
+			{
+				element.TranslateYTo(settings, ref timeline);
+			}
+			else if (settings.Kind.HasFlag(AnimationKind.TranslateYFrom))
+			{
+				element.TranslateYFrom(settings, ref timeline);
+			}
 #if __UWP__
 			if (settings.Kind.HasFlag(AnimationKind.TranslateZTo))
 			{
@@ -501,15 +501,15 @@ namespace XamlFlair
 #endif
 
 #if __WPF__ || __UWP__
-            // BLUR TO/FROM
-            if (settings.Kind.HasFlag(AnimationKind.BlurTo))
-            {
-                element.BlurTo(settings, ref timeline);
-            }
-            else if (settings.Kind.HasFlag(AnimationKind.BlurFrom))
-            {
-                element.BlurFrom(settings, ref timeline);
-            }
+			// BLUR TO/FROM
+			if (settings.Kind.HasFlag(AnimationKind.BlurTo))
+			{
+				element.BlurTo(settings, ref timeline);
+			}
+			else if (settings.Kind.HasFlag(AnimationKind.BlurFrom))
+			{
+				element.BlurFrom(settings, ref timeline);
+			}
 #endif
 
 #if __UWP__
@@ -534,201 +534,201 @@ namespace XamlFlair
 			}
 #endif
 
-            ActiveTimeline<Timeline> active = null;
+			ActiveTimeline<Timeline> active = null;
 
-            if (runFromIdle)
-            {
-                // If the animation is running for an "idle" ActiveTimeline,
-                // then it must be set to the existing ActiveTimeline
-                // instead of creating a new one
-                var guid = GetElementGuid(element);
-                active = _actives.SetTimeline(guid, timeline);
-            }
-            else
-            {
-                // Add the new ActiveTimeline
-                active = _actives.Add(timeline, settings, element, AnimationState.Idle, iterationBehavior, iterationCount, isSequence);
-            }
+			if (runFromIdle)
+			{
+				// If the animation is running for an "idle" ActiveTimeline,
+				// then it must be set to the existing ActiveTimeline
+				// instead of creating a new one
+				var guid = GetElementGuid(element);
+				active = _actives.SetTimeline(guid, timeline);
+			}
+			else
+			{
+				// Add the new ActiveTimeline
+				active = _actives.Add(timeline, settings, element, AnimationState.Idle, iterationBehavior, iterationCount, isSequence);
+			}
 
-            // We decrement the iteration count right before running the animation
-            if (active.IterationCount > 0)
-            {
-                active.IterationCount--;
-            }
+			// We decrement the iteration count right before running the animation
+			if (active.IterationCount > 0)
+			{
+				active.IterationCount--;
+			}
 
-            StartTimeline(timeline);
-        }
+			StartTimeline(timeline);
+		}
 
-        private static void StartTimeline(Timeline timeline)
-        {
-            timeline.Completed += Timeline_Completed;
-            timeline.Begin();
+		private static void StartTimeline(Timeline timeline)
+		{
+			timeline.Completed += Timeline_Completed;
+			timeline.Begin();
 
-            _actives.SetAnimationState(GetTimelineGuid(timeline), AnimationState.Running);
-        }
+			_actives.SetAnimationState(GetTimelineGuid(timeline), AnimationState.Running);
+		}
 
-        private static void PrepareAnimations(FrameworkElement element, bool useSecondaryAnimation = false)
-        {
-            if (element == null)
-            {
-                return;
-            }
+		private static void PrepareAnimations(FrameworkElement element, bool useSecondaryAnimation = false)
+		{
+			if (element == null)
+			{
+				return;
+			}
 
-            // Make sure to not start an animation when an element is not visible
-            if (element.Visibility != Visibility.Visible)
-            {
-                return;
-            }
+			// Make sure to not start an animation when an element is not visible
+			if (element.Visibility != Visibility.Visible)
+			{
+				return;
+			}
 
-            // Make sure to stop any running animations
-            if (_actives.IsElementAnimating(GetElementGuid(element)))
-            {
-                foreach (var active in _actives.GetAllNonIteratingActiveTimelines(GetElementGuid(element)))
-                {
-                    active.Timeline.Stop();
-                }
-            }
+			// Make sure to stop any running animations
+			if (_actives.IsElementAnimating(GetElementGuid(element)))
+			{
+				foreach (var active in _actives.GetAllNonIteratingActiveTimelines(GetElementGuid(element)))
+				{
+					active.Timeline.Stop();
+				}
+			}
 
-            var animationSettings = element.GetSettings(
-                useSecondaryAnimation ? SettingsTarget.Secondary : SettingsTarget.Primary,
-                getPrimaryFunc: GetPrimary,
-                getSecondaryFunc: GetSecondary);
+			var animationSettings = element.GetSettings(
+				useSecondaryAnimation ? SettingsTarget.Secondary : SettingsTarget.Primary,
+				getPrimaryFunc: GetPrimary,
+				getSecondaryFunc: GetSecondary);
 
-            // Settings can be null if a Trigger is set before the associated element is loaded
-            if (animationSettings == null)
-            {
-                return;
-            }
+			// Settings can be null if a Trigger is set before the associated element is loaded
+			if (animationSettings == null)
+			{
+				return;
+			}
 
-            var settingsList = animationSettings.ToSettingsList();
-            var startFirst = true;
-            var iterationBehavior = GetIterationBehavior(element);
-            var iterationCount = GetIterationCount(element);
-            var sequenceCounter = 0;
+			var settingsList = animationSettings.ToSettingsList();
+			var startFirst = true;
+			var iterationBehavior = GetIterationBehavior(element);
+			var iterationCount = GetIterationCount(element);
+			var sequenceCounter = 0;
 
-            foreach (var settings in settingsList)
-            {
-                var isSequence = settingsList.Count > 1;
+			foreach (var settings in settingsList)
+			{
+				var isSequence = settingsList.Count > 1;
 
-                // The "first" animation must always run immediately
-                if (startFirst)
-                {
-                    RunAnimation(element, settings, isSequence);
+				// The "first" animation must always run immediately
+				if (startFirst)
+				{
+					RunAnimation(element, settings, isSequence);
 
-                    startFirst = false;
-                }
-                else
-                {
-                    _actives.Add(null, settings, element, AnimationState.Idle, iterationBehavior, iterationCount, isSequence, sequenceOrder: sequenceCounter);
-                }
+					startFirst = false;
+				}
+				else
+				{
+					_actives.Add(null, settings, element, AnimationState.Idle, iterationBehavior, iterationCount, isSequence, sequenceOrder: sequenceCounter);
+				}
 
-                sequenceCounter++;
-            }
-        }
+				sequenceCounter++;
+			}
+		}
 
-        private static void ExecuteCompletionCommand(FrameworkElement element, ActiveTimeline<Timeline> active)
-        {
-            // If a secondary completion command exists and the completing animation is a
-            // secondary animation, execute the corresponding command
-            if (GetSecondaryCompletionCommand(element) is ICommand secondaryCompletion
-                && GetSecondary(element) is IAnimationSettings secondary
-                && (AnimationSettings)secondary == active.Settings)
-            {
-                secondaryCompletion.Execute(null);
-            }
-            // Else execute the primary completion command if it exists
-            else if (GetPrimaryCompletionCommand(element) is ICommand primaryCompletion)
-            {
-                primaryCompletion.Execute(null);
-            }
-        }
+		private static void ExecuteCompletionCommand(FrameworkElement element, ActiveTimeline<Timeline> active)
+		{
+			// If a secondary completion command exists and the completing animation is a
+			// secondary animation, execute the corresponding command
+			if (GetSecondaryCompletionCommand(element) is ICommand secondaryCompletion
+				&& GetSecondary(element) is IAnimationSettings secondary
+				&& (AnimationSettings)secondary == active.Settings)
+			{
+				secondaryCompletion.Execute(null);
+			}
+			// Else execute the primary completion command if it exists
+			else if (GetPrimaryCompletionCommand(element) is ICommand primaryCompletion)
+			{
+				primaryCompletion.Execute(null);
+			}
+		}
 
-        private static void UnregisterTimeline(Timeline timeline)
-        {
-            if (timeline == null)
-            {
-                return;
-            }
+		private static void UnregisterTimeline(Timeline timeline)
+		{
+			if (timeline == null)
+			{
+				return;
+			}
 #if __WPF__
-            var timelineGuid = GetTimelineGuid(timeline);
+			var timelineGuid = GetTimelineGuid(timeline);
 
-            // Retrieve the original Storyboard since the one passed in is
-            // Frozen (to be able to unsubscribe from the event)
-            var original = _actives.FindActiveTimeline(timelineGuid)?.Timeline;
+			// Retrieve the original Storyboard since the one passed in is
+			// Frozen (to be able to unsubscribe from the event)
+			var original = _actives.FindActiveTimeline(timelineGuid)?.Timeline;
 
-            if (original != null)
-            {
-                original.Completed -= Timeline_Completed;
-            }
+			if (original != null)
+			{
+				original.Completed -= Timeline_Completed;
+			}
 #else
 			timeline.Completed -= Timeline_Completed;
 #endif
-        }
+		}
 
-        private static void Cleanup(FrameworkElement element, bool includeIterating = true, bool stopAnimation = true)
-        {
-            Cleanup(GetElementGuid(element), stopAnimation);
-        }
+		private static void Cleanup(FrameworkElement element, bool includeIterating = true, bool stopAnimation = true)
+		{
+			Cleanup(GetElementGuid(element), stopAnimation);
+		}
 
-        private static void Cleanup(Guid elementGuid, bool stopAnimation = true)
-        {
-            var result = _actives.GetAllKeyValuePairs(elementGuid);
+		private static void Cleanup(Guid elementGuid, bool stopAnimation = true)
+		{
+			var result = _actives.GetAllKeyValuePairs(elementGuid);
 
-            foreach (var kvp in result.ToArray())
-            {
-                var timeline = kvp.Value.Timeline;
+			foreach (var kvp in result.ToArray())
+			{
+				var timeline = kvp.Value.Timeline;
 
-                if (timeline != null)
-                {
-                    // We should only stop when the control unloads (since it can cause values to reset)
-                    if (stopAnimation)
-                    {
-                        timeline?.Stop();
-                    }
+				if (timeline != null)
+				{
+					// We should only stop when the control unloads (since it can cause values to reset)
+					if (stopAnimation)
+					{
+						timeline?.Stop();
+					}
 
-                    UnregisterTimeline(timeline);
-                    CleanupTimeline(timeline);
-                }
+					UnregisterTimeline(timeline);
+					CleanupTimeline(timeline);
+				}
 
-                _actives.RemoveByID(kvp.Key);
-            }
-        }
+				_actives.RemoveByID(kvp.Key);
+			}
+		}
 
-        private static void CleanupTimeline(Timeline timeline)
-        {
-            if (timeline == null)
-            {
-                return;
-            }
+		private static void CleanupTimeline(Timeline timeline)
+		{
+			if (timeline == null)
+			{
+				return;
+			}
 
-            var timelineGuid = GetTimelineGuid(timeline);
+			var timelineGuid = GetTimelineGuid(timeline);
 #if __WPF__
-            // Retrieve the original Storyboard since the one passed in is
-            // Frozen (to be able to unsubscribe from the event)
-            var original = _actives.FindActiveTimeline(timelineGuid)?.Timeline;
+			// Retrieve the original Storyboard since the one passed in is
+			// Frozen (to be able to unsubscribe from the event)
+			var original = _actives.FindActiveTimeline(timelineGuid)?.Timeline;
 
-            if (original != null)
-            {
-                original = null;
-            }
+			if (original != null)
+			{
+				original = null;
+			}
 #elif __UWP__
 			timeline.Cleanup();
 #endif
-            timeline = null;
-        }
+			timeline = null;
+		}
 
-        private static void CleanupDisposables(FrameworkElement element)
-        {
-            var disposables = GetDisposables(element);
-            disposables?.Dispose();
-            disposables = null;
+		private static void CleanupDisposables(FrameworkElement element)
+		{
+			var disposables = GetDisposables(element);
+			disposables?.Dispose();
+			disposables = null;
 #if __UWP__
 			var sprite = GetSprite(element);
 			sprite?.Dispose();
 			sprite = null;
 #endif
-        }
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }
