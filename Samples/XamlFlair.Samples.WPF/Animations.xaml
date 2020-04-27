@@ -6,8 +6,10 @@
 	<cor:Double x:Key="BlurRadius">24</cor:Double>
 	<cor:Double x:Key="SmallScaleFactor">0.75</cor:Double>
 	<cor:Double x:Key="LargeScaleFactor">1.25</cor:Double>
-	<xf:Offset x:Key="PositiveOffset" OffsetValue="50" />
-	<xf:Offset x:Key="NegativeOffset" OffsetValue="-50" />
+	<xf:Offset x:Key="PositiveOffset"
+			   OffsetValue="50" />
+	<xf:Offset x:Key="NegativeOffset"
+			   OffsetValue="-50" />
 
 	<!-- ========================================================== -->
 	<!-- ================== SIMPLE ANIMATIONS ===================== -->
@@ -253,5 +255,5 @@
 						  Kind="FadeFrom,RotateTo"
 						  Opacity="0"
 						  Rotation="360" />
-	
+
 </ResourceDictionary>

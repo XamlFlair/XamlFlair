@@ -4,7 +4,7 @@
 	<Application.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///XamlFlair.UWP/DefaultAnimations.xaml" />
+				<ResourceDictionary Source="Animations.xaml" />
 				<ResourceDictionary Source="Converters.xaml" />
 
 				<ResourceDictionary Source="Styles\Colors.xaml" />
@@ -14,7 +14,7 @@
 				<ResourceDictionary Source="Styles\Controls\ListViewItem.xaml" />
 				<ResourceDictionary Source="Styles\Controls\ListView.xaml" />
 				<ResourceDictionary Source="Styles\Controls\TextBlock.xaml" />
-                
+				
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Application.Resources>

@@ -20,6 +20,8 @@ The goal of the XamlFlair library is to ease the implementation of common animat
 
 - [Using a *ResourceDictionary* for Base Settings](#using-a-resourcedictionary-for-base-settings)
 
+- [Default Animations (*WPF Only*)](#default-animations-wpf-only)
+
 - [Combining Animations](#combining-animations)
 
 - [Overriding Values](#overriding-values)
@@ -82,6 +84,7 @@ Feature                               | **UWP**     | **WPF**     | **UWP (Uno)*
 ------------------------------------- | ----------- | ----------- | ------------- | ------------- | ----------------- | ----------------------------
 *Animation System*                    | Composition | Storyboards | Storyboards   | Storyboards   | Storyboards       |         Storyboards
 Composite Transforms                  |      X      |     X       |       X       |       X       |         X         |              X
+DefaultAnimations.xaml                |      -      |     X       |       -       |       -       |         -         |              -
 Compound Animations                   |      X      |     X       |       X       |       X       |         X         |              X
 Relative Translations                 |      X      |     X       |       X       |       X       |         X         |              X
 Repeating Animations                  |      X      |     X       |       X       |       X       |         X         |              X
@@ -241,7 +244,7 @@ To setup this set of pre-configured `AnimationSettings` already available in you
 
 Your app now has a global set of **common** animations ready to use.
 
-### Default Animations
+### Default Animations (*WPF Only*)
 
 Alternatively to creating your own `ResourceDictionary` containing your custom  `AnimationSettings`, XamlFlair provides some **Default** Animations.
 
@@ -264,11 +267,7 @@ Where you should replace the merged dictionary URI accordling,
 ```xml
 <!-- WPF -->
 <ResourceDictionary Source="pack://application:,,,/XamlFlair.UWP;component/DefaultAnimations.xaml"/>
-
-<!-- UWP -->
-<ResourceDictionary Source="ms-appx:///XamlFlair.UWP/DefaultAnimations.xaml" />
 ```
-
 
 Your app now has a global set of **Default** animations ready to use.
 

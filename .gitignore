@@ -41,3 +41,5 @@ bin
 /Samples/Uno/XamlFlair.Samples.Uno.Shared/XamlFlair.Samples.Uno.Shared.shproj.user
 /Samples/Uno/XamlFlair.Samples.Uno.UWP/BundleArtifacts
 /Samples/Uno/XamlFlair.Samples.Uno.UWP/AppPackages/XamlFlair.Samples.Uno.UWP_1.0.0.0_Test
+Samples/XamlFlair.Samples.WPF/XamlFlair.Samples.WPF.csproj.user
+Samples/XamlFlair.Samples.UWP/XamlFlair.Samples.UWP.csproj.user
