@@ -62,7 +62,7 @@ UWP:
 Install-Package XamlFlair.UWP
 ```
 
-> Your app must target a minimum of Windows 10 version 1803 (build 17134)
+> Your app must target a minimum of Windows 10 version 1809 (build 17763)
 
 WPF:
 
@@ -70,13 +70,13 @@ WPF:
 Install-Package XamlFlair.WPF
 ```
 
-> Requires .Net Framework 4.7.2
-
 Uno:
 
 ```
 Install-Package XamlFlair.Uno
 ```
+
+> Your UWP app must target a minimum of Windows 10 version 1809 (build 17763)
 
 ## Features Overview
 

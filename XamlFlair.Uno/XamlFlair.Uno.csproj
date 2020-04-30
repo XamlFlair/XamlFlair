@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="MSBuild.Sdk.Extras/2.0.54">
   <PropertyGroup>
-	<TargetFrameworks>netstandard2.0;xamarinios10;monoandroid80;monoandroid90;uap10.0.16299</TargetFrameworks>
+	<TargetFrameworks>netstandard2.0;xamarinios10;monoandroid80;monoandroid90;uap10.0.17763</TargetFrameworks>
 	<!-- Ensures the .xr.xml files are generated in a proper layout folder -->
 	<GenerateLibraryLayout>true</GenerateLibraryLayout>
 	<RootNamespace>XamlFlair.UnoPlatform</RootNamespace>
@@ -10,15 +10,15 @@
 	<Copyright>Copyright © 2020</Copyright>
 	<PackageId>XamlFlair.Uno</PackageId>
 	<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-	<PackageReleaseNotes>Added a new binding property called CombinedBinding + update to the validation logic. + Uno nuget update</PackageReleaseNotes>
-	<Version>1.1.3</Version>
+	<PackageReleaseNotes>Fix for ListViewBase item animations + UWP minimum target bump.</PackageReleaseNotes>
+	<Version>1.1.4</Version>
 	<PackageProjectUrl>https://github.com/XamlFlair/XamlFlair</PackageProjectUrl>
 	<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
 	<Company>XamlFlair</Company>
 	<PackageIconUrl>https://github.com/XamlFlair/XamlFlair/blob/master/nuget_logo.png?raw=true</PackageIconUrl>
 	<Authors>XamlFlair</Authors>
-	<FileVersion>1.1.3</FileVersion>
-	<AssemblyVersion>1.1.3</AssemblyVersion>
+	<FileVersion>1.1.4</FileVersion>
+	<AssemblyVersion>1.1.4</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
 	<DefineConstants>$(DefineConstants);__WASM__</DefineConstants>

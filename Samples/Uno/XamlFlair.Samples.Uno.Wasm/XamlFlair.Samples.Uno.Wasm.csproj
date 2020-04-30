@@ -45,7 +45,7 @@
 		<PackageReference Include="Serilog.Extensions.Logging" Version="1.4.0" />
 		<PackageReference Include="Serilog.Sinks.Debug" Version="1.0.1" />
 		<PackageReference Include="Uno.UI" Version="2.2.0" />
-		<PackageReference Include="Uno.Wasm.Bootstrap" Version="1.1.0-dev.426" />
+		<PackageReference Include="Uno.Wasm.Bootstrap" Version="1.0.10" />
 		<DotNetCliToolReference Include="Uno.Wasm.Bootstrap.Cli" Version="1.0.0-dev.244" />
 	</ItemGroup>
 	<ItemGroup>
