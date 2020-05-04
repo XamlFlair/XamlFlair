@@ -24,6 +24,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Entities\OffsetTarget.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\SettingsTarget.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\IterationBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\TransformationType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ActiveTimelineExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\AnimationSettingsExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\DependencyObjectExtensions.cs" />
