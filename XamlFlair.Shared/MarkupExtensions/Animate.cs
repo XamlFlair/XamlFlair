@@ -120,8 +120,7 @@ namespace XamlFlair
 
 #if __WPF__
         /// <summary>
-        /// <summary>
-        /// Specifies the transformation, render or layout to include in the composite animation
+        /// Specifies the transformation type to use (render or layout)
         /// </summary>
         public TransformationType TransformOn { get; set; } = AnimationSettings.DEFAULT_TRANSFORM;
 #endif
