@@ -57,38 +57,27 @@ namespace XamlFlair.Extensions
 			{
 				return;
 			}
-
-			// Exit the element is not a SelectorItem or if no animations are specified
-			if (!(element is TItem item) || Animations.GetItems(lvb) == null)
+			
+			if (element is TItem item && Animations.GetItems(lvb) is AnimationSettings settings)
 			{
-				return;
-			}
-
-			lvb.AnimateItems<TItem>(item, getIndicesFunc, ref isFirstItemContainerLoaded);
-		}
-
-		internal static void AnimateItems<TItem>(this ListViewBase lvb, SelectorItem item, Func<(int firstVisibleIndex, int lastVisibleIndex)> getIndicesFunc, ref bool isFirstItemContainerLoaded)
-			where TItem : SelectorItem
-		{
-			var settings = Animations.GetItems(lvb);
-
-			if (settings == null)
-			{
-				return;
-			}
-
-			if (!isFirstItemContainerLoaded)
-			{
-				isFirstItemContainerLoaded = true;
-
-				item.Loaded += OnContainerLoaded;
-
 				// Wasm listview animations don't work, therefore don't initially hide the item
 #if !__WASM__
 				// LIMITATION: Currently, for proper item animation handling, item animations
 				// MUST include a 'FadeFrom' animation with an Opacity value of 0
 				item.Opacity = settings.Opacity;
 #endif
+				lvb.AnimateItems<TItem>(item, settings, getIndicesFunc, ref isFirstItemContainerLoaded);
+			}
+		}
+
+		internal static void AnimateItems<TItem>(this ListViewBase lvb, SelectorItem item, AnimationSettings settings, Func<(int firstVisibleIndex, int lastVisibleIndex)> getIndicesFunc, ref bool isFirstItemContainerLoaded)
+			where TItem : SelectorItem
+		{
+			if (!isFirstItemContainerLoaded)
+			{
+				isFirstItemContainerLoaded = true;
+
+				item.Loaded += OnContainerLoaded;
 
 				// At this point, the index values are all ready to use.
 				async void OnContainerLoaded(object sender, RoutedEventArgs _)
