@@ -20,52 +20,52 @@ using XamlFlair.Extensions;
 namespace XamlFlair
 {
 #if __WPF__
-	[System.Windows.Markup.MarkupExtensionReturnType(typeof(IAnimationSettings))]
-	public class AnimateExtension : System.Windows.Markup.MarkupExtension
+    [System.Windows.Markup.MarkupExtensionReturnType(typeof(IAnimationSettings))]
+    public class AnimateExtension : System.Windows.Markup.MarkupExtension
 #else
 	public class Animate : Windows.UI.Xaml.Markup.MarkupExtension
 #endif
-	{
-		/// <summary>
-		/// Specifies the base settings to retrieve initial values from
-		/// </summary>
-		public IAnimationSettings BasedOn { get; set; }
+    {
+        /// <summary>
+        /// Specifies the base settings to retrieve initial values from
+        /// </summary>
+        public IAnimationSettings BasedOn { get; set; }
 
-		/// <summary>
-		/// Specifies the animation types to include in the composite animation
-		/// </summary>
-		public AnimationKind Kind { get; set; } = AnimationSettings.DEFAULT_KIND;
+        /// <summary>
+        /// Specifies the animation types to include in the composite animation
+        /// </summary>
+        public AnimationKind Kind { get; set; } = AnimationSettings.DEFAULT_KIND;
 
-		/// <summary>
-		/// Specifies the duration of the composite animation
-		/// </summary>
-		public double Duration { get; set; } = AnimationSettings.DEFAULT_DURATION;
+        /// <summary>
+        /// Specifies the duration of the composite animation
+        /// </summary>
+        public double Duration { get; set; } = AnimationSettings.DEFAULT_DURATION;
 
-		/// <summary>
-		/// Specifies the delay of the composite animation
-		/// </summary>
-		public double Delay { get; set; }
+        /// <summary>
+        /// Specifies the delay of the composite animation
+        /// </summary>
+        public double Delay { get; set; }
 
-		/// <summary>
-		/// Specifies the target opacity of the composite animation
-		/// </summary>
-		public double Opacity { get; set; } = 1;
+        /// <summary>
+        /// Specifies the target opacity of the composite animation
+        /// </summary>
+        public double Opacity { get; set; } = 1;
 
-		/// <summary>
-		/// Specifies the target x-offset of the composite animation
-		/// </summary>
-		/// <remarks>
-		/// OffsetX must be a double or a star-based value (ex: 150 or 0.75*)
-		/// </remarks>
-		public Offset OffsetX { get; set; } = Offset.Empty;
+        /// <summary>
+        /// Specifies the target x-offset of the composite animation
+        /// </summary>
+        /// <remarks>
+        /// OffsetX must be a double or a star-based value (ex: 150 or 0.75*)
+        /// </remarks>
+        public Offset OffsetX { get; set; } = Offset.Empty;
 
-		/// <summary>
-		/// Specifies the target y-offset of the composite animation
-		/// </summary>
-		/// <remarks>
-		/// OffsetY must be a double or a star-based value (ex: 150 or 0.75*)
-		/// </remarks>
-		public Offset OffsetY { get; set; } = Offset.Empty;
+        /// <summary>
+        /// Specifies the target y-offset of the composite animation
+        /// </summary>
+        /// <remarks>
+        /// OffsetY must be a double or a star-based value (ex: 150 or 0.75*)
+        /// </remarks>
+        public Offset OffsetY { get; set; } = Offset.Empty;
 
 #if __UWP__
 		/// <summary>
@@ -74,15 +74,15 @@ namespace XamlFlair
 		public double OffsetZ { get; set; }
 #endif
 
-		/// <summary>
-		/// Specifies the target x-scaling of the composite animation
-		/// </summary>
-		public double ScaleX { get; set; } = 1;
+        /// <summary>
+        /// Specifies the target x-scaling of the composite animation
+        /// </summary>
+        public double ScaleX { get; set; } = 1;
 
-		/// <summary>
-		/// Specifies the target y-scaling of the composite animation
-		/// </summary>
-		public double ScaleY { get; set; } = 1;
+        /// <summary>
+        /// Specifies the target y-scaling of the composite animation
+        /// </summary>
+        public double ScaleY { get; set; } = 1;
 
 #if __UWP__
 		/// <summary>
@@ -91,15 +91,15 @@ namespace XamlFlair
 		public double ScaleZ { get; set; } = 1;
 #endif
 
-		/// <summary>
-		/// Specifies the target rotation (in degrees) of the composite animation
-		/// </summary>
-		public double Rotation { get; set; }
+        /// <summary>
+        /// Specifies the target rotation (in degrees) of the composite animation
+        /// </summary>
+        public double Rotation { get; set; }
 
-		/// <summary>
-		/// Specifies the blur amount of the composite animation
-		/// </summary>
-		public double BlurRadius { get; set; }
+        /// <summary>
+        /// Specifies the blur amount of the composite animation
+        /// </summary>
+        public double BlurRadius { get; set; }
 
 #if __UWP__
 		/// <summary>
@@ -113,80 +113,91 @@ namespace XamlFlair
 		public Color Tint { get; set; } = AnimationSettings.DEFAULT_TINT;
 #endif
 
-		/// <summary>
-		/// Specifies the center point of the element's transform
-		/// </summary>
-		public Point TransformCenterPoint { get; set; } = AnimationSettings.DEFAULT_TRANSFORM_CENTER_POINT;
+        /// <summary>
+        /// Specifies the center point of the element's transform
+        /// </summary>
+        public Point TransformCenterPoint { get; set; } = AnimationSettings.DEFAULT_TRANSFORM_CENTER_POINT;
 
-		/// <summary>
-		/// Specifies the event used to trigger the composite animation
-		/// </summary>
-		/// <remarks>
-		/// This property is disregarded for controls based on ListViewBase (UWP) or ListBox (WPF)
-		/// </remarks>
-		public EventType Event { get; set; } = AnimationSettings.DEFAULT_EVENT;
+#if __WPF__
+        /// <summary>
+        /// <summary>
+        /// Specifies the transformation, render or layout to include in the composite animation
+        /// </summary>
+        public TransformationType TransformOn { get; set; } = AnimationSettings.DEFAULT_TRANSFORM;
+#endif
 
-		/// <summary>
-		/// Specifies the easing of the composite animation
-		/// </summary>
-		public EasingType Easing { get; set; } = AnimationSettings.DEFAULT_EASING;
+        /// <summary>
+        /// Specifies the event used to trigger the composite animation
+        /// </summary>
+        /// <remarks>
+        /// This property is disregarded for controls based on ListViewBase (UWP) or ListBox (WPF)
+        /// </remarks>
+        public EventType Event { get; set; } = AnimationSettings.DEFAULT_EVENT;
 
-		/// <summary>
-		/// Specifies the easing's mode of the composite animation
-		/// </summary>
-		public EasingMode EasingMode { get; set; } = AnimationSettings.DEFAULT_EASING_MODE;
+        /// <summary>
+        /// Specifies the easing of the composite animation
+        /// </summary>
+        public EasingType Easing { get; set; } = AnimationSettings.DEFAULT_EASING;
 
-		private IAnimationSettings GetAnimationSettings()
-		{
-			if (BasedOn is CompoundSettings compound)
-			{
-				// Make sure to capture an override on the Event property (if any)
-				if (Event != AnimationSettings.DEFAULT_EVENT)
-				{
-					compound.Event = Event;
-				}
+        /// <summary>
+        /// Specifies the easing's mode of the composite animation
+        /// </summary>
+        public EasingMode EasingMode { get; set; } = AnimationSettings.DEFAULT_EASING_MODE;
 
-				return compound;
-			}
+        private IAnimationSettings GetAnimationSettings()
+        {
+            if (BasedOn is CompoundSettings compound)
+            {
+                // Make sure to capture an override on the Event property (if any)
+                if (Event != AnimationSettings.DEFAULT_EVENT)
+                {
+                    compound.Event = Event;
+                }
 
-			var current = new AnimationSettings()
-			{
-				Kind = Kind,
-				Duration = Duration,
-				Delay = Delay,
-				Opacity = Opacity,
-				OffsetX = OffsetX,
-				OffsetY = OffsetY,
-				ScaleX = ScaleX,
-				ScaleY = ScaleY,
-				Rotation = Rotation,
-				BlurRadius = BlurRadius,
-				TransformCenterPoint = TransformCenterPoint,
-				Easing = Easing,
-				EasingMode = EasingMode,
-				Event = Event,
+                return compound;
+            }
+
+            var current = new AnimationSettings()
+            {
+                Kind = Kind,
+                Duration = Duration,
+                Delay = Delay,
+                Opacity = Opacity,
+                OffsetX = OffsetX,
+                OffsetY = OffsetY,
+                ScaleX = ScaleX,
+                ScaleY = ScaleY,
+                Rotation = Rotation,
+                BlurRadius = BlurRadius,
+                TransformCenterPoint = TransformCenterPoint,
+                Easing = Easing,
+                EasingMode = EasingMode,
+                Event = Event,
+#if __WPF__
+				TransformOn = TransformOn,
+#endif
 #if __UWP__
 				OffsetZ = OffsetZ,
 				ScaleZ = ScaleZ,
 				Saturation = Saturation,
 				Tint = Tint,
 #endif
-			};
+            };
 
-			// If "BasedOn" is used, return an AnimationSettings
-			// object that uses the values in "BasedOn" and then
-			// overrides those with updated values from "current"
-			return BasedOn == null
-				? current
-				: ((AnimationSettings)BasedOn)?.ApplyOverrides(current);
-		}
+            // If "BasedOn" is used, return an AnimationSettings
+            // object that uses the values in "BasedOn" and then
+            // overrides those with updated values from "current"
+            return BasedOn == null
+                ? current
+                : ((AnimationSettings)BasedOn)?.ApplyOverrides(current);
+        }
 
 #if __WPF__
-		public override object ProvideValue(IServiceProvider serviceProvider)
-			=> GetAnimationSettings();
+        public override object ProvideValue(IServiceProvider serviceProvider)
+            => GetAnimationSettings();
 #else
 		protected override object ProvideValue()
 			=> GetAnimationSettings();
 #endif
-	}
+    }
 }
