@@ -37,6 +37,10 @@ namespace XamlFlair
 		internal const EasingMode DEFAULT_EASING_MODE = EasingMode.EaseOut;
 		internal const EventType DEFAULT_EVENT = EventType.Loaded;
 
+#if __WPF__
+		internal const TransformationType DEFAULT_TRANSFORM = TransformationType.Render;
+#endif
+
 #if __UWP__
 		internal const double DEFAULT_SATURATION = 0.5;
 		internal static readonly Color DEFAULT_TINT = Colors.Transparent;
@@ -227,7 +231,7 @@ namespace XamlFlair
 				typeof(double),
 				typeof(AnimationSettings),
 				new PropertyMetadata(0d));
-				
+
 		public double BlurRadius
 		{
 			get => (double)GetValue(BlurRadiusProperty);
@@ -293,6 +297,24 @@ namespace XamlFlair
 				typeof(Point),
 				typeof(AnimationSettings),
 				new PropertyMetadata(DEFAULT_TRANSFORM_CENTER_POINT));
+
+#if __WPF__
+		public TransformationType TransformOn
+		{
+			get => (TransformationType)GetValue(TransformOnProperty);
+			set => SetValue(TransformOnProperty, value);
+		}
+
+		/// <summary>
+		/// Specifies the transformation type to use (render or layout)
+		/// </summary>
+		public static readonly DependencyProperty TransformOnProperty =
+			DependencyProperty.Register(
+				nameof(TransformOn),
+				typeof(TransformationType),
+				typeof(AnimationSettings),
+				new PropertyMetadata(DEFAULT_TRANSFORM));
+#endif
 
 		public EasingType Easing
 		{
@@ -432,9 +454,9 @@ namespace XamlFlair
 #if __WPF__
 		public bool Equals(AnimationSettings x, AnimationSettings y)
 		{
-			if (Object.ReferenceEquals(null, y)) return false;	// Is null?
-			if (Object.ReferenceEquals(x, y)) return true;		// Is the same object?
-			if (x.GetType() != y.GetType()) return false;		// Is the same type?
+			if (Object.ReferenceEquals(null, y)) return false;  // Is null?
+			if (Object.ReferenceEquals(x, y)) return true;      // Is the same object?
+			if (x.GetType() != y.GetType()) return false;       // Is the same type?
 
 			return IsEqual((AnimationSettings)y);
 		}
@@ -498,6 +520,6 @@ namespace XamlFlair
 
 		public static bool operator !=(AnimationSettings obj, AnimationSettings other) => !(obj == other);
 
-#endregion
+		#endregion
 	}
 }

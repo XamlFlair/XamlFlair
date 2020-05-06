@@ -21,51 +21,51 @@ namespace XamlFlair.Extensions
 			switch (settings.Easing)
 			{
 				case EasingType.Back:
-					ease = new BackEase();
-					break;
+				ease = new BackEase();
+				break;
 
 				case EasingType.Bounce:
-					ease = new BounceEase();
-					break;
+				ease = new BounceEase();
+				break;
 
 #if !HAS_UNO
 				// Circle easing not supported in Uno
 				case EasingType.Circle:
-					ease = new CircleEase();
-					break;
+				ease = new CircleEase();
+				break;
 #endif
 
 				case EasingType.Cubic:
-					ease = new CubicEase();
-					break;
+				ease = new CubicEase();
+				break;
 
 				case EasingType.Elastic:
-					ease = new ElasticEase();
-					break;
+				ease = new ElasticEase();
+				break;
 
 				case EasingType.Linear:
-					ease = null;
-					break;
+				ease = null;
+				break;
 
 				case EasingType.Quadratic:
-					ease = new QuadraticEase();
-					break;
+				ease = new QuadraticEase();
+				break;
 
 				case EasingType.Quartic:
-					ease = new QuarticEase();
-					break;
+				ease = new QuarticEase();
+				break;
 
 				case EasingType.Quintic:
-					ease = new QuinticEase();
-					break;
+				ease = new QuinticEase();
+				break;
 
 				case EasingType.Sine:
-					ease = new SineEase();
-					break;
+				ease = new SineEase();
+				break;
 
 				default:
-					ease = new CubicEase();
-					break;
+				ease = new CubicEase();
+				break;
 			}
 
 			if (ease != null)
@@ -113,6 +113,11 @@ namespace XamlFlair.Extensions
 
 			var origin = other.TransformCenterPoint;
 			updated.TransformCenterPoint = origin != AnimationSettings.DEFAULT_TRANSFORM_CENTER_POINT ? origin : settings.TransformCenterPoint;
+
+#if __WPF__
+			var transformOn = other.TransformOn;
+			updated.TransformOn = transformOn != AnimationSettings.DEFAULT_TRANSFORM ? transformOn : settings.TransformOn;
+#endif
 
 			var easingMode = other.EasingMode;
 			updated.EasingMode = easingMode != AnimationSettings.DEFAULT_EASING_MODE ? easingMode : settings.EasingMode;
