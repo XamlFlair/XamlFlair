@@ -10,15 +10,15 @@
 	<Copyright>Copyright © 2020</Copyright>
 	<PackageId>XamlFlair.Uno</PackageId>
 	<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-	<PackageReleaseNotes>Fix for ListViewBase item animations + UWP minimum target bump.</PackageReleaseNotes>
-	<Version>1.1.4</Version>
+	<PackageReleaseNotes>Small code improvement for the ListViewBase item animation.</PackageReleaseNotes>
+	<Version>1.1.5</Version>
 	<PackageProjectUrl>https://github.com/XamlFlair/XamlFlair</PackageProjectUrl>
 	<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
 	<Company>XamlFlair</Company>
 	<PackageIconUrl>https://github.com/XamlFlair/XamlFlair/blob/master/nuget_logo.png?raw=true</PackageIconUrl>
 	<Authors>XamlFlair</Authors>
-	<FileVersion>1.1.4</FileVersion>
-	<AssemblyVersion>1.1.4</AssemblyVersion>
+	<FileVersion>1.1.5</FileVersion>
+	<AssemblyVersion>1.1.5</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
 	<DefineConstants>$(DefineConstants);__WASM__</DefineConstants>

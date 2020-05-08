@@ -18,9 +18,11 @@ The goal of the XamlFlair library is to ease the implementation of common animat
 
 - [Base Animation Types](#base-animation-types)
 
-- [Using a *ResourceDictionary* for Base Settings](#using-a-resourcedictionary-for-base-settings)
+- [Using a `ResourceDictionary` for Base Settings](#using-a-resourcedictionary-for-base-settings)
 
 - [Default Animations (*WPF Only*)](#default-animations-wpf-only)
+
+- [`TransformOn` Property (*WPF Only*)](#transformon-property-wpf-only)
 
 - [Combining Animations](#combining-animations)
 
@@ -36,15 +38,15 @@ The goal of the XamlFlair library is to ease the implementation of common animat
 
 - [Primary and Secondary Completion Commands](#primary-and-secondary-completion-commands)
 
-- [Using the *StartWith* Property](#using-the-startwith-property)
+- [Using the `StartWith` Property](#using-the-startwith-property)
 
-- [Using the *AllowOpacityReset* Property (*WPF Only*)](#using-the-allowopacityreset-property-wpf-only)
+- [Using the `AllowOpacityReset` Property (*WPF Only*)](#using-the-allowopacityreset-property-wpf-only)
 
-- [Using the ClipToBounds Property (UWP Only)](#using-the-cliptobounds-property-uwp-only)
+- [Using the `ClipToBounds` Property (*UWP And Uno Only*)](#using-the-cliptobounds-property-uwp-and-uno-only)
 
 - [Logging Animations](#logging-animations)
 
-- [*ListViewBase* (UWP) and *ListBox*-based (WPF) Animations](#listviewbase-uwp-and-listbox-based-wpf-animations)
+- [`ListViewBase` (_UWP and Uno_) and `ListBox`-based (_WPF_) Animations](#listviewbase-uwp-and-uno-and-listbox-based-wpf-animations)
 
 ## Install from Nuget
 
@@ -85,6 +87,7 @@ Feature                               | **UWP**     | **WPF**     | **UWP (Uno)*
 *Animation System*                    | Composition | Storyboards | Storyboards   | Storyboards   | Storyboards       |         Storyboards
 Composite Transforms                  |      X      |     X       |       X       |       X       |         X         |              X
 DefaultAnimations.xaml                |      -      |     X       |       -       |       -       |         -         |              -
+`TransformOn`                         |      -      |     X       |       -       |       -       |         -         |              -
 Compound Animations                   |      X      |     X       |       X       |       X       |         X         |              X
 Relative Translations                 |      X      |     X       |       X       |       X       |         X         |              X
 Repeating Animations                  |      X      |     X       |       X       |       X       |         X         |              X
@@ -92,7 +95,7 @@ Events & Bindings                     |      X      |     X       |       X     
 Primary/Secondary Completion Commands |      X      |     X       |       X       |       X       |         X         |              X
 `StartWith`                           |      X      |     X       |       X       |       X       |         X         |              X
 `AllowOpacityReset`                   |      -      |     X       |       -       |       -       |         -         |              -
-`ClipToBounds `                       |      X      |    N/A      |       X       |       X       |         X         |              X
+`ClipToBounds`                        |      X      |    N/A      |       X       |       X       |         X         |              X
 Animated Lists                        |      X      |     X       |       X       |       X       |         X         |              X
 Blur Effect                           |      X      |     X       |       -       |       -       |         -         |              -
 Saturation Effect                     |      X      |     -       |       -       |       -       |         -         |              -
@@ -270,6 +273,12 @@ Where you should replace the merged dictionary URI accordling,
 ```
 
 Your app now has a global set of **Default** animations ready to use.
+
+### `TransformOn` Property (*WPF Only*)
+
+Using the `TransformOn` property, you can target which type of `RenderTransform` to apply to your animation. Available options are `Render` and `Layout`. When nothing is specified, the default vale is `Render`. Here's an example of the two:
+
+![TransformOn animation](doc/gifs/TransformOn.gif)
 
 ### Combining Animations
 
@@ -451,7 +460,7 @@ In the following example, the command named _MyCustomCommand_ will execute once 
            xf:Animations.PrimaryCompletionCommand="{x:Bind MyCustomCommand}" />
 ```
 
-### Using the *StartWith* Property
+### Using the `StartWith` Property
 
 There will be cases when you will need your UI element to start in a specific state, for example, the element needs to be shrunk before its animation executes. This is achieved using the `StartWith` property:
 
@@ -462,7 +471,7 @@ There will be cases when you will need your UI element to start in a specific st
 
 In the above example, since the element is scaling from the bottom, but with a delay, we need to _start_ in the _scaled_ position, so we use the `StartWith` property to set its initial state. What `StartWith` essentially does is setup the initial values on the element as soon as it has loaded.
 
-### Using the *AllowOpacityReset* Property (*WPF Only*)
+### Using the `AllowOpacityReset` Property (*WPF Only*)
 
 The .Net documentation states the following:
 
@@ -477,7 +486,7 @@ There may be cases when you animate the opacity, in which the opacity animation 
        Source="/Assets/..." />
 ```
 
-### Using the *ClipToBounds* Property (*UWP and Uno Only*)
+### Using the `ClipToBounds` Property (*UWP And Uno Only*)
 
 A helpful property that exists in WPF, `ClipToBounds` is a helpful property that exists in WPF, but unfortunately not in UWP. Therefore, it has been added in XamlFlair due to its ease of use and handiness. To clip child content to the bounds of the containing element, simply set `ClipToBounds` to `True` on the containing element:
 

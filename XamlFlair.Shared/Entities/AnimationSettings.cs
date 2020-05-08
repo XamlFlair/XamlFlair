@@ -408,6 +408,10 @@ namespace XamlFlair
 
 		public Point TransformCenterPoint { get; set; } = DEFAULT_TRANSFORM_CENTER_POINT;
 
+#if __WPF__
+		public TransformationType TransformOn { get; set; } = DEFAULT_TRANSFORM;
+#endif
+
 		public EasingType Easing { get; set; } = DEFAULT_EASING;
 
 		public EasingMode EasingMode { get; set; } = DEFAULT_EASING_MODE;
@@ -442,6 +446,9 @@ namespace XamlFlair
 				&& other.BlurRadius.Equals(BlurRadius)
 				&& other.Easing.Equals(Easing)
 				&& other.EasingMode.Equals(EasingMode)
+#if __WPF__
+				&& other.TransformOn.Equals(TransformOn)
+#endif
 #if __UWP__
 				&& other.OffsetZ.Equals(OffsetZ)
 				&& other.ScaleZ.Equals(ScaleZ)
@@ -500,6 +507,9 @@ namespace XamlFlair
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, Easing) ? Easing.GetHashCode() : 0);
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, EasingMode) ? EasingMode.GetHashCode() : 0);
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, Event) ? Event.GetHashCode() : 0);
+#if __WPF__
+				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, TransformOn) ? TransformOn.GetHashCode() : 0);
+#endif
 #if __UWP__
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, OffsetZ) ? OffsetZ.GetHashCode() : 0);
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, ScaleZ) ? ScaleZ.GetHashCode() : 0);
