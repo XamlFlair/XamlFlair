@@ -20,7 +20,7 @@ The goal of the XamlFlair library is to ease the implementation of common animat
 
 - [Using a `ResourceDictionary` for Base Settings](#using-a-resourcedictionary-for-base-settings)
 
-- [Default Animations (*WPF Only*)](#default-animations-wpf-only)
+- [Default Animations (*UWP And WPF Only*)](#default-animations-uwp-and-wpf-only)
 
 - [`TransformOn` Property (*WPF Only*)](#transformon-property-wpf-only)
 
@@ -247,7 +247,7 @@ To setup this set of pre-configured `AnimationSettings` already available in you
 
 Your app now has a global set of **common** animations ready to use.
 
-### Default Animations (*WPF Only*)
+### Default Animations (*UWP And WPF Only*)
 
 Alternatively to creating your own `ResourceDictionary` containing your custom  `AnimationSettings`, XamlFlair provides some **Default** Animations.
 
