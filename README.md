@@ -270,9 +270,16 @@ Where you should replace the merged dictionary URI accordling,
 ```xml
 <!-- WPF -->
 <ResourceDictionary Source="pack://application:,,,/XamlFlair.UWP;component/DefaultAnimations.xaml"/>
+
+<!-- UWP -->
+<ResourceDictionary Source="ms-appx:///XamlFlair.UWP/DefaultAnimations.xaml" />
 ```
 
-Your app now has a global set of **Default** animations ready to use.
+Your app now has a global set of **Default** animations ready to use as such:
+
+```xml
+<Border xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromBottom}"/>
+```
 
 ### `TransformOn` Property (*WPF Only*)
 
