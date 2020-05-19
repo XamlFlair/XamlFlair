@@ -232,6 +232,8 @@ namespace XamlFlair
 				typeof(AnimationSettings),
 				new PropertyMetadata(0d));
 
+		// Blur not supported on Uno
+#if !HAS_UNO
 		public double BlurRadius
 		{
 			get => (double)GetValue(BlurRadiusProperty);
@@ -247,6 +249,7 @@ namespace XamlFlair
 				typeof(double),
 				typeof(AnimationSettings),
 				new PropertyMetadata(0d));
+#endif
 
 #if __UWP__
 		public double Saturation
@@ -398,7 +401,10 @@ namespace XamlFlair
 
 		public double Rotation { get; set; } = 0d;
 
+		// Blur not supported on Uno
+#if !HAS_UNO
 		public double BlurRadius { get; set; } = 0d;
+#endif
 
 #if __UWP__
 		public double Saturation { get; set; } = DEFAULT_SATURATION;
@@ -443,7 +449,9 @@ namespace XamlFlair
 				&& other.ScaleY.Equals(ScaleY)
 				&& other.Rotation.Equals(Rotation)
 				&& other.TransformCenterPoint.Equals(TransformCenterPoint)
+#if !HAS_UNO
 				&& other.BlurRadius.Equals(BlurRadius)
+#endif
 				&& other.Easing.Equals(Easing)
 				&& other.EasingMode.Equals(EasingMode)
 #if __WPF__
@@ -503,7 +511,9 @@ namespace XamlFlair
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, ScaleY) ? ScaleY.GetHashCode() : 0);
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, Rotation) ? Rotation.GetHashCode() : 0);
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, TransformCenterPoint) ? TransformCenterPoint.GetHashCode() : 0);
+#if !HAS_UNO
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, BlurRadius) ? BlurRadius.GetHashCode() : 0);
+#endif
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, Easing) ? Easing.GetHashCode() : 0);
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, EasingMode) ? EasingMode.GetHashCode() : 0);
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, Event) ? Event.GetHashCode() : 0);

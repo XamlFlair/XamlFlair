@@ -102,8 +102,11 @@ namespace XamlFlair.Extensions
 			var rotation = other.Rotation;
 			updated.Rotation = rotation != 0 ? rotation : settings.Rotation;
 
+			// Blur not supported on Uno
+#if !HAS_UNO
 			var blur = other.BlurRadius;
 			updated.BlurRadius = blur != 0 ? blur : settings.BlurRadius;
+#endif
 
 			var scaleX = other.ScaleX;
 			updated.ScaleX = scaleX != 1 ? scaleX : settings.ScaleX;
