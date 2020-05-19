@@ -4,7 +4,7 @@
     <!--*-->
     <id>XamlFlair.WPF</id>
     <!--*-->
-    <version>1.1.4</version>
+    <version>1.1.5</version>
     <title>XamlFlair.WPF</title>
     <!--*-->
     <authors>XamlFlair.WPF</authors>
@@ -18,7 +18,7 @@
     <!--*-->
     <description>XamlFlair animation library for the WPF platform.</description>
     <!--*-->
-    <releaseNotes>Added a new property called TransformOn to target the type of Transform to apply.</releaseNotes>
+    <releaseNotes>Removed a Take(1) for the element Loaded event subscription.</releaseNotes>
     <copyright>Copyright © 2020</copyright>
     <tags>
     </tags>

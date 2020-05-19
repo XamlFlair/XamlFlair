@@ -4,7 +4,7 @@
     <!--*-->
     <id>XamlFlair.Uno</id>
     <!--*-->
-    <version>1.1.5</version>
+    <version>1.1.6</version>
     <title>XamlFlair.Uno</title>
     <!--*-->
     <authors>XamlFlair</authors>
@@ -20,7 +20,7 @@
     <!--*-->
     <description>XamlFlair animation library for the Uno platform.</description>
     <!--*-->
-    <releaseNotes>Small code improvement for the ListViewBase item animation.</releaseNotes>
+    <releaseNotes>Removed a Take(1) for the element Loaded event subscription + removed the Opacity limitation for Uno ListViewBase item animations.</releaseNotes>
     <copyright>Copyright © 2020</copyright>
     <tags>
     </tags>

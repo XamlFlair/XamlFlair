@@ -5,20 +5,21 @@
 	<!-- Ensures the .xr.xml files are generated in a proper layout folder -->
 	<GenerateLibraryLayout>true</GenerateLibraryLayout>
 	<RootNamespace>XamlFlair.UnoPlatform</RootNamespace>
+	<EmbedAllSources>true</EmbedAllSources>
 	<Product>XamlFlair.Uno</Product>
 	<Description>XamlFlair animation library for the Uno platform.</Description>
 	<Copyright>Copyright © 2020</Copyright>
 	<PackageId>XamlFlair.Uno</PackageId>
 	<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-	<PackageReleaseNotes>Small code improvement for the ListViewBase item animation.</PackageReleaseNotes>
-	<Version>1.1.5</Version>
+	<PackageReleaseNotes>Removed a Take(1) for the element Loaded event subscription + removed the Opacity limitation for Uno ListViewBase item animations.</PackageReleaseNotes>
+	<Version>1.1.6</Version>
 	<PackageProjectUrl>https://github.com/XamlFlair/XamlFlair</PackageProjectUrl>
 	<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
 	<Company>XamlFlair</Company>
 	<PackageIconUrl>https://github.com/XamlFlair/XamlFlair/blob/master/nuget_logo.png?raw=true</PackageIconUrl>
 	<Authors>XamlFlair</Authors>
-	<FileVersion>1.1.5</FileVersion>
-	<AssemblyVersion>1.1.5</AssemblyVersion>
+	<FileVersion>1.1.6</FileVersion>
+	<AssemblyVersion>1.1.6</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
 	<DefineConstants>$(DefineConstants);__WASM__</DefineConstants>

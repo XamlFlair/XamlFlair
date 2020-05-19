@@ -144,7 +144,6 @@ namespace XamlFlair
 			element
 				.Events()
 				.LoadedUntilUnloaded
-				.Take(1)
 				.Select(args => args.Sender as FrameworkElement)
 				.Subscribe(
 					elem =>
