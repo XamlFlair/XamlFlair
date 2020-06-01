@@ -18,9 +18,9 @@
     <projectUrl>https://github.com/XamlFlair/XamlFlair</projectUrl>
     <iconUrl>https://github.com/XamlFlair/XamlFlair/blob/master/nuget_logo.png?raw=true</iconUrl>
     <!--*-->
-    <description>Removed the Opacity limitation for Uno ListViewBase item animations + added DefaultAnimations.xaml support for UWP.</description>
+    <description>XamlFlair animation library for the UWP platform.</description>
     <!--*-->
-    <releaseNotes>UWP minimum target bump.</releaseNotes>
+    <releaseNotes>Removed the Opacity limitation for Uno ListViewBase item animations + added DefaultAnimations.xaml support for UWP.</releaseNotes>
     <copyright>Copyright © 2020</copyright>
     <tags>
     </tags>
