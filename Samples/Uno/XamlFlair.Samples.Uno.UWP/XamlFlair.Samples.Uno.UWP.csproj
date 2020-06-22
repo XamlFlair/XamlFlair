@@ -21,9 +21,9 @@
     <PackageReference Include="Serilog.Sinks.Debug">
       <Version>1.0.1</Version>
     </PackageReference>
-    <PackageReference Include="Uno.Core" Version="1.29.0-dev.109" />
+    <PackageReference Include="Uno.Core" Version="2.0.0" />
     <PackageReference Include="Uno.UI">
-      <Version>2.2.0</Version>
+      <Version>2.4.4</Version>
     </PackageReference>
   </ItemGroup>
   <PropertyGroup>
