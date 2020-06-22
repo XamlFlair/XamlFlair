@@ -11,21 +11,21 @@
 	<Copyright>Copyright © 2020</Copyright>
 	<PackageId>XamlFlair.Uno</PackageId>
 	<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-	<PackageReleaseNotes>Removed a Take(1) for the element Loaded event subscription + removed the Opacity limitation for Uno ListViewBase item animations.</PackageReleaseNotes>
-	<Version>1.1.6</Version>
+	<PackageReleaseNotes>Updated nuget packages to reference Uno 2.4.4 + updated wasm csproj to reference Uno.Wasm.Bootstrap.DevServer.</PackageReleaseNotes>
+	<Version>1.1.7</Version>
 	<PackageProjectUrl>https://github.com/XamlFlair/XamlFlair</PackageProjectUrl>
 	<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
 	<Company>XamlFlair</Company>
 	<PackageIconUrl>https://github.com/XamlFlair/XamlFlair/blob/master/nuget_logo.png?raw=true</PackageIconUrl>
 	<Authors>XamlFlair</Authors>
-	<FileVersion>1.1.6</FileVersion>
-	<AssemblyVersion>1.1.6</AssemblyVersion>
+	<FileVersion>1.1.7</FileVersion>
+	<AssemblyVersion>1.1.7</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
 	<DefineConstants>$(DefineConstants);__WASM__</DefineConstants>
   </PropertyGroup>
   <ItemGroup Condition="'$(TargetFramework)'=='xamarinios10' or '$(TargetFramework)'=='monoandroid80' or '$(TargetFramework)'=='monoandroid90' or '$(TargetFramework)'=='netstandard2.0'">
-	<PackageReference Include="Uno.UI" Version="2.2.0" />
+	<PackageReference Include="Uno.UI" Version="2.4.4" />
   </ItemGroup>
   <ItemGroup>
 	<Page Include="**\*.xaml" Exclude="bin\**\*.xaml;obj\**\*.xaml" />
