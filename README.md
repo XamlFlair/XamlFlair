@@ -343,7 +343,7 @@ Since hard-coded values for `OffsetX` and `OffsetY` can be limiting (such as in 
 
 > A star-based value will calculate the offset based on the **current** `ActualWidth` and/or `ActualHeight` value(s) of the `FrameworkElement`, therefore it's important that the element has executed its `Loaded` event. If `ActualWidth` and/or `ActualHeight` are not yet calculated, the offset value will try to be based on `Width` and/or `Height`.
 
-### Compound animation
+### Compound Animations
 
 A compound animation is simply a multi-step animation using the `CompoundSettings` class. Each inner animation executes once the previous one completes, hence they're sequential animations:
 
