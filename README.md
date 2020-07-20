@@ -44,6 +44,8 @@ The goal of the XamlFlair library is to ease the implementation of common animat
 
 - [Using the `ClipToBounds` Property (*UWP And Uno Only*)](#using-the-cliptobounds-property-uwp-and-uno-only)
 
+- [Debugging Animations (*UWP And Uno Only*)](#debugging-animations-uwp-and-uno-only)
+
 - [Logging Animations](#logging-animations)
 
 - [`ListViewBase` (_UWP and Uno_) and `ListBox`-based (_WPF_) Animations](#listviewbase-uwp-and-uno-and-listbox-based-wpf-animations)
@@ -100,6 +102,7 @@ Animated Lists                        |      X      |     X       |       X     
 Blur Effect                           |      X      |     X       |       -       |       -       |         -         |              -
 Saturation Effect                     |      X      |     -       |       -       |       -       |         -         |              -
 Tint Effect                           |      X      |     -       |       -       |       -       |         -         |              -
+Debugging Animations                  |      X      |     -       |       X       |       X       |         X         |              -
 
 > **Note**: A standard UWP app and a Uno app (UWP head) are different when it comes to XamlFlair. A standard UWP app referencing `XamlFlair.UWP` will use Composition-based animations behind the scenes. An Uno app (including the UWP head) that references `XamlFlair.Uno` will all use Storyboarding behind the scenes.
 
@@ -497,6 +500,25 @@ A helpful property that exists in WPF, `ClipToBounds` is a helpful property that
 .
 <Border>
 ```
+
+### Debugging Animations (*UWP And Uno Only*)
+
+In order to debug an animation and step into the code, use the `EnableDebugging` property. Debugging is possible due to the inclusion of the [SourceLink](https://github.com/dotnet/sourcelink) library. Please be sure to have *Just My Code* disabled and *SourceLink* enabled:
+
+![SourceLink](doc/img/sourcelink.jpg)
+
+```xml
+<Rectangle xf:Animations.EnableDebugging="InitializeElement"
+           xf:Animations.Primary="{StaticResource SlideFromLeft}" />
+```
+
+The following tables explains the enumeration values:
+
+Enum Value            | Description
+--------------------- | ---------------------------------------------------------------------
+| `None`              | Default value. No debugging will occur.
+| `InitializeElement` | Breaks the debugger in the `InitializeElement` function of XamlFlair.
+| `RunAnimation`      | Breaks the debugger in the `RunAnimation` function of XamlFlair.
 
 ### Logging Animations
 

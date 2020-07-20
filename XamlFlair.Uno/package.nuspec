@@ -4,7 +4,7 @@
     <!--*-->
     <id>XamlFlair.Uno</id>
     <!--*-->
-    <version>1.1.7</version>
+    <version>1.1.9</version>
     <title>XamlFlair.Uno</title>
     <!--*-->
     <authors>XamlFlair</authors>
@@ -20,7 +20,7 @@
     <!--*-->
     <description>XamlFlair animation library for the Uno platform.</description>
     <!--*-->
-    <releaseNotes>Updated nuget packages to reference Uno 2.4.4 + updated wasm csproj to reference Uno.Wasm.Bootstrap.DevServer.</releaseNotes>
+    <releaseNotes>Added the EnableDebugging property and support to debug using SourceLink.</releaseNotes>
     <copyright>Copyright © 2020</copyright>
     <tags>
     </tags>
@@ -31,6 +31,7 @@
         <dependency id="NETStandard.Library" version="2.0.3" />
         <dependency id="System.Reactive" version="4.4.1" />
         <dependency id="Uno.UI" version="2.4.4" />
+        <dependency id="Microsoft.SourceLink.GitHub" version="1.0.0" />
       </group>
     </dependencies>
   </metadata>

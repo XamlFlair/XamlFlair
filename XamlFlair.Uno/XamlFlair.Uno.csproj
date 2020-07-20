@@ -11,15 +11,26 @@
 	<Copyright>Copyright © 2020</Copyright>
 	<PackageId>XamlFlair.Uno</PackageId>
 	<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-	<PackageReleaseNotes>Updated nuget packages to reference Uno 2.4.4 + updated wasm csproj to reference Uno.Wasm.Bootstrap.DevServer.</PackageReleaseNotes>
-	<Version>1.1.7</Version>
+	<PackageReleaseNotes>Added the EnableDebugging property and support to debug using SourceLink.</PackageReleaseNotes>
+	<Version>1.1.9</Version>
 	<PackageProjectUrl>https://github.com/XamlFlair/XamlFlair</PackageProjectUrl>
 	<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
 	<Company>XamlFlair</Company>
 	<PackageIconUrl>https://github.com/XamlFlair/XamlFlair/blob/master/nuget_logo.png?raw=true</PackageIconUrl>
 	<Authors>XamlFlair</Authors>
-	<FileVersion>1.1.7</FileVersion>
-	<AssemblyVersion>1.1.7</AssemblyVersion>
+	<FileVersion>1.1.9</FileVersion>
+	<AssemblyVersion>1.1.9</AssemblyVersion>
+	
+	<!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+ 
+    <!-- Optional: Embed source files that are not tracked by the source control manager in the PDB -->
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+  
+    <!-- Optional: Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
 	<DefineConstants>$(DefineConstants);__WASM__</DefineConstants>
@@ -38,6 +49,10 @@
   </ItemGroup>
   <ItemGroup>
 	<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="1.1.1" />
+	<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
+	  <PrivateAssets>all</PrivateAssets>
+	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	</PackageReference>
 	<PackageReference Include="System.Reactive" Version="4.4.1" />
   </ItemGroup>
   <Import Project="..\XamlFlair.Shared\XamlFlair.Shared.projitems" Label="Shared" />
