@@ -4,7 +4,7 @@
     <!--*-->
     <id>XamlFlair.WPF</id>
     <!--*-->
-    <version>1.1.5</version>
+    <version>1.1.6</version>
     <title>XamlFlair.WPF</title>
     <!--*-->
     <authors>XamlFlair.WPF</authors>
@@ -18,7 +18,7 @@
     <!--*-->
     <description>XamlFlair animation library for the WPF platform.</description>
     <!--*-->
-    <releaseNotes>Removed a Take(1) for the element Loaded event subscription.</releaseNotes>
+    <releaseNotes>Added the EnableDebugging property and support to debug using SourceLink.</releaseNotes>
     <copyright>Copyright © 2020</copyright>
     <tags>
     </tags>

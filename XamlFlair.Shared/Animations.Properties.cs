@@ -110,7 +110,6 @@ namespace XamlFlair
 				typeof(Animations),
 				new PropertyMetadata(false));
 
-#if !__WPF__
 		public static DebugTarget GetEnableDebugging(DependencyObject obj) => (DebugTarget)obj.GetValue(EnableDebuggingProperty);
 
 		public static void SetEnableDebugging(DependencyObject obj, DebugTarget value) => obj.SetValue(EnableDebuggingProperty, value);
@@ -124,7 +123,6 @@ namespace XamlFlair
 				typeof(DebugTarget),
 				typeof(Animations),
 				new PropertyMetadata(DebugTarget.None));
-#endif
 
 		public static bool GetCombinedBinding(DependencyObject obj) => (bool)obj.GetValue(CombinedBindingProperty);
 
