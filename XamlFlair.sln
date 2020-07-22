@@ -448,6 +448,7 @@ Global
 		{B21E8839-081C-405C-9419-2B8E9037271C}.Debug|ARM64.ActiveCfg = Debug|iPhone
 		{B21E8839-081C-405C-9419-2B8E9037271C}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{B21E8839-081C-405C-9419-2B8E9037271C}.Debug|iPhone.Build.0 = Debug|iPhone
+		{B21E8839-081C-405C-9419-2B8E9037271C}.Debug|iPhone.Deploy.0 = Debug|iPhone
 		{B21E8839-081C-405C-9419-2B8E9037271C}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
 		{B21E8839-081C-405C-9419-2B8E9037271C}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
 		{B21E8839-081C-405C-9419-2B8E9037271C}.Debug|x64.ActiveCfg = Debug|iPhone

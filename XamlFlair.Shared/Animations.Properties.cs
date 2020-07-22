@@ -110,6 +110,22 @@ namespace XamlFlair
 				typeof(Animations),
 				new PropertyMetadata(false));
 
+#if !__WPF__
+		public static DebugTarget GetEnableDebugging(DependencyObject obj) => (DebugTarget)obj.GetValue(EnableDebuggingProperty);
+
+		public static void SetEnableDebugging(DependencyObject obj, DebugTarget value) => obj.SetValue(EnableDebuggingProperty, value);
+
+		/// <summary>
+		/// Specifies the target location to start debugging from for the corresponding animation (only when a debugger is attached)
+		/// </summary>
+		public static readonly DependencyProperty EnableDebuggingProperty =
+			DependencyProperty.RegisterAttached(
+				"EnableDebugging",
+				typeof(DebugTarget),
+				typeof(Animations),
+				new PropertyMetadata(DebugTarget.None));
+#endif
+
 		public static bool GetCombinedBinding(DependencyObject obj) => (bool)obj.GetValue(CombinedBindingProperty);
 
 		public static void SetCombinedBinding(DependencyObject obj, bool value) => obj.SetValue(CombinedBindingProperty, value);

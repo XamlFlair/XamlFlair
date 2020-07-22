@@ -17,6 +17,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Entities\AnimationSettings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\AnimationState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\CompoundSettings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\DebugTarget.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\EasingType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\EventType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Contracts\IAnimationSettings.cs" />
