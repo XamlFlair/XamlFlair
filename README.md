@@ -476,7 +476,7 @@ In the above example, since the element is scaling from the bottom, but with a d
 
 ### Using the `AllowOpacityReset` Property (*WPF Only*)
 
-The .Net documentation states the following:
+The [.Net documentation](https://docs.microsoft.com/en-us/dotnet/framework/wpf/graphics-multimedia/animation-tips-and-tricks#cant-change-the-value-of-a-property-after-animating-it) states the following:
 
 > In some cases, it might appear that you can't change the value of a property after it has been animated.
 > ...you must stop the animation from influencing the property.
