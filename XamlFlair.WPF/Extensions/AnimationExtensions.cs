@@ -283,12 +283,12 @@ namespace XamlFlair.Extensions
             // If the element is ListBoxItem-based, we must check the logging property on its parent ListBox
             if (element is ListBoxItem
                 && element.FindAscendant<ListBox>() is ListBox lb
-                && Animations.GetEnableLogging(lb))
+                && Animations.GetEnableLogging(lb) == LogLevel.Debug)
             {
                 // Log for a ListBoxItem
                 element.LogAnimationInfo(targetProperty, anim, settings);
             }
-            else if (Animations.GetEnableLogging(element))
+            else if (Animations.GetEnableLogging(element) == LogLevel.Debug)
             {
                 // Log for a FrameworkElement
                 element.LogAnimationInfo(targetProperty, anim, settings);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Reactive.Linq;
 using System.Linq;
 using System.Numerics;
@@ -18,7 +19,6 @@ using Windows.UI.Xaml.Hosting;
 using Windows.UI.Composition;
 using static Windows.UI.Xaml.EventsMixin;
 using FrameworkElement = Windows.UI.Xaml.FrameworkElement;
-using System.Diagnostics;
 #endif
 
 #if __WPF__
@@ -128,12 +128,10 @@ namespace XamlFlair
 		// This can be called from the three main entry-points (Primary, Secondary, and StartWith)
 		private static void InitializeElement(FrameworkElement element)
 		{
-#if !__WPF__
 			if (Debugger.IsAttached && GetEnableDebugging(element) == DebugTarget.InitializeElement)
 			{
 				Debugger.Break();
 			}
-#endif
 
 			if (GetIsInitialized(element))
 			{

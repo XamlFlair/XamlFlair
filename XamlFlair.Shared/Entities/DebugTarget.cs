@@ -1,5 +1,4 @@
-﻿#if !__WPF__
-namespace XamlFlair
+﻿namespace XamlFlair
 {
 	public enum DebugTarget
 	{
@@ -8,4 +7,3 @@ namespace XamlFlair
 		RunAnimation
 	}
 }
-#endif

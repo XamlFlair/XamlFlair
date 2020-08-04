@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reactive.Disposables;
 using System.Windows.Input;
+using Microsoft.Extensions.Logging;
 
 #if __WPF__
 using System.Windows;
@@ -16,7 +17,7 @@ namespace XamlFlair
 		/// <summary>
 		/// Activates logging for the list of active storyboards (outputs the list on every item add/remove)
 		/// </summary>
-		public static bool EnableActiveTimelinesLogging { get; set; }
+		public static LogLevel EnableActiveTimelinesLogging { get; set; }
 
 		#region Internal Attached Properties
 
@@ -96,9 +97,9 @@ namespace XamlFlair
 
 		#region Public Attached Properties
 
-		public static bool GetEnableLogging(DependencyObject obj) => (bool)obj.GetValue(EnableLoggingProperty);
+		public static LogLevel GetEnableLogging(DependencyObject obj) => (LogLevel)obj.GetValue(EnableLoggingProperty);
 
-		public static void SetEnableLogging(DependencyObject obj, bool value) => obj.SetValue(EnableLoggingProperty, value);
+		public static void SetEnableLogging(DependencyObject obj, LogLevel value) => obj.SetValue(EnableLoggingProperty, value);
 
 		/// <summary>
 		/// Specifies if animation data should be logged to the console for debugging purposes.
@@ -106,11 +107,10 @@ namespace XamlFlair
 		public static readonly DependencyProperty EnableLoggingProperty =
 			DependencyProperty.RegisterAttached(
 				"EnableLogging",
-				typeof(bool),
+				typeof(LogLevel),
 				typeof(Animations),
-				new PropertyMetadata(false));
+				new PropertyMetadata(LogLevel.None));
 
-#if !__WPF__
 		public static DebugTarget GetEnableDebugging(DependencyObject obj) => (DebugTarget)obj.GetValue(EnableDebuggingProperty);
 
 		public static void SetEnableDebugging(DependencyObject obj, DebugTarget value) => obj.SetValue(EnableDebuggingProperty, value);
@@ -124,7 +124,6 @@ namespace XamlFlair
 				typeof(DebugTarget),
 				typeof(Animations),
 				new PropertyMetadata(DebugTarget.None));
-#endif
 
 		public static bool GetCombinedBinding(DependencyObject obj) => (bool)obj.GetValue(CombinedBindingProperty);
 

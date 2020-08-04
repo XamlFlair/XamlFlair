@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <TargetFrameworks>net472;netcoreapp3.0</TargetFrameworks>
+    <TargetFrameworks>net472;netcoreapp3.0;netcoreapp3.1</TargetFrameworks>
     <OutputType>Library</OutputType>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>Logo.ico</ApplicationIcon>
     <PackageId>XamlFlair.WPF</PackageId>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-    <PackageReleaseNotes>Removed a Take(1) for the element Loaded event subscription.</PackageReleaseNotes>
+    <PackageReleaseNotes>Added support for .Net Core 3.1 + changed EnableLogging to be of type LogLevel instead of Boolean.</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
     <Authors>XamlFlair.WPF</Authors>
     <PackageProjectUrl>https://github.com/XamlFlair/XamlFlair</PackageProjectUrl>

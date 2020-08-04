@@ -44,7 +44,7 @@ The goal of the XamlFlair library is to ease the implementation of common animat
 
 - [Using the `ClipToBounds` Property (*UWP And Uno Only*)](#using-the-cliptobounds-property-uwp-and-uno-only)
 
-- [Debugging Animations (*UWP And Uno Only*)](#debugging-animations-uwp-and-uno-only)
+- [Debugging Animations](#debugging-animations)
 
 - [Logging Animations](#logging-animations)
 
@@ -102,7 +102,7 @@ Animated Lists                        |      X      |     X       |       X     
 Blur Effect                           |      X      |     X       |       -       |       -       |         -         |              -
 Saturation Effect                     |      X      |     -       |       -       |       -       |         -         |              -
 Tint Effect                           |      X      |     -       |       -       |       -       |         -         |              -
-Debugging Animations                  |      X      |     -       |       X       |       X       |         X         |              -
+Debugging Animations                  |      X      |     X       |       X       |       X       |         X         |              -
 
 > **Note**: A standard UWP app and a Uno app (UWP head) are different when it comes to XamlFlair. A standard UWP app referencing `XamlFlair.UWP` will use Composition-based animations behind the scenes. An Uno app (including the UWP head) that references `XamlFlair.Uno` will all use Storyboarding behind the scenes.
 
@@ -501,7 +501,7 @@ A helpful property that exists in WPF, `ClipToBounds` is a helpful property that
 <Border>
 ```
 
-### Debugging Animations (*UWP And Uno Only*)
+### Debugging Animations
 
 In order to debug an animation and step into the code, use the `EnableDebugging` property. Debugging is possible due to the inclusion of the [SourceLink](https://github.com/dotnet/sourcelink) library. Please be sure to have *Just My Code* disabled and *SourceLink* enabled:
 
@@ -542,10 +542,10 @@ public App()
 }
 ```
 
-To output the values of one or more animations, simply set `True` to the `EnableLogging` property on the target `FrameworkElement`:
+To output the values of one or more animations, simply set `Debug` to the `EnableLogging` property on the target `FrameworkElement`:
 
 ```xml
-<Rectangle xf:Animations.EnableLogging="True"
+<Rectangle xf:Animations.EnableLogging="Debug"
            xf:Animations.Primary="{StaticResource SlideFromLeft}" />
 ```
 
@@ -572,7 +572,7 @@ Doing so will provide you with the following similar console output (differs sli
 As each storyboard executes, it's kept in an internal list until it completes (or gets stopped). To output this internal list, temporarily add the following in your app startup code:
 
 ```c#
-Animations.EnableActiveTimelinesLogging = true;
+Animations.EnableActiveTimelinesLogging = LogLevel.Debug;
 ```
 
 Doing so will provide you with the following similar console output:
@@ -593,6 +593,8 @@ Doing so will provide you with the following similar console output:
 
     NO ACTIVE TIMELINES!
     ------------------------------------
+
+> Currently, all the logging in XamlFlair mentioned above is logged at `LogLevel.Debug`
 
 ### `ListViewBase` (_UWP and Uno_) and `ListBox`-based (_WPF_) Animations
 

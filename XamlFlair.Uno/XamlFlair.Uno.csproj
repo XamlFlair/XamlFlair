@@ -11,15 +11,15 @@
 	<Copyright>Copyright © 2020</Copyright>
 	<PackageId>XamlFlair.Uno</PackageId>
 	<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-	<PackageReleaseNotes>Added the EnableDebugging property and support to debug using SourceLink.</PackageReleaseNotes>
-	<Version>1.1.9</Version>
+	<PackageReleaseNotes>Changed EnableLogging to be of type LogLevel instead of Boolean.</PackageReleaseNotes>
+	<Version>1.1.10</Version>
 	<PackageProjectUrl>https://github.com/XamlFlair/XamlFlair</PackageProjectUrl>
 	<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
 	<Company>XamlFlair</Company>
 	<PackageIconUrl>https://github.com/XamlFlair/XamlFlair/blob/master/nuget_logo.png?raw=true</PackageIconUrl>
 	<Authors>XamlFlair</Authors>
-	<FileVersion>1.1.9</FileVersion>
-	<AssemblyVersion>1.1.9</AssemblyVersion>
+	<FileVersion>1.1.10</FileVersion>
+	<AssemblyVersion>1.1.10</AssemblyVersion>
 	
 	<!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
