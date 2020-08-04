@@ -4,7 +4,7 @@
     <!--*-->
     <id>XamlFlair.Uno</id>
     <!--*-->
-    <version>1.1.9</version>
+    <version>1.1.10</version>
     <title>XamlFlair.Uno</title>
     <!--*-->
     <authors>XamlFlair</authors>
@@ -20,7 +20,7 @@
     <!--*-->
     <description>XamlFlair animation library for the Uno platform.</description>
     <!--*-->
-    <releaseNotes>Added the EnableDebugging property and support to debug using SourceLink.</releaseNotes>
+    <releaseNotes>Changed EnableLogging to be of type LogLevel instead of Boolean.</releaseNotes>
     <copyright>Copyright © 2020</copyright>
     <tags>
     </tags>

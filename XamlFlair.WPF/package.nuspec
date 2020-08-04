@@ -18,7 +18,7 @@
     <!--*-->
     <description>XamlFlair animation library for the WPF platform.</description>
     <!--*-->
-    <releaseNotes>Added the EnableDebugging property and support to debug using SourceLink.</releaseNotes>
+    <releaseNotes>Added support for .Net Core 3.1 + changed EnableLogging to be of type LogLevel instead of Boolean.</releaseNotes>
     <copyright>Copyright © 2020</copyright>
     <tags>
     </tags>
@@ -34,5 +34,7 @@
     <file src="bin\Release\net472\XamlFlair.WPF.pdb" target="lib\net472" />
     <file src="bin\Release\netcoreapp3.0\XamlFlair.WPF.dll" target="lib\netcoreapp3.0" />
     <file src="bin\Release\netcoreapp3.0\XamlFlair.WPF.pdb" target="lib\netcoreapp3.0" />
+    <file src="bin\Release\netcoreapp3.1\XamlFlair.WPF.dll" target="lib\netcoreapp3.1" />
+    <file src="bin\Release\netcoreapp3.1\XamlFlair.WPF.pdb" target="lib\netcoreapp3.1" />
   </files>
 </package>

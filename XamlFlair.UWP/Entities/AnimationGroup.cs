@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -36,12 +37,12 @@ namespace XamlFlair
 			// If the element is SelectorItem-based, we must check the logging property on its parent ListView
 			if (element is SelectorItem
 				&& element.FindAscendant<ListViewBase>() is ListViewBase lvb
-				&& Animations.GetEnableLogging(lvb))
+				&& Animations.GetEnableLogging(lvb) == LogLevel.Debug)
 			{
 				// Log for a SelectorItem
 				element.LogAnimationInfo(settings, animation.TargetProperty);
 			}
-			else if (Animations.GetEnableLogging(element))
+			else if (Animations.GetEnableLogging(element) == LogLevel.Debug)
 			{
 				// Log for a FrameworkElement
 				element.LogAnimationInfo(settings, animation.TargetProperty);

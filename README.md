@@ -542,10 +542,10 @@ public App()
 }
 ```
 
-To output the values of one or more animations, simply set `True` to the `EnableLogging` property on the target `FrameworkElement`:
+To output the values of one or more animations, simply set `Debug` to the `EnableLogging` property on the target `FrameworkElement`:
 
 ```xml
-<Rectangle xf:Animations.EnableLogging="True"
+<Rectangle xf:Animations.EnableLogging="Debug"
            xf:Animations.Primary="{StaticResource SlideFromLeft}" />
 ```
 
@@ -572,7 +572,7 @@ Doing so will provide you with the following similar console output (differs sli
 As each storyboard executes, it's kept in an internal list until it completes (or gets stopped). To output this internal list, temporarily add the following in your app startup code:
 
 ```c#
-Animations.EnableActiveTimelinesLogging = true;
+Animations.EnableActiveTimelinesLogging = LogLevel.Debug;
 ```
 
 Doing so will provide you with the following similar console output:
@@ -593,6 +593,8 @@ Doing so will provide you with the following similar console output:
 
     NO ACTIVE TIMELINES!
     ------------------------------------
+
+> Currently, all the logging in XamlFlair mentioned above is logged at `LogLevel.Debug`
 
 ### `ListViewBase` (_UWP and Uno_) and `ListBox`-based (_WPF_) Animations
 

@@ -62,7 +62,7 @@ namespace XamlFlair.Extensions
 				SequenceOrder = sequenceOrder
 			};
 
-			if (actives.TryAdd(timelineGuid, active) && Animations.EnableActiveTimelinesLogging)
+			if (actives.TryAdd(timelineGuid, active) && Animations.EnableActiveTimelinesLogging == LogLevel.Debug)
 			{
 				LogActiveTimelines(actives, "Active timeline added");
 			}
@@ -73,7 +73,7 @@ namespace XamlFlair.Extensions
 		internal static void RemoveByID<T>(this ConcurrentDictionary<Guid, ActiveTimeline<T>> actives, Guid timelineGuid)
 			where T : DependencyObject
 		{
-			if (actives.TryRemove(timelineGuid, out var _) && Animations.EnableActiveTimelinesLogging)
+			if (actives.TryRemove(timelineGuid, out var _) && Animations.EnableActiveTimelinesLogging == LogLevel.Debug)
 			{
 				LogActiveTimelines(actives, "Active timeline removed");
 			}
@@ -160,7 +160,7 @@ namespace XamlFlair.Extensions
 				active.State = state;
 			}
 
-			if (Animations.EnableActiveTimelinesLogging)
+			if (Animations.EnableActiveTimelinesLogging == LogLevel.Debug)
 			{
 				LogActiveTimeline(active, timelineGuid, $"Updated state to: {state}");
 			}
@@ -179,7 +179,7 @@ namespace XamlFlair.Extensions
 				active.Value.State = state;
 			}
 
-			if (Animations.EnableActiveTimelinesLogging)
+			if (Animations.EnableActiveTimelinesLogging == LogLevel.Debug)
 			{
 				LogActiveTimeline(active.Value, timelineGuid, $"Updated state to: {state}");
 			}
@@ -225,7 +225,7 @@ namespace XamlFlair.Extensions
 				activeKvp.Value.SetAnimationState(activeKvp.Key, AnimationState.Idle);
 			}
 
-			if (Animations.EnableActiveTimelinesLogging)
+			if (Animations.EnableActiveTimelinesLogging == LogLevel.Debug)
 			{
 				LogActiveTimelines(actives, "Reset timeline states to Idle");
 			}
