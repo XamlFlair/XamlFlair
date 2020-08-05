@@ -1,35 +1,39 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
-  <PropertyGroup>
-    <TargetFrameworks>net472;netcoreapp3.0;netcoreapp3.1</TargetFrameworks>
-    <OutputType>Library</OutputType>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <UseWPF>true</UseWPF>
-    <ApplicationIcon>Logo.ico</ApplicationIcon>
-    <PackageId>XamlFlair.WPF</PackageId>
-    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-    <PackageReleaseNotes>Added support for .Net Core 3.1 + changed EnableLogging to be of type LogLevel instead of Boolean.</PackageReleaseNotes>
-    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-    <Authors>XamlFlair.WPF</Authors>
-    <PackageProjectUrl>https://github.com/XamlFlair/XamlFlair</PackageProjectUrl>
-    <PackageIconUrl>https://github.com/XamlFlair/XamlFlair/blob/master/nuget_logo.png?raw=true</PackageIconUrl>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net472;netcoreapp3.0;netcoreapp3.1</TargetFrameworks>
+		<OutputType>Library</OutputType>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<UseWPF>true</UseWPF>
+		<ApplicationIcon>Logo.ico</ApplicationIcon>
+		<PackageId>XamlFlair.WPF</PackageId>
+		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+		<PackageReleaseNotes>Adjustments and fies for SourceLink support.</PackageReleaseNotes>
+		<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+		<Authors>XamlFlair.WPF</Authors>
+		<PackageProjectUrl>https://github.com/XamlFlair/XamlFlair</PackageProjectUrl>
+		<PackageIconUrl>https://github.com/XamlFlair/XamlFlair/blob/master/nuget_logo.png?raw=true</PackageIconUrl>
+	</PropertyGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DefineConstants>TRACE;DEBUG;WINDOWS;__WPF__</DefineConstants>
-  </PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<DefineConstants>TRACE;DEBUG;WINDOWS;__WPF__</DefineConstants>
+	</PropertyGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DefineConstants>TRACE;WINDOWS;__WPF__</DefineConstants>
-  </PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<DefineConstants>TRACE;WINDOWS;__WPF__</DefineConstants>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="1.1.1" />
-    <PackageReference Include="System.Reactive" Version="4.4.1" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="1.1.1" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="System.Reactive" Version="4.4.1" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Content Include="Logo.ico" />
-  </ItemGroup>
+	<ItemGroup>
+		<Content Include="Logo.ico" />
+	</ItemGroup>
 
-  <Import Project="..\XamlFlair.Shared\XamlFlair.Shared.projitems" Label="Shared" />
+	<Import Project="..\XamlFlair.Shared\XamlFlair.Shared.projitems" Label="Shared" />
 </Project>
