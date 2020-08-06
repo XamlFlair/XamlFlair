@@ -503,9 +503,10 @@ A helpful property that exists in WPF, `ClipToBounds` is a helpful property that
 
 ### Debugging Animations
 
-In order to debug an animation and step into the code, use the `EnableDebugging` property. Debugging is possible due to the inclusion of the [SourceLink](https://github.com/dotnet/sourcelink) library. Please be sure to have *Just My Code* disabled and *SourceLink* enabled:
+In order to debug an animation and step into the code, use the `EnableDebugging` property. Debugging is possible due to the inclusion of the [SourceLink](https://github.com/dotnet/sourcelink) library. Please be sure to do the following:
 
-![SourceLink](doc/img/sourcelink.jpg)
+![SourceLink1](doc/img/sourcelink01.png)
+![SourceLink2](doc/img/sourcelink02.png)
 
 ```xml
 <Rectangle xf:Animations.EnableDebugging="InitializeElement"
