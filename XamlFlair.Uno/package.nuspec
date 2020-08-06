@@ -4,23 +4,23 @@
     <!--*-->
     <id>XamlFlair.Uno</id>
     <!--*-->
-    <version>1.1.11</version>
+    <version>1.1.12</version>
     <title>XamlFlair.Uno</title>
     <!--*-->
     <authors>XamlFlair</authors>
     <owners>XamlFlair</owners>
     <!--
-			<licenseUrl></licenseUrl>
-			<projectUrl></projectUrl>
-			<iconUrl></iconUrl>
-		-->
+		<licenseUrl></licenseUrl>
+		<projectUrl></projectUrl>
+		<iconUrl></iconUrl>
+	-->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <projectUrl>https://github.com/XamlFlair/XamlFlair</projectUrl>
     <iconUrl>https://github.com/XamlFlair/XamlFlair/blob/master/nuget_logo.png?raw=true</iconUrl>
     <!--*-->
     <description>XamlFlair animation library for the Uno platform.</description>
     <!--*-->
-    <releaseNotes>Adjustments and fies for SourceLink support.</releaseNotes>
+    <releaseNotes>Applied a change to fix compound settings from having their Sequences shared.</releaseNotes>
     <copyright>Copyright © 2020</copyright>
     <tags>
     </tags>
