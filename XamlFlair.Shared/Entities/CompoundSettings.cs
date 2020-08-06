@@ -36,21 +36,10 @@ namespace XamlFlair
 				typeof(CompoundSettings),
 				new PropertyMetadata(AnimationSettings.DEFAULT_EVENT));
 
-		public List<AnimationSettings> Sequence
-		{
-			get => (List<AnimationSettings>)GetValue(SequenceProperty);
-			set => SetValue(SequenceProperty, value);
-		}
-
-		/// <summary>
-		/// Specifies the list of AnimationSettings used for a compound animation
-		/// </summary>
-		public static readonly DependencyProperty SequenceProperty =
-			DependencyProperty.Register(
-				nameof(Sequence),
-				typeof(List<AnimationSettings>),
-				typeof(CompoundSettings),
-				new PropertyMetadata(new List<AnimationSettings>()));
+		///// <summary>
+		///// Specifies the list of AnimationSettings used for a compound animation
+		///// </summary>
+		public List<AnimationSettings> Sequence { get; set; } = new List<AnimationSettings>();
 
 		#region Equality
 
