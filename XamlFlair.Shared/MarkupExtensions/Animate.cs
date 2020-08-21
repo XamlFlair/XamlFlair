@@ -34,12 +34,12 @@ namespace XamlFlair
 		/// <summary>
 		/// Specifies the animation types to include in the composite animation
 		/// </summary>
-		public AnimationKind Kind { get; set; } = AnimationSettings.DEFAULT_KIND;
+		public AnimationKind Kind { get; set; } = DefaultSettings.DEFAULT_KIND;
 
 		/// <summary>
 		/// Specifies the duration of the composite animation
 		/// </summary>
-		public double Duration { get; set; } = AnimationSettings.DEFAULT_DURATION;
+		public double Duration { get; set; } = DefaultSettings.DEFAULT_DURATION;
 
 		/// <summary>
 		/// Specifies the delay of the composite animation
@@ -108,24 +108,24 @@ namespace XamlFlair
 		/// <summary>
 		/// Specifies the saturation amount of the composite animation
 		/// </summary>
-		public double Saturation { get; set; } = AnimationSettings.DEFAULT_SATURATION;
+		public double Saturation { get; set; } = DefaultSettings.DEFAULT_SATURATION;
 
 		/// <summary>
 		/// Specifies the tint color of the composite animation
 		/// </summary>
-		public Color Tint { get; set; } = AnimationSettings.DEFAULT_TINT;
+		public Color Tint { get; set; } = DefaultSettings.DEFAULT_TINT;
 #endif
 
 		/// <summary>
 		/// Specifies the center point of the element's transform
 		/// </summary>
-		public Point TransformCenterPoint { get; set; } = AnimationSettings.DEFAULT_TRANSFORM_CENTER_POINT;
+		public Point TransformCenterPoint { get; set; } = DefaultSettings.DEFAULT_TRANSFORM_CENTER_POINT;
 
 #if __WPF__
 		/// <summary>
 		/// Specifies the transformation type to use (render or layout)
 		/// </summary>
-		public TransformationType TransformOn { get; set; } = AnimationSettings.DEFAULT_TRANSFORM;
+		public TransformationType TransformOn { get; set; } = DefaultSettings.DEFAULT_TRANSFORM;
 #endif
 
 		/// <summary>
@@ -134,24 +134,24 @@ namespace XamlFlair
 		/// <remarks>
 		/// This property is disregarded for controls based on ListViewBase (UWP) or ListBox (WPF)
 		/// </remarks>
-		public EventType Event { get; set; } = AnimationSettings.DEFAULT_EVENT;
+		public EventType Event { get; set; } = DefaultSettings.DEFAULT_EVENT;
 
 		/// <summary>
 		/// Specifies the easing of the composite animation
 		/// </summary>
-		public EasingType Easing { get; set; } = AnimationSettings.DEFAULT_EASING;
+		public EasingType Easing { get; set; } = DefaultSettings.DEFAULT_EASING;
 
 		/// <summary>
 		/// Specifies the easing's mode of the composite animation
 		/// </summary>
-		public EasingMode EasingMode { get; set; } = AnimationSettings.DEFAULT_EASING_MODE;
+		public EasingMode EasingMode { get; set; } = DefaultSettings.DEFAULT_EASING_MODE;
 
 		private IAnimationSettings GetAnimationSettings()
 		{
 			if (BasedOn is CompoundSettings compound)
 			{
 				// Make sure to capture an override on the Event property (if any)
-				if (Event != AnimationSettings.DEFAULT_EVENT)
+				if (Event != DefaultSettings.DEFAULT_EVENT)
 				{
 					compound.Event = Event;
 				}

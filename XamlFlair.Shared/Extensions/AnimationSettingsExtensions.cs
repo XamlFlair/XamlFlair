@@ -82,10 +82,10 @@ namespace XamlFlair.Extensions
 			var updated = new AnimationSettings();
 
 			var kind = other.Kind;
-			updated.Kind = kind != AnimationSettings.DEFAULT_KIND ? kind : settings.Kind;
+			updated.Kind = kind != DefaultSettings.DEFAULT_KIND ? kind : settings.Kind;
 
 			var duration = other.Duration;
-			updated.Duration = duration != AnimationSettings.DEFAULT_DURATION ? duration : settings.Duration;
+			updated.Duration = duration != DefaultSettings.DEFAULT_DURATION ? duration : settings.Duration;
 
 			var delay = other.Delay;
 			updated.Delay = delay != 0 ? delay : settings.Delay;
@@ -115,21 +115,21 @@ namespace XamlFlair.Extensions
 			updated.ScaleY = scaleY != 1 ? scaleY : settings.ScaleY;
 
 			var origin = other.TransformCenterPoint;
-			updated.TransformCenterPoint = origin != AnimationSettings.DEFAULT_TRANSFORM_CENTER_POINT ? origin : settings.TransformCenterPoint;
+			updated.TransformCenterPoint = origin != DefaultSettings.DEFAULT_TRANSFORM_CENTER_POINT ? origin : settings.TransformCenterPoint;
 
 #if __WPF__
 			var transformOn = other.TransformOn;
-			updated.TransformOn = transformOn != AnimationSettings.DEFAULT_TRANSFORM ? transformOn : settings.TransformOn;
+			updated.TransformOn = transformOn != DefaultSettings.DEFAULT_TRANSFORM ? transformOn : settings.TransformOn;
 #endif
 
 			var easingMode = other.EasingMode;
-			updated.EasingMode = easingMode != AnimationSettings.DEFAULT_EASING_MODE ? easingMode : settings.EasingMode;
+			updated.EasingMode = easingMode != DefaultSettings.DEFAULT_EASING_MODE ? easingMode : settings.EasingMode;
 
 			var easing = other.Easing;
-			updated.Easing = easing != AnimationSettings.DEFAULT_EASING ? easing : settings.Easing;
+			updated.Easing = easing != DefaultSettings.DEFAULT_EASING ? easing : settings.Easing;
 
 			var @event = other.Event;
-			updated.Event = @event != AnimationSettings.DEFAULT_EVENT ? @event : settings.Event;
+			updated.Event = @event != DefaultSettings.DEFAULT_EVENT ? @event : settings.Event;
 
 #if __UWP__
 			var offsetZ = other.OffsetZ;
@@ -139,10 +139,10 @@ namespace XamlFlair.Extensions
 			updated.ScaleZ = scaleZ != 1 ? scaleZ : settings.ScaleZ;
 
 			var saturation = other.Saturation;
-			updated.Saturation = saturation != AnimationSettings.DEFAULT_SATURATION ? saturation : settings.Saturation;
+			updated.Saturation = saturation != DefaultSettings.DEFAULT_SATURATION ? saturation : settings.Saturation;
 
 			var tint = other.Tint;
-			updated.Tint = tint != AnimationSettings.DEFAULT_TINT ? tint : settings.Tint;
+			updated.Tint = tint != DefaultSettings.DEFAULT_TINT ? tint : settings.Tint;
 #endif
 
 			return updated;

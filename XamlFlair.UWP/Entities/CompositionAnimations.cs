@@ -22,7 +22,7 @@ namespace XamlFlair
 		protected FrameworkElement _element;
 		protected CompositionAnimation _animation;
 
-		internal double Duration { get; set; } = AnimationSettings.DEFAULT_DURATION;
+		internal double Duration { get; set; } = DefaultSettings.DEFAULT_DURATION;
 
 		internal AnimationSettings Settings { get; set; }
 
@@ -49,7 +49,7 @@ namespace XamlFlair
 				_visual = ElementCompositionPreview.GetElementVisual(_element);
 			}
 
-			var duration = Duration == AnimationSettings.DEFAULT_DURATION
+			var duration = Duration == DefaultSettings.DEFAULT_DURATION
 				? Settings.Duration
 				: Duration;
 
@@ -165,8 +165,8 @@ namespace XamlFlair
 
 			var values = setValuesFunc();
 			var blur = isFrom ? values.blur : 0f;
-			var saturate = isFrom ? values.saturate : AnimationSettings.DEFAULT_SATURATION;
-			var tint = isFrom ? values.tint : AnimationSettings.DEFAULT_TINT;
+			var saturate = isFrom ? values.saturate : DefaultSettings.DEFAULT_SATURATION;
+			var tint = isFrom ? values.tint : DefaultSettings.DEFAULT_TINT;
 
 			var blurEffect = new GaussianBlurEffect()
 			{
@@ -249,7 +249,7 @@ namespace XamlFlair
 				}
 				else
 				{
-					InitializeEffect(element, isFrom, () => (0f, AnimationSettings.DEFAULT_SATURATION, AnimationSettings.DEFAULT_TINT));
+					InitializeEffect(element, isFrom, () => (0f, DefaultSettings.DEFAULT_SATURATION, DefaultSettings.DEFAULT_TINT));
 
 					sprite = Animations.GetSprite(element) as SpriteVisual;
 				}
