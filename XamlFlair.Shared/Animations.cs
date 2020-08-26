@@ -53,6 +53,9 @@ namespace XamlFlair
 #endif
 		}
 
+		/// <summary>
+		/// Function used to override the default animation values defined within XamlFlair
+		/// </summary>
 		public static void OverrideDefaultSettings(
 			AnimationKind kind = DefaultSettings.DEFAULT_KIND,
 			double duration = DefaultSettings.DEFAULT_DURATION,
@@ -60,7 +63,7 @@ namespace XamlFlair
 			EasingType easing = DefaultSettings.DEFAULT_EASING,
 			EasingMode mode = DefaultSettings.DEFAULT_EASING_MODE,
 #if __WPF__
-			TransformationType transform = DefaultSettings.DEFAULT_TRANSFORM,
+			TransformationType transformOn = DefaultSettings.DEFAULT_TRANSFORM_ON,
 #elif __UWP__ && !HAS_UNO
 			double saturation = DefaultSettings.DEFAULT_SATURATION,
 #endif
@@ -73,7 +76,7 @@ namespace XamlFlair
 			DefaultSettings.Mode = mode;
 			DefaultSettings.Event = @event;
 #if __WPF__
-			DefaultSettings.Transform = transform;
+			DefaultSettings.TransformOn = transformOn;
 #elif __UWP__ && !HAS_UNO
 			DefaultSettings.Saturation = saturation;
 #endif
@@ -248,7 +251,7 @@ namespace XamlFlair
 
 		private static void RegisterElementEvents(FrameworkElement element, IAnimationSettings settings, bool useSecondarySettings = false)
 		{
-			switch (settings?.Event ?? DefaultSettings.DEFAULT_EVENT)
+			switch (settings?.Event ?? DefaultSettings.Event)
 			{
 				case EventType.Loaded:
 				{

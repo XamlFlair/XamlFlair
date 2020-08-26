@@ -34,7 +34,7 @@ namespace XamlFlair
 				nameof(Event),
 				typeof(EventType),
 				typeof(CompoundSettings),
-				new PropertyMetadata(DefaultSettings.DEFAULT_EVENT));
+				new PropertyMetadata(DefaultSettings.Event));
 
 		///// <summary>
 		///// Specifies the list of AnimationSettings used for a compound animation

@@ -29,23 +29,6 @@ namespace XamlFlair
 	public partial class AnimationSettings : DependencyObject, IAnimationSettings, IEquatable<AnimationSettings>
 #endif
 	{
-//		internal const AnimationKind DEFAULT_KIND = AnimationKind.FadeTo;
-//		internal const double DEFAULT_DURATION = 500;
-//		internal const double DEFAULT_INTER_ELEMENT_DELAY = 25;
-//		internal static readonly Point DEFAULT_TRANSFORM_CENTER_POINT = new Point(0.5, 0.5);
-//		internal const EasingType DEFAULT_EASING = EasingType.Cubic;
-//		internal const EasingMode DEFAULT_EASING_MODE = EasingMode.EaseOut;
-//		internal const EventType DEFAULT_EVENT = EventType.Loaded;
-
-//#if __WPF__
-//		internal const TransformationType DEFAULT_TRANSFORM = TransformationType.Render;
-//#endif
-
-//#if __UWP__
-//		internal const double DEFAULT_SATURATION = 0.5;
-//		internal static readonly Color DEFAULT_TINT = Colors.Transparent;
-//#endif
-
 		public AnimationKind Kind
 		{
 			get => (AnimationKind)GetValue(KindProperty);
@@ -60,7 +43,7 @@ namespace XamlFlair
 				nameof(Kind),
 				typeof(AnimationKind),
 				typeof(AnimationSettings),
-				new PropertyMetadata(DefaultSettings.DEFAULT_KIND));
+				new PropertyMetadata(DefaultSettings.Kind));
 
 		public double Duration
 		{
@@ -76,7 +59,7 @@ namespace XamlFlair
 				nameof(Duration),
 				typeof(double),
 				typeof(AnimationSettings),
-				new PropertyMetadata(DefaultSettings.DEFAULT_DURATION));
+				new PropertyMetadata(DefaultSettings.Duration));
 
 		public double Delay
 		{
@@ -266,7 +249,7 @@ namespace XamlFlair
 				nameof(Saturation),
 				typeof(double),
 				typeof(AnimationSettings),
-				new PropertyMetadata(DefaultSettings.DEFAULT_SATURATION));
+				new PropertyMetadata(DefaultSettings.Saturation));
 
 		public Color Tint
 		{
@@ -282,7 +265,7 @@ namespace XamlFlair
 				nameof(Tint),
 				typeof(Color),
 				typeof(AnimationSettings),
-				new PropertyMetadata(DefaultSettings.DEFAULT_TINT));
+				new PropertyMetadata(DefaultSettings.Tint));
 #endif
 
 		public Point TransformCenterPoint
@@ -299,7 +282,7 @@ namespace XamlFlair
 				nameof(TransformCenterPoint),
 				typeof(Point),
 				typeof(AnimationSettings),
-				new PropertyMetadata(DefaultSettings.DEFAULT_TRANSFORM_CENTER_POINT));
+				new PropertyMetadata(DefaultSettings.TransformCenterPoint));
 
 #if __WPF__
 		public TransformationType TransformOn
@@ -316,7 +299,7 @@ namespace XamlFlair
 				nameof(TransformOn),
 				typeof(TransformationType),
 				typeof(AnimationSettings),
-				new PropertyMetadata(DefaultSettings.DEFAULT_TRANSFORM));
+				new PropertyMetadata(DefaultSettings.TransformOn));
 #endif
 
 		public EasingType Easing
@@ -333,7 +316,7 @@ namespace XamlFlair
 				nameof(Easing),
 				typeof(EasingType),
 				typeof(AnimationSettings),
-				new PropertyMetadata(DefaultSettings.DEFAULT_EASING));
+				new PropertyMetadata(DefaultSettings.Easing));
 
 		public EasingMode EasingMode
 		{
@@ -352,7 +335,7 @@ namespace XamlFlair
 				nameof(EasingMode),
 				typeof(EasingMode),
 				typeof(AnimationSettings),
-				new PropertyMetadata(DefaultSettings.DEFAULT_EASING_MODE));
+				new PropertyMetadata(DefaultSettings.Mode));
 
 		public EventType Event
 		{
@@ -368,16 +351,16 @@ namespace XamlFlair
 				nameof(Event),
 				typeof(EventType),
 				typeof(AnimationSettings),
-				new PropertyMetadata(DefaultSettings.DEFAULT_EVENT));
+				new PropertyMetadata(DefaultSettings.Event));
 
 		// TODO: Determine if really needed to have AnimationSettings
 		// as a DependencyObject. Here are the properties listed
 		// as regular CLR poroperties
 		// -----------------------------------------
 		/*
-		public AnimationKind Kind { get; set; } = DefaultSettings.DEFAULT_KIND;
+		public AnimationKind Kind { get; set; } = DefaultSettings.Kind;
 
-		public double Duration { get; set; } = DefaultSettings.DEFAULT_DURATION;
+		public double Duration { get; set; } = DefaultSettings.Duration;
 
 		public double Delay { get; set; } = 0d;
 
@@ -407,22 +390,22 @@ namespace XamlFlair
 #endif
 
 #if __UWP__
-		public double Saturation { get; set; } = DefaultSettings.DEFAULT_SATURATION;
+		public double Saturation { get; set; } = DefaultSettings.Saturation;
 
-		public Color Tint { get; set; } = DefaultSettings.DEFAULT_TINT;
+		public Color Tint { get; set; } = DefaultSettings.Tint;
 #endif
 
-		public Point TransformCenterPoint { get; set; } = DefaultSettings.DEFAULT_TRANSFORM_CENTER_POINT;
+		public Point TransformCenterPoint { get; set; } = DefaultSettings.TransformCenterPoint;
 
 #if __WPF__
-		public TransformationType TransformOn { get; set; } = DefaultSettings.DEFAULT_TRANSFORM;
+		public TransformationType TransformOn { get; set; } = DefaultSettings.TransformOn;
 #endif
 
-		public EasingType Easing { get; set; } = DefaultSettings.DEFAULT_EASING;
+		public EasingType Easing { get; set; } = DefaultSettings.Easing;
 
-		public EasingMode EasingMode { get; set; } = DefaultSettings.DEFAULT_EASING_MODE;
+		public EasingMode EasingMode { get; set; } = DefaultSettings.Mode;
 
-		public EventType Event { get; set; } = DefaultSettings.DEFAULT_EVENT;
+		public EventType Event { get; set; } = DefaultSettings.Event;
 		*/
 		// -----------------------------------------
 

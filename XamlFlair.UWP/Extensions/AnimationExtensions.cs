@@ -325,7 +325,7 @@ namespace XamlFlair.Extensions
 					return animGroup.CreateEffectAnimation<SaturateAnimation, double>(
 						element,
 						settings,
-						to: DefaultSettings.DEFAULT_SATURATION);
+						to: DefaultSettings.Saturation);
 				});
 		}
 
@@ -358,7 +358,7 @@ namespace XamlFlair.Extensions
 					return animGroup.CreateEffectAnimation<TintAnimation, Color>(
 						element,
 						settings,
-						to: DefaultSettings.DEFAULT_TINT);
+						to: DefaultSettings.Tint);
 				});
 		}
 
@@ -395,7 +395,7 @@ namespace XamlFlair.Extensions
 				visual.Scale = new Vector3((float)settings.ScaleX, (float)settings.ScaleY, (float)settings.ScaleZ);
 			}
 
-			if (settings.BlurRadius != 0 || settings.Saturation != DefaultSettings.DEFAULT_SATURATION || settings.Tint != DefaultSettings.DEFAULT_TINT)
+			if (settings.BlurRadius != 0 || settings.Saturation != DefaultSettings.Saturation || settings.Tint != DefaultSettings.Tint)
 			{
 				var initialSettings = new AnimationSettings()
 				{
@@ -410,12 +410,12 @@ namespace XamlFlair.Extensions
 					BlurTo(element, initialSettings, ref group);
 				}
 
-				if (settings.Saturation != DefaultSettings.DEFAULT_SATURATION)
+				if (settings.Saturation != DefaultSettings.Saturation)
 				{
 					SaturateTo(element, initialSettings, ref group);
 				}
 
-				if (settings.Tint != DefaultSettings.DEFAULT_TINT)
+				if (settings.Tint != DefaultSettings.Tint)
 				{
 					TintTo(element, initialSettings, ref group);
 				}
@@ -424,13 +424,15 @@ namespace XamlFlair.Extensions
 			group.Begin();
 		}
 
-		private static T CreateScalarAnimation<T>(this AnimationGroup group, FrameworkElement element, AnimationSettings settings, double to = 1, double duration = DefaultSettings.DEFAULT_DURATION, bool isFrom = false)
+		private static T CreateScalarAnimation<T>(this AnimationGroup group, FrameworkElement element, AnimationSettings settings, double to = 1, double duration = -1, bool isFrom = false)
 			where T : ScalarAnimationBase, new()
 		{
 			var animation = new T()
 			{
 				To = to,
-				Duration = duration,
+				Duration = duration == -1
+					? DefaultSettings.Duration
+					: duration,
 				Settings = settings
 			};
 
@@ -440,13 +442,15 @@ namespace XamlFlair.Extensions
 		}
 
 		// TODO: If not used anymore, remove it (or simply keep for any future need?)
-		private static T CreateVectorAnimation<T>(this AnimationGroup group, FrameworkElement element, AnimationSettings settings, Vector3 to, double duration = DefaultSettings.DEFAULT_DURATION, bool isFrom = false)
+		private static T CreateVectorAnimation<T>(this AnimationGroup group, FrameworkElement element, AnimationSettings settings, Vector3 to, double duration = -1, bool isFrom = false)
 			where T : VectorAnimationBase, new()
 		{
 			var animation = new T()
 			{
 				To = to,
-				Duration = duration,
+				Duration = duration == -1
+					? DefaultSettings.Duration
+					: duration,
 				Settings = settings
 			};
 
@@ -455,13 +459,15 @@ namespace XamlFlair.Extensions
 			return animation;
 		}
 
-		private static TAnimation CreateEffectAnimation<TAnimation, TValue>(this AnimationGroup group, FrameworkElement element, AnimationSettings settings, TValue to, double duration = DefaultSettings.DEFAULT_DURATION, bool isFrom = false)
+		private static TAnimation CreateEffectAnimation<TAnimation, TValue>(this AnimationGroup group, FrameworkElement element, AnimationSettings settings, TValue to, double duration = -1, bool isFrom = false)
 			where TAnimation : EffectAnimationBase<TValue>, new()
 		{
 			var animation = new TAnimation()
 			{
 				To = to,
-				Duration = duration,
+				Duration = duration == -1
+					? DefaultSettings.Duration
+					: duration,
 				Settings = settings
 			};
 

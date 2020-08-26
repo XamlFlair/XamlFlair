@@ -26,7 +26,7 @@ namespace XamlFlair
 		internal const EventType DEFAULT_EVENT = EventType.Loaded;
 
 #if __WPF__
-		internal const TransformationType DEFAULT_TRANSFORM = TransformationType.Render;
+		internal const TransformationType DEFAULT_TRANSFORM_ON = TransformationType.Render;
 #endif
 
 #if __UWP__ && !HAS_UNO
@@ -43,7 +43,7 @@ namespace XamlFlair
 		internal static EventType Event { get; set; } = DEFAULT_EVENT;
 
 #if __WPF__
-		internal static TransformationType Transform { get; set; } = TransformationType.Render;
+		internal static TransformationType TransformOn { get; set; } = DEFAULT_TRANSFORM_ON;
 #endif
 
 #if __UWP__ && !HAS_UNO
