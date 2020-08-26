@@ -51,7 +51,7 @@ namespace XamlFlair
 				"InterElementDelay",
 				typeof(double),
 				typeof(Animations),
-				new PropertyMetadata(AnimationSettings.DEFAULT_INTER_ELEMENT_DELAY));
+				new PropertyMetadata(DefaultSettings.InterElementDelay));
 
 		public static bool GetAnimateOnLoad(ListBox obj) => (bool)obj.GetValue(AnimateOnLoadProperty);
 

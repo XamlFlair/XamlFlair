@@ -4,7 +4,7 @@
     <!--*-->
     <id>XamlFlair.Uno</id>
     <!--*-->
-    <version>1.1.12</version>
+    <version>1.1.13</version>
     <title>XamlFlair.Uno</title>
     <!--*-->
     <authors>XamlFlair</authors>
@@ -20,7 +20,7 @@
     <!--*-->
     <description>XamlFlair animation library for the Uno platform.</description>
     <!--*-->
-    <releaseNotes>Applied a change to fix compound settings from having their Sequences shared.</releaseNotes>
+    <releaseNotes>Added the Override Default Settings feature.</releaseNotes>
     <copyright>Copyright © 2020</copyright>
     <tags>
     </tags>

@@ -18,6 +18,8 @@ The goal of the XamlFlair library is to ease the implementation of common animat
 
 - [Base Animation Types](#base-animation-types)
 
+- [Overriding the Global Default Values](#overriding-the-global-default-values)
+
 - [Using a `ResourceDictionary` for Base Settings](#using-a-resourcedictionary-for-base-settings)
 
 - [Default Animations (*WPF Only*)](#default-animations-wpf-only)
@@ -176,14 +178,28 @@ From here on, it's a simple matter of setting an attached property to any `Frame
 
 The following lists some notable **default values** when working with XamlFlair:
 
-* **Kind**: FadeTo
-* **Duration**: 500
-* **Easing**: Cubic
-* **Easing Mode**: EaseOut
-* **TransformCenterPoint**: (0.5, 0.5)
-* **Event**: Loaded
-* **Saturation**: 0.5 (_UWP only_)
-* **Tint**: Transparent (_UWP only_)
+- **Kind**: FadeTo
+- **Duration** (_milliseconds_): 500
+- **Easing**: Cubic
+- **Easing Mode**: EaseOut
+- **TransformCenterPoint**: (0.5, 0.5)
+- **Event**: Loaded
+- **InterElementDelay** (_milliseconds_): 25 (_List controls only_)
+- **TransformOn**: Render (_WPF only_)
+- **Saturation**: 0.5 (_UWP only_)
+- **Tint**: Transparent (_UWP only_)
+
+### Overriding the Global Default Values
+
+If you have the need to globally change one of the default animation values (for example, having a default `Duration` of 750 instead of 500), you can call the `OverrideDefaultSettings` function in your app's initialization code. The following example changes the default values for `Duration` and `Easing`:
+
+```cs
+XamlFlair.Animations.OverrideDefaultSettings(
+    duration: 750,
+    easing: EasingType.Quadratic);
+```
+
+Therefore, with the sample code above, every animation will run for 750ms with a quadratic easing.
 
 ### Using a `ResourceDictionary` for Base Settings
 
@@ -403,14 +419,14 @@ Also note that it is also possible to repeat a Compound animation. For example, 
 
 By default, all animations execute once the UI element fires its `Loaded` event. This behavior can be overridden by setting the `Event` property. `Event` can be one of the following values:
 
-* Loaded (*default value*)
-* None
-* Visibility (*triggers only when Visibility == Visible*)
-* DataContextChanged
-* PointerOver
-* PointerExit
-* GotFocus
-* LostFocus
+- Loaded (*default value*)
+- None
+- Visibility (*triggers only when Visibility == Visible*)
+- DataContextChanged
+- PointerOver
+- PointerExit
+- GotFocus
+- LostFocus
 
 When specifying `None`, you will manually need to trigger your animations using the `PrimaryBinding` or `SecondaryBinding` properties. These properties are of type `bool` and expect a value of `True` in order to execute the corresponding animation. The following is an example of triggering an animation based off the `IsChecked` of the CheckBox control:
 

@@ -151,7 +151,7 @@ namespace XamlFlair
 				}
 
 				// Don't set a value for the Event property, is it disregarded for ListViewBase item animations.
-				if (itemSettings.Event != AnimationSettings.DEFAULT_EVENT)
+				if (itemSettings.Event != DefaultSettings.Event)
 				{
 					throw new ArgumentException($"Don't set a value for the {nameof(itemSettings.Event)} property, is it disregarded for {nameof(ListViewBase)} item animations.");
 				}
@@ -191,7 +191,7 @@ namespace XamlFlair
 				}
 
 				// Don't set a value for the Event property, is it disregarded for ListBox item animations.
-				if (itemSettings != null && itemSettings.Event != AnimationSettings.DEFAULT_EVENT)
+				if (itemSettings != null && itemSettings.Event != DefaultSettings.Event)
 				{
 					throw new ArgumentException($"Don't set a value for the {nameof(itemSettings.Event)} property, is it disregarded for {nameof(ListBox)} item animations.");
 				}

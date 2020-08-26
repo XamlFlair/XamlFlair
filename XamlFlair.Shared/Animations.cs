@@ -17,6 +17,9 @@ using FrameworkElement = System.Windows.FrameworkElement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Composition;
+using Windows.Foundation;
+using Windows.UI;
+using Windows.UI.Xaml.Media.Animation;
 using static Windows.UI.Xaml.EventsMixin;
 using FrameworkElement = Windows.UI.Xaml.FrameworkElement;
 #endif
@@ -47,6 +50,35 @@ namespace XamlFlair
 #else
 			Layout.Logger = loggerFactory.CreateLogger(nameof(Layout));
 			ListViewBaseExtensions.Logger = loggerFactory.CreateLogger(nameof(ListViewBaseExtensions));
+#endif
+		}
+
+		/// <summary>
+		/// Function used to override the default animation values defined within XamlFlair
+		/// </summary>
+		public static void OverrideDefaultSettings(
+			AnimationKind kind = DefaultSettings.DEFAULT_KIND,
+			double duration = DefaultSettings.DEFAULT_DURATION,
+			double interElementDelay = DefaultSettings.DEFAULT_INTER_ELEMENT_DELAY,
+			EasingType easing = DefaultSettings.DEFAULT_EASING,
+			EasingMode mode = DefaultSettings.DEFAULT_EASING_MODE,
+#if __WPF__
+			TransformationType transformOn = DefaultSettings.DEFAULT_TRANSFORM_ON,
+#elif __UWP__ && !HAS_UNO
+			double saturation = DefaultSettings.DEFAULT_SATURATION,
+#endif
+			EventType @event = DefaultSettings.DEFAULT_EVENT)
+		{
+			DefaultSettings.Kind = kind;
+			DefaultSettings.Duration = duration;
+			DefaultSettings.InterElementDelay = interElementDelay;
+			DefaultSettings.Easing = easing;
+			DefaultSettings.Mode = mode;
+			DefaultSettings.Event = @event;
+#if __WPF__
+			DefaultSettings.TransformOn = transformOn;
+#elif __UWP__ && !HAS_UNO
+			DefaultSettings.Saturation = saturation;
 #endif
 		}
 
@@ -219,7 +251,7 @@ namespace XamlFlair
 
 		private static void RegisterElementEvents(FrameworkElement element, IAnimationSettings settings, bool useSecondarySettings = false)
 		{
-			switch (settings?.Event ?? AnimationSettings.DEFAULT_EVENT)
+			switch (settings?.Event ?? DefaultSettings.Event)
 			{
 				case EventType.Loaded:
 				{

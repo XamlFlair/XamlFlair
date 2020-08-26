@@ -7,7 +7,7 @@
 		<ApplicationIcon>Logo.ico</ApplicationIcon>
 		<PackageId>XamlFlair.WPF</PackageId>
 		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-		<PackageReleaseNotes>Applied a change to fix compound settings from having their Sequences shared.</PackageReleaseNotes>
+		<PackageReleaseNotes>Added the Override Default Settings feature.</PackageReleaseNotes>
 		<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
 		<Authors>XamlFlair.WPF</Authors>
 		<PackageProjectUrl>https://github.com/XamlFlair/XamlFlair</PackageProjectUrl>
