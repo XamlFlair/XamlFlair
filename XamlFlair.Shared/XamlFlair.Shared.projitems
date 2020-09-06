@@ -16,6 +16,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Entities\AnimationKind.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\AnimationSettings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\AnimationState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\ColorTarget.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\CompoundSettings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\DebugTarget.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\DefaultSettings.cs" />

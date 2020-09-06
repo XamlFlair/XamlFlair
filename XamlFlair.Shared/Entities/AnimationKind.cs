@@ -8,7 +8,7 @@ namespace XamlFlair
 	[Flags]
 	public enum AnimationKind
 	{
-#if __UWP__ || __WPF__
+#if (__UWP__ && !HAS_UNO) || __WPF__
 		BlurTo = 1 << 0,
 		BlurFrom = 1 << 1,
 #endif
@@ -33,6 +33,11 @@ namespace XamlFlair
 		SaturateFrom = 1 << 19,
 		TintTo = 1 << 20,
 		TintFrom = 1 << 21,
+#endif
+// ColorAnimation supported only on Uno and WPF (not on native UWP due to Composition-only implementations)
+#if WINDOWS_UWP || HAS_UNO || __WPF__
+		ColorTo = 1 << 22,
+		ColorFrom = 1 << 23,
 #endif
 	}
 }

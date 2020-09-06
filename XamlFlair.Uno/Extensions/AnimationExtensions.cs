@@ -8,6 +8,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Microsoft.Extensions.Logging;
 using XamlFlair.Extensions;
+using Windows.UI;
+using Windows.UI.Xaml.Shapes;
 
 namespace XamlFlair.Extensions
 {
@@ -162,6 +164,111 @@ namespace XamlFlair.Extensions
 			return storyboard;
 		}
 
+		// ====================
+		// COLOR
+		// ====================
+
+		internal static Storyboard ColorTo(this FrameworkElement element, AnimationSettings settings, ref Storyboard storyboard)
+		{
+			Color fromColor = Colors.Transparent;
+			var propertyPath = string.Empty;
+
+			switch (settings.ColorOn)
+			{
+				case ColorTarget.Background when element is Control ctl && ctl.Background is SolidColorBrush brush:
+					propertyPath = "(Control.Background).(SolidColorBrush.Color)";
+					fromColor = brush.Color;
+					break;
+
+				case ColorTarget.Foreground when element is Control ctl && ctl.Foreground is SolidColorBrush brush:
+					propertyPath = "(Control.Foreground).(SolidColorBrush.Color)";
+					fromColor = brush.Color;
+					break;
+
+				case ColorTarget.BorderBrush when element is Control ctl && ctl.BorderBrush is SolidColorBrush brush:
+					propertyPath = "(Control.BorderBrush).(SolidColorBrush.Color)";
+					fromColor = brush.Color;
+					break;
+
+				case ColorTarget.Foreground when element is TextBlock tb && tb.Foreground is SolidColorBrush brush:
+					propertyPath = "(TextBlock.Foreground).(SolidColorBrush.Color)";
+					fromColor = brush.Color;
+					break;
+
+				case ColorTarget.Fill when element is Shape shp && shp.Fill is SolidColorBrush brush:
+					propertyPath = "(Shape.Fill).(SolidColorBrush.Color)";
+					fromColor = brush.Color;
+					break;
+
+				case ColorTarget.Stroke when element is Shape shp && shp.Stroke is SolidColorBrush brush:
+					propertyPath = "(Shape.Stroke).(SolidColorBrush.Color)";
+					fromColor = brush.Color;
+					break;
+
+				default:
+					const string message =
+						"$Cannot animate the ColorAnimation. Make sure the animation is applied on a Control, TextBlock, or Shape. " +
+						"Also make sure that an existing brush exists on the corresponding property (Background, Foreground, BorderBrush, Fill, or Stroke).";
+					throw new ArgumentException(message);
+			}
+			element.ApplyAnimation(settings, fromColor, settings.Color, propertyPath, ref storyboard);
+
+			return storyboard;
+		}
+
+		internal static Storyboard ColorFrom(this FrameworkElement element, AnimationSettings settings, ref Storyboard storyboard)
+		{
+			Color toColor = Colors.Transparent;
+			var propertyPath = string.Empty;
+
+			switch (settings.ColorOn)
+			{
+				case ColorTarget.Background when element is Control ctl:
+					propertyPath = "(Control.Background).(SolidColorBrush.Color)";
+					toColor = (ctl.Background as SolidColorBrush)?.Color ?? Colors.Transparent;
+					ctl.Background = new SolidColorBrush(settings.Color);
+					break;
+
+				case ColorTarget.Foreground when element is Control ctl:
+					propertyPath = "(Control.Foreground).(SolidColorBrush.Color)";
+					toColor = (ctl.Foreground as SolidColorBrush)?.Color ?? Colors.Transparent;
+					ctl.Foreground = new SolidColorBrush(settings.Color);
+					break;
+
+				case ColorTarget.BorderBrush when element is Control ctl:
+					propertyPath = "(Control.BorderBrush).(SolidColorBrush.Color)";
+					toColor = (ctl.BorderBrush as SolidColorBrush)?.Color ?? Colors.Transparent;
+					ctl.BorderBrush = new SolidColorBrush(settings.Color);
+					break;
+
+				case ColorTarget.Foreground when element is TextBlock tb:
+					propertyPath = "(TextBlock.Foreground).(SolidColorBrush.Color)";
+					toColor = (tb.Foreground as SolidColorBrush)?.Color ?? Colors.Transparent;
+					tb.Foreground = new SolidColorBrush(settings.Color);
+					break;
+
+				case ColorTarget.Fill when element is Shape shp:
+					propertyPath = "(Shape.Fill).(SolidColorBrush.Color)";
+					toColor = (shp.Fill as SolidColorBrush)?.Color ?? Colors.Transparent;
+					shp.Fill = new SolidColorBrush(settings.Color);
+					break;
+
+				case ColorTarget.Stroke when element is Shape shp:
+					propertyPath = "(Shape.Stroke).(SolidColorBrush.Color)";
+					toColor = (shp.Stroke as SolidColorBrush)?.Color ?? Colors.Transparent;
+					shp.Stroke = new SolidColorBrush(settings.Color);
+					break;
+
+				default:
+					// TODO: What do we do ???
+					break;
+			}
+
+			element.ApplyAnimation(settings, settings.Color, toColor, propertyPath, ref storyboard);
+
+			return storyboard;
+		}
+
 		private static void SetRenderTransform(FrameworkElement element, AnimationSettings settings, CompositeTransform transform, bool updateTransformCenterPoint = false)
 		{
 			element.RenderTransform = transform;
@@ -183,10 +290,29 @@ namespace XamlFlair.Extensions
 				EasingFunction = settings.GetEase()
 			};
 
-			Storyboard.SetTarget(anim, element);
-			Storyboard.SetTargetProperty(anim, targetProperty);
+			element.ApplyAnimationCore(anim, settings, from.ToString(), to.ToString(), targetProperty, ref storyboard);
+		}
 
-			storyboard.Children.Add(anim);
+		private static void ApplyAnimation(this FrameworkElement element, AnimationSettings settings, Color from, Color to, string targetProperty, ref Storyboard storyboard)
+		{
+			var anim = new ColorAnimation()
+			{
+				From = from,
+				To = to,
+				Duration = new Duration(TimeSpan.FromMilliseconds(settings.Duration)),
+				BeginTime = TimeSpan.FromMilliseconds(settings.Delay),
+				EasingFunction = settings.GetEase()
+			};
+
+			element.ApplyAnimationCore(anim, settings, from.ToString(), to.ToString(), targetProperty, ref storyboard);
+		}
+
+		private static void ApplyAnimationCore(this FrameworkElement element, Timeline animation, AnimationSettings settings, string from, string to, string targetProperty, ref Storyboard storyboard)
+		{
+			Storyboard.SetTarget(animation, element);
+			Storyboard.SetTargetProperty(animation, targetProperty);
+
+			storyboard.Children.Add(animation);
 
 			// If the element is ListBoxItem-based, we must check the logging property on its parent ListViewBase
 			if (element is SelectorItem
@@ -194,12 +320,12 @@ namespace XamlFlair.Extensions
 				&& Animations.GetEnableLogging(lvb) == LogLevel.Debug)
 			{
 				// Log for a SelectorItem
-				element.LogAnimationInfo(targetProperty, anim, settings);
+				element.LogAnimationInfo(targetProperty, from, to, settings);
 			}
 			else if (Animations.GetEnableLogging(element) == LogLevel.Debug)
 			{
 				// Log for a FrameworkElement
-				element.LogAnimationInfo(targetProperty, anim, settings);
+				element.LogAnimationInfo(targetProperty, from, to, settings);
 			}
 		}
 
@@ -219,7 +345,7 @@ namespace XamlFlair.Extensions
 			element.RenderTransform = transform;
 		}
 
-		private static void LogAnimationInfo(this FrameworkElement element, string targetProperty, DoubleAnimation anim, AnimationSettings settings)
+		private static void LogAnimationInfo(this FrameworkElement element, string targetProperty, string from, string to, AnimationSettings settings)
 		{
 			// Build the "element" output with Name + Type if Name exists, else just the Type
 			var name = element.Name ?? string.Empty;
@@ -233,8 +359,8 @@ namespace XamlFlair.Extensions
 				" Animation: \n" +
 					$"	Element = {elementOutput} \n" +
 					$"	TargetProperty = {targetProperty} \n" +
-					$"	From = {anim.From} \n" +
-					$"	To = {anim.To} \n" +
+					$"	From = {from} \n" +
+					$"	To = {to} \n" +
 				" Settings: \n" +
 					$"	Kind = {settings.Kind} \n" +
 					$"	Duration = {settings.Duration} \n" +

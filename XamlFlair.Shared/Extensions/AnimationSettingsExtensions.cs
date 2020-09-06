@@ -102,6 +102,14 @@ namespace XamlFlair.Extensions
 			var rotation = other.Rotation;
 			updated.Rotation = rotation != 0 ? rotation : settings.Rotation;
 
+// ColorAnimation supported only on Uno and WPF (not on native UWP due to Composition-only implementations)
+#if WINDOWS_UWP || HAS_UNO || __WPF__
+			var color = other.Color;
+			updated.Color = color != DefaultSettings.Color ? color : settings.Color;
+
+			var colorTarget = other.ColorOn;
+			updated.ColorOn = colorTarget != DefaultSettings.ColorOn ? colorTarget : settings.ColorOn;
+#endif
 			// Blur not supported on Uno
 #if !HAS_UNO
 			var blur = other.BlurRadius;

@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 #else
 using Windows.Foundation;
@@ -25,6 +26,12 @@ namespace XamlFlair
 		internal const EasingMode DEFAULT_EASING_MODE = EasingMode.EaseOut;
 		internal const EventType DEFAULT_EVENT = EventType.Loaded;
 
+// ColorAnimation supported only on Uno and WPF (not on native UWP due to Composition-only implementations)
+#if WINDOWS_UWP || HAS_UNO || __WPF__
+		internal static readonly Color DEFAULT_COLOR = Colors.Transparent;
+		internal static readonly ColorTarget DEFAULT_COLOR_ON = ColorTarget.Background;
+#endif
+
 #if __WPF__
 		internal const TransformationType DEFAULT_TRANSFORM_ON = TransformationType.Render;
 #endif
@@ -41,6 +48,12 @@ namespace XamlFlair
 		internal static EasingType Easing { get; set; } = DEFAULT_EASING;
 		internal static EasingMode Mode { get; set; } = DEFAULT_EASING_MODE;
 		internal static EventType Event { get; set; } = DEFAULT_EVENT;
+
+		// ColorAnimation supported only on Uno and WPF (not on native UWP due to Composition-only implementations)
+#if WINDOWS_UWP || HAS_UNO || __WPF__
+		internal static Color Color { get; set; } = DEFAULT_COLOR;
+		internal static ColorTarget ColorOn { get; set; } = DEFAULT_COLOR_ON;
+#endif
 
 #if __WPF__
 		internal static TransformationType TransformOn { get; set; } = DEFAULT_TRANSFORM_ON;

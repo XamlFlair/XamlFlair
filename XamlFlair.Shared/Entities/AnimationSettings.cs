@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 #else
 using Windows.Foundation;
@@ -215,6 +216,41 @@ namespace XamlFlair
 				typeof(AnimationSettings),
 				new PropertyMetadata(0d));
 
+// ColorAnimation supported only on Uno and WPF (not on native UWP due to Composition-only implementations)
+#if WINDOWS_UWP || HAS_UNO || __WPF__
+		public Color Color
+		{
+			get => (Color)GetValue(ColorProperty);
+			set => SetValue(ColorProperty, value);
+		}
+
+		/// <summary>
+		/// Specifies the target color of the composite animation
+		/// </summary>
+		public static readonly DependencyProperty ColorProperty =
+			DependencyProperty.Register(
+				nameof(Color),
+				typeof(Color),
+				typeof(AnimationSettings),
+				new PropertyMetadata(Colors.Transparent));
+
+		public ColorTarget ColorOn
+		{
+			get => (ColorTarget)GetValue(ColorOnProperty);
+			set => SetValue(ColorOnProperty, value);
+		}
+
+		/// <summary>
+		/// Specifies the target property for a color animation
+		/// </summary>
+		public static readonly DependencyProperty ColorOnProperty =
+			DependencyProperty.Register(
+				nameof(ColorOn),
+				typeof(ColorTarget),
+				typeof(AnimationSettings),
+				new PropertyMetadata(ColorTarget.Background));
+#endif
+
 		// Blur not supported on Uno
 #if !HAS_UNO
 		public double BlurRadius
@@ -384,6 +420,13 @@ namespace XamlFlair
 
 		public double Rotation { get; set; } = 0d;
 
+// ColorAnimation supported only on Uno and WPF (not on native UWP due to Composition-only implementations)
+#if WINDOWS_UWP || HAS_UNO || __WPF__
+		public Color Color { get; set; } = Colors.Transparent;
+
+		public ColorTarget ColorOn { get; set; } = ColorTarget.Background;
+#endif
+
 		// Blur not supported on Uno
 #if !HAS_UNO
 		public double BlurRadius { get; set; } = 0d;
@@ -432,6 +475,11 @@ namespace XamlFlair
 				&& other.ScaleY.Equals(ScaleY)
 				&& other.Rotation.Equals(Rotation)
 				&& other.TransformCenterPoint.Equals(TransformCenterPoint)
+// ColorAnimation supported only on Uno and WPF (not on native UWP due to Composition-only implementations)
+#if WINDOWS_UWP || HAS_UNO || __WPF__
+				&& other.Color.Equals(Color)
+				&& other.ColorOn.Equals(ColorOn)
+#endif
 #if !HAS_UNO
 				&& other.BlurRadius.Equals(BlurRadius)
 #endif
@@ -494,6 +542,11 @@ namespace XamlFlair
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, ScaleY) ? ScaleY.GetHashCode() : 0);
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, Rotation) ? Rotation.GetHashCode() : 0);
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, TransformCenterPoint) ? TransformCenterPoint.GetHashCode() : 0);
+// ColorAnimation supported only on Uno and WPF (not on native UWP due to Composition-only implementations)
+#if WINDOWS_UWP || HAS_UNO || __WPF__
+				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, Color) ? Color.GetHashCode() : 0);
+				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, ColorOn) ? ColorOn.GetHashCode() : 0);
+#endif
 #if !HAS_UNO
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, BlurRadius) ? BlurRadius.GetHashCode() : 0);
 #endif

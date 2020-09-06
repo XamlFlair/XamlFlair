@@ -4,17 +4,17 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using XamlFlair.Extensions;
 
 #if __WPF__
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
-using XamlFlair.Extensions;
 #else
 using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml.Media.Animation;
-using XamlFlair.Extensions;
 #endif
 
 namespace XamlFlair
@@ -95,6 +95,19 @@ namespace XamlFlair
 		/// Specifies the target rotation (in degrees) of the composite animation
 		/// </summary>
 		public double Rotation { get; set; }
+
+// ColorAnimation supported only on Uno and WPF (not on native UWP due to Composition-only implementations)
+#if WINDOWS_UWP || HAS_UNO || __WPF__
+		/// <summary>
+		/// Specifies the target color of the composite animation
+		/// </summary>
+		public Color Color { get; set; } = DefaultSettings.Color;
+
+		/// <summary>
+		/// Specifies the target property for a color animation
+		/// </summary>
+		public ColorTarget ColorOn { get; set; } = DefaultSettings.ColorOn;
+#endif
 
 		// Blur not supported on Uno
 #if !HAS_UNO
@@ -186,6 +199,11 @@ namespace XamlFlair
 				ScaleZ = ScaleZ,
 				Saturation = Saturation,
 				Tint = Tint,
+#endif
+// ColorAnimation supported only on Uno and WPF (not on native UWP due to Composition-only implementations)
+#if WINDOWS_UWP || HAS_UNO || __WPF__
+				Color = Color,
+				ColorOn = ColorOn,
 #endif
 			};
 
