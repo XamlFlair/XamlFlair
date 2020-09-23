@@ -8,6 +8,7 @@ namespace XamlFlair
 	[Flags]
 	public enum AnimationKind
 	{
+// Blur supported only on UWP and WPF
 #if (__UWP__ && !HAS_UNO) || __WPF__
 		BlurTo = 1 << 0,
 		BlurFrom = 1 << 1,

@@ -305,8 +305,10 @@ namespace XamlFlair.Extensions
 					break;
 
 				default:
-					// TODO: What do we do ???
-					break;
+					const string message =
+						"$Cannot animate the ColorAnimation. Make sure the animation is applied on a Control, TextBlock, or Shape. " +
+						"Also make sure that an existing brush exists on the corresponding property (Background, Foreground, BorderBrush, Fill, or Stroke).";
+					throw new ArgumentException(message);
 			}
 
 			element.ApplyAnimation(settings, settings.Color, toColor, propertyPath, ref storyboard);

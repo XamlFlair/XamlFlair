@@ -11,15 +11,15 @@
 		<Copyright>Copyright © 2020</Copyright>
 		<PackageId>XamlFlair.Uno</PackageId>
 		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-		<PackageReleaseNotes>Added the Override Default Settings feature.</PackageReleaseNotes>
-		<Version>1.1.13</Version>
+		<PackageReleaseNotes>Added support for ColorAnimation.</PackageReleaseNotes>
+		<Version>1.2.0</Version>
 		<PackageProjectUrl>https://github.com/XamlFlair/XamlFlair</PackageProjectUrl>
 		<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
 		<Company>XamlFlair</Company>
 		<PackageIconUrl>https://github.com/XamlFlair/XamlFlair/blob/master/nuget_logo.png?raw=true</PackageIconUrl>
 		<Authors>XamlFlair</Authors>
-		<FileVersion>1.1.13</FileVersion>
-		<AssemblyVersion>1.1.13</AssemblyVersion>
+		<FileVersion>1.2.0</FileVersion>
+		<AssemblyVersion>1.2.0</AssemblyVersion>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
 		<DefineConstants>$(DefineConstants);__WASM__</DefineConstants>
