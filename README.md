@@ -18,6 +18,8 @@ The goal of the XamlFlair library is to ease the implementation of common animat
 
 - [Base Animation Types](#base-animation-types)
 
+- [Color Animations (*WPF And Uno Only*)](#color-animations-wpf-and-uno-only)
+
 - [Overriding the Global Default Values](#overriding-the-global-default-values)
 
 - [Using a `ResourceDictionary` for Base Settings](#using-a-resourcedictionary-for-base-settings)
@@ -104,6 +106,7 @@ Animated Lists                        |      X      |     X       |       X     
 Blur Effect                           |      X      |     X       |       -       |       -       |         -         |              -
 Saturation Effect                     |      X      |     -       |       -       |       -       |         -         |              -
 Tint Effect                           |      X      |     -       |       -       |       -       |         -         |              -
+Color Animations                      |      -      |     X       |       X       |       X       |         X         |              X
 Debugging Animations                  |      X      |     X       |       X       |       X       |         X         |              -
 
 > **Note**: A standard UWP app and a Uno app (UWP head) are different when it comes to XamlFlair. A standard UWP app referencing `XamlFlair.UWP` will use Composition-based animations behind the scenes. An Uno app (including the UWP head) that references `XamlFlair.Uno` will all use Storyboarding behind the scenes.
@@ -119,6 +122,8 @@ Example of a _From_ animation (a UI element translating to the default value of 
 Example of a _To_ animation (a UI element sliding away from its current state):
 
 ![To animation](doc/gifs/TranslateTo.gif)
+
+> NOTE: It's important to note there is an exception to this rule for Color Animations, which is explained in the Base Animation Types section.
 
 ## Usage
 
@@ -176,6 +181,12 @@ From here on, it's a simple matter of setting an attached property to any `Frame
 
 ![Tint animation](doc/gifs/Tint.gif)
 
+#### Color (_WPF and Uno only_)
+
+![Color animation](doc/gifs/ColorTo.gif)
+
+> **Note**: It's important to note when animating a color using a _From_ animation, the color will animate from a specified value to its **current state** instead of a default value.
+
 The following lists some notable **default values** when working with XamlFlair:
 
 - **Kind**: FadeTo
@@ -188,6 +199,26 @@ The following lists some notable **default values** when working with XamlFlair:
 - **TransformOn**: Render (_WPF only_)
 - **Saturation**: 0.5 (_UWP only_)
 - **Tint**: Transparent (_UWP only_)
+
+### Color Animations (*WPF And Uno Only*)
+
+Color animations require some attention since they are **slightly** different than the other base type animations. When using either `ColorTo` and `ColorFrom`, the following must be done:
+
+- You can only animate the following properties: `Control.Background`, `Control.Foreground`, `Control.BorderBrush`, `TextBlock.Foreground`, `Shape.Fill`, `Shape.Stroke`
+- Make sure to set a brush on the corresponding property you intend to animate
+- You must also specify the target property using `ColorOn`
+
+The following example will animate the Rectangle's `Fill` from RoyalBlue to DarkGreen:
+
+```xml
+<xf:AnimationSettings x:Key="SampleColorAnimation"
+                      Kind="ColorTo"
+                      Color="DarkGreen"
+                      ColorOn="Fill" />
+
+<Rectangle Fill="RoyalBlue"
+           xf:Animations.Primary="{StaticResource SampleColorAnimation}" />
+```
 
 ### Overriding the Global Default Values
 

@@ -96,7 +96,7 @@ namespace XamlFlair
 				&& !secondaryBindingIsSet
 				&& !combinedBindingIsSet
 				&& secondarySettings != null
-				&& secondarySettings.Event == EventType.None)
+				&& secondarySettings?.Event == EventType.None)
 			{
 				throw new ArgumentException($"{nameof(SecondaryProperty)} is missing a trigger by an event or binding.");
 			}
