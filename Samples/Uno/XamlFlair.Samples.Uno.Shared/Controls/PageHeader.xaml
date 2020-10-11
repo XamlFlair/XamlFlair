@@ -4,14 +4,12 @@
 					 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 					 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 					 xmlns:ctl="using:XamlFlair.Samples.Uno.Controls"
-					 xmlns:toolkit="using:Uno.UI.Toolkit"
 					 xmlns:xamarin="http://uno.ui/xamarin"
 					 mc:Ignorable="d xamarin"
 					 x:Name="PageHeaderControl">
 
 	<Grid MinHeight="{StaticResource PageHeaderHeight}"
-		  Background="{StaticResource PrimaryColor06Brush}"
-		  toolkit:VisibleBoundsPadding.PaddingMask="Top">
+		  Background="{StaticResource PrimaryColor06Brush}">
 		<Button HorizontalAlignment="Left"
 						VerticalAlignment="Center"
 						Style="{StaticResource BareButtonStyle}"

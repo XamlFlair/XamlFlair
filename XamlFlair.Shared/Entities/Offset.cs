@@ -16,7 +16,7 @@ namespace XamlFlair
 	public class Offset
 #else
 	[Windows.Foundation.Metadata.CreateFromString(MethodName = "XamlFlair.Offset.ConvertToOffsetFactor")]
-	public class Offset
+	public partial class Offset
 #endif
 	{
 		internal static Offset Empty = new Offset();

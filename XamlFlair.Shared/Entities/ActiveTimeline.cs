@@ -10,7 +10,7 @@ using Windows.UI.Xaml;
 
 namespace XamlFlair
 {
-	internal class ActiveTimeline<T> : IEquatable<ActiveTimeline<T>>
+	internal partial class ActiveTimeline<T> : IEquatable<ActiveTimeline<T>>
 		where T : DependencyObject
 	{
 		internal Guid ElementGuid { get; set; }
