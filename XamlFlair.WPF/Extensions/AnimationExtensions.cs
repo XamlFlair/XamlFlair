@@ -224,6 +224,11 @@ namespace XamlFlair.Extensions
 					fromColor = brush.Color;
 					break;
 
+				case ColorTarget.Background when element is Panel pnl && pnl.Background is SolidColorBrush brush:
+					propertyPath = "(Panel.Background).(SolidColorBrush.Color)";
+					fromColor = brush.Color;
+					break;
+
 				case ColorTarget.Foreground when element is Control ctl && ctl.Foreground is SolidColorBrush brush:
 					propertyPath = "(Control.Foreground).(SolidColorBrush.Color)";
 					fromColor = brush.Color;

@@ -11,15 +11,15 @@
 		<Copyright>Copyright © 2020</Copyright>
 		<PackageId>XamlFlair.Uno</PackageId>
 		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-		<PackageReleaseNotes>Added support for Uno 3.0.</PackageReleaseNotes>
-		<Version>1.2.1</Version>
+		<PackageReleaseNotes>Applied adjustments to support Panels for color animations.</PackageReleaseNotes>
+		<Version>1.2.2</Version>
 		<PackageProjectUrl>https://github.com/XamlFlair/XamlFlair</PackageProjectUrl>
 		<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
 		<Company>XamlFlair</Company>
 		<PackageIconUrl>https://github.com/XamlFlair/XamlFlair/blob/master/nuget_logo.png?raw=true</PackageIconUrl>
 		<Authors>XamlFlair</Authors>
-		<FileVersion>1.2.1</FileVersion>
-		<AssemblyVersion>1.2.1</AssemblyVersion>
+		<FileVersion>1.2.2</FileVersion>
+		<AssemblyVersion>1.2.2</AssemblyVersion>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
 		<DefineConstants>$(DefineConstants);__WASM__</DefineConstants>

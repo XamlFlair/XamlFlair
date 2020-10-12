@@ -175,8 +175,19 @@ namespace XamlFlair.Extensions
 
 			switch (settings.ColorOn)
 			{
+#if HAS_UNO
+				case ColorTarget.Background when element is FrameworkElement elem && elem.Background is SolidColorBrush brush:
+					propertyPath = "(FrameworkElement.Background).(SolidColorBrush.Color)";
+					fromColor = brush.Color;
+					break;
+#else
 				case ColorTarget.Background when element is Control ctl && ctl.Background is SolidColorBrush brush:
 					propertyPath = "(Control.Background).(SolidColorBrush.Color)";
+					fromColor = brush.Color;
+					break;
+#endif
+				case ColorTarget.Background when element is Panel pnl && pnl.Background is SolidColorBrush brush:
+					propertyPath = "(Panel.Background).(SolidColorBrush.Color)";
 					fromColor = brush.Color;
 					break;
 
@@ -223,10 +234,23 @@ namespace XamlFlair.Extensions
 
 			switch (settings.ColorOn)
 			{
+#if HAS_UNO
+				case ColorTarget.Background when element is FrameworkElement elem:
+					propertyPath = "(FrameworkElement.Background).(SolidColorBrush.Color)";
+					toColor = (elem.Background as SolidColorBrush)?.Color ?? Colors.Transparent;
+					elem.Background = new SolidColorBrush(settings.Color);
+					break;
+#else
 				case ColorTarget.Background when element is Control ctl:
 					propertyPath = "(Control.Background).(SolidColorBrush.Color)";
 					toColor = (ctl.Background as SolidColorBrush)?.Color ?? Colors.Transparent;
 					ctl.Background = new SolidColorBrush(settings.Color);
+					break;
+#endif
+				case ColorTarget.Background when element is Panel pnl:
+					propertyPath = "(Panel.Background).(SolidColorBrush.Color)";
+					toColor = (pnl.Background as SolidColorBrush)?.Color ?? Colors.Transparent;
+					pnl.Background = new SolidColorBrush(settings.Color);
 					break;
 
 				case ColorTarget.Foreground when element is Control ctl:
