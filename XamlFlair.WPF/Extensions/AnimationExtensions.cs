@@ -214,43 +214,45 @@ namespace XamlFlair.Extensions
 
 		internal static Storyboard ColorTo(this FrameworkElement element, AnimationSettings settings, ref Storyboard storyboard)
 		{
-			Color fromColor = Colors.Transparent;
+			var fromColor = Colors.Transparent;
 			var propertyPath = string.Empty;
+			var elementType = element.GetType().Name;
+			const string brushTarget = "SolidColorBrush.Color";
 
 			switch (settings.ColorOn)
 			{
 				case ColorTarget.Background when element is Control ctl && ctl.Background is SolidColorBrush brush:
-					propertyPath = "(Control.Background).(SolidColorBrush.Color)";
+					propertyPath = $"({elementType}.Background).({brushTarget})";
 					fromColor = brush.Color;
 					break;
 
 				case ColorTarget.Background when element is Panel pnl && pnl.Background is SolidColorBrush brush:
-					propertyPath = "(Panel.Background).(SolidColorBrush.Color)";
+					propertyPath = $"({elementType}.Background).({brushTarget})";
 					fromColor = brush.Color;
 					break;
 
 				case ColorTarget.Foreground when element is Control ctl && ctl.Foreground is SolidColorBrush brush:
-					propertyPath = "(Control.Foreground).(SolidColorBrush.Color)";
+					propertyPath = $"({elementType}.Foreground).({brushTarget})";
 					fromColor = brush.Color;
 					break;
 
 				case ColorTarget.BorderBrush when element is Control ctl && ctl.BorderBrush is SolidColorBrush brush:
-					propertyPath = "(Control.BorderBrush).(SolidColorBrush.Color)";
+					propertyPath = $"({elementType}.BorderBrush).({brushTarget})";
 					fromColor = brush.Color;
 					break;
 
 				case ColorTarget.Foreground when element is TextBlock tb && tb.Foreground is SolidColorBrush brush:
-					propertyPath = "(TextBlock.Foreground).(SolidColorBrush.Color)";
+					propertyPath = $"({elementType}.Foreground).({brushTarget})";
 					fromColor = brush.Color;
 					break;
 
 				case ColorTarget.Fill when element is Shape shp && shp.Fill is SolidColorBrush brush:
-					propertyPath = "(Shape.Fill).(SolidColorBrush.Color)";
+					propertyPath = $"({elementType}.Fill).({brushTarget})";
 					fromColor = brush.Color;
 					break;
 
 				case ColorTarget.Stroke when element is Shape shp && shp.Stroke is SolidColorBrush brush:
-					propertyPath = "(Shape.Stroke).(SolidColorBrush.Color)";
+					propertyPath = $"({elementType}.Stroke).({brushTarget})";
 					fromColor = brush.Color;
 					break;
 
@@ -268,43 +270,45 @@ namespace XamlFlair.Extensions
 
 		internal static Storyboard ColorFrom(this FrameworkElement element, AnimationSettings settings, ref Storyboard storyboard)
 		{
-			Color toColor = Colors.Transparent;
+			var toColor = Colors.Transparent;
 			var propertyPath = string.Empty;
+			var elementType = element.GetType().Name;
+			const string brushTarget = "SolidColorBrush.Color";
 
 			switch (settings.ColorOn)
 			{
 				case ColorTarget.Background when element is Control ctl:
-					propertyPath = "(Control.Background).(SolidColorBrush.Color)";
+					propertyPath = $"(Control.Background).({brushTarget})";
 					toColor = (ctl.Background as SolidColorBrush)?.Color ?? Colors.Transparent;
 					ctl.Background = new SolidColorBrush(settings.Color);
 					break;
 
 				case ColorTarget.Foreground when element is Control ctl:
-					propertyPath = "(Control.Foreground).(SolidColorBrush.Color)";
+					propertyPath = $"(Control.Foreground).({brushTarget})";
 					toColor = (ctl.Foreground as SolidColorBrush)?.Color ?? Colors.Transparent;
 					ctl.Foreground = new SolidColorBrush(settings.Color);
 					break;
 
 				case ColorTarget.BorderBrush when element is Control ctl:
-					propertyPath = "(Control.BorderBrush).(SolidColorBrush.Color)";
+					propertyPath = $"(Control.BorderBrush).({brushTarget})";
 					toColor = (ctl.BorderBrush as SolidColorBrush)?.Color ?? Colors.Transparent;
 					ctl.BorderBrush = new SolidColorBrush(settings.Color);
 					break;
 
 				case ColorTarget.Foreground when element is TextBlock tb:
-					propertyPath = "(TextBlock.Foreground).(SolidColorBrush.Color)";
+					propertyPath = $"(TextBlock.Foreground).({brushTarget})";
 					toColor = (tb.Foreground as SolidColorBrush)?.Color ?? Colors.Transparent;
 					tb.Foreground = new SolidColorBrush(settings.Color);
 					break;
 
 				case ColorTarget.Fill when element is Shape shp:
-					propertyPath = "(Shape.Fill).(SolidColorBrush.Color)";
+					propertyPath = $"(Shape.Fill).({brushTarget})";
 					toColor = (shp.Fill as SolidColorBrush)?.Color ?? Colors.Transparent;
 					shp.Fill = new SolidColorBrush(settings.Color);
 					break;
 
 				case ColorTarget.Stroke when element is Shape shp:
-					propertyPath = "(Shape.Stroke).(SolidColorBrush.Color)";
+					propertyPath = $"(Shape.Stroke).({brushTarget})";
 					toColor = (shp.Stroke as SolidColorBrush)?.Color ?? Colors.Transparent;
 					shp.Stroke = new SolidColorBrush(settings.Color);
 					break;

@@ -7,7 +7,7 @@
 		<ApplicationIcon>Logo.ico</ApplicationIcon>
 		<PackageId>XamlFlair.WPF</PackageId>
 		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-		<PackageReleaseNotes>Applied adjustments to support Panels for color animations.</PackageReleaseNotes>
+		<PackageReleaseNotes>Applied some minor cleanup to the color animations code.</PackageReleaseNotes>
 		<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
 		<Authors>XamlFlair.WPF</Authors>
 		<PackageProjectUrl>https://github.com/XamlFlair/XamlFlair</PackageProjectUrl>
