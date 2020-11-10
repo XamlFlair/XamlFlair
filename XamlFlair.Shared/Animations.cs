@@ -444,9 +444,18 @@ namespace XamlFlair
 				return;
 			}
 
-			if (d is FrameworkElement element && e.NewValue is bool isAnimating && isAnimating != invertAnimation)
+			if (d is FrameworkElement element && e.NewValue is bool isAnimating)
 			{
-				PrepareAnimations(element, useSecondaryAnimation);
+				// Handle regular animatons or "inverse" animations through the use of CombinedBinding
+				if (isAnimating != invertAnimation)
+				{
+					PrepareAnimations(element, useSecondaryAnimation);
+				}
+				// Handle the case where a false value can be used to stop an iterating animation
+				else if (!isAnimating)
+				{
+					StopIteratingAnimations(element);
+				}
 			}
 		}
 
@@ -680,6 +689,16 @@ namespace XamlFlair
 				}
 
 				sequenceCounter++;
+			}
+		}
+
+		private static void StopIteratingAnimations(FrameworkElement element)
+		{
+			foreach (var active in _actives.GetAllIteratingActiveTimelines(GetElementGuid(element)))
+			{
+				active.IterationCount = 0;
+				active.IterationBehavior = IterationBehavior.Count;
+				_actives.RemoveByID(active.ElementGuid);
 			}
 		}
 
