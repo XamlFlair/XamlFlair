@@ -4,7 +4,7 @@
     <!--*-->
     <id>XamlFlair.UWP</id>
     <!--*-->
-    <version>1.2.0</version>
+    <version>1.2.1</version>
     <title>XamlFlair.UWP</title>
     <!--*-->
     <authors>XamlFlair</authors>
@@ -20,7 +20,7 @@
     <!--*-->
     <description>XamlFlair animation library for the UWP platform.</description>
     <!--*-->
-    <releaseNotes>Added the Override Default Settings feature.</releaseNotes>
+    <releaseNotes>Added ability to stop a repeating animation.</releaseNotes>
     <copyright>Copyright © 2020</copyright>
     <tags>
     </tags>

@@ -446,6 +446,18 @@ Also note that it is also possible to repeat a Compound animation. For example, 
 
 > **Warning**: When using repeating animations, you cannot set a `Secondary` animation on the element.
 
+It's important to note that all XamlFlair animations are *"kick-off"* animations, in other words, they start and only stop when they complete (or when the associated element unloads), **except** repeating animations. A repeating animation can be stopped when supplying a `false` value to the `PrimaryBinding` property (bindings are covered in the next section):
+
+```xml
+<CheckBox x:Name="SampleCheckBox"
+          IsChecked="False" />
+
+<Rectangle xf:Animations.PrimaryBinding="{Binding IsChecked, ElementName=SampleCheckBox}"
+           xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Event=None}" />
+```
+
+When a `false` is set on the binding, the animation's current iteration will run until it finishes and then the repeating animation will stop. 
+
 ### Events and Bindings
 
 By default, all animations execute once the UI element fires its `Loaded` event. This behavior can be overridden by setting the `Event` property. `Event` can be one of the following values:

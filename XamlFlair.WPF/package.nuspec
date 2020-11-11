@@ -4,7 +4,7 @@
     <!--*-->
     <id>XamlFlair.WPF</id>
     <!--*-->
-    <version>1.2.2</version>
+    <version>1.2.3</version>
     <title>XamlFlair.WPF</title>
     <!--*-->
     <authors>XamlFlair.WPF</authors>
@@ -18,7 +18,7 @@
     <!--*-->
     <description>XamlFlair animation library for the WPF platform.</description>
     <!--*-->
-    <releaseNotes>Applied some minor cleanup to the color animations code.</releaseNotes>
+    <releaseNotes>Added ability to stop a repeating animation.</releaseNotes>
     <copyright>Copyright © 2020</copyright>
     <tags>
     </tags>
