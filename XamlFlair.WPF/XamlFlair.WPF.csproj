@@ -7,7 +7,7 @@
 		<ApplicationIcon>Logo.ico</ApplicationIcon>
 		<PackageId>XamlFlair.WPF</PackageId>
 		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-		<PackageReleaseNotes>Added ability to stop a repeating animation.</PackageReleaseNotes>
+		<PackageReleaseNotes>Bumped System.Reactive package.</PackageReleaseNotes>
 		<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
 		<Authors>XamlFlair.WPF</Authors>
 		<PackageProjectUrl>https://github.com/XamlFlair/XamlFlair</PackageProjectUrl>
@@ -28,7 +28,7 @@
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="System.Reactive" Version="4.4.1" />
+		<PackageReference Include="System.Reactive" Version="5.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>

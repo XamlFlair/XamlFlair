@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="MSBuild.Sdk.Extras/2.0.54">
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.0;xamarinios10;monoandroid80;monoandroid90;uap10.0.17763</TargetFrameworks>
+		<TargetFrameworks>uap10.0.17763;netstandard2.0;xamarinios10;MonoAndroid11.0;monoandroid10.0</TargetFrameworks>
 		<!-- Ensures the .xr.xml files are generated in a proper layout folder -->
 		<GenerateLibraryLayout>true</GenerateLibraryLayout>
 		<RootNamespace>XamlFlair.UnoPlatform</RootNamespace>
@@ -11,22 +11,19 @@
 		<Copyright>Copyright © 2020</Copyright>
 		<PackageId>XamlFlair.Uno</PackageId>
 		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-		<PackageReleaseNotes>Added ability to stop a repeating animation.</PackageReleaseNotes>
-		<Version>1.2.4</Version>
+		<PackageReleaseNotes>Bumped Uno to 3.3.0 + bumped System.Reactive package.</PackageReleaseNotes>
+		<Version>1.2.5</Version>
 		<PackageProjectUrl>https://github.com/XamlFlair/XamlFlair</PackageProjectUrl>
 		<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
 		<Company>XamlFlair</Company>
 		<PackageIconUrl>https://github.com/XamlFlair/XamlFlair/blob/master/nuget_logo.png?raw=true</PackageIconUrl>
 		<Authors>XamlFlair</Authors>
-		<FileVersion>1.2.4</FileVersion>
-		<AssemblyVersion>1.2.4</AssemblyVersion>
+		<FileVersion>1.2.5</FileVersion>
+		<AssemblyVersion>1.2.5</AssemblyVersion>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
 		<DefineConstants>$(DefineConstants);__WASM__</DefineConstants>
 	</PropertyGroup>
-	<ItemGroup Condition="'$(TargetFramework)'=='xamarinios10' or '$(TargetFramework)'=='monoandroid80' or '$(TargetFramework)'=='monoandroid90' or '$(TargetFramework)'=='netstandard2.0'">
-		<PackageReference Include="Uno.UI" Version="3.0.17" />
-	</ItemGroup>
 	<ItemGroup>
 		<Page Include="**\*.xaml" Exclude="bin\**\*.xaml;obj\**\*.xaml" />
 		<Compile Update="**\*.xaml.cs">
@@ -37,12 +34,13 @@
 		<UpToDateCheckInput Include="**\*.xaml" Exclude="bin\**\*.xaml;obj\**\*.xaml" />
 	</ItemGroup>
 	<ItemGroup>
+		<PackageReference Include="Uno.UI" Version="3.3.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="1.1.1" />
+		<PackageReference Include="System.Reactive" Version="5.0.0" />
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="System.Reactive" Version="4.4.1" />
 	</ItemGroup>
 	<Import Project="..\XamlFlair.Shared\XamlFlair.Shared.projitems" Label="Shared" />
 </Project>
