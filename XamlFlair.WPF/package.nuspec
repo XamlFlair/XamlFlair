@@ -4,7 +4,7 @@
     <!--*-->
     <id>XamlFlair.WPF</id>
     <!--*-->
-    <version>1.2.6</version>
+    <version>1.2.7</version>
     <title>XamlFlair.WPF</title>
     <!--*-->
     <authors>XamlFlair.WPF</authors>
@@ -18,7 +18,7 @@
     <!--*-->
     <description>XamlFlair animation library for the WPF platform.</description>
     <!--*-->
-    <releaseNotes>Added support for older versions of .Net</releaseNotes>
+    <releaseNotes>Applied a nuspec fix for net48 target</releaseNotes>
     <copyright>Copyright © 2021</copyright>
     <tags>
     </tags>
@@ -41,6 +41,8 @@
     <file src="bin\Release\net471\XamlFlair.WPF.pdb" target="lib\net471" />
     <file src="bin\Release\net472\XamlFlair.WPF.dll" target="lib\net472" />
     <file src="bin\Release\net472\XamlFlair.WPF.pdb" target="lib\net472" />
+    <file src="bin\Release\net48\XamlFlair.WPF.dll" target="lib\net48" />
+    <file src="bin\Release\net48\XamlFlair.WPF.pdb" target="lib\net48" />
     <file src="bin\Release\netcoreapp3.0\XamlFlair.WPF.dll" target="lib\netcoreapp3.0" />
     <file src="bin\Release\netcoreapp3.0\XamlFlair.WPF.pdb" target="lib\netcoreapp3.0" />
     <file src="bin\Release\netcoreapp3.1\XamlFlair.WPF.dll" target="lib\netcoreapp3.1" />
