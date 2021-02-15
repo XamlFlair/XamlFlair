@@ -1,25 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="MSBuild.Sdk.Extras/2.0.54">
 	<PropertyGroup>
-		<TargetFrameworks>uap10.0.17763;netstandard2.0;xamarinios10;MonoAndroid11.0;monoandroid10.0</TargetFrameworks>
+		<TargetFrameworks>uap10.0.18362;netstandard2.0;xamarinios10;MonoAndroid11.0;monoandroid10.0</TargetFrameworks>
 		<!-- Ensures the .xr.xml files are generated in a proper layout folder -->
 		<GenerateLibraryLayout>true</GenerateLibraryLayout>
 		<RootNamespace>XamlFlair.UnoPlatform</RootNamespace>
 		<EmbedAllSources>true</EmbedAllSources>
 		<Product>XamlFlair.Uno</Product>
 		<Description>XamlFlair animation library for the Uno platform.</Description>
-		<Copyright>Copyright © 2020</Copyright>
+		<Copyright>Copyright © 2021</Copyright>
 		<PackageId>XamlFlair.Uno</PackageId>
 		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-		<PackageReleaseNotes>Bumped Uno to 3.3.0 + bumped System.Reactive package.</PackageReleaseNotes>
-		<Version>1.2.5</Version>
+		<PackageReleaseNotes>Updated Uno to 3.5.1 + bumped UWP min version to 10.0.18362.0</PackageReleaseNotes>
+		<Version>1.2.6</Version>
 		<PackageProjectUrl>https://github.com/XamlFlair/XamlFlair</PackageProjectUrl>
 		<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
 		<Company>XamlFlair</Company>
 		<PackageIconUrl>https://github.com/XamlFlair/XamlFlair/blob/master/nuget_logo.png?raw=true</PackageIconUrl>
 		<Authors>XamlFlair</Authors>
-		<FileVersion>1.2.5</FileVersion>
-		<AssemblyVersion>1.2.5</AssemblyVersion>
+		<FileVersion>1.2.6</FileVersion>
+		<AssemblyVersion>1.2.6</AssemblyVersion>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
 		<DefineConstants>$(DefineConstants);__WASM__</DefineConstants>
@@ -34,7 +34,7 @@
 		<UpToDateCheckInput Include="**\*.xaml" Exclude="bin\**\*.xaml;obj\**\*.xaml" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Uno.UI" Version="3.3.0" />
+		<PackageReference Include="Uno.UI" Version="3.5.1" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="1.1.1" />
 		<PackageReference Include="System.Reactive" Version="5.0.0" />
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
