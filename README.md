@@ -84,7 +84,7 @@ Uno:
 Install-Package XamlFlair.Uno
 ```
 
-> Your UWP app must target a minimum of Windows 10 version 1809 (build 17763)
+> Your UWP app must target a minimum of Windows 10 version 1809 (build 18362)
 
 ## Features Overview
 
