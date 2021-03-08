@@ -198,6 +198,38 @@ namespace XamlFlair
 				typeof(double),
 				typeof(AnimationSettings),
 				new PropertyMetadata(1d));
+
+		public double SwivelX
+		{
+			get => (double)GetValue(SwivelXProperty);
+			set => SetValue(SwivelXProperty, value);
+		}
+
+		/// <summary>
+		/// Specifies the perspective x-axis rotation (in degrees) of the composite animation
+		/// </summary>
+		public static readonly DependencyProperty SwivelXProperty =
+			DependencyProperty.Register(
+				nameof(SwivelX),
+				typeof(double),
+				typeof(AnimationSettings),
+				new PropertyMetadata(0d));
+
+		public double SwivelY
+		{
+			get => (double)GetValue(SwivelYProperty);
+			set => SetValue(SwivelYProperty, value);
+		}
+
+		/// <summary>
+		/// Specifies the perspective y-axis rotation (in degrees) of the composite animation
+		/// </summary>
+		public static readonly DependencyProperty SwivelYProperty =
+			DependencyProperty.Register(
+				nameof(SwivelY),
+				typeof(double),
+				typeof(AnimationSettings),
+				new PropertyMetadata(0d));
 #endif
 
 		public double Rotation
@@ -216,7 +248,7 @@ namespace XamlFlair
 				typeof(AnimationSettings),
 				new PropertyMetadata(0d));
 
-// ColorAnimation supported only on Uno and WPF (not on native UWP due to Composition-only implementations)
+		// ColorAnimation supported only on Uno and WPF (not on native UWP due to Composition-only implementations)
 #if WINDOWS_UWP || HAS_UNO || __WPF__
 		public Color Color
 		{
@@ -416,6 +448,10 @@ namespace XamlFlair
 
 #if __UWP__
 		public double ScaleZ { get; set; } = 1d;
+
+		public double SwivelX { get; set; } = 0d;
+
+		public double SwivelY { get; set; } = 0d;
 #endif
 
 		public double Rotation { get; set; } = 0d;
@@ -491,6 +527,8 @@ namespace XamlFlair
 #if __UWP__
 				&& other.OffsetZ.Equals(OffsetZ)
 				&& other.ScaleZ.Equals(ScaleZ)
+				&& other.SwivelX.Equals(SwivelX)
+				&& other.SwivelY.Equals(SwivelY)
 				&& other.Saturation.Equals(Saturation)
 				&& other.Tint.Equals(Tint)
 #endif
@@ -559,6 +597,8 @@ namespace XamlFlair
 #if __UWP__
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, OffsetZ) ? OffsetZ.GetHashCode() : 0);
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, ScaleZ) ? ScaleZ.GetHashCode() : 0);
+				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, SwivelX) ? SwivelX.GetHashCode() : 0);
+				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, SwivelY) ? SwivelY.GetHashCode() : 0);
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, Saturation) ? Saturation.GetHashCode() : 0);
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, Tint) ? Tint.GetHashCode() : 0);
 #endif

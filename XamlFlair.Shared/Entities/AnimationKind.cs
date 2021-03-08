@@ -2,43 +2,47 @@
 
 namespace XamlFlair
 {
-	// NOTE: You can store a maximum of 32 different flags in an enumerated type,
-	// because an enum type uses 4 bytes (32 bits) of storage
+	// NOTE: You can store a maximum of 64 different flags in an enumerated
+	// type, because this enum type uses 8 bytes (64 bits) of storage
 
 	[Flags]
-	public enum AnimationKind
+	public enum AnimationKind : long
 	{
-// Blur supported only on UWP and WPF
-#if (__UWP__ && !HAS_UNO) || __WPF__
-		BlurTo = 1 << 0,
-		BlurFrom = 1 << 1,
-#endif
-		FadeTo = 1 << 2,
-		FadeFrom = 1 << 3,
-		RotateTo = 1 << 4,
-		RotateFrom = 1 << 5,
-		ScaleXTo = 1 << 6,
-		ScaleYTo = 1 << 7,
-		ScaleXFrom = 1 << 8,
-		ScaleYFrom = 1 << 9,
-		TranslateXTo = 1 << 10,
-		TranslateYTo = 1 << 11,
-		TranslateXFrom = 1 << 12,
-		TranslateYFrom = 1 << 13,
+		FadeTo = 1 << 0,
+		FadeFrom = 1 << 1,
+		RotateTo = 1 << 2,
+		RotateFrom = 1 << 3,
+		ScaleXTo = 1 << 4,
+		ScaleYTo = 1 << 5,
+		ScaleXFrom = 1 << 6,
+		ScaleYFrom = 1 << 7,
+		TranslateXTo = 1 << 8,
+		TranslateYTo = 1 << 9,
+		TranslateXFrom = 1 << 10,
+		TranslateYFrom = 1 << 11,
 #if __UWP__
-		ScaleZTo = 1 << 14,
-		ScaleZFrom = 1 << 15,
-		TranslateZTo = 1 << 16,
-		TranslateZFrom = 1 << 17,
-		SaturateTo = 1 << 18,
-		SaturateFrom = 1 << 19,
-		TintTo = 1 << 20,
-		TintFrom = 1 << 21,
+		ScaleZTo = 1 << 12,
+		ScaleZFrom = 1 << 13,
+		TranslateZTo = 1 << 14,
+		TranslateZFrom = 1 << 15,
+		SaturateTo = 1 << 16,
+		SaturateFrom = 1 << 17,
+		TintTo = 1 << 18,
+		TintFrom = 1 << 19,
+		SwivelXTo = 1 << 20,
+		SwivelXFrom = 1 << 21,
+		SwivelYTo = 1 << 22,
+		SwivelYFrom = 1 << 23,
 #endif
-// ColorAnimation supported only on Uno and WPF (not on native UWP due to Composition-only implementations)
+		// Blur supported only on UWP and WPF
+#if (__UWP__ && !HAS_UNO) || __WPF__
+		BlurTo = 1 << 24,
+		BlurFrom = 1 << 25,
+#endif
+		// ColorAnimation supported only on Uno and WPF (not on native UWP due to Composition-only implementations)
 #if WINDOWS_UWP || HAS_UNO || __WPF__
-		ColorTo = 1 << 22,
-		ColorFrom = 1 << 23,
+		ColorTo = 1 << 26,
+		ColorFrom = 1 << 27,
 #endif
 	}
 }

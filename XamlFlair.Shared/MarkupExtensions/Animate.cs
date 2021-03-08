@@ -89,6 +89,16 @@ namespace XamlFlair
 		/// Specifies the target z-scaling of the composite animation
 		/// </summary>
 		public double ScaleZ { get; set; } = 1;
+
+		/// <summary>
+		/// Specifies the perspective x-axis rotation (in degrees) of the composite animation
+		/// </summary>
+		public double SwivelX { get; set; } = 0;
+
+		/// <summary>
+		/// Specifies the perspective y-axis rotation (in degrees) of the composite animation
+		/// </summary>
+		public double SwivelY { get; set; } = 0;
 #endif
 
 		/// <summary>
@@ -197,6 +207,8 @@ namespace XamlFlair
 #if __UWP__
 				OffsetZ = OffsetZ,
 				ScaleZ = ScaleZ,
+				SwivelX = SwivelX,
+				SwivelY = SwivelY,
 				Saturation = Saturation,
 				Tint = Tint,
 #endif

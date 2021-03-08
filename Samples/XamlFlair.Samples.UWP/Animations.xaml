@@ -5,6 +5,7 @@
 	<x:Double x:Key="BlurRadius">24</x:Double>
 	<x:Double x:Key="SmallScaleFactor">0.75</x:Double>
 	<x:Double x:Key="LargeScaleFactor">1.25</x:Double>
+	<x:Double x:Key="Swivel">45</x:Double>
 	<xf:Offset x:Key="PositiveOffset"
 			   OffsetValue="50" />
 	<xf:Offset x:Key="NegativeOffset"
@@ -254,5 +255,19 @@
 						  Kind="FadeFrom,RotateTo"
 						  Opacity="0"
 						  Rotation="360" />
+
+	<xf:AnimationSettings x:Key="FadeInAndGrowAndSwivelVertically"
+						  Kind="FadeFrom,ScaleXFrom,ScaleYFrom,SwivelXFrom"
+						  Opacity="0"
+						  ScaleX="{StaticResource SmallScaleFactor}"
+						  ScaleY="{StaticResource SmallScaleFactor}"
+						  SwivelX="{StaticResource Swivel}" />
+
+	<xf:AnimationSettings x:Key="FadeInAndGrowAndSwivelHorizontally"
+						  Kind="FadeFrom,ScaleXFrom,ScaleYFrom,SwivelYFrom"
+						  Opacity="0"
+						  ScaleX="{StaticResource SmallScaleFactor}"
+						  ScaleY="{StaticResource SmallScaleFactor}"
+						  SwivelY="{StaticResource Swivel}" />
 
 </ResourceDictionary>
