@@ -146,6 +146,12 @@ namespace XamlFlair.Extensions
 			var scaleZ = other.ScaleZ;
 			updated.ScaleZ = scaleZ != 1 ? scaleZ : settings.ScaleZ;
 
+			var swivelX = other.SwivelX;
+			updated.SwivelX = swivelX != 0 ? swivelX : settings.SwivelX;
+
+			var swivelY = other.SwivelY;
+			updated.SwivelY = swivelY != 0 ? swivelY : settings.SwivelY;
+
 			var saturation = other.Saturation;
 			updated.Saturation = saturation != DefaultSettings.Saturation ? saturation : settings.Saturation;
 

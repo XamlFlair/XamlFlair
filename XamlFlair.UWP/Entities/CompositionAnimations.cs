@@ -298,6 +298,72 @@ namespace XamlFlair
 		}
 	}
 
+	internal abstract class PerspectiveAnimationBase : AnimationBase
+	{
+		internal double To { get; set; }
+
+		internal Vector3 RotationAxis { get; private set; }
+
+		internal float Depth { get; private set; }
+
+		protected PerspectiveAnimationBase(string targetProperty, Vector3 rotationAxis, float depth)
+		{
+			TargetProperty = targetProperty;
+			RotationAxis = rotationAxis;
+			Depth = depth;
+		}
+
+		internal override void Start(FrameworkElement element, bool isFrom = false)
+		{
+			_animation = base.StartAnimation<ScalarKeyFrameAnimation>(element,
+				duration =>
+				{
+					if (element.Parent == null)
+					{
+						// Return an empty animation as a fail-safe when no parent exists
+						return ElementCompositionPreview
+							.GetElementVisual(element)
+							.Compositor
+							.CreateScalarKeyFrameAnimation();
+					}
+
+					var parent = ElementCompositionPreview.GetElementVisual(element.Parent as FrameworkElement);
+
+					var width = (float)element.ActualWidth;
+					var height = (float)element.ActualHeight;
+					var halfWidth = (float)(width / 2.0);
+					var halfHeight = (float)(height / 2.0);
+
+					// Initialize the Compositor
+					var visual = ElementCompositionPreview.GetElementVisual(element);
+
+					var projectionMatrix = new Matrix4x4(1, 0, 0, 0,
+														 0, 1, 0, 0,
+														 0, 0, 1, 1 / Depth,
+														 0, 0, 0, 1);
+					// To ensure that the rotation occurs through the center of the visual rather than the
+					// left edge, pre-multiply the rotation matrix with a translation that logically shifts
+					// the axis to the point of rotation, then restore the original location
+					parent.TransformMatrix = Matrix4x4.CreateTranslation(-halfWidth, -halfHeight, 0) *
+											projectionMatrix *
+											Matrix4x4.CreateTranslation(halfWidth, halfHeight, 0);
+
+					visual.RotationAxis = RotationAxis;
+
+					var rotateAnimation = visual.Compositor.CreateScalarKeyFrameAnimation();
+
+					// It's very important to use a Delay value of 0 for all "from" animations
+					var delayTime = isFrom ? 0 : Settings.Delay;
+
+					rotateAnimation.InsertKeyFrame(1.0f, (float)To, Window.Current.Compositor.CreateEasingFunction(Settings.Easing, Settings.EasingMode));
+					rotateAnimation.DelayTime = TimeSpan.FromMilliseconds(delayTime);
+					rotateAnimation.Duration = TimeSpan.FromMilliseconds(duration);
+
+					return rotateAnimation;
+				});
+		}
+	}
+
 	internal class FadeAnimation : ScalarAnimationBase
 	{
 		public FadeAnimation() : base(TargetProperties.Opacity) { }
@@ -336,6 +402,22 @@ namespace XamlFlair
 	internal class RotateAnimation : ScalarAnimationBase
 	{
 		public RotateAnimation() : base(TargetProperties.RotationAngleInDegrees) { }
+	}
+
+	internal class SwivelXAnimation : PerspectiveAnimationBase
+	{
+		public SwivelXAnimation() : base(
+			TargetProperties.RotationAngleInDegrees,
+			rotationAxis: new Vector3(1, 0, 0),
+			Perspective.Depth) { }
+	}
+
+	internal class SwivelYAnimation : PerspectiveAnimationBase
+	{
+		public SwivelYAnimation() : base(
+			TargetProperties.RotationAngleInDegrees,
+			rotationAxis: new Vector3(0, 1, 0),
+			Perspective.Depth) { }
 	}
 
 	internal class BlurAnimation : EffectAnimationBase<double>

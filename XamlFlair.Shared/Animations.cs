@@ -564,6 +564,24 @@ namespace XamlFlair
 			{
 				element.TranslateZFrom(settings, ref timeline);
 			}
+
+			// SWIVEL TO/FROM
+			if (settings.Kind.HasFlag(AnimationKind.SwivelXTo))
+			{
+				element.SwivelXTo(settings, ref timeline);
+			}
+			else if (settings.Kind.HasFlag(AnimationKind.SwivelXFrom))
+			{
+				element.SwivelXFrom(settings, ref timeline);
+			}
+			if (settings.Kind.HasFlag(AnimationKind.SwivelYTo))
+			{
+				element.SwivelYTo(settings, ref timeline);
+			}
+			else if (settings.Kind.HasFlag(AnimationKind.SwivelYFrom))
+			{
+				element.SwivelYFrom(settings, ref timeline);
+			}
 #endif
 
 #if __WPF__ || __UWP__

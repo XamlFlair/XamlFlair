@@ -32,6 +32,8 @@ If you would like to support my work with a few coffees, you can do it here: [Bu
 
 - [`TransformOn` Property (*WPF Only*)](#transformon-property-wpf-only)
 
+- [Perspective Rotations (*UWP Only*)](#perspective-rotations-uwp-only)
+
 - [Combining Animations](#combining-animations)
 
 - [Overriding Values](#overriding-values)
@@ -92,28 +94,28 @@ Install-Package XamlFlair.Uno
 
 ## Features Overview
 
-Feature                               | **UWP**     | **WPF**     | **UWP (Uno)** | **iOS (Uno)** | **Android (Uno)** | **Wasm (Uno) EXPERIMENTAL **
-------------------------------------- | ----------- | ----------- | ------------- | ------------- | ----------------- | ----------------------------
-*Animation System*                    | Composition | Storyboards | Storyboards   | Storyboards   | Storyboards       |         Storyboards
-Composite Transforms                  |      X      |     X       |       X       |       X       |         X         |              X
-DefaultAnimations.xaml                |      -      |     X       |       -       |       -       |         -         |              -
-`TransformOn`                         |      -      |     X       |       -       |       -       |         -         |              -
-Compound Animations                   |      X      |     X       |       X       |       X       |         X         |              X
-Relative Translations                 |      X      |     X       |       X       |       X       |         X         |              X
-Repeating Animations                  |      X      |     X       |       X       |       X       |         X         |              X
-Events & Bindings                     |      X      |     X       |       X       |       X       |         X         |              X
-Primary/Secondary Completion Commands |      X      |     X       |       X       |       X       |         X         |              X
-`StartWith`                           |      X      |     X       |       X       |       X       |         X         |              X
-`AllowOpacityReset`                   |      -      |     X       |       -       |       -       |         -         |              -
-`ClipToBounds`                        |      X      |    N/A      |       X       |       X       |         X         |              X
-Animated Lists                        |      X      |     X       |       X       |       X       |         X         |              X
-Blur Effect                           |      X      |     X       |       -       |       -       |         -         |              -
-Saturation Effect                     |      X      |     -       |       -       |       -       |         -         |              -
-Tint Effect                           |      X      |     -       |       -       |       -       |         -         |              -
-Color Animations                      |      -      |     X       |       X       |       X       |         X         |              X
-Debugging Animations                  |      X      |     X       |       X       |       X       |         X         |              -
-
-> **Note**: A standard UWP app and a Uno app (UWP head) are different when it comes to XamlFlair. A standard UWP app referencing `XamlFlair.UWP` will use Composition-based animations behind the scenes. An Uno app (including the UWP head) that references `XamlFlair.Uno` will all use Storyboarding behind the scenes.
+Feature                               | **UWP**     | **WPF**        | **UWP (Uno)**      | **iOS (Uno)**      | **Android (Uno)**  | **Wasm (Uno) EXPERIMENTAL**
+------------------------------------- | ----------- | -------------- | ------------------ | ------------------ | ------------------ | ----------------------------
+*Animation System*                    | Composition | Storyboards    | Storyboards        | Storyboards        | Storyboards        | Storyboards
+*Transform Type*                      |     N/A     | TransformGroup | CompositeTransform | CompositeTransform | CompositeTransform | CompositeTransform
+Composite Transforms                  |      X      |      X         |         X          |         X          |          X         |              X
+DefaultAnimations.xaml                |      -      |      X         |         -          |         -          |          -         |              -
+`TransformOn`                         |      -      |      X         |         -          |         -          |          -         |              -
+Compound Animations                   |      X      |      X         |         X          |         X          |          X         |              X
+Relative Translations                 |      X      |      X         |         X          |         X          |          X         |              X
+Repeating Animations                  |      X      |      X         |         X          |         X          |          X         |              X
+Events & Bindings                     |      X      |      X         |         X          |         X          |          X         |              X
+Primary/Secondary Completion Commands |      X      |      X         |         X          |         X          |          X         |              X
+`StartWith`                           |      X      |      X         |         X          |         X          |          X         |              X
+`AllowOpacityReset`                   |      -      |      X         |         -          |         -          |          -         |              -
+`ClipToBounds`                        |      X      |     N/A        |         X          |         X          |          X         |              X
+Animated Lists                        |      X      |      X         |         X          |         X          |          X         |              X
+Blur Effect                           |      X      |      X         |         -          |         -          |          -         |              -
+Saturation Effect                     |      X      |      -         |         -          |         -          |          -         |              -
+Tint Effect                           |      X      |      -         |         -          |         -          |          -         |              -
+Color Animations                      |      -      |      X         |         X          |         X          |          X         |              X
+Perspective Rotations (Swivel)        |      X      |      -         |         -          |         -          |          -         |              -
+Debugging Animations                  |      X      |      X         |         X          |         X          |          X         |              -
 
 ## Basic Concepts
 
@@ -190,6 +192,12 @@ From here on, it's a simple matter of setting an attached property to any `Frame
 ![Color animation](doc/gifs/ColorTo.gif)
 
 > **Note**: It's important to note when animating a color using a _From_ animation, the color will animate from a specified value to its **current state** instead of a default value.
+
+#### Swivel (_UWP only_)
+
+![Swivel animation](doc/gifs/Swivel.gif)
+
+> **Note**: Read the section [Perspective Rotations (*UWP Only*)](#perspective-rotations-uwp-only) for further details.
 
 The following lists some notable **default values** when working with XamlFlair:
 
@@ -319,7 +327,7 @@ To reference these Default Animations in your app, perform the following steps:
     </Application.Resources>
 ```
 
-Where you should replace the merged dictionary URI accordling,
+Where you should replace the merged dictionary URI accordingly:
 
 ```xml
 <!-- WPF -->
@@ -333,6 +341,39 @@ Your app now has a global set of **Default** animations ready to use.
 Using the `TransformOn` property, you can target which type of `RenderTransform` to apply to your animation. Available options are `Render` and `Layout`. When nothing is specified, the default vale is `Render`. Here's an example of the two:
 
 ![TransformOn animation](doc/gifs/TransformOn.gif)
+
+### Perspective Rotations (*UWP Only*)
+
+It is important to note that to apply a perspective rotation (also referred to as `Swivel`) to a target element, it is required that it be wrapped in a container with the layout properties applied to the container element. Therefore, consider the following simple perspective rotation:
+
+```xml
+<xf:AnimationSettings x:Key="PerspectiveVerticalRotation"
+                      Kind="SwivelYFrom"
+                      SwivelY="-45" />
+```
+
+Instead of animating the element as such:
+
+```xml
+<Rectangle Fill="RoyalBlue"
+           Width="200"
+           Height="200"
+           HorizontalAlignment="Center"
+           VerticalAlignment="Center"
+           xf:Animations.Primary="{StaticResource PerspectiveVerticalRotation}" />
+```
+
+The element should be placed in a container for the animation to work correctly:
+
+```xml
+<Border Width="200"
+        Height="200"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center">
+    <Rectangle Fill="RoyalBlue"
+           xf:Animations.Primary="{StaticResource PerspectiveVerticalRotation}" />
+</Border>
+```
 
 ### Combining Animations
 

@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace XamlFlair
+﻿namespace XamlFlair
 {
 	internal static class Constants
 	{
+		internal static class Perspective
+		{
+			internal const float Depth = 750f;
+		}
+
 		internal static class TargetProperties
 		{
 			// NOTE: The new way of handling translate animations (old: "Offset", new: "Translation"):

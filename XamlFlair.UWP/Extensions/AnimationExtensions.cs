@@ -188,7 +188,6 @@ namespace XamlFlair.Extensions
 				{
 					var visual = ElementCompositionPreview.GetElementVisual(element);
 
-					visual.CenterPoint = element.GetTransformCenter(settings);
 					visual.Scale = new Vector3((float)settings.ScaleX, visual.Scale.Y, visual.Scale.Z);
 
 					return animGroup.CreateScalarAnimation<ScaleXAnimation>(
@@ -205,7 +204,6 @@ namespace XamlFlair.Extensions
 				{
 					var visual = ElementCompositionPreview.GetElementVisual(element);
 
-					visual.CenterPoint = element.GetTransformCenter(settings);
 					visual.Scale = new Vector3(visual.Scale.X, (float)settings.ScaleY, visual.Scale.Z);
 
 					return animGroup.CreateScalarAnimation<ScaleYAnimation>(
@@ -222,7 +220,6 @@ namespace XamlFlair.Extensions
 				{
 					var visual = ElementCompositionPreview.GetElementVisual(element);
 
-					visual.CenterPoint = element.GetTransformCenter(settings);
 					visual.Scale = new Vector3(visual.Scale.X, visual.Scale.Y, (float)settings.ScaleZ);
 
 					return animGroup.CreateScalarAnimation<ScaleZAnimation>(
@@ -253,10 +250,75 @@ namespace XamlFlair.Extensions
 				{
 					var visual = ElementCompositionPreview.GetElementVisual(element);
 
-					visual.CenterPoint = element.GetTransformCenter(settings);
 					visual.RotationAngleInDegrees = (float)settings.Rotation;
 
 					return animGroup.CreateScalarAnimation<RotateAnimation>(
+						element,
+						settings,
+						to: 0);
+				});
+		}
+
+		// ====================
+		// SWIVEL
+		// ====================
+
+		internal static void SwivelXTo(this FrameworkElement element, AnimationSettings settings, ref AnimationGroup group)
+		{
+			group.CreateAnimations(element, settings,
+				animGroup =>
+					animGroup.CreatePerspectiveAnimation<SwivelXAnimation>(
+						element,
+						settings,
+						to: settings.SwivelX));
+		}
+
+		internal static void SwivelXFrom(this FrameworkElement element, AnimationSettings settings, ref AnimationGroup group)
+		{
+			group.CreateAnimations(element, settings,
+				animGroup =>
+				{
+					var visual = ElementCompositionPreview.GetElementVisual(element);
+
+					animGroup.CreatePerspectiveAnimation<SwivelXAnimation>(
+						element,
+						settings,
+						to: settings.SwivelX,
+						duration: 1,
+						isFrom: true);
+
+					return animGroup.CreatePerspectiveAnimation<SwivelXAnimation>(
+						element,
+						settings,
+						to: 0);
+				});
+		}
+
+		internal static void SwivelYTo(this FrameworkElement element, AnimationSettings settings, ref AnimationGroup group)
+		{
+			group.CreateAnimations(element, settings,
+				animGroup =>
+					animGroup.CreatePerspectiveAnimation<SwivelYAnimation>(
+						element,
+						settings,
+						to: settings.SwivelY));
+		}
+
+		internal static void SwivelYFrom(this FrameworkElement element, AnimationSettings settings, ref AnimationGroup group)
+		{
+			group.CreateAnimations(element, settings,
+				animGroup =>
+				{
+					var visual = ElementCompositionPreview.GetElementVisual(element);
+
+					animGroup.CreatePerspectiveAnimation<SwivelYAnimation>(
+						element,
+						settings,
+						to: settings.SwivelY,
+						duration: 1,
+						isFrom: true);
+
+					return animGroup.CreatePerspectiveAnimation<SwivelYAnimation>(
 						element,
 						settings,
 						to: 0);
@@ -362,7 +424,6 @@ namespace XamlFlair.Extensions
 				});
 		}
 
-
 		internal static void ApplyInitialSettings(this FrameworkElement element, AnimationSettings settings)
 		{
 			var group = new AnimationGroup();
@@ -393,6 +454,28 @@ namespace XamlFlair.Extensions
 			if (settings.ScaleX != 1 || settings.ScaleY != 1 || settings.ScaleZ != 1)
 			{
 				visual.Scale = new Vector3((float)settings.ScaleX, (float)settings.ScaleY, (float)settings.ScaleZ);
+			}
+
+			if (settings.SwivelX != 0)
+			{
+				var initialSettings = new AnimationSettings()
+				{
+					SwivelX = settings.SwivelX,
+					Duration = 1
+				};
+
+				SwivelXTo(element, initialSettings, ref group);
+			}
+
+			if (settings.SwivelY != 0)
+			{
+				var initialSettings = new AnimationSettings()
+				{
+					SwivelY = settings.SwivelY,
+					Duration = 1
+				};
+
+				SwivelYTo(element, initialSettings, ref group);
 			}
 
 			if (settings.BlurRadius != 0 || settings.Saturation != DefaultSettings.Saturation || settings.Tint != DefaultSettings.Tint)
@@ -426,6 +509,23 @@ namespace XamlFlair.Extensions
 
 		private static T CreateScalarAnimation<T>(this AnimationGroup group, FrameworkElement element, AnimationSettings settings, double to = 1, double duration = -1, bool isFrom = false)
 			where T : ScalarAnimationBase, new()
+		{
+			var animation = new T()
+			{
+				To = to,
+				Duration = duration == -1
+					? DefaultSettings.Duration
+					: duration,
+				Settings = settings
+			};
+
+			group.Add(element, animation, isFrom);
+
+			return animation;
+		}
+
+		private static T CreatePerspectiveAnimation<T>(this AnimationGroup group, FrameworkElement element, AnimationSettings settings, double to = 1, double duration = -1, bool isFrom = false)
+			where T : PerspectiveAnimationBase, new()
 		{
 			var animation = new T()
 			{
@@ -537,12 +637,12 @@ namespace XamlFlair.Extensions
 				$"	ScaleX = {settings.ScaleX} \n" +
 				$"	ScaleY = {settings.ScaleY} \n" +
 				$"	ScaleZ = {settings.ScaleZ} \n" +
+				$"	SwivelX = {settings.SwivelX} \n" +
+				$"	SwivelY = {settings.SwivelY} \n" +
 				$"	Rotation = {settings.Rotation} \n" +
 				$"	Blur = {settings.BlurRadius} \n" +
-#if __UWP__
 				$"	Saturation = {settings.Saturation} \n" +
 				$"	Tint = {settings.Tint} \n" +
-#endif
 				$"	TransformCenterPoint = {settings.TransformCenterPoint} \n" +
 				$"	Easing = {settings.Easing} \n" +
 				$"	EasingMode = {settings.EasingMode} \n" +
