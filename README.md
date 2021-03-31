@@ -98,7 +98,6 @@ Feature                               | **UWP**     | **WPF**        | **UWP (Un
 ------------------------------------- | ----------- | -------------- | ------------------ | ------------------ | ------------------ | ----------------------------
 *Animation System*                    | Composition | Storyboards    | Storyboards        | Storyboards        | Storyboards        | Storyboards
 *Transform Type*                      |     N/A     | TransformGroup | CompositeTransform | CompositeTransform | CompositeTransform | CompositeTransform
-Composite Transforms                  |      X      |      X         |         X          |         X          |          X         |              X
 DefaultAnimations.xaml                |      -      |      X         |         -          |         -          |          -         |              -
 `TransformOn`                         |      -      |      X         |         -          |         -          |          -         |              -
 Compound Animations                   |      X      |      X         |         X          |         X          |          X         |              X
