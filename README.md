@@ -98,23 +98,23 @@ Feature                               | **UWP**     | **WPF**        | **UWP (Un
 ------------------------------------- | ----------- | -------------- | ------------------ | ------------------ | ------------------ | ----------------------------
 *Animation System*                    | Composition | Storyboards    | Storyboards        | Storyboards        | Storyboards        | Storyboards
 *Transform Type*                      |     N/A     | TransformGroup | CompositeTransform | CompositeTransform | CompositeTransform | CompositeTransform
-DefaultAnimations.xaml                |      -      |      X         |         -          |         -          |          -         |              -
-`TransformOn`                         |      -      |      X         |         -          |         -          |          -         |              -
-Compound Animations                   |      X      |      X         |         X          |         X          |          X         |              X
-Relative Translations                 |      X      |      X         |         X          |         X          |          X         |              X
-Repeating Animations                  |      X      |      X         |         X          |         X          |          X         |              X
-Events & Bindings                     |      X      |      X         |         X          |         X          |          X         |              X
-Primary/Secondary Completion Commands |      X      |      X         |         X          |         X          |          X         |              X
-`StartWith`                           |      X      |      X         |         X          |         X          |          X         |              X
-`AllowOpacityReset`                   |      -      |      X         |         -          |         -          |          -         |              -
-`ClipToBounds`                        |      X      |     N/A        |         X          |         X          |          X         |              X
-Animated Lists                        |      X      |      X         |         X          |         X          |          X         |              X
-Blur Effect                           |      X      |      X         |         -          |         -          |          -         |              -
-Saturation Effect                     |      X      |      -         |         -          |         -          |          -         |              -
-Tint Effect                           |      X      |      -         |         -          |         -          |          -         |              -
-Color Animations                      |      -      |      X         |         X          |         X          |          X         |              X
-Perspective Rotations (Swivel)        |      X      |      -         |         -          |         -          |          -         |              -
-Debugging Animations                  |      X      |      X         |         X          |         X          |          X         |              -
+DefaultAnimations.xaml                |      -      |      ✔         |         -          |         -          |          -         |              -
+`TransformOn`                         |      -      |      ✔         |         -          |         -          |          -         |              -
+Compound Animations                   |      ✔      |      ✔         |         ✔          |         ✔          |          ✔         |              ✔
+Relative Translations                 |      ✔      |      ✔         |         ✔          |         ✔          |          ✔         |              ✔
+Repeating Animations                  |      ✔      |      ✔         |         ✔          |         ✔          |          ✔         |              ✔
+Events & Bindings                     |      ✔      |      ✔         |         ✔          |         ✔          |          ✔         |              ✔
+Primary/Secondary Completion Commands |      ✔      |      ✔         |         ✔          |         ✔          |          ✔         |              ✔
+`StartWith`                           |      ✔      |      ✔         |         ✔          |         ✔          |          ✔         |              ✔
+`AllowOpacityReset`                   |      -      |      ✔         |         -          |         -          |          -         |              -
+`ClipToBounds`                        |      ✔      |     N/A        |         ✔          |         ✔          |          ✔         |              ✔
+Animated Lists                        |      ✔      |      ✔         |         ✔          |         ✔          |          ✔         |              ✔
+Blur Effect                           |      ✔      |      ✔         |         -          |         -          |          -         |              -
+Saturation Effect                     |      ✔      |      -         |         -          |         -          |          -         |              -
+Tint Effect                           |      ✔      |      -         |         -          |         -          |          -         |              -
+Color Animations                      |      -      |      ✔         |         ✔          |         ✔          |          ✔         |              ✔
+Perspective Rotations (Swivel)        |      ✔      |      -         |         -          |         -          |          -         |              -
+Debugging Animations                  |      ✔      |      ✔         |         ✔          |         ✔          |          ✔         |              -
 
 ## Basic Concepts
 
