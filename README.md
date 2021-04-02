@@ -312,28 +312,27 @@ Your app now has a global set of **common** animations ready to use.
 
 Alternatively to creating your own `ResourceDictionary` containing your custom  `AnimationSettings`, XamlFlair provides some **Default** Animations.
 
-To reference these Default Animations in your app, perform the following steps:
+To reference these Default Animations in your application, perform the following steps in your `App.xaml`:
 
-1. In your `App.xaml`, add the following
+1. Define the `XamlFlair.WPF` namespace at the top:
+
+```xml
+    xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
+```
+
+2. Update your Application Resources:
 
 ```xml
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/XamlFlair.WPF;component/DefaultAnimations.xaml"/>
+                <xf:XamlFlairResources />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
 ```
 
-Where you should replace the merged dictionary URI accordingly:
-
-```xml
-<!-- WPF -->
-<ResourceDictionary Source="pack://application:,,,/XamlFlair.UWP;component/DefaultAnimations.xaml"/>
-```
-
-Your app now has a global set of **Default** animations ready to use.
+Your application now has a global set of **Default** animations ready to use.
 
 ### `TransformOn` Property (*WPF Only*)
 

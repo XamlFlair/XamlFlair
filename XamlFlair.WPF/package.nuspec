@@ -4,7 +4,7 @@
     <!--*-->
     <id>XamlFlair.WPF</id>
     <!--*-->
-    <version>1.2.7</version>
+    <version>1.2.8</version>
     <title>XamlFlair.WPF</title>
     <!--*-->
     <authors>XamlFlair.WPF</authors>
@@ -18,7 +18,7 @@
     <!--*-->
     <description>XamlFlair animation library for the WPF platform.</description>
     <!--*-->
-    <releaseNotes>Applied a nuspec fix for net48 target</releaseNotes>
+    <releaseNotes>Simplified the way Default Animations are referenced using an inherited ResourceDictionary + fixes for LayoutTransform animations.</releaseNotes>
     <copyright>Copyright © 2021</copyright>
     <tags>
     </tags>
