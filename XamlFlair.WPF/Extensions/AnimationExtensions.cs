@@ -68,7 +68,7 @@ namespace XamlFlair.Extensions
 			SetTransform(element, settings, transform);
 
 			element.ApplyAnimation(settings, translate.X, settings.OffsetX.GetCalculatedOffset(element, OffsetTarget.X),
-				$"{(settings.TransformOn == TransformationType.Render ? "Render" : "Layout")}Transform.Children[{TRANSLATE_INDEX}].X", ref storyboard);
+				$"{GetTransformType(settings)}Transform.Children[{TRANSLATE_INDEX}].X", ref storyboard);
 
 			return storyboard;
 		}
@@ -81,7 +81,7 @@ namespace XamlFlair.Extensions
 			SetTransform(element, settings, transform);
 
 			element.ApplyAnimation(settings, translate.Y, settings.OffsetY.GetCalculatedOffset(element, OffsetTarget.Y),
-				$"{(settings.TransformOn == TransformationType.Render ? "Render" : "Layout")}Transform.Children[{TRANSLATE_INDEX}].Y", ref storyboard);
+				$"{GetTransformType(settings)}Transform.Children[{TRANSLATE_INDEX}].Y", ref storyboard);
 
 			return storyboard;
 		}
@@ -93,10 +93,10 @@ namespace XamlFlair.Extensions
 
 			translate.X = settings.OffsetX.GetCalculatedOffset(element, OffsetTarget.X);
 
-			SetRenderTransform(element, settings, transform);
+			SetTransform(element, settings, transform);
 
 			element.ApplyAnimation(settings, translate.X, 0,
-				$"{(settings.TransformOn == TransformationType.Render ? "Render" : "Layout")}Transform.Children[{TRANSLATE_INDEX}].X", ref storyboard);
+				$"{GetTransformType(settings)}Transform.Children[{TRANSLATE_INDEX}].X", ref storyboard);
 
 			return storyboard;
 		}
@@ -108,10 +108,10 @@ namespace XamlFlair.Extensions
 
 			translate.Y = settings.OffsetY.GetCalculatedOffset(element, OffsetTarget.Y);
 
-			SetRenderTransform(element, settings, transform);
+			SetTransform(element, settings, transform);
 
 			element.ApplyAnimation(settings, translate.Y, 0,
-				$"{(settings.TransformOn == TransformationType.Render ? "Render" : "Layout")}Transform.Children[{TRANSLATE_INDEX}].Y", ref storyboard);
+				$"{GetTransformType(settings)}Transform.Children[{TRANSLATE_INDEX}].Y", ref storyboard);
 
 			return storyboard;
 		}
@@ -128,7 +128,7 @@ namespace XamlFlair.Extensions
 			SetTransform(element, settings, transform, updateTransformCenterPoint: true);
 
 			element.ApplyAnimation(settings, scale.ScaleX, settings.ScaleX,
-				$"{(settings.TransformOn == TransformationType.Render ? "Render" : "Layout")}Transform.Children[{SCALE_INDEX}].ScaleX", ref storyboard);
+				$"{GetTransformType(settings)}Transform.Children[{SCALE_INDEX}].ScaleX", ref storyboard);
 
 			return storyboard;
 		}
@@ -141,7 +141,7 @@ namespace XamlFlair.Extensions
 			SetTransform(element, settings, transform, updateTransformCenterPoint: true);
 
 			element.ApplyAnimation(settings, scale.ScaleY, settings.ScaleY,
-				$"{(settings.TransformOn == TransformationType.Render ? "Render" : "Layout")}Transform.Children[{SCALE_INDEX}].ScaleY", ref storyboard);
+				$"{GetTransformType(settings)}Transform.Children[{SCALE_INDEX}].ScaleY", ref storyboard);
 
 			return storyboard;
 		}
@@ -156,7 +156,7 @@ namespace XamlFlair.Extensions
 			SetTransform(element, settings, transform, updateTransformCenterPoint: true);
 
 			element.ApplyAnimation(settings, settings.ScaleX, 1,
-				$"{(settings.TransformOn == TransformationType.Render ? "Render" : "Layout")}Transform.Children[{SCALE_INDEX}].ScaleX", ref storyboard);
+				$"{GetTransformType(settings)}Transform.Children[{SCALE_INDEX}].ScaleX", ref storyboard);
 
 			return storyboard;
 		}
@@ -171,7 +171,7 @@ namespace XamlFlair.Extensions
 			SetTransform(element, settings, transform, updateTransformCenterPoint: true);
 
 			element.ApplyAnimation(settings, settings.ScaleY, 1,
-				$"{(settings.TransformOn == TransformationType.Render ? "Render" : "Layout")}Transform.Children[{SCALE_INDEX}].ScaleY", ref storyboard);
+				$"{GetTransformType(settings)}Transform.Children[{SCALE_INDEX}].ScaleY", ref storyboard);
 
 			return storyboard;
 		}
@@ -188,7 +188,7 @@ namespace XamlFlair.Extensions
 			SetTransform(element, settings, transform, updateTransformCenterPoint: true);
 
 			element.ApplyAnimation(settings, rotate.Angle, settings.Rotation,
-				$"{(settings.TransformOn == TransformationType.Render ? "Render" : "Layout")}Transform.Children[{ROTATE_INDEX}].Angle", ref storyboard);
+				$"{GetTransformType(settings)}Transform.Children[{ROTATE_INDEX}].Angle", ref storyboard);
 
 			return storyboard;
 		}
@@ -203,7 +203,7 @@ namespace XamlFlair.Extensions
 			SetTransform(element, settings, transform, updateTransformCenterPoint: true);
 
 			element.ApplyAnimation(settings, settings.Rotation, 0,
-				$"{(settings.TransformOn == TransformationType.Render ? "Render" : "Layout")}Transform.Children[{ROTATE_INDEX}].Angle", ref storyboard);
+				$"{GetTransformType(settings)}Transform.Children[{ROTATE_INDEX}].Angle", ref storyboard);
 
 			return storyboard;
 		}
@@ -359,28 +359,23 @@ namespace XamlFlair.Extensions
 		{
 			if (settings.TransformOn == TransformationType.Layout)
 			{
-				SetLayoutTransform(element, settings, transform, updateTransformCenterPoint: true);
+				element.LayoutTransform = transform;
 			}
 			else
 			{
-				SetRenderTransform(element, settings, transform, updateTransformCenterPoint: true);
+				element.RenderTransform = transform;
+
+				if (updateTransformCenterPoint)
+				{
+					element.RenderTransformOrigin = settings.TransformCenterPoint;
+				}
 			}
 		}
 
-		private static void SetRenderTransform(FrameworkElement element, AnimationSettings settings, TransformGroup transform, bool updateTransformCenterPoint = false)
-		{
-			element.RenderTransform = transform;
-
-			if (updateTransformCenterPoint)
-			{
-				element.RenderTransformOrigin = settings.TransformCenterPoint;
-			}
-		}
-
-		private static void SetLayoutTransform(FrameworkElement element, AnimationSettings settings, TransformGroup transform, bool updateTransformCenterPoint = false)
-		{
-			element.LayoutTransform = transform;
-		}
+		private static string GetTransformType(AnimationSettings settings)
+			=> settings.TransformOn == TransformationType.Render
+				? "Render"
+				: "Layout";
 
 		private static void ApplyAnimation(this FrameworkElement element, AnimationSettings settings, double from, double to, string targetProperty, ref Storyboard storyboard)
 		{
@@ -453,15 +448,21 @@ namespace XamlFlair.Extensions
 			}
 
 			element.Opacity = settings.Opacity;
-
 			element.RenderTransformOrigin = settings.TransformCenterPoint;
-			element.RenderTransform = transform;
 
-			var effect = (element.Effect as BlurEffect) ?? new BlurEffect()
+			if (settings.TransformOn == TransformationType.Render)
+			{
+				element.RenderTransform = transform;
+			}
+			else
+			{
+				element.LayoutTransform = transform;
+			}
+
+			element.Effect = (element.Effect as BlurEffect) ?? new BlurEffect()
 			{
 				Radius = settings.BlurRadius
 			};
-			element.Effect = effect;
 		}
 
 		private static TransformGroup CreateTransformGroup()
