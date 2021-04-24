@@ -128,7 +128,7 @@ Example of a _To_ animation (a UI element sliding away from its current state):
 
 ![To animation](doc/gifs/TranslateTo.gif)
 
-> NOTE: It's important to note there is an exception to this rule for Color Animations, which is explained in the Base Animation Types section.
+> **Note**: It's important to note there is an exception to this rule for Color Animations, which is explained in the Base Animation Types section.
 
 ## Usage
 
@@ -339,6 +339,8 @@ Your application now has a global set of **Default** animations ready to use.
 Using the `TransformOn` property, you can target which type of `RenderTransform` to apply to your animation. Available options are `Render` and `Layout`. When nothing is specified, the default vale is `Render`. Here's an example of the two:
 
 ![TransformOn animation](doc/gifs/TransformOn.gif)
+
+> **Note**: Very important to note that WPF's `LayoutTransform` does not support any `TranslateTransform`, therefore translate animations will never work. You can read more about it in the Remarks section [here](https://docs.microsoft.com/en-us/dotnet/api/system.windows.frameworkelement.layouttransform?redirectedfrom=MSDN&view=net-5.0#remarks).
 
 ### Perspective Rotations (*UWP Only*)
 
