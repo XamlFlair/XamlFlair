@@ -334,6 +334,18 @@ To reference these Default Animations in your application, perform the following
 
 Your application now has a global set of **Default** animations ready to use.
 
+If Visual Studio Intellisense does not work when using `<xf:XamlFlairResources />`, you may want to try the following instead:
+
+```xml
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/XamlFlair.WPF;component/DefaultAnimations.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+```
+
 ### `TransformOn` Property (*WPF Only*)
 
 Using the `TransformOn` property, you can target which type of `RenderTransform` to apply to your animation. Available options are `Render` and `Layout`. When nothing is specified, the default vale is `Render`. Here's an example of the two:
