@@ -6,6 +6,12 @@ The goal of the XamlFlair library is to ease the implementation of common animat
 
 ![Sample App](doc/gifs/uwp.gif)
 
+# Showcase
+
+[Sekuence Puzzle Game](https://sekuence.fun)|
+:-------------------------------------------:
+![Sekuence](doc/gifs/Sekuence.gif)          |
+
 ## Supporting Me
 
 If you would like to support my work with a few coffees, you can do it here: [Buy Me A Coffee](https://www.buymeacoffee.com/xamlflair). Your help allows me to continue to spend time on this project and continue to maintain and update it with new features when possible. Thanks in advance!
