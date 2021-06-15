@@ -11,15 +11,15 @@
 		<Copyright>Copyright © 2021</Copyright>
 		<PackageId>XamlFlair.Uno</PackageId>
 		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-		<PackageReleaseNotes>Updated Uno to 3.5.1 + bumped UWP min version to 10.0.18362.0</PackageReleaseNotes>
-		<Version>1.2.6</Version>
+		<PackageReleaseNotes>Updated Uno to 3.8.6</PackageReleaseNotes>
+		<Version>1.2.7</Version>
 		<PackageProjectUrl>https://github.com/XamlFlair/XamlFlair</PackageProjectUrl>
 		<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
 		<Company>XamlFlair</Company>
 		<PackageIconUrl>https://github.com/XamlFlair/XamlFlair/blob/master/nuget_logo.png?raw=true</PackageIconUrl>
 		<Authors>XamlFlair</Authors>
-		<FileVersion>1.2.6</FileVersion>
-		<AssemblyVersion>1.2.6</AssemblyVersion>
+		<FileVersion>1.2.7</FileVersion>
+		<AssemblyVersion>1.2.7</AssemblyVersion>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
 		<DefineConstants>$(DefineConstants);__WASM__</DefineConstants>
