@@ -241,6 +241,16 @@ namespace XamlFlair.Extensions
 					fromColor = brush.Color;
 					break;
 
+				case ColorTarget.Background when element is Border bdr && bdr.Background is SolidColorBrush brush:
+					propertyPath = $"({elementType}.Background).({brushTarget})";
+					fromColor = brush.Color;
+					break;
+
+				case ColorTarget.BorderBrush when element is Border bdr && bdr.BorderBrush is SolidColorBrush brush:
+					propertyPath = $"({elementType}.BorderBrush).({brushTarget})";
+					fromColor = brush.Color;
+					break;
+
 				case ColorTarget.Foreground when element is TextBlock tb && tb.Foreground is SolidColorBrush brush:
 					propertyPath = $"({elementType}.Foreground).({brushTarget})";
 					fromColor = brush.Color;
