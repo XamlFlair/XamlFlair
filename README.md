@@ -221,7 +221,7 @@ The following lists some notable **default values** when working with XamlFlair:
 
 Color animations require some attention since they are **slightly** different than the other base type animations. When using either `ColorTo` and `ColorFrom`, the following must be done:
 
-- You can only animate the following properties: `Control.Background`, `Control.Foreground`, `Control.BorderBrush`, `TextBlock.Foreground`, `Shape.Fill`, `Shape.Stroke`
+- You can only animate the following properties: `Control.Background`, `Control.Foreground`, `Control.BorderBrush`, `Border.Background`, `Border.BorderBrush`, `TextBlock.Foreground`, `Shape.Fill`, `Shape.Stroke`
 - Make sure to set a brush on the corresponding property you intend to animate
 - You must also specify the target property using `ColorOn`
 
