@@ -4,7 +4,7 @@
     <!--*-->
     <id>XamlFlair.WPF</id>
     <!--*-->
-    <version>1.2.8</version>
+    <version>1.2.9</version>
     <title>XamlFlair.WPF</title>
     <!--*-->
     <authors>XamlFlair.WPF</authors>
@@ -18,7 +18,7 @@
     <!--*-->
     <description>XamlFlair animation library for the WPF platform.</description>
     <!--*-->
-    <releaseNotes>Simplified the way Default Animations are referenced using an inherited ResourceDictionary + fixes for LayoutTransform animations.</releaseNotes>
+    <releaseNotes>Added ColorAnimation support for the Border control.</releaseNotes>
     <copyright>Copyright © 2021</copyright>
     <tags>
     </tags>
