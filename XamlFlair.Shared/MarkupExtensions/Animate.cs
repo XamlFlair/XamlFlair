@@ -157,7 +157,7 @@ namespace XamlFlair
 		/// <remarks>
 		/// This property is disregarded for controls based on ListViewBase (UWP) or ListBox (WPF)
 		/// </remarks>
-		public EventType Event { get; set; } = DefaultSettings.Event;
+		public string EventName { get; set; } = DefaultSettings.EventName;
 
 		/// <summary>
 		/// Specifies the easing of the composite animation
@@ -174,9 +174,9 @@ namespace XamlFlair
 			if (BasedOn is CompoundSettings compound)
 			{
 				// Make sure to capture an override on the Event property (if any)
-				if (Event != DefaultSettings.Event)
+				if (EventName != DefaultSettings.EventName)
 				{
-					compound.Event = Event;
+					compound.EventName = EventName;
 				}
 
 				return compound;
@@ -200,7 +200,7 @@ namespace XamlFlair
 				TransformCenterPoint = TransformCenterPoint,
 				Easing = Easing,
 				EasingMode = EasingMode,
-				Event = Event,
+				EventName = EventName,
 #if __WPF__
 				TransformOn = TransformOn,
 #endif

@@ -80,7 +80,7 @@ namespace XamlFlair
 				&& !primaryBindingIsSet
 				&& !combinedBindingIsSet
 				&& primarySettings != null
-				&& primarySettings?.Event == EventType.None)
+				&& primarySettings.HasNoneEvent())
 			{
 				throw new ArgumentException($"{nameof(PrimaryProperty)} is missing a trigger by an event or binding.");
 			}
@@ -96,7 +96,7 @@ namespace XamlFlair
 				&& !secondaryBindingIsSet
 				&& !combinedBindingIsSet
 				&& secondarySettings != null
-				&& secondarySettings?.Event == EventType.None)
+				&& secondarySettings.HasNoneEvent())
 			{
 				throw new ArgumentException($"{nameof(SecondaryProperty)} is missing a trigger by an event or binding.");
 			}
@@ -151,9 +151,9 @@ namespace XamlFlair
 				}
 
 				// Don't set a value for the Event property, is it disregarded for ListViewBase item animations.
-				if (itemSettings.Event != DefaultSettings.Event)
+				if (itemSettings.EventName != DefaultSettings.EventName)
 				{
-					throw new ArgumentException($"Don't set a value for the {nameof(itemSettings.Event)} property, is it disregarded for {nameof(ListViewBase)} item animations.");
+					throw new ArgumentException($"Don't set a value for the {nameof(itemSettings.EventName)} property, is it disregarded for {nameof(ListViewBase)} item animations.");
 				}
 			}
 		}
@@ -191,9 +191,9 @@ namespace XamlFlair
 				}
 
 				// Don't set a value for the Event property, is it disregarded for ListBox item animations.
-				if (itemSettings != null && itemSettings.Event != DefaultSettings.Event)
+				if (itemSettings != null && itemSettings.EventName != DefaultSettings.EventName)
 				{
-					throw new ArgumentException($"Don't set a value for the {nameof(itemSettings.Event)} property, is it disregarded for {nameof(ListBox)} item animations.");
+					throw new ArgumentException($"Don't set a value for the {nameof(itemSettings.EventName)} property, is it disregarded for {nameof(ListBox)} item animations.");
 				}
 			}
 		}

@@ -24,7 +24,7 @@ namespace XamlFlair
 		internal static readonly Point DEFAULT_TRANSFORM_CENTER_POINT = new Point(0.5, 0.5);
 		internal const EasingType DEFAULT_EASING = EasingType.Cubic;
 		internal const EasingMode DEFAULT_EASING_MODE = EasingMode.EaseOut;
-		internal const EventType DEFAULT_EVENT = EventType.Loaded;
+		internal const string DEFAULT_EVENT = nameof(FrameworkElement.Loaded);
 
 // ColorAnimation supported only on Uno and WPF (not on native UWP due to Composition-only implementations)
 #if WINDOWS_UWP || HAS_UNO || __WPF__
@@ -47,7 +47,7 @@ namespace XamlFlair
 		internal static Point TransformCenterPoint { get; set; } = DEFAULT_TRANSFORM_CENTER_POINT;
 		internal static EasingType Easing { get; set; } = DEFAULT_EASING;
 		internal static EasingMode Mode { get; set; } = DEFAULT_EASING_MODE;
-		internal static EventType Event { get; set; } = DEFAULT_EVENT;
+		internal static string EventName { get; set; } = DEFAULT_EVENT;
 
 // ColorAnimation supported only on Uno and WPF (not on native UWP due to Composition-only implementations)
 #if WINDOWS_UWP || HAS_UNO || __WPF__

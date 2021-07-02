@@ -70,7 +70,7 @@
 			<!-- Background -->
 			<Border Background="#A6000000"
 					xf:Animations.PrimaryBinding="{x:Bind IsPopupShown, Mode=OneWay}"
-					xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Event=None}"
+					xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, EventName=None}"
 					xf:Animations.StartWith="{StaticResource FadeOut}" />
 
 			<!-- Popup Content -->
@@ -83,9 +83,9 @@
 				  xf:Layout.ClipToBounds="True"
 				  xf:Animations.StartWith="{xf:Animate BasedOn={StaticResource FadeOutAndShrinkHorizontally}, ScaleX={StaticResource PopupScaleFactor}}"
 				  xf:Animations.PrimaryBinding="{x:Bind IsPopupShown, Mode=OneWay}"
-				  xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndGrowHorizontally}, ScaleX=0, Event=None, Delay=500}"
+				  xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndGrowHorizontally}, ScaleX=0, EventName=None, Delay=500}"
 				  xf:Animations.SecondaryBinding="{x:Bind IsPopupShown, Converter={StaticResource InverseBool}, Mode=OneWay}"
-				  xf:Animations.Secondary="{xf:Animate BasedOn={StaticResource FadeOutAndShrinkHorizontally}, ScaleX=0, Event=None, Duration=1}">
+				  xf:Animations.Secondary="{xf:Animate BasedOn={StaticResource FadeOutAndShrinkHorizontally}, ScaleX=0, EventName=None, Duration=1}">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
 					<RowDefinition Height="*" />
@@ -97,9 +97,9 @@
 						Height="250"
 						Margin="0,0,0,8"
 						xf:Animations.PrimaryBinding="{x:Bind IsPopupShown, Mode=OneWay}"
-						xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromTop}, Event=None, Delay=1000}"
+						xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromTop}, EventName=None, Delay=1000}"
 						xf:Animations.SecondaryBinding="{x:Bind IsPopupShown, Mode=OneWay, Converter={StaticResource InverseBool}}"
-						xf:Animations.Secondary="{xf:Animate BasedOn={StaticResource FadeOutAndSlideToTop}, Event=None, Delay=1}">
+						xf:Animations.Secondary="{xf:Animate BasedOn={StaticResource FadeOutAndSlideToTop}, EventName=None, Delay=1}">
 					<Image Source="{Binding Image}"
 						   Stretch="UniformToFill" />
 				</Border>
@@ -112,9 +112,9 @@
 						   Grid.Row="1"
 						   Margin="16,8,16,16"
 						   xf:Animations.PrimaryBinding="{x:Bind IsPopupShown, Mode=OneWay}"
-						   xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromBottom}, Event=None, Delay=1250}"
+						   xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromBottom}, EventName=None, Delay=1250}"
 						   xf:Animations.SecondaryBinding="{x:Bind IsPopupShown, Mode=OneWay, Converter={StaticResource InverseBool}}"
-						   xf:Animations.Secondary="{xf:Animate BasedOn={StaticResource FadeOutAndSlideToBottom}, Event=None, Delay=1}" />
+						   xf:Animations.Secondary="{xf:Animate BasedOn={StaticResource FadeOutAndSlideToBottom}, EventName=None, Delay=1}" />
 
 				<!-- Popup Close Button -->
 				<Button x:Name="ClosePopupButton"
@@ -125,9 +125,9 @@
 						Margin="0,0,0,16"
 						Click="ClosePopupButton_Click"
 						xf:Animations.PrimaryBinding="{x:Bind IsPopupShown, Mode=OneWay}"
-						xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Event=None, Delay=1500}"
+						xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, EventName=None, Delay=1500}"
 						xf:Animations.SecondaryBinding="{x:Bind IsPopupShown, Mode=OneWay, Converter={StaticResource InverseBool}}"
-						xf:Animations.Secondary="{xf:Animate BasedOn={StaticResource FadeOut}, Event=None, Delay=1}" />
+						xf:Animations.Secondary="{xf:Animate BasedOn={StaticResource FadeOut}, EventName=None, Delay=1}" />
 			</Grid>
 		</Grid>
 		<!-- ============= -->

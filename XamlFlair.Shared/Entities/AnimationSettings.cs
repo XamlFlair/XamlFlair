@@ -30,6 +30,8 @@ namespace XamlFlair
 	public partial class AnimationSettings : DependencyObject, IAnimationSettings, IEquatable<AnimationSettings>
 #endif
 	{
+		internal static string None = "None";
+
 		public AnimationKind Kind
 		{
 			get => (AnimationKind)GetValue(KindProperty);
@@ -405,21 +407,21 @@ namespace XamlFlair
 				typeof(AnimationSettings),
 				new PropertyMetadata(DefaultSettings.Mode));
 
-		public EventType Event
+		public string EventName
 		{
-			get => (EventType)GetValue(EventProperty);
-			set => SetValue(EventProperty, value);
+			get => (string)GetValue(EventNameProperty);
+			set => SetValue(EventNameProperty, value);
 		}
 
 		/// <summary>
 		/// Specifies the event used to trigger the composite animation
 		/// </summary>
-		public static readonly DependencyProperty EventProperty =
+		public static readonly DependencyProperty EventNameProperty =
 			DependencyProperty.Register(
-				nameof(Event),
-				typeof(EventType),
+				nameof(EventName),
+				typeof(string),
 				typeof(AnimationSettings),
-				new PropertyMetadata(DefaultSettings.Event));
+				new PropertyMetadata(DefaultSettings.EventName));
 
 		// TODO: Determine if really needed to have AnimationSettings
 		// as a DependencyObject. Here are the properties listed
@@ -488,6 +490,9 @@ namespace XamlFlair
 		*/
 		// -----------------------------------------
 
+		internal bool HasNoneEvent()
+			=> this.EventName.Equals(None, StringComparison.OrdinalIgnoreCase);
+
 		#region Equality
 
 		public bool Equals(AnimationSettings other)
@@ -532,7 +537,7 @@ namespace XamlFlair
 				&& other.Saturation.Equals(Saturation)
 				&& other.Tint.Equals(Tint)
 #endif
-				&& other.Event.Equals(Event);
+				&& other.EventName.Equals(EventName);
 		}
 
 #if __WPF__
@@ -590,7 +595,7 @@ namespace XamlFlair
 #endif
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, Easing) ? Easing.GetHashCode() : 0);
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, EasingMode) ? EasingMode.GetHashCode() : 0);
-				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, Event) ? Event.GetHashCode() : 0);
+				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, EventName) ? EventName.GetHashCode() : 0);
 #if __WPF__
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, TransformOn) ? TransformOn.GetHashCode() : 0);
 #endif

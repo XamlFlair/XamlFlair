@@ -21,7 +21,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Entities\DebugTarget.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\DefaultSettings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\EasingType.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Entities\EventType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Contracts\IAnimationSettings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\Offset.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\OffsetTarget.cs" />

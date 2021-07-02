@@ -70,7 +70,7 @@
 					Background="{StaticResource TranslucentColor02Brush}"
 					Height="150"
 					xf:Animations.Primary="{xf:Animate BasedOn={StaticResource ScaleFromRight}, Delay=100}">
-				<Border xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Event=DataContextChanged, Duration=1000}">
+				<Border xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, EventName=DataContextChanged, Duration=1000}">
 					<Image Source="{Binding ProfileBackground}"
 						   Stretch="UniformToFill"
 						   VerticalAlignment="Stretch" />

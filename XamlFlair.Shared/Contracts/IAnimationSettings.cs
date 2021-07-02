@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace XamlFlair
+﻿namespace XamlFlair
 {
 	public interface IAnimationSettings
 	{
-		EventType Event { get; set; }
+		string EventName { get; set; }
 	}
 }
