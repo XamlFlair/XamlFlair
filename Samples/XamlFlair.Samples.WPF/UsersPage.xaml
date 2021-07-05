@@ -142,7 +142,7 @@
 				<Image Source="{Binding ProfileBackground}"
 					   Stretch="UniformToFill"
 					   VerticalAlignment="Stretch"
-					   xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, EventName=DataContextChanged, Duration=1000}" />
+					   xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Event=DataContextChanged, Duration=1000}" />
 			</Border>
 
 			<!-- Profile pic -->

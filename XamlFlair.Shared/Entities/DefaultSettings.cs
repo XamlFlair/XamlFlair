@@ -47,7 +47,7 @@ namespace XamlFlair
 		internal static Point TransformCenterPoint { get; set; } = DEFAULT_TRANSFORM_CENTER_POINT;
 		internal static EasingType Easing { get; set; } = DEFAULT_EASING;
 		internal static EasingMode Mode { get; set; } = DEFAULT_EASING_MODE;
-		internal static string EventName { get; set; } = DEFAULT_EVENT;
+		internal static string Event { get; set; } = DEFAULT_EVENT;
 
 // ColorAnimation supported only on Uno and WPF (not on native UWP due to Composition-only implementations)
 #if WINDOWS_UWP || HAS_UNO || __WPF__

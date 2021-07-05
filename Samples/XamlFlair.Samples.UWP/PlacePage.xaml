@@ -64,7 +64,7 @@
 			<!-- Background -->
 			<Border Background="#A6000000"
 					xf:Animations.PrimaryBinding="{x:Bind IsPopupShown}"
-					xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, EventName=None}"
+					xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Event=None}"
 					xf:Animations.StartWith="{StaticResource FadeOut}" />
 
 			<!-- Popup Content -->
@@ -76,9 +76,9 @@
 				  Background="{StaticResource PrimaryColor01Brush}"
 				  xf:Animations.StartWith="{xf:Animate BasedOn={StaticResource FadeOutAndShrinkHorizontally}, ScaleX={StaticResource PopupScaleFactor}}"
 				  xf:Animations.PrimaryBinding="{x:Bind IsPopupShown}"
-				  xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndGrowHorizontally}, ScaleX=0, EventName=None, Delay=500}"
+				  xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndGrowHorizontally}, ScaleX=0, Event=None, Delay=500}"
 				  xf:Animations.SecondaryBinding="{x:Bind IsPopupShown, Converter={StaticResource InverseBool}}"
-				  xf:Animations.Secondary="{xf:Animate BasedOn={StaticResource FadeOutAndShrinkHorizontally}, ScaleX=0, EventName=None, Duration=1}">
+				  xf:Animations.Secondary="{xf:Animate BasedOn={StaticResource FadeOutAndShrinkHorizontally}, ScaleX=0, Event=None, Duration=1}">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="*" />
@@ -95,7 +95,7 @@
 					   Width="200"
 					   Margin="16,16,8,16"
 					   xf:Animations.PrimaryBinding="{x:Bind IsPopupShown}"
-					   xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromRight}, EventName=None, Delay=1000}" />
+					   xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromRight}, Event=None, Delay=1000}" />
 
 				<!-- Popup Text -->
 				<TextBlock Text="{x:Bind CurrentPlace.Description}"
@@ -104,7 +104,7 @@
 						   Grid.Column="1"
 						   Margin="8,16,16,16"
 						   xf:Animations.PrimaryBinding="{x:Bind IsPopupShown}"
-						   xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromBottom}, EventName=None, Delay=1250}" />
+						   xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromBottom}, Event=None, Delay=1250}" />
 
 				<!-- Popup Close Button -->
 				<Button x:Name="ClosePopupButton"
@@ -116,7 +116,7 @@
 						Margin="0,0,0,16"
 						Click="ClosePopupButton_Click"
 						xf:Animations.PrimaryBinding="{x:Bind IsPopupShown}"
-						xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, EventName=None, Delay=1500}" />
+						xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Event=None, Delay=1500}" />
 			</Grid>
 		</Grid>
 		<!-- ============= -->

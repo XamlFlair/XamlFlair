@@ -20,21 +20,21 @@ namespace XamlFlair
 	public partial class CompoundSettings : DependencyObject, IAnimationSettings, IEquatable<CompoundSettings>
 #endif
 	{
-		public string EventName
+		public string Event
 		{
-			get => (string)GetValue(EventNameProperty);
-			set => SetValue(EventNameProperty, value);
+			get => (string)GetValue(EventProperty);
+			set => SetValue(EventProperty, value);
 		}
 
 		/// <summary>
 		/// Specifies the event used to trigger the composite animation
 		/// </summary>
-		public static readonly DependencyProperty EventNameProperty =
+		public static readonly DependencyProperty EventProperty =
 			DependencyProperty.Register(
-				nameof(EventName),
+				nameof(Event),
 				typeof(string),
 				typeof(CompoundSettings),
-				new PropertyMetadata(DefaultSettings.EventName));
+				new PropertyMetadata(DefaultSettings.Event));
 
 		///// <summary>
 		///// Specifies the list of AnimationSettings used for a compound animation
@@ -54,7 +54,7 @@ namespace XamlFlair
 		private bool IsEqual(CompoundSettings obj)
 		{
 			return obj is CompoundSettings other
-				&& other.EventName.Equals(EventName)
+				&& other.Event.Equals(Event)
 				&& other.Sequence.SequenceEqual(Sequence);
 		}
 
@@ -93,7 +93,7 @@ namespace XamlFlair
 				const int HashingMultiplier = 16777619;
 
 				int hash = HashingBase;
-				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, EventName) ? EventName.GetHashCode() : 0);
+				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, Event) ? Event.GetHashCode() : 0);
 				hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, Sequence) ? Sequence.GetHashCode() : 0);
 				return hash;
 			}

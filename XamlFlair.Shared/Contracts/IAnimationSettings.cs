@@ -2,6 +2,6 @@
 {
 	public interface IAnimationSettings
 	{
-		string EventName { get; set; }
+		string Event { get; set; }
 	}
 }

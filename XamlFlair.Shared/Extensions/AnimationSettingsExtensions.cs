@@ -136,8 +136,8 @@ namespace XamlFlair.Extensions
 			var easing = other.Easing;
 			updated.Easing = easing != DefaultSettings.Easing ? easing : settings.Easing;
 
-			var @event = other.EventName;
-			updated.EventName = @event != DefaultSettings.EventName ? @event : settings.EventName;
+			var @event = other.Event;
+			updated.Event = @event != DefaultSettings.Event ? @event : settings.Event;
 
 #if __UWP__
 			var offsetZ = other.OffsetZ;

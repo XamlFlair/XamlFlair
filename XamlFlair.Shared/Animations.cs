@@ -74,7 +74,7 @@ namespace XamlFlair
 			DefaultSettings.InterElementDelay = interElementDelay;
 			DefaultSettings.Easing = easing;
 			DefaultSettings.Mode = mode;
-			DefaultSettings.EventName = @event;
+			DefaultSettings.Event = @event;
 #if __WPF__
 			DefaultSettings.TransformOn = transformOn;
 #elif __UWP__ && !HAS_UNO
@@ -251,9 +251,9 @@ namespace XamlFlair
 
 		private static void RegisterElementEvents(FrameworkElement element, IAnimationSettings settings, bool useSecondarySettings = false)
 		{
-			var eventName = settings?.EventName ?? nameof(FrameworkElement.Loaded);
+			var eventName = settings?.Event ?? nameof(FrameworkElement.Loaded);
 
-			if (eventName.Equals("None", StringComparison.OrdinalIgnoreCase))
+			if (eventName.Equals(AnimationSettings.None, StringComparison.OrdinalIgnoreCase))
 			{
 				// Do nothing for "None"
 			}
