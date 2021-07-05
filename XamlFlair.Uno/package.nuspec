@@ -4,7 +4,7 @@
     <!--*-->
     <id>XamlFlair.Uno</id>
     <!--*-->
-    <version>1.2.8</version>
+    <version>1.2.9</version>
     <title>XamlFlair.Uno</title>
     <!--*-->
     <authors>XamlFlair</authors>
@@ -20,7 +20,7 @@
     <!--*-->
     <description>XamlFlair animation library for the Uno platform.</description>
     <!--*-->
-    <releaseNotes>Applied changes to allow any event to trigger an animation instead of a pre-defined set of events.</releaseNotes>
+    <releaseNotes>Version bump.</releaseNotes>
     <copyright>Copyright © 2021</copyright>
     <tags>
     </tags>
