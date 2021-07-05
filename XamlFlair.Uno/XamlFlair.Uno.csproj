@@ -11,15 +11,15 @@
 		<Copyright>Copyright © 2021</Copyright>
 		<PackageId>XamlFlair.Uno</PackageId>
 		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-		<PackageReleaseNotes>Updated Uno to 3.8.6</PackageReleaseNotes>
-		<Version>1.2.7</Version>
+		<PackageReleaseNotes>Applied changes to allow any event to trigger an animation instead of a pre-defined set of events.</PackageReleaseNotes>
+		<Version>1.2.8</Version>
 		<PackageProjectUrl>https://github.com/XamlFlair/XamlFlair</PackageProjectUrl>
 		<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
 		<Company>XamlFlair</Company>
 		<PackageIconUrl>https://github.com/XamlFlair/XamlFlair/blob/master/nuget_logo.png?raw=true</PackageIconUrl>
 		<Authors>XamlFlair</Authors>
-		<FileVersion>1.2.7</FileVersion>
-		<AssemblyVersion>1.2.7</AssemblyVersion>
+		<FileVersion>1.2.8</FileVersion>
+		<AssemblyVersion>1.2.8</AssemblyVersion>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
 		<DefineConstants>$(DefineConstants);__WASM__</DefineConstants>

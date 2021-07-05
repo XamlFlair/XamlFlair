@@ -7,7 +7,7 @@
 		<ApplicationIcon>Logo.ico</ApplicationIcon>
 		<PackageId>XamlFlair.WPF</PackageId>
 		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-		<PackageReleaseNotes>Added ColorAnimation support for the Border control.</PackageReleaseNotes>
+		<PackageReleaseNotes>Applied changes to allow any event to trigger an animation instead of a pre-defined set of events.</PackageReleaseNotes>
 		<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
 		<Authors>XamlFlair.WPF</Authors>
 		<PackageProjectUrl>https://github.com/XamlFlair/XamlFlair</PackageProjectUrl>
