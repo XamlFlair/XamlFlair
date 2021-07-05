@@ -6,7 +6,7 @@ REM *** 'Samples' projects have been omitted from building and deploying in 'rel
 REM --- RESTORE & REBUILD ---
 nuget restore "XamlFlair.sln"
 
-SET BUILD="C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\MSBuild\Current\Bin\MSBuild.exe"
+SET BUILD="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\MSBuild.exe"
 %BUILD% "XamlFlair.sln" /p:Configuration=Release /p:Platform="Any CPU"
 %BUILD% "XamlFlair.sln" /p:Configuration=Release /p:Platform=ARM
 %BUILD% "XamlFlair.sln" /p:Configuration=Release /p:Platform=x64

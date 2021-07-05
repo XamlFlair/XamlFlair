@@ -8,7 +8,7 @@
 
   <Identity
     Name="d9974767-0b02-4f1c-bbad-8c3163ab5d0f"
-    Publisher="CN=xamlflair"
+    Publisher="CN=XamlFlair"
     Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="687da5f1-52f5-4f94-8741-7efa7ef62c40" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>

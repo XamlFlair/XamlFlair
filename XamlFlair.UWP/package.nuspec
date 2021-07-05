@@ -4,7 +4,7 @@
     <!--*-->
     <id>XamlFlair.UWP</id>
     <!--*-->
-    <version>1.2.5</version>
+    <version>1.2.6</version>
     <title>XamlFlair.UWP</title>
     <!--*-->
     <authors>XamlFlair</authors>
@@ -20,7 +20,7 @@
     <!--*-->
     <description>XamlFlair animation library for the UWP platform.</description>
     <!--*-->
-    <releaseNotes>Applied changes to allow any event to trigger an animation instead of a pre-defined set of events.</releaseNotes>
+    <releaseNotes>Version bump.</releaseNotes>
     <copyright>Copyright © 2021</copyright>
     <tags>
     </tags>
