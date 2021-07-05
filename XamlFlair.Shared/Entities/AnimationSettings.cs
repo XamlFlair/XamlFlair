@@ -30,6 +30,8 @@ namespace XamlFlair
 	public partial class AnimationSettings : DependencyObject, IAnimationSettings, IEquatable<AnimationSettings>
 #endif
 	{
+		internal static string None = nameof(None);
+
 		public AnimationKind Kind
 		{
 			get => (AnimationKind)GetValue(KindProperty);
@@ -405,9 +407,9 @@ namespace XamlFlair
 				typeof(AnimationSettings),
 				new PropertyMetadata(DefaultSettings.Mode));
 
-		public EventType Event
+		public string Event
 		{
-			get => (EventType)GetValue(EventProperty);
+			get => (string)GetValue(EventProperty);
 			set => SetValue(EventProperty, value);
 		}
 
@@ -417,7 +419,7 @@ namespace XamlFlair
 		public static readonly DependencyProperty EventProperty =
 			DependencyProperty.Register(
 				nameof(Event),
-				typeof(EventType),
+				typeof(string),
 				typeof(AnimationSettings),
 				new PropertyMetadata(DefaultSettings.Event));
 
@@ -484,9 +486,12 @@ namespace XamlFlair
 
 		public EasingMode EasingMode { get; set; } = DefaultSettings.Mode;
 
-		public EventType Event { get; set; } = DefaultSettings.Event;
+		public string Event { get; set; } = DefaultSettings.Event;
 		*/
 		// -----------------------------------------
+
+		internal bool HasNoneEvent()
+			=> this.Event?.Equals(None, StringComparison.OrdinalIgnoreCase) ?? false;
 
 		#region Equality
 
@@ -532,7 +537,7 @@ namespace XamlFlair
 				&& other.Saturation.Equals(Saturation)
 				&& other.Tint.Equals(Tint)
 #endif
-				&& other.Event.Equals(Event);
+				&& other.Event.Equals(Event, StringComparison.OrdinalIgnoreCase);
 		}
 
 #if __WPF__

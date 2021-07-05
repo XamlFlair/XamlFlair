@@ -67,7 +67,7 @@ namespace XamlFlair
 #elif __UWP__ && !HAS_UNO
 			double saturation = DefaultSettings.DEFAULT_SATURATION,
 #endif
-			EventType @event = DefaultSettings.DEFAULT_EVENT)
+			string @event = DefaultSettings.DEFAULT_EVENT)
 		{
 			DefaultSettings.Kind = kind;
 			DefaultSettings.Duration = duration;
@@ -251,120 +251,45 @@ namespace XamlFlair
 
 		private static void RegisterElementEvents(FrameworkElement element, IAnimationSettings settings, bool useSecondarySettings = false)
 		{
-			switch (settings?.Event ?? DefaultSettings.Event)
+			var eventName = settings?.Event ?? nameof(FrameworkElement.Loaded);
+
+			if (eventName.Equals(AnimationSettings.None, StringComparison.OrdinalIgnoreCase))
 			{
-				case EventType.Loaded:
-				{
-					element
-						.Events()
-						.LoadedUntilUnloaded
-						.Subscribe(
-							args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
-							ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.Loaded)} event.", ex),
-							() => Cleanup(element)
-						);
-
-					break;
-				}
-
-				case EventType.Visibility:
-				{
-					element
-						.Observe(FrameworkElement.VisibilityProperty)
-						.Where(_ => element.Visibility == Visibility.Visible)
-						.TakeUntil(element.Events().Unloaded)
-						.Subscribe(
-							_ => PrepareAnimations(element, useSecondaryAnimation: useSecondarySettings),
-							ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.Visibility)} changes of {nameof(FrameworkElement)}", ex),
-							() => Cleanup(element)
-						);
-
-					break;
-				}
-
-				case EventType.DataContextChanged:
-				{
-					element
-						.Events()
-						.DataContextChanged
-						.DistinctUntilChanged(args => args.EventArgs.NewValue)
-						.TakeUntil(element.Events().Unloaded)
-						.Subscribe(
-							args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
-							ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.DataContextChanged)} event.", ex),
-							() => Cleanup(element)
-						);
-
-					break;
-				}
-
-				case EventType.PointerOver:
-				{
-					element
-						.Events()
-						.PointerEntered
-						.TakeUntil(element.Events().Unloaded)
-						.Subscribe(
-							args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
-#if __WPF__
-								ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.MouseEnter)} event.", ex),
-#else
-								ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.PointerEntered)} event.", ex),
-#endif
-								() => Cleanup(element)
-						);
-
-					break;
-				}
-
-				case EventType.PointerExit:
-				{
-					element
-						.Events()
-						.PointerExited
-						.TakeUntil(element.Events().Unloaded)
-						.Subscribe(
-							args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
-#if __WPF__
-								ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.MouseLeave)} event.", ex),
-#else
-								ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.PointerExited)} event.", ex),
-#endif
-								() => Cleanup(element)
-						);
-
-					break;
-				}
-
-				case EventType.GotFocus:
-				{
-					element
-						.Events()
-						.GotFocus
-						.TakeUntil(element.Events().Unloaded)
-						.Subscribe(
-							args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
-							ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.GotFocus)} event.", ex),
-							() => Cleanup(element)
-						);
-
-					break;
-				}
-
-				case EventType.LostFocus:
-				{
-					element
-						.Events()
-						.LostFocus
-						.TakeUntil(element.Events().Unloaded)
-						.Subscribe(
-							args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
-							ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.LostFocus)} event.", ex),
-							() => Cleanup(element)
-						);
-
-					break;
-				}
+				// Do nothing for "None"
+			}
+			else if (eventName.Equals(nameof(FrameworkElement.Visibility), StringComparison.OrdinalIgnoreCase))
+			{
+				element
+					.Observe(FrameworkElement.VisibilityProperty)
+					.Where(_ => element.Visibility == Visibility.Visible)
+					.TakeUntil(element.Events().Unloaded)
+					.Subscribe(
+						_ => PrepareAnimations(element, useSecondaryAnimation: useSecondarySettings),
+						ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.Visibility)} changes of {nameof(FrameworkElement)}", ex),
+						() => Cleanup(element)
+					);
+			}
+			else if (eventName.Equals(nameof(FrameworkElement.DataContextChanged), StringComparison.OrdinalIgnoreCase))
+			{
+				element
+					.Events()
+					.DataContextChanged
+					.DistinctUntilChanged(args => args.EventArgs.NewValue)
+					.TakeUntil(element.Events().Unloaded)
+					.Subscribe(
+						args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
+						ex => Logger?.LogError($"Error on subscription to the {nameof(FrameworkElement.DataContextChanged)} event.", ex),
+						() => Cleanup(element)
+					);
+			}
+			else
+			{
+				Observable.FromEventPattern(element, eventName)
+					.TakeUntil(element.Events().Unloaded)
+					.Subscribe(
+						args => PrepareAnimations(args.Sender as FrameworkElement, useSecondaryAnimation: useSecondarySettings),
+						ex => Logger?.LogError($"Error on subscription to the {eventName} event.", ex),
+						() => Cleanup(element));
 			}
 		}
 

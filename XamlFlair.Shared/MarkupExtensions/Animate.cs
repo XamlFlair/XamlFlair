@@ -157,7 +157,7 @@ namespace XamlFlair
 		/// <remarks>
 		/// This property is disregarded for controls based on ListViewBase (UWP) or ListBox (WPF)
 		/// </remarks>
-		public EventType Event { get; set; } = DefaultSettings.Event;
+		public string Event { get; set; } = DefaultSettings.Event;
 
 		/// <summary>
 		/// Specifies the easing of the composite animation

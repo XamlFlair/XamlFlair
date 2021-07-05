@@ -20,9 +20,9 @@ namespace XamlFlair
 	public partial class CompoundSettings : DependencyObject, IAnimationSettings, IEquatable<CompoundSettings>
 #endif
 	{
-		public EventType Event
+		public string Event
 		{
-			get => (EventType)GetValue(EventProperty);
+			get => (string)GetValue(EventProperty);
 			set => SetValue(EventProperty, value);
 		}
 
@@ -32,7 +32,7 @@ namespace XamlFlair
 		public static readonly DependencyProperty EventProperty =
 			DependencyProperty.Register(
 				nameof(Event),
-				typeof(EventType),
+				typeof(string),
 				typeof(CompoundSettings),
 				new PropertyMetadata(DefaultSettings.Event));
 

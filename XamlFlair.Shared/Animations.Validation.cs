@@ -80,7 +80,7 @@ namespace XamlFlair
 				&& !primaryBindingIsSet
 				&& !combinedBindingIsSet
 				&& primarySettings != null
-				&& primarySettings?.Event == EventType.None)
+				&& primarySettings.HasNoneEvent())
 			{
 				throw new ArgumentException($"{nameof(PrimaryProperty)} is missing a trigger by an event or binding.");
 			}
@@ -96,7 +96,7 @@ namespace XamlFlair
 				&& !secondaryBindingIsSet
 				&& !combinedBindingIsSet
 				&& secondarySettings != null
-				&& secondarySettings?.Event == EventType.None)
+				&& secondarySettings.HasNoneEvent())
 			{
 				throw new ArgumentException($"{nameof(SecondaryProperty)} is missing a trigger by an event or binding.");
 			}

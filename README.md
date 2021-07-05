@@ -50,7 +50,9 @@ If you would like to support my work with a few coffees, you can do it here: [Bu
 
 - [Repeating Animations](#repeating-animations)
 
-- [Events and Bindings](#events-and-bindings)
+- [Events](#events)
+
+- [Bindings](#bindings)
 
 - [Primary and Secondary Completion Commands](#primary-and-secondary-completion-commands)
 
@@ -519,22 +521,33 @@ It's important to note that all XamlFlair animations are *"kick-off"* animations
            xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeIn}, Event=None}" />
 ```
 
-When a `false` is set on the binding, the animation's current iteration will run until it finishes and then the repeating animation will stop. 
+When a `false` is set on the binding, the animation's current iteration will run until it finishes and then the repeating animation will stop.
 
-### Events and Bindings
+### Events
 
-By default, all animations execute once the UI element fires its `Loaded` event. This behavior can be overridden by setting the `Event` property. `Event` can be one of the following values:
+By default, all animations execute when the animated element fires its `Loaded` event. This behavior can be overridden by setting the `Event` property. `Event` can be any event that is exposed from the element being animated. For example, to execute an animation on a button when it is clicked, the `Click` event can be used:
+
+```xml
+<Button xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeOut}, Event=Click}" />
+```
+
+Some examples of common events that can be used:
 
 - Loaded (*default value*)
-- None
 - Visibility (*triggers only when Visibility == Visible*)
-- DataContextChanged
+- DataContextChanged (*triggers when the value is not null*)
 - PointerOver
 - PointerExit
 - GotFocus
 - LostFocus
 
-When specifying `None`, you will manually need to trigger your animations using the `PrimaryBinding` or `SecondaryBinding` properties. These properties are of type `bool` and expect a value of `True` in order to execute the corresponding animation. The following is an example of triggering an animation based off the `IsChecked` of the CheckBox control:
+There are some special cases to take note of. The first special case is the `DataContextChanged` event. When using the `DataContextChanged` event, it will fire when the `DataContext` value changes, except for cases where a `null` value is set, `null` is filtered out and would not trigger an animation.
+
+Another special case is `Visibility`. Although no event `VisibilityChanged` exists on a `FrameworkElement`, the `Visibility` property has been treated like an event when the value changes since it can be useful to animate an element when it becomes visible on the UI. If an animation is triggered with `Event=Visibility`, it will only be triggered whenever a value of `Visibile` is set.
+
+### Bindings
+
+One of the most important values for `Event` is `None`, which is a value used to cancel any event-based animation trigger. When specifying `None`, you will need to manually trigger your animations using the `PrimaryBinding` or `SecondaryBinding` properties. These properties are of type `bool` and expect a value of `True` in order to execute the corresponding animation. The following is an example of triggering an animation based off the `IsChecked` of the CheckBox control:
 
 ```xml
 <CheckBox x:Name="SampleCheckBox"

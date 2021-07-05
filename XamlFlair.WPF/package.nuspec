@@ -4,7 +4,7 @@
     <!--*-->
     <id>XamlFlair.WPF</id>
     <!--*-->
-    <version>1.2.9</version>
+    <version>1.2.10</version>
     <title>XamlFlair.WPF</title>
     <!--*-->
     <authors>XamlFlair.WPF</authors>
@@ -18,7 +18,7 @@
     <!--*-->
     <description>XamlFlair animation library for the WPF platform.</description>
     <!--*-->
-    <releaseNotes>Added ColorAnimation support for the Border control.</releaseNotes>
+    <releaseNotes>Applied changes to allow any event to trigger an animation instead of a pre-defined set of events.</releaseNotes>
     <copyright>Copyright © 2021</copyright>
     <tags>
     </tags>
