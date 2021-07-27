@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Text;
 
 #if __WPF__
@@ -67,14 +68,14 @@ namespace XamlFlair
 					OffsetFactor = 1.0
 				};
 			}
-			else if (offsetValue.EndsWith("*") && double.TryParse(offsetValue.TrimEnd('*'), out var result))
+			else if (offsetValue.EndsWith("*") && double.TryParse(offsetValue.TrimEnd('*'), NumberStyles.Number, CultureInfo.InvariantCulture, out var result))
 			{
 				return new Offset()
 				{
 					OffsetFactor = result
 				};
 			}
-			else if (double.TryParse(offsetValue, out var dbl))
+			else if (double.TryParse(offsetValue, NumberStyles.Number, CultureInfo.InvariantCulture, out var dbl ))
 			{
 				return new Offset()
 				{
