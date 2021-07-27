@@ -11,15 +11,15 @@
 		<Copyright>Copyright © 2021</Copyright>
 		<PackageId>XamlFlair.Uno</PackageId>
 		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-		<PackageReleaseNotes>Version bump.</PackageReleaseNotes>
-		<Version>1.2.9</Version>
+		<PackageReleaseNotes>Applied a culture fix for Offset parsing.</PackageReleaseNotes>
+		<Version>1.2.10</Version>
 		<PackageProjectUrl>https://github.com/XamlFlair/XamlFlair</PackageProjectUrl>
 		<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
 		<Company>XamlFlair</Company>
 		<PackageIconUrl>https://github.com/XamlFlair/XamlFlair/blob/master/nuget_logo.png?raw=true</PackageIconUrl>
 		<Authors>XamlFlair</Authors>
-		<FileVersion>1.2.9</FileVersion>
-		<AssemblyVersion>1.2.9</AssemblyVersion>
+		<FileVersion>1.2.10</FileVersion>
+		<AssemblyVersion>1.2.10</AssemblyVersion>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
 		<DefineConstants>$(DefineConstants);__WASM__</DefineConstants>

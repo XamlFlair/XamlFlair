@@ -4,7 +4,7 @@
     <!--*-->
     <id>XamlFlair.UWP</id>
     <!--*-->
-    <version>1.2.6</version>
+    <version>1.2.7</version>
     <title>XamlFlair.UWP</title>
     <!--*-->
     <authors>XamlFlair</authors>
@@ -20,7 +20,7 @@
     <!--*-->
     <description>XamlFlair animation library for the UWP platform.</description>
     <!--*-->
-    <releaseNotes>Version bump.</releaseNotes>
+    <releaseNotes>Applied a culture fix for Offset parsing.</releaseNotes>
     <copyright>Copyright © 2021</copyright>
     <tags>
     </tags>
