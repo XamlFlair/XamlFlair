@@ -4,7 +4,7 @@
     <!--*-->
     <id>XamlFlair.Uno</id>
     <!--*-->
-    <version>1.2.10</version>
+    <version>1.2.11</version>
     <title>XamlFlair.Uno</title>
     <!--*-->
     <authors>XamlFlair</authors>
@@ -20,7 +20,7 @@
     <!--*-->
     <description>XamlFlair animation library for the Uno platform.</description>
     <!--*-->
-    <releaseNotes>Applied a culture fix for Offset parsing.</releaseNotes>
+    <releaseNotes>Bump Uno to 3.10.7</releaseNotes>
     <copyright>Copyright © 2021</copyright>
     <tags>
     </tags>

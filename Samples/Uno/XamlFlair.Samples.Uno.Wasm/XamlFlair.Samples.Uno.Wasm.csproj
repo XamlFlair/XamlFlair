@@ -44,7 +44,7 @@
 		<PackageReference Include="Serilog" Version="2.9.0" />
 		<PackageReference Include="Serilog.Extensions.Logging" Version="1.4.0" />
 		<PackageReference Include="Serilog.Sinks.Debug" Version="1.0.1" />
-		<PackageReference Include="Uno.UI.WebAssembly" Version="3.8.6" />
+		<PackageReference Include="Uno.UI.WebAssembly" Version="3.10.7" />
 		<PackageReference Include="Uno.Wasm.Bootstrap" Version="2.1.0" />
 		<PackageReference Include="Uno.Wasm.Bootstrap.DevServer" Version="2.1.0" PrivateAssets="all" />
 	</ItemGroup>
