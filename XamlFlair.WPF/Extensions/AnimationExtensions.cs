@@ -89,9 +89,14 @@ namespace XamlFlair.Extensions
 		internal static Storyboard TranslateXFrom(this FrameworkElement element, AnimationSettings settings, ref Storyboard storyboard)
 		{
 			var transform = (element.RenderTransform as TransformGroup) ?? CreateTransformGroup();
-			var translate = transform.Children[TRANSLATE_INDEX] as TranslateTransform;
+			var currentY = (transform.Children[TRANSLATE_INDEX] as TranslateTransform)?.Y ?? 0;
+			var translate = new TranslateTransform()
+			{
+				X = settings.OffsetX.GetCalculatedOffset(element, OffsetTarget.X),
+				Y = currentY
+			};
 
-			translate.X = settings.OffsetX.GetCalculatedOffset(element, OffsetTarget.X);
+			transform.Children[TRANSLATE_INDEX] = translate;
 
 			SetTransform(element, settings, transform);
 
@@ -104,9 +109,14 @@ namespace XamlFlair.Extensions
 		internal static Storyboard TranslateYFrom(this FrameworkElement element, AnimationSettings settings, ref Storyboard storyboard)
 		{
 			var transform = (element.RenderTransform as TransformGroup) ?? CreateTransformGroup();
-			var translate = transform.Children[TRANSLATE_INDEX] as TranslateTransform;
+			var currentX = (transform.Children[TRANSLATE_INDEX] as TranslateTransform)?.X ?? 0;
+			var translate = new TranslateTransform()
+			{
+				X = currentX,
+				Y = settings.OffsetY.GetCalculatedOffset(element, OffsetTarget.Y)
+			};
 
-			translate.Y = settings.OffsetY.GetCalculatedOffset(element, OffsetTarget.Y);
+			transform.Children[TRANSLATE_INDEX] = translate;
 
 			SetTransform(element, settings, transform);
 
@@ -149,9 +159,13 @@ namespace XamlFlair.Extensions
 		internal static Storyboard ScaleXFrom(this FrameworkElement element, AnimationSettings settings, ref Storyboard storyboard)
 		{
 			var transform = GetFrameworkElementTransform(element, settings) ?? CreateTransformGroup();
-			var scale = transform.Children[SCALE_INDEX] as ScaleTransform;
+			var currentScaleY = (transform.Children[SCALE_INDEX] as ScaleTransform)?.ScaleY ?? 1;
 
-			scale.ScaleX = settings.ScaleX;
+			transform.Children[SCALE_INDEX] = new ScaleTransform()
+			{
+				ScaleX = settings.ScaleX,
+				ScaleY = currentScaleY
+			};
 
 			SetTransform(element, settings, transform, updateTransformCenterPoint: true);
 
@@ -164,9 +178,13 @@ namespace XamlFlair.Extensions
 		internal static Storyboard ScaleYFrom(this FrameworkElement element, AnimationSettings settings, ref Storyboard storyboard)
 		{
 			var transform = GetFrameworkElementTransform(element, settings) ?? CreateTransformGroup();
-			var scale = transform.Children[SCALE_INDEX] as ScaleTransform;
+			var currentScaleX = (transform.Children[SCALE_INDEX] as ScaleTransform)?.ScaleX ?? 1;
 
-			scale.ScaleY = settings.ScaleY;
+			transform.Children[SCALE_INDEX] = new ScaleTransform()
+			{
+				ScaleX = currentScaleX,
+				ScaleY = settings.ScaleY
+			};
 
 			SetTransform(element, settings, transform, updateTransformCenterPoint: true);
 
@@ -196,9 +214,10 @@ namespace XamlFlair.Extensions
 		internal static Storyboard RotateFrom(this FrameworkElement element, AnimationSettings settings, ref Storyboard storyboard)
 		{
 			var transform = GetFrameworkElementTransform(element, settings) ?? CreateTransformGroup();
-			var rotate = transform.Children[ROTATE_INDEX] as RotateTransform;
-
-			rotate.Angle = settings.Rotation;
+			transform.Children[ROTATE_INDEX] = new RotateTransform()
+			{
+				Angle = settings.Rotation
+			};
 
 			SetTransform(element, settings, transform, updateTransformCenterPoint: true);
 

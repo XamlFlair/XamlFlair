@@ -7,7 +7,7 @@
 		<ApplicationIcon>Logo.ico</ApplicationIcon>
 		<PackageId>XamlFlair.WPF</PackageId>
 		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-		<PackageReleaseNotes>Applied a culture fix for Offset parsing.</PackageReleaseNotes>
+		<PackageReleaseNotes>Applied a fix for From animations due to Transforms not updating their values</PackageReleaseNotes>
 		<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
 		<Authors>XamlFlair.WPF</Authors>
 		<PackageProjectUrl>https://github.com/XamlFlair/XamlFlair</PackageProjectUrl>
