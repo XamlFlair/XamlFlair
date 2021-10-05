@@ -11,15 +11,15 @@
 		<Copyright>Copyright © 2021</Copyright>
 		<PackageId>XamlFlair.Uno</PackageId>
 		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-		<PackageReleaseNotes>Bump Uno to 3.10.7</PackageReleaseNotes>
-		<Version>1.2.11</Version>
+		<PackageReleaseNotes>Applied minor version bumps on nuget dependencies.</PackageReleaseNotes>
+		<Version>1.2.12</Version>
 		<PackageProjectUrl>https://github.com/XamlFlair/XamlFlair</PackageProjectUrl>
 		<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
 		<Company>XamlFlair</Company>
 		<PackageIconUrl>https://github.com/XamlFlair/XamlFlair/blob/master/nuget_logo.png?raw=true</PackageIconUrl>
 		<Authors>XamlFlair</Authors>
-		<FileVersion>1.2.11</FileVersion>
-		<AssemblyVersion>1.2.11</AssemblyVersion>
+		<FileVersion>1.2.12</FileVersion>
+		<AssemblyVersion>1.2.12</AssemblyVersion>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
 		<DefineConstants>$(DefineConstants);__WASM__</DefineConstants>
@@ -34,7 +34,7 @@
 		<UpToDateCheckInput Include="**\*.xaml" Exclude="bin\**\*.xaml;obj\**\*.xaml" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Uno.UI" Version="3.10.7" />
+		<PackageReference Include="Uno.UI" Version="3.10.11" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="1.1.1" />
 		<PackageReference Include="System.Reactive" Version="5.0.0" />
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
