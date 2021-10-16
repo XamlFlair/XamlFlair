@@ -126,18 +126,21 @@ namespace XamlFlair
 				}
 
 				Panel panel = null;
+				var itemsPanelRootIsSet = false;
 
 				if (lvb is ListView lv)
 				{
+					itemsPanelRootIsSet = lv.ItemsPanelRoot != null;
 					panel = lv.ItemsPanelRoot as ItemsStackPanel;
 				}
 				else if (lvb is GridView gv)
 				{
+					itemsPanelRootIsSet = gv.ItemsPanelRoot != null;
 					panel = gv.ItemsPanelRoot as ItemsWrapGrid;
 				}
 
 				// Animations will only work if the ItemsPanel is an ItemsStackPanel for the AnimatedListView or ItemsWrapGrid for the AnimatedGridView.
-				if (panel == null)
+				if (itemsPanelRootIsSet && panel == null)
 				{
 					throw new ArgumentException($"Animations will only work if the {nameof(ListViewBase.ItemsPanel)} is an {nameof(ItemsStackPanel)} for the {nameof(AnimatedListView)} or {nameof(ItemsWrapGrid)} for the {nameof(AnimatedGridView)}.");
 				}
@@ -198,5 +201,5 @@ namespace XamlFlair
 			}
 		}
 #endif
-			}
+	}
 }
